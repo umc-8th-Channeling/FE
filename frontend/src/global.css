@@ -1,8 +1,50 @@
-@import "tailwindcss";@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+@font-face {
+    font-family: 'Pretendard';
+    src: url('/fonts/Pretendard-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('/fonts/Pretendard-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('/fonts/Pretendard-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
 @import 'tailwindcss';
 
 @theme {
     --font-pretendard: 'Pretendard';
+
+    --color-primary-50: #2d0709;
+    --color-primary-100: #520408;
+    --color-primary-200: #750e13;
+    --color-primary-300: #a2191f;
+    --color-primary-400: #da1e28;
+    --color-primary-500: #fa4d56;
+    --color-primary-600: #ff8389;
+    --color-primary-700: #ffb3b8;
+    --color-primary-800: #ffd7d9;
+    --color-primary-900: #fff1f1;
+
+    --color-gray-50: #161616;
+    --color-gray-100: #262626;
+    --color-gray-200: #393939;
+    --color-gray-300: #525252;
+    --color-gray-400: #6f6f6f;
+    --color-gray-500: #8d8d8d;
+    --color-gray-600: #a8a8a8;
+    --color-gray-700: #c6c6c6;
+    --color-gray-800: #e0e0e0;
+    --color-gray-900: #f4f4f4;
 }
 
 @layer base {
@@ -13,11 +55,10 @@
     html,
     body {
         @apply h-full m-0 p-0;
-        font-family: var(--font-pretendard), sans-serif;
     }
 
     body {
-        @apply font-normal;
+        @apply bg-gray-100 text-gray-900 font-pretendard font-normal;
     }
 }
 

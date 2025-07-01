@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { NavbarWrapper } from './components/common/Navbar/NavbarWrapper'
 
 function App() {
+
   return (
     <BrowserRouter>
     <div className="min-h-screen flex flex-col bg-[#262626]">
@@ -21,6 +22,7 @@ function App() {
     </div>
     </BrowserRouter>
   )
+
 }
 
 export default App
