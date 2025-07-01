@@ -1,3 +1,11 @@
+---
+name: "Issue: 채널링 커스텀 이슈 템플릿"
+about: 작업할 내용을 작성해 주세요.
+title: ""
+labels: "Bug\U0001F6A8, Feat\U0001F917, Refactor\U0001F6E0️"
+assignees: ""
+---
+
 ## Summary
 
 Issue에 대한 간단한 요약을 작성합니다.
