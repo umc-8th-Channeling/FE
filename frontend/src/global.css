@@ -45,6 +45,29 @@
     --color-gray-700: #c6c6c6;
     --color-gray-800: #e0e0e0;
     --color-gray-900: #f4f4f4;
+
+    --color-surface: var(--color-gray-100);
+    --color-surface-elevate-l1: var(--color-gray-100);
+    --color-surface-elevate-l2: var(--color-gray-200);
+    --color-surface-elevate-l3: var(--color-gray-300);
+
+
+    --color-neutral-white: #ffffff;
+    --color-neutral-white-opacity10: #ffffff1a;
+    --color-neutral-white-opacity20: #ffffff33;
+
+    --color-neutral--black: #121212;
+    --color-neutral-black-opacity50: #12121280;
+
+    --color-error: #ef4444
+
+    --gradient-main-bg: linear-gradient(180deg, var(--color-gray-50) 0%, var(--color-primary-50) 100%);
+    --gradient-footer: linear-gradient(180deg, rgba(45, 7, 9, 0.2) 0%, var(--color-primary-50) 50%);
+    --gradient-up: linear-gradient(180deg, var(--color-primary-500) 0%, rgba(250, 77, 86, 0) 100%);
+
+    --breakpoint-desktop: 1440px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-mobile: 320px;
 }
 
 @layer base {
@@ -58,6 +81,75 @@
     }
 
     body {
-        @apply bg-gray-100 text-gray-900 font-pretendard font-normal;
+        @apply bg-surface text-gray-900 font-pretendard font-normal min-w-[320px] overflow-x-hidden overflow-y-scroll;
+    }
+}
+
+@layer components {
+    // title
+    .font-title-24-b {
+        @apply text-[24px] leading-[140%] font-bold;
+    }
+
+    .font-title-20-b {
+        @apply text-[20px] leading-[140%] font-bold tracking-[-0.5px];
+    }
+
+    .font-title-20-m {
+        @apply text-[20px] leading-[140%] font-medium;
+    }
+
+    .font-title-18-b {
+        @apply text-[18px] leading-[140%] font-bold;
+    }
+
+    .font-title-16-r {
+        @apply text-[16px] leading-[140%] font-normal;
+    }
+
+    // body
+    .font-body-24-m {
+        @apply text-[24px] leading-[150%] font-medium;
+    }
+
+    .font-body-18-m {
+        @apply text-[18px] leading-[150%] font-medium;
+    }
+
+    .font-body-18-r {
+        @apply text-[18px] leading-[150%] font-normal;
+    }
+
+    .font-body-16-b {
+        @apply text-[16px] leading-[150%] font-bold;
+    }
+
+    .font-body-16-m {
+        @apply text-[16px] leading-[150%] font-medium;
+    }
+
+    .font-body-16-r {
+        @apply text-[16px] leading-[150%] font-normal tracking-[-0.4px];
+    }
+
+    .font-body-14-b {
+        @apply text-[14px] leading-[150%] font-bold;
+    }
+
+    .font-body-14-r {
+        @apply text-[14px] leading-[150%] font-normal;
+    }
+
+    // caption
+    .font-caption-14-m {
+        @apply text-[14px] leading-[140%] font-medium;
+    }
+
+    .font-caption-14-r {
+        @apply text-[14px] leading-[140%] font-normal;
+    }
+
+    .font-caption-12-r {
+        @apply text-[12px] leading-[140%] font-normal;
     }
 }
