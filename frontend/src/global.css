@@ -1,3 +1,7 @@
+@import 'tailwindcss';
+@import './styles/scrollbar.css';
+@import './styles/typo.css';
+
 @font-face {
     font-family: 'Pretendard';
     src: url('/fonts/Pretendard-Regular.woff2') format('woff2');
@@ -18,8 +22,6 @@
     font-weight: 700;
     font-display: swap;
 }
-
-@import 'tailwindcss';
 
 @theme {
     --font-pretendard: 'Pretendard';
@@ -70,6 +72,7 @@
     --breakpoint-mobile: 320px;
 }
 
+
 @layer base {
     * {
         @apply box-border;
@@ -82,74 +85,5 @@
 
     body {
         @apply bg-surface text-gray-900 font-pretendard font-normal min-w-[320px] overflow-x-hidden overflow-y-scroll;
-    }
-}
-
-@layer components {
-    // title
-    .font-title-24-b {
-        @apply text-[24px] leading-[140%] font-bold;
-    }
-
-    .font-title-20-b {
-        @apply text-[20px] leading-[140%] font-bold tracking-[-0.5px];
-    }
-
-    .font-title-20-m {
-        @apply text-[20px] leading-[140%] font-medium;
-    }
-
-    .font-title-18-b {
-        @apply text-[18px] leading-[140%] font-bold;
-    }
-
-    .font-title-16-r {
-        @apply text-[16px] leading-[140%] font-normal;
-    }
-
-    // body
-    .font-body-24-m {
-        @apply text-[24px] leading-[150%] font-medium;
-    }
-
-    .font-body-18-m {
-        @apply text-[18px] leading-[150%] font-medium;
-    }
-
-    .font-body-18-r {
-        @apply text-[18px] leading-[150%] font-normal;
-    }
-
-    .font-body-16-b {
-        @apply text-[16px] leading-[150%] font-bold;
-    }
-
-    .font-body-16-m {
-        @apply text-[16px] leading-[150%] font-medium;
-    }
-
-    .font-body-16-r {
-        @apply text-[16px] leading-[150%] font-normal tracking-[-0.4px];
-    }
-
-    .font-body-14-b {
-        @apply text-[14px] leading-[150%] font-bold;
-    }
-
-    .font-body-14-r {
-        @apply text-[14px] leading-[150%] font-normal;
-    }
-
-    // caption
-    .font-caption-14-m {
-        @apply text-[14px] leading-[140%] font-medium;
-    }
-
-    .font-caption-14-r {
-        @apply text-[14px] leading-[140%] font-normal;
-    }
-
-    .font-caption-12-r {
-        @apply text-[12px] leading-[140%] font-normal;
     }
 }
