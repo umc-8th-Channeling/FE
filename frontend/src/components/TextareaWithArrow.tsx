@@ -55,7 +55,7 @@ const TextareaWithArrow = ({
                 placeholder={placeholder}
                 className="
                     w-full h-fit max-h-[65px] tablet:max-h-[120px] tablet:px-2 outline-none resize-none focus:placeholder-transparent
-                    text-[14px] leading-[150%] font-normal tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
+                    text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
                     whitespace-pre-line desktop:whitespace-nowrap
                 "
             />

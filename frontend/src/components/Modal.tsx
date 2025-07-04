@@ -68,7 +68,7 @@ const Modal = ({ title, description, onClose, children }: PropsWithChildren<Moda
                     </h1>
                     <p
                         id="modal-description"
-                        className="text-[14px] leading-[150%] font-normal tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px] text-gray-600"
+                        className="text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px] text-gray-600"
                     >
                         {description}
                     </p>

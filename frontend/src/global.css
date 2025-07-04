@@ -52,22 +52,20 @@
     --color-surface-elevate-l2: var(--color-gray-200);
     --color-surface-elevate-l3: var(--color-gray-300);
 
-
     --color-neutral-white: #ffffff;
     --color-neutral-white-opacity10: #ffffff1a;
     --color-neutral-white-opacity20: #ffffff33;
 
-    --color-neutral--black: #121212;
+    --color-neutral-black: #121212;
     --color-neutral-black-opacity50: #12121280;
 
-    --color-error: #ef4444
+    --color-error: #ef4444;
 
     --breakpoint-*: initial;
     --breakpoint-desktop: 1440px;
     --breakpoint-tablet: 768px;
     --breakpoint-mobile: 320px;
 }
-
 
 @layer base {
     * {
