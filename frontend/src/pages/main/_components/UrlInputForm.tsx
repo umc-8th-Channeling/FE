@@ -49,12 +49,11 @@ export const UrlInputForm = () => {
             </button>
             {/* 확인 용 임시 버튼 끝 */}
 
-            <div>
+            <div className="mb-[100px] tablet:mb-20 desktop:mb-[100px]">
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className={clsx(
-                        'flex flex-row items-center justify-center w-[328px] tablet:w-[588px]',
-                        'mb-[100px] tablet:mb-20 desktop:mb-[100px] p-2 tablet:px-4 tablet:py-3',
+                        'flex flex-row items-center justify-center w-[328px] tablet:w-[588px] p-2 tablet:px-4 tablet:py-3',
                         'bg-neutral-white-opacity10 border rounded-full transition-colors duration-300',
                         {
                             'border-2 border-error': error,
