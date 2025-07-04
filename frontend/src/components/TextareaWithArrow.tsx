@@ -21,6 +21,7 @@ const TextareaWithArrow = ({
 }: TextareaWithArrowProps) => {
     const [isFocused, setIsFocused] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const isMobile = window.innerWidth <= 768;
 
     // Desktop, Tablet: 5줄까지 textarea가 늘어납니다. 6줄 부터는 스크롤해서 확인합니다.
     // Mobile: 3줄까지 textarea가 늘어납니다. 4줄 부터는 스크롤해서 확인합니다.
@@ -30,18 +31,16 @@ const TextareaWithArrow = ({
 
         textarea.style.height = 'auto';
 
-        const isMobile = window.innerWidth <= 768;
-
         const maxLines = isMobile ? 3 : 5;
         const maxHeight = 32 * maxLines;
         textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + 'px';
-    }, [value]);
+    }, [value, isMobile]);
 
     return (
         <div
             className={`
                 flex flex-col w-[240px] tablet:w-[540px] desktop:w-[744px] p-4 space-y-6
-                border typo-input placeholder-gray-600 bg-neutral-white-opacity10 rounded-2xl
+                border placeholder-gray-600 bg-neutral-white-opacity10 rounded-2xl
                 transition duration-300 ${isFocused ? 'border-gray-400' : 'border-transparent'}    
             `}
         >
@@ -52,11 +51,12 @@ const TextareaWithArrow = ({
                 onChange={(e) => onChange(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                rows={3}
+                rows={isMobile ? 1 : 3}
                 placeholder={placeholder}
                 className="
-                    w-full h-fit max-h-[120px] tablet:px-2 outline-none resize-none focus:placeholder-transparent
+                    w-full h-fit max-h-[65px] tablet:max-h-[120px] tablet:px-2 outline-none resize-none focus:placeholder-transparent
                     text-[14px] leading-[150%] font-normal tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
+                    whitespace-pre-line desktop:whitespace-nowrap
                 "
             />
 

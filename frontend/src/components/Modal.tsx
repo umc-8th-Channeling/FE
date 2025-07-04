@@ -44,14 +44,14 @@ const Modal = ({ title, description, onClose, children }: PropsWithChildren<Moda
                 onClick={(e) => e.stopPropagation()}
                 className="
                     relative flex flex-col min-w-[288px] tablet:min-w-[384px] desktop:min-w-[486px]
-                    space-y-6 bg-surface-elevate-l2 p-6 rounded-3xl
+                    space-y-4 tablet:space-y-6 bg-surface-elevate-l2 p-6 rounded-3xl
                 "
             >
                 <button
                     type="button"
                     onClick={onClose}
                     aria-label="Close modal"
-                    className="cursor-pointer absolute top-6 right-6"
+                    className="cursor-pointer absolute top-4 right-4 tablet:top-6 tablet:right-6"
                 >
                     <X />
                 </button>
@@ -59,7 +59,10 @@ const Modal = ({ title, description, onClose, children }: PropsWithChildren<Moda
                 <div className="text-center whitespace-pre-line space-y-2">
                     <h1
                         id="modal-title"
-                        className="text-[16px] leading-[140%] font-bold tracking-[-0.4px] tablet:text-[20px] tablet:tracking-[-0.5px]"
+                        className="
+                            text-[16px] leading-[140%] font-bold tracking-[-0.4px] tablet:text-[20px] tablet:tracking-[-0.5px]
+                            whitespace-pre-line tablet:whitespace-nowrap    
+                        "
                     >
                         {title}
                     </h1>
