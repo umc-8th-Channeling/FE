@@ -5,6 +5,7 @@ import type { LibraryItem, ScrapItem } from '../../types/library';
 
 export default function LibraryPage() {
     const [activeTab, setActiveTab] = useState<'report' | 'scrap'>('report');
+    const [subTab, setSubTab] = useState<'video' | 'shorts'>('video');
 
     // 리포트 예시 나중에 대체 (API필요)
     const reportData: LibraryItem[] = [
@@ -13,14 +14,20 @@ export default function LibraryPage() {
             title: '영상 제목 1',
             thumbnail: '/thumbnail1.png',
             channel: '채널 이름',
+            updatedAt: '25.06.29 오전 00시',
+            views: 200,
+
             daysAgo: 3,
         },
+
         {
             id: 2,
             title: '영상 제목 2',
             thumbnail: '/thumbnail2.png',
             channel: '채널 이름',
-            daysAgo: 5,
+            updatedAt: '25.06.30 오전 00시',
+            views: 200,
+            daysAgo: 4,
         },
     ];
 
@@ -44,41 +51,63 @@ export default function LibraryPage() {
     ];
 
     return (
-        <div className="px-8 py-10">
-            <h1 className="text-4xl font-bold mb-16 ml-6">저장소</h1>
-
-            <div className="relative flex mb-20">
+        <div className="px-8 py-10 bg-[#121212] text-gray-200 min-h-screen font-pretendard">
+            {' '}
+            <div className="relative flex mb-6">
                 <button
                     className={`flex-1 pb-3.5 text-center font-semibold relative ${
-                        activeTab === 'report' ? 'text-black' : 'text-gray-400'
+                        activeTab === 'report' ? 'text-primary-500' : 'text-gray-200'
                     }`}
                     onClick={() => setActiveTab('report')}
                 >
                     최근 받아본 리포트
                     {activeTab === 'report' && (
-                        <span className="absolute left-0 bottom-0 h-1 w-full bg-black z-10"></span>
+                        <span className="absolute left-0 bottom-0 h-1 w-full bg-primary-500 z-10"></span>
                     )}
                 </button>
                 <button
                     className={`flex-1 pb-3.5 text-center font-semibold relative ${
-                        activeTab === 'scrap' ? 'text-black' : 'text-gray-400'
+                        activeTab === 'scrap' ? 'text-primary-500' : 'text-gray-200'
                     }`}
                     onClick={() => setActiveTab('scrap')}
                 >
                     스크랩
                     {activeTab === 'scrap' && (
-                        <span className="absolute left-0 bottom-0 h-1 w-full bg-black z-10"></span>
+                        <span className="absolute left-0 bottom-0 h-1 w-full bg-primary-500 z-10"></span>
                     )}
                 </button>
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-gray-200"></span>
             </div>
+            {activeTab === 'report' && (
+                <div className="flex justify-between items-center ">
+                    <div className="flex gap-3 mb-6">
+                        <button
+                            className={`px-4 py-2 rounded-lg ${
+                                subTab === 'video' ? 'bg-red-500 text-white' : 'bg-gray-100 text-white'
+                            }`}
+                            onClick={() => setSubTab('video')}
+                        >
+                            동영상
+                        </button>
+                        <button
+                            className={`px-4 py-2 rounded-lg ${
+                                subTab === 'shorts' ? 'bg-red-500 text-white' : 'bg-gray-100 text-white'
+                            }`}
+                            onClick={() => setSubTab('shorts')}
+                        >
+                            Shorts
+                        </button>
+                    </div>
 
-            <p className="mb-6 text-gray-500">
-                {activeTab === 'report' ? `${reportData.length}개 영상` : `${scrapData.length}개 스크랩`}
-            </p>
-
-            {/* 카드 리스트 */}
-            <div className={activeTab === 'report' ? 'flex flex-col gap-4' : 'grid grid-cols-1 md:grid-cols-3 gap-6'}>
+                    <p className="mb-6 text-white">{reportData.length}개의 영상 리포트</p>
+                </div>
+            )}
+            {activeTab === 'scrap' && (
+                <div className="flex ">
+                    <p className=" mb-6 text-white">{scrapData.length}개의 스크랩</p>
+                </div>
+            )}
+            <div className={activeTab === 'report' ? 'grid grid-cols-4 gap-6' : 'grid grid-cols-1  gap-6'}>
                 {activeTab === 'report'
                     ? reportData.map((item) => <RecentReportCard key={item.id} item={item} />)
                     : scrapData.map((item) => <ScrapCard key={item.title} item={item} />)}
