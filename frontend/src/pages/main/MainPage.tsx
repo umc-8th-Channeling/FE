@@ -1,4 +1,4 @@
-import { UrlInputForm } from './_components/UrlInputForm';
+import { UrlInputForm } from './_components';
 
 export default function MainPage() {
     return (

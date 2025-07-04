@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { urlSchema, type UrlForm } from '../../../lib/validation/urlSchema';
 import ErrorIcon from '../../../assets/icons/error.svg?react';
 import ArrowButton from '../../../components/ArrowButton';
-import { InputErrorToast } from './InputErrorToast';
+import { ErrorToast } from './ErrorToast';
 
 export const UrlInputForm = () => {
     const [isActive, setIsActive] = useState(false);
@@ -90,7 +90,7 @@ export const UrlInputForm = () => {
             </div>
 
             {/* 입력 에러 토스트 */}
-            {error && <InputErrorToast errorMessage={error} />}
+            {error && <ErrorToast errorMessage={error} />}
         </>
     );
 };

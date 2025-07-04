@@ -2,11 +2,11 @@ import * as motion from 'motion/react-client';
 import ErrorIcon from '../../../assets/icons/error.svg?react';
 import ToastBlur from '../../../assets/ellipses/toast.svg?react';
 
-interface InputErrorToastProps {
+interface ErrorToastProps {
     errorMessage: string;
 }
 
-export const InputErrorToast = ({ errorMessage }: InputErrorToastProps) => {
+export const ErrorToast = ({ errorMessage }: ErrorToastProps) => {
     return (
         <div className="absolute top-0">
             <motion.div
