@@ -83,3 +83,9 @@
         @apply bg-surface text-gray-900 font-pretendard font-normal min-w-[320px] overflow-x-hidden overflow-y-scroll;
     }
 }
+
+@layer components {
+    .typo-input {
+        @apply text-[14px] leading-[150%] font-normal tablet:text-[16px] tablet:leading-[150%] tablet:font-normal tablet:tracking-[-0.4px];
+    }
+}

@@ -1,14 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
-import Arrow from '../assets/icons/arrow.svg?react';
+import ArrowButton from './ArrowButton';
+import type { ButtonType } from '../types/common';
 
 interface TextareaWithArrowProps {
+    id: string;
     value: string;
     onChange: (value: string) => void;
     placeholder?: string;
     isActive?: boolean;
+    buttonType?: ButtonType;
 }
 
-const TextareaWithArrow = ({ value, onChange, placeholder, isActive = true }: TextareaWithArrowProps) => {
+const TextareaWithArrow = ({
+    id,
+    value,
+    onChange,
+    placeholder,
+    isActive = true,
+    buttonType = 'button',
+}: TextareaWithArrowProps) => {
     const [isFocused, setIsFocused] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -31,12 +41,13 @@ const TextareaWithArrow = ({ value, onChange, placeholder, isActive = true }: Te
         <div
             className={`
                 flex flex-col w-[240px] tablet:w-[540px] desktop:w-[744px] p-4 space-y-6
-                border font-body-16-r placeholder-gray-600 bg-neutral-white-opacity10 rounded-2xl
+                border typo-input placeholder-gray-600 bg-neutral-white-opacity10 rounded-2xl
                 transition duration-300 ${isFocused ? 'border-gray-400' : 'border-transparent'}    
             `}
         >
             <textarea
                 ref={textareaRef}
+                id={id}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 onFocus={() => setIsFocused(true)}
@@ -47,15 +58,7 @@ const TextareaWithArrow = ({ value, onChange, placeholder, isActive = true }: Te
             />
 
             <div className="flex justify-end">
-                <button
-                    type="button"
-                    className={`
-                        cursor-pointer right-0 flex justify-center items-center w-10 h-10 rounded-full
-                        transition-colors duration-300 ${isActive ? 'bg-primary-500' : 'bg-neutral-white-opacity10'}
-                    `}
-                >
-                    <Arrow className={`transition-opacity duration-300 ${!isActive ? 'opacity-20' : 'opacity-100'}`} />
-                </button>
+                <ArrowButton type={buttonType} isActive={isActive} className="w-10 h-10" />
             </div>
         </div>
     );
