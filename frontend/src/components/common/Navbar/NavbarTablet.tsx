@@ -14,7 +14,7 @@ export const NavbarTablet = (): React.ReactElement => {
 
   return (
     <>
-      {/* 상단 모바일 바 */}
+      {/* 상단바 */}
       <div className="fixed top-0 left-0 right-0 h-12 bg-[#262626] flex items-center px-4 z-20">
         <button
           onClick={toggleMenu}
@@ -24,7 +24,7 @@ export const NavbarTablet = (): React.ReactElement => {
         <img src={ChannelingLogoIcon} alt="Channeling 글자 로고" className="w-35 ml-2" />
       </div>
 
-      {/* 왼쪽 슬라이드 메뉴 */}
+      {/* 슬라이드형 사이드바 */}
       <div
         className={`fixed top-0 left-0 h-screen w-50 bg-[#262626] p-4 flex flex-col z-30 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -51,7 +51,7 @@ export const NavbarTablet = (): React.ReactElement => {
         </div>
       </div>
 
-      {/* 오버레이 */}
+      {/* 사이드 바 오버레이 */}
       {isOpen && (
         <div
           className="fixed top-0 left-0 w-screen h-screen bg-black/50 z-20"

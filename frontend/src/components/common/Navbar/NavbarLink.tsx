@@ -25,6 +25,7 @@ export const NavbarLink = (props: NavbarLinkProps): React.ReactElement => {
             size={size}
           />
           </div>
+          {/* 모바일&태블릿용 로그인 텍스트 조금 더 아래로 위치시킴 */}
           {label && (
             <span className={`font-caption leading-normal text-center text-white ml-2 lg:ml-0 
                ${label === "로그인" ? "mt-2" : "mt-0"} lg:mt-1`}>{label}</span>
