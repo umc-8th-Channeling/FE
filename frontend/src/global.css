@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 @import './styles/scrollbar.css';
-@import './styles/typo.css';
 
 @font-face {
     font-family: 'Pretendard';
@@ -63,6 +62,7 @@
 
     --color-error: #ef4444
 
+    --breakpoint-*: initial;
     --breakpoint-desktop: 1440px;
     --breakpoint-tablet: 768px;
     --breakpoint-mobile: 320px;
@@ -81,11 +81,5 @@
 
     body {
         @apply bg-surface text-gray-900 font-pretendard font-normal min-w-[320px] overflow-x-hidden overflow-y-scroll;
-    }
-}
-
-@layer components {
-    .typo-input {
-        @apply text-[14px] leading-[150%] font-normal tablet:text-[16px] tablet:leading-[150%] tablet:font-normal tablet:tracking-[-0.4px];
     }
 }

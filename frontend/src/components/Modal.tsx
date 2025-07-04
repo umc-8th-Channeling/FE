@@ -57,10 +57,16 @@ const Modal = ({ title, description, onClose, children }: PropsWithChildren<Moda
                 </button>
 
                 <div className="text-center whitespace-pre-line space-y-2">
-                    <h1 id="modal-title" className="font-title-20-b">
+                    <h1
+                        id="modal-title"
+                        className="text-[16px] leading-[140%] font-bold tracking-[-0.4px] tablet:text-[20px] tablet:tracking-[-0.5px]"
+                    >
                         {title}
                     </h1>
-                    <p id="modal-description" className="font-body-16-r text-gray-600">
+                    <p
+                        id="modal-description"
+                        className="text-[14px] leading-[150%] font-normal tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px] text-gray-600"
+                    >
                         {description}
                     </p>
                 </div>

@@ -52,9 +52,12 @@ const TextareaWithArrow = ({
                 onChange={(e) => onChange(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                rows={1}
+                rows={3}
                 placeholder={placeholder}
-                className="w-full h-fit max-h-[120px] px-2 outline-none resize-none focus:placeholder-transparent"
+                className="
+                    w-full h-fit max-h-[120px] tablet:px-2 outline-none resize-none focus:placeholder-transparent
+                    text-[14px] leading-[150%] font-normal tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
+                "
             />
 
             <div className="flex justify-end">
