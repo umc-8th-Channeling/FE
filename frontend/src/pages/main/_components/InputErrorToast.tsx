@@ -16,8 +16,9 @@ export const InputErrorToast = ({ errorMessage }: InputErrorToastProps) => {
                     duration: 0.8,
                     ease: 'easeOut',
                 }}
+                className="overflow-hidden rounded-lg"
             >
-                <div className="flex flex-row items-center w-[384px] px-4 py-3 gap-4 bg-surface-elevate-l1 rounded-lg">
+                <div className="flex flex-row items-center w-[288px] tablet:w-[384px] px-4 py-3 gap-4 bg-surface-elevate-l1">
                     <div className="flex items-center justify-center w-8 aspect-square rounded-full bg-surface-elevate-l2">
                         <ErrorIcon />
                     </div>
