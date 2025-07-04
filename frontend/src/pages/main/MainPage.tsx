@@ -5,6 +5,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ErrorIcon from '../../assets/icons/error.svg?react';
 import clsx from 'clsx';
+import { InputErrorToast } from './_components/InputErrorToast';
 
 const urlSchema = z.object({
     url: z.string().refine((value) => {
@@ -56,10 +57,13 @@ export default function MainPage() {
             <div className="flex flex-col items-center justify-center space-y-4 tablet:space-y-6 whitespace-pre-line tablet:whitespace-nowrap">
                 {/* 확인 용 임시 버튼 */}
                 <button
-                    onClick={() => setError('유효하지 않은 링크입니다.')}
+                    onClick={() => {
+                        if (error) setError(null);
+                        else if (!error) setError('유효하지 않은 링크입니다.');
+                    }}
                     className="absolute top-4 right-4 cursor-pointer px-6 py-3 rounded-full bg-primary-400"
                 >
-                    확인 용 버튼
+                    에러 확인 용 버튼
                 </button>
                 {/* 확인 용 임시 버튼 끝 */}
 
@@ -110,6 +114,9 @@ export default function MainPage() {
                         {error}
                     </p>
                 </div>
+
+                {/* 입력 에러 토스트 */}
+                {error && <InputErrorToast errorMessage={error} />}
             </div>
         </div>
     );
