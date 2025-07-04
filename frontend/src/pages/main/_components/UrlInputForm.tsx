@@ -22,7 +22,6 @@ export const UrlInputForm = () => {
 
     const urlValue = watch('url');
 
-    // API 연결 시 수정이 필요한 부분
     useEffect(() => {
         const isValid = urlSchema.safeParse({ url: urlValue }).success;
         setIsActive(isValid && !error);
