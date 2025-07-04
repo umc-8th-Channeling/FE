@@ -63,10 +63,6 @@
 
     --color-error: #ef4444
 
-    --gradient-main-bg: linear-gradient(180deg, var(--color-gray-50) 0%, var(--color-primary-50) 100%);
-    --gradient-footer: linear-gradient(180deg, rgba(45, 7, 9, 0.2) 0%, var(--color-primary-50) 50%);
-    --gradient-up: linear-gradient(180deg, var(--color-primary-500) 0%, rgba(250, 77, 86, 0) 100%);
-
     --breakpoint-desktop: 1440px;
     --breakpoint-tablet: 768px;
     --breakpoint-mobile: 320px;
