@@ -51,12 +51,12 @@ export default function LibraryPage() {
     ];
 
     return (
-        <div className="px-8 py-10 bg-[#121212] text-gray-200 min-h-screen font-pretendard">
+        <div className="px-8 py-10 bg-gray-50 min-h-screen font-pretendard">
             {' '}
             <div className="relative flex mb-6">
                 <button
                     className={`flex-1 pb-3.5 text-center font-semibold relative ${
-                        activeTab === 'report' ? 'text-primary-500' : 'text-gray-200'
+                        activeTab === 'report' ? 'text-primary-500' : 'text-gray-300'
                     }`}
                     onClick={() => setActiveTab('report')}
                 >
@@ -67,7 +67,7 @@ export default function LibraryPage() {
                 </button>
                 <button
                     className={`flex-1 pb-3.5 text-center font-semibold relative ${
-                        activeTab === 'scrap' ? 'text-primary-500' : 'text-gray-200'
+                        activeTab === 'scrap' ? 'text-primary-500' : 'text-gray-300'
                     }`}
                     onClick={() => setActiveTab('scrap')}
                 >
@@ -76,14 +76,14 @@ export default function LibraryPage() {
                         <span className="absolute left-0 bottom-0 h-1 w-full bg-primary-500 z-10"></span>
                     )}
                 </button>
-                <span className="absolute bottom-0 left-0 w-full h-1 bg-gray-200"></span>
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-gray-300"></span>
             </div>
             {activeTab === 'report' && (
                 <div className="flex justify-between items-center ">
-                    <div className="flex gap-3 mb-6">
+                    <div className="flex gap-8 mb-6">
                         <button
                             className={`px-4 py-2 rounded-lg ${
-                                subTab === 'video' ? 'bg-red-500 text-white' : 'bg-gray-100 text-white'
+                                subTab === 'video' ? 'bg-red-500 text-gray-900' : 'bg-[#262626] text-gray-900'
                             }`}
                             onClick={() => setSubTab('video')}
                         >
@@ -91,7 +91,7 @@ export default function LibraryPage() {
                         </button>
                         <button
                             className={`px-4 py-2 rounded-lg ${
-                                subTab === 'shorts' ? 'bg-red-500 text-white' : 'bg-gray-100 text-white'
+                                subTab === 'shorts' ? 'bg-red-500 text-gray-900' : 'bg-[#262626] text-gray-900'
                             }`}
                             onClick={() => setSubTab('shorts')}
                         >
@@ -99,12 +99,12 @@ export default function LibraryPage() {
                         </button>
                     </div>
 
-                    <p className="mb-6 text-white">{reportData.length}개의 영상 리포트</p>
+                    <p className="mb-6 text-gray-900">{reportData.length}개의 영상 리포트</p>
                 </div>
             )}
             {activeTab === 'scrap' && (
                 <div className="flex ">
-                    <p className=" mb-6 text-white">{scrapData.length}개의 스크랩</p>
+                    <p className=" mb-6 text-gray-900">{scrapData.length}개의 스크랩</p>
                 </div>
             )}
             <div className={activeTab === 'report' ? 'grid grid-cols-4 gap-6' : 'grid grid-cols-1  gap-6'}>
