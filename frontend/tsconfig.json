@@ -1,14 +1,8 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
-  "exclude": [
-    "node_modules",
-    ".eslintrc.cjs"
-  ],
-  "compilerOptions": {
-    "jsx": "react-jsx"
-  }
+    "files": [],
+    "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
+    "compilerOptions": {
+        "types": ["vite-plugin-svgr/client"]
+    },
+    "include": ["svg.d.ts"]
 }
