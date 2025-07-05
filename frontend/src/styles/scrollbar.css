@@ -1,0 +1,37 @@
+textarea::-webkit-scrollbar {
+    width: 8px;
+}
+
+textarea::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray-500);
+    border-radius: 4px;
+}
+
+textarea::-webkit-scrollbar-button {
+    background-color: var(--color-gray-500);
+    height: 6px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+}
+
+textarea::-webkit-scrollbar-button:single-button:increment {
+    height: 6px;
+    background-color: transparent;
+    background-image: url('/icons/scrollbar/up.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+textarea::-webkit-scrollbar-button:single-button:decrement {
+    height: 6px;
+    background-color: transparent;
+    background-image: url('/icons/scrollbar/down.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
