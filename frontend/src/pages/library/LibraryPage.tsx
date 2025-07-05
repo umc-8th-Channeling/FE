@@ -7,7 +7,7 @@ export default function LibraryPage() {
     const [activeTab, setActiveTab] = useState<'report' | 'scrap'>('report');
     const [subTab, setSubTab] = useState<'video' | 'shorts'>('video');
 
-    // 리포트 예시 나중에 대체 (API필요)
+    // 리포트 mock
     const reportData: LibraryItem[] = [
         {
             id: 1,
@@ -31,7 +31,7 @@ export default function LibraryPage() {
         },
     ];
 
-    // 스크랩 예시 나중에 대체
+    // 스크랩 mock
     const scrapData: ScrapItem[] = [
         {
             title: '코케트(coquette) 패션 인사',
@@ -51,11 +51,10 @@ export default function LibraryPage() {
     ];
 
     return (
-        <div className="px-8 py-10 bg-gray-50 min-h-screen font-pretendard">
-            {' '}
+        <div className="px-8 py-10 bg-gray-50 min-h-screen">
             <div className="relative flex mb-6">
                 <button
-                    className={`flex-1 pb-3.5 text-center font-semibold relative ${
+                    className={`flex-1 pb-3.5 text-center text-[20px] font-bold leading-[28px] tracking-[-0.5px] relative ${
                         activeTab === 'report' ? 'text-primary-500' : 'text-gray-300'
                     }`}
                     onClick={() => setActiveTab('report')}
@@ -66,7 +65,7 @@ export default function LibraryPage() {
                     )}
                 </button>
                 <button
-                    className={`flex-1 pb-3.5 text-center font-semibold relative ${
+                    className={`flex-1 pb-3.5 text-center text-[20px] font-bold leading-[28px] tracking-[-0.5px] relative ${
                         activeTab === 'scrap' ? 'text-primary-500' : 'text-gray-300'
                     }`}
                     onClick={() => setActiveTab('scrap')}
@@ -82,16 +81,16 @@ export default function LibraryPage() {
                 <div className="flex justify-between items-center ">
                     <div className="flex gap-8 mb-6">
                         <button
-                            className={`px-4 py-2 rounded-lg ${
-                                subTab === 'video' ? 'bg-red-500 text-gray-900' : 'bg-[#262626] text-gray-900'
+                            className={`px-4 py-2 rounded-lg font-bold leading-[24px] tracking-[-0.4px] ${
+                                subTab === 'video' ? 'bg-red-500 ' : 'bg-gray-100 '
                             }`}
                             onClick={() => setSubTab('video')}
                         >
                             동영상
                         </button>
                         <button
-                            className={`px-4 py-2 rounded-lg ${
-                                subTab === 'shorts' ? 'bg-red-500 text-gray-900' : 'bg-[#262626] text-gray-900'
+                            className={`px-4 py-2 rounded-lg font-bold leading-[24px] tracking-[-0.4px] ${
+                                subTab === 'shorts' ? 'bg-red-500' : 'bg-gray-100'
                             }`}
                             onClick={() => setSubTab('shorts')}
                         >
@@ -99,12 +98,16 @@ export default function LibraryPage() {
                         </button>
                     </div>
 
-                    <p className="mb-6 text-gray-900">{reportData.length}개의 영상 리포트</p>
+                    <p className="mb-6 text-base font-medium leading-[24px] tracking-[-0.4px] ">
+                        {reportData.length}개의 영상 리포트
+                    </p>
                 </div>
             )}
             {activeTab === 'scrap' && (
                 <div className="flex ">
-                    <p className=" mb-6 text-gray-900">{scrapData.length}개의 스크랩</p>
+                    <p className="mb-6 text-base font-medium leading-[24px] tracking-[-0.4px] ">
+                        {scrapData.length}개의 스크랩
+                    </p>
                 </div>
             )}
             <div className={activeTab === 'report' ? 'grid grid-cols-4 gap-6' : 'grid grid-cols-1  gap-6'}>

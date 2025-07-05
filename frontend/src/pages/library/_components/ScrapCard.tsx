@@ -15,13 +15,13 @@ export default function ScrapCard({ item }: { item: ScrapItem }) {
                 onClick={() => setIsFilled(!isFilled)}
             />
 
-            <h3 className="font-bold mb-2 flex items-center gap-2">
+            <h3 className="text-[20px] font-bold leading-[28px] tracking-[-0.5px] mb-2 flex items-center gap-2">
                 <span>코케트(coquette) 패션 인사</span>
             </h3>
 
-            <p className=" text-gray-900 mb-4">{item.description}</p>
+            <p className="font-normal leading-[27px] tracking-[-0.45px] text-gray-900 mb-4">{item.description}</p>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 text-base font-medium leading-[24px] tracking-[-0.4px]">
                 {item.hashtags.map((tag) => (
                     <span key={tag} className="text-xs text-gray-900 bg-primary-300 px-2 py-0.5 rounded-xs">
                         #{tag}
