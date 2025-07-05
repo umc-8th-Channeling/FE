@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 @import './styles/scrollbar.css';
-@import './styles/typo.css';
 
 @font-face {
     font-family: 'Pretendard';
@@ -26,17 +25,6 @@
 @theme {
     --font-pretendard: 'Pretendard';
 
-    --color-primary-50: #2d0709;
-    --color-primary-100: #520408;
-    --color-primary-200: #750e13;
-    --color-primary-300: #a2191f;
-    --color-primary-400: #da1e28;
-    --color-primary-500: #fa4d56;
-    --color-primary-600: #ff8389;
-    --color-primary-700: #ffb3b8;
-    --color-primary-800: #ffd7d9;
-    --color-primary-900: #fff1f1;
-
     --color-gray-50: #161616;
     --color-gray-100: #262626;
     --color-gray-200: #393939;
@@ -48,26 +36,36 @@
     --color-gray-800: #e0e0e0;
     --color-gray-900: #f4f4f4;
 
+    --color-primary-50: #2d0709;
+    --color-primary-100: #520408;
+    --color-primary-200: #750e13;
+    --color-primary-300: #a2191f;
+    --color-primary-400: #da1e28;
+    --color-primary-500: #fa4d56;
+    --color-primary-600: #ff8389;
+    --color-primary-700: #ffb3b8;
+    --color-primary-800: #ffd7d9;
+    --color-primary-900: #fff1f1;
+
     --color-surface: var(--color-gray-100);
     --color-surface-elevate-l1: var(--color-gray-100);
     --color-surface-elevate-l2: var(--color-gray-200);
     --color-surface-elevate-l3: var(--color-gray-300);
 
-
     --color-neutral-white: #ffffff;
     --color-neutral-white-opacity10: #ffffff1a;
     --color-neutral-white-opacity20: #ffffff33;
 
-    --color-neutral--black: #121212;
+    --color-neutral-black: #121212;
     --color-neutral-black-opacity50: #12121280;
 
-    --color-error: #ef4444
+    --color-error: #ef4444;
 
+    --breakpoint-*: initial;
     --breakpoint-desktop: 1440px;
     --breakpoint-tablet: 768px;
     --breakpoint-mobile: 320px;
 }
-
 
 @layer base {
     * {
