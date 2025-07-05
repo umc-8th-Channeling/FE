@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import RecentReportCard from './_components/RecentReportCard';
-import ScrapCard from './_components/ScrapCard';
-import type { LibraryItem, ScrapItem } from '../../types/library';
+import { useState } from 'react'
+import RecentReportCard from './_components/RecentReportCard'
+import ScrapCard from './_components/ScrapCard'
+import type { LibraryItem, ScrapItem } from '../../types/library'
 
 export default function LibraryPage() {
-    const [activeTab, setActiveTab] = useState<'report' | 'scrap'>('report');
-    const [subTab, setSubTab] = useState<'video' | 'shorts'>('video');
+    const [activeTab, setActiveTab] = useState<'report' | 'scrap'>('report')
+    const [subTab, setSubTab] = useState<'video' | 'shorts'>('video')
 
     // 리포트 mock
     const reportData: LibraryItem[] = [
@@ -29,7 +29,7 @@ export default function LibraryPage() {
             views: 200,
             daysAgo: 4,
         },
-    ];
+    ]
 
     // 스크랩 mock
     const scrapData: ScrapItem[] = [
@@ -48,7 +48,7 @@ export default function LibraryPage() {
             description: '“오늘도 별일 없이 안녕하세요”~ 지나가는 사람들에게 먼저 인사하며 소소한 대화 포함',
             hashtags: ['아보하', '거리인사', '소통브이로그'],
         },
-    ];
+    ]
 
     return (
         <div className="px-8 py-10 bg-gray-50 min-h-screen">
@@ -116,5 +116,5 @@ export default function LibraryPage() {
                     : scrapData.map((item) => <ScrapCard key={item.title} item={item} />)}
             </div>
         </div>
-    );
+    )
 }

@@ -1,31 +1,31 @@
-import { useEffect, useRef, type PropsWithChildren } from 'react';
-import X from '../assets/icons/X.svg?react';
+import { useEffect, useRef, type PropsWithChildren } from 'react'
+import X from '../assets/icons/X.svg?react'
 
 interface ModalProps {
-    title: string;
-    description?: string;
-    onClose: () => void;
+    title: string
+    description?: string
+    onClose: () => void
 }
 
 const Modal = ({ title, description, onClose, children }: PropsWithChildren<ModalProps>) => {
-    const modalRef = useRef<HTMLDivElement>(null);
+    const modalRef = useRef<HTMLDivElement>(null)
 
     // ESC 키로 모달 창 닫기
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') onClose();
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [onClose]);
+            if (e.key === 'Escape') onClose()
+        }
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [onClose])
 
     // 모달 창 열려 있는 동안 스크롤 금지
     useEffect(() => {
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden'
         return () => {
-            document.body.style.overflow = '';
-        };
-    }, []);
+            document.body.style.overflow = ''
+        }
+    }, [])
 
     return (
         <div
@@ -67,7 +67,7 @@ const Modal = ({ title, description, onClose, children }: PropsWithChildren<Moda
                 {children}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default Modal;
+export default Modal
