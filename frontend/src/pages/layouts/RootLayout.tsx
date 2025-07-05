@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom'
 
 export default function RootLayout() {
     return (
@@ -9,5 +9,5 @@ export default function RootLayout() {
             </main>
             {/* footer 위치 */}
         </div>
-    );
+    )
 }

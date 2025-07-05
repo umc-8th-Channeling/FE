@@ -1,31 +1,31 @@
-import { useEffect, useRef, useState } from 'react';
-import Arrow from '../assets/icons/arrow.svg?react';
+import { useEffect, useRef, useState } from 'react'
+import Arrow from '../assets/icons/arrow.svg?react'
 
 interface TextareaWithArrowProps {
-    value: string;
-    onChange: (value: string) => void;
-    placeholder?: string;
-    isActive?: boolean;
+    value: string
+    onChange: (value: string) => void
+    placeholder?: string
+    isActive?: boolean
 }
 
 const TextareaWithArrow = ({ value, onChange, placeholder, isActive = true }: TextareaWithArrowProps) => {
-    const [isFocused, setIsFocused] = useState(false);
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [isFocused, setIsFocused] = useState(false)
+    const textareaRef = useRef<HTMLTextAreaElement>(null)
 
     // Desktop, Tablet: 5줄까지 textarea가 늘어납니다. 6줄 부터는 스크롤해서 확인합니다.
     // Mobile: 3줄까지 textarea가 늘어납니다. 4줄 부터는 스크롤해서 확인합니다.
     useEffect(() => {
-        const textarea = textareaRef.current;
-        if (!textarea) return;
+        const textarea = textareaRef.current
+        if (!textarea) return
 
-        textarea.style.height = 'auto';
+        textarea.style.height = 'auto'
 
-        const isMobile = window.innerWidth <= 768;
+        const isMobile = window.innerWidth <= 768
 
-        const maxLines = isMobile ? 3 : 5;
-        const maxHeight = 32 * maxLines;
-        textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + 'px';
-    }, [value]);
+        const maxLines = isMobile ? 3 : 5
+        const maxHeight = 32 * maxLines
+        textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + 'px'
+    }, [value])
 
     return (
         <div
@@ -58,7 +58,7 @@ const TextareaWithArrow = ({ value, onChange, placeholder, isActive = true }: Te
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default TextareaWithArrow;
+export default TextareaWithArrow
