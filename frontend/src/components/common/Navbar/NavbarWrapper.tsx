@@ -10,8 +10,8 @@ export const NavbarWrapper = (): React.ReactElement => {
   if (isDesktop) {
   return <NavbarDesktop />;
 } else if (isTablet) {
-  return <NavbarTablet />;}
+  return <NavbarDesktop />;}
    else {
-  return <NavbarMobile />;
+  return <NavbarDesktop />;
 }
 };

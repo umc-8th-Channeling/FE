@@ -11,10 +11,9 @@ export const NavbarLink = (props: NavbarLinkProps): React.ReactElement => {
   const { to, label, defaultIcon, hoverIcon, activeIcon, alt, isCircle, size, className } = props;
 
   return (
-    <NavLink to={to} end={true} className={`block w-full ${className ?? ""}`}>
+    <NavLink to={to} end={true} className={`block ${className ?? ""}`}>
       {({ isActive }) => (
-        <div className="flex flex-row ml-2 lg:-ml-1 lg:flex-col items-start lg:items-center py-2 w-full h-full justify-start lg:justify-center">
-          <div className="flex items-start lg:items-center">
+        <div className="flex flex-col items-center py-2">
           <IconWrapper
             defaultIcon={defaultIcon}
             hoverIcon={hoverIcon}
@@ -24,14 +23,17 @@ export const NavbarLink = (props: NavbarLinkProps): React.ReactElement => {
             isActive={isActive}
             size={size}
           />
-          </div>
-          {/* 모바일&태블릿용 로그인 텍스트 조금 더 아래로 위치시킴 */}
           {label && (
-            <span className={`font-caption leading-normal text-center text-white ml-2 lg:ml-0 
-               ${label === "로그인" ? "mt-2" : "mt-0"} lg:mt-1`}>{label}</span>
+            <span
+              className={`font-label-fixed text-gray-900
+              ${label === "로그인" ? "mt-[5px]" : "mt-2"}`}
+            >
+              {label}
+            </span>
           )}
         </div>
       )}
     </NavLink>
   );
 };
+

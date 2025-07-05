@@ -21,7 +21,7 @@ export type LinkItem = {
   size?: "sm" | "md" | "lg";
 };
 
-{/* 모바일&태블릿용 로그인 아이콘 보류 (크기를 키워야하는지) */}
+{/* 모바일&태블릿용 로그인 아이콘 보류 */}
 export const LINKS: LinkItem[] = [
   { to: "/new", defaultIcon: PlusIcon, hoverIcon: PlusIcon, activeIcon: PlusIcon, alt: "새로운 분석 아이콘", isCircle: true },
   { to: "/", defaultIcon: HomeIcon, hoverIcon: HomeWhiteIcon, activeIcon: HomeRedIcon, alt: "홈 아이콘", label: "홈", isCircle: false },

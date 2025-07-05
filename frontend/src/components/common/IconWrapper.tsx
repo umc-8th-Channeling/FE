@@ -11,30 +11,37 @@ type IconWrapperProps = {
   size?: "sm" | "md" | "lg";
 };
 
-export const IconWrapper = ({ defaultIcon, hoverIcon ,activeIcon, alt, isCircle, isActive, size="md" }: IconWrapperProps): React.ReactElement => {
+export const IconWrapper = ({ defaultIcon, hoverIcon, activeIcon, alt, isCircle, isActive, size = "md" }: IconWrapperProps): React.ReactElement => {
   const [isHover, setIsHover] = useState(false);
 
   const currentIcon = isActive
-  ? activeIcon
-  : isHover
-  ? hoverIcon
-  : defaultIcon;
+    ? activeIcon
+    : isHover
+    ? hoverIcon
+    : defaultIcon;
 
-  const sizeClass = size === "lg" ? "w-9 h-9" : size === "sm" ? "w-7 h-7" : "w-7 h-7";
+  let sizeClass = "w-6 h-6";
+  if (size === "lg") {
+    sizeClass = "w-10 h-10";
+  } else if (size === "sm") {
+    sizeClass = "w-6 h-6";
+  }
 
   return isCircle ? (
-    <div className="w-10 h-10 rounded-full bg-[#393939] flex items-center justify-center mb-1"
-    onMouseEnter={() => setIsHover(true)}
-    onMouseLeave={() => setIsHover(false)}
+    <div
+      className="w-12 h-12 rounded-full bg-[#393939] flex items-center justify-center mb-1"
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
     >
-      <img src={currentIcon} alt={alt} className={sizeClass} />
+      <img src={currentIcon} alt={alt} className={sizeClass} style={{ aspectRatio: "1 / 1" }} />
     </div>
   ) : (
-    <div className="w-full h-full flex justify-center items-center mb-2"
-    onMouseEnter={() => setIsHover(true)}
-    onMouseLeave={() => setIsHover(false)}
+    <div
+      className="flex justify-center items-center mb-2 flex-none"
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
     >
-      <img src={currentIcon} alt={alt} className={sizeClass} />
+      <img src={currentIcon} alt={alt} className={sizeClass} style={{ aspectRatio: "1 / 1" }} />
     </div>
   );
 };

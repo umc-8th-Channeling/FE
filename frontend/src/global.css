@@ -91,3 +91,40 @@
     @apply text-[12px] leading-[140%] font-normal tracking-tight sm:text-[14px] sm:leading-[140%] sm:font-normal md:text-[14px] md:leading-[140%] md:font-normal;
   }
 }
+
+@layer components {
+  .font-label-fixed {
+    @apply text-[16px] leading-[150%] font-normal;
+  }
+
+  .font-footer-fixed {
+    @apply text-[14px] leading-[140%] font-normal tracking-tight;
+  }
+}
+
+#tooltip {
+  animation-name: sway;
+  animation-duration: 2s;
+  animation-iteration-count: 5;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes sway {
+  0% {
+    transform:translateX(0);
+  }
+  25% {
+    transform:translateX(5px);
+  }
+  50% {
+    transform:translateX(-5px);
+  }
+  75% {
+    transform:translateX(5px);
+  }
+  100% {
+    transform:translateX(0);
+  }
+}
+

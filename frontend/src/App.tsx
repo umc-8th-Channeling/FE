@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
     <div className="min-h-screen flex flex-col bg-[#262626]">
       <NavbarWrapper />
-      <main className="flex-1 flex justify-center items-center bg-gradient-to-b from-[#161616] to-[#2D0709]">
+      <main className="flex-1 flex justify-center items-center bg-[#262626]">
         <Routes>
           <Route path="/" element={<div className="text-red-300">Channeling</div>} />
           <Route path="/new" element={<div className="text-red-300">새로운 분석</div>} />
