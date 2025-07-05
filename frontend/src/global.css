@@ -61,6 +61,7 @@
         @apply bg-gray-100 text-gray-900 font-pretendard font-normal;
     }
 }
+<<<<<<< HEAD
 
 @layer components {
   .font-title {
@@ -128,3 +129,5 @@
   }
 }
 
+=======
+>>>>>>> 4d86f1bfec59c79a632db9a920af154e83d2ab0b
