@@ -83,7 +83,6 @@
         @apply bg-surface text-gray-900 font-pretendard font-normal min-w-[320px] overflow-x-hidden overflow-y-scroll;
     }
 }
-<<<<<<< HEAD
 
 @layer components {
   .font-title {
@@ -128,7 +127,7 @@
 #tooltip {
   animation-name: sway;
   animation-duration: 2s;
-  animation-iteration-count: 5;
+  animation-iteration-count: 4;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
 }
@@ -151,5 +150,3 @@
   }
 }
 
-=======
->>>>>>> 4d86f1bfec59c79a632db9a920af154e83d2ab0b
