@@ -11,9 +11,9 @@ export const NavbarDesktop = (): React.ReactElement => {
     <div className="flex flex-col items-center gap-22">
       <img src={ChannelingIcon} alt="Channeling 로고" className="w-12 h-12" />
       <div className="flex flex-col items-center gap-6">
-        <NavbarLink {...TOP_LINKS.find(link => link.to === "/new")!} />
+        <NavbarLink {...TOP_LINKS.find(link => link.to === "/report")!} />
         <div className="flex flex-col items-center gap-1">
-          {TOP_LINKS.filter(link => link.to !== "/new").map(link => (
+          {TOP_LINKS.filter(link => link.to !== "/report").map(link => (
             <NavbarLink key={link.to} {...link} />
           ))}
         </div>
