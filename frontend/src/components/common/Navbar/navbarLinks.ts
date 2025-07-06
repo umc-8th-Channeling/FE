@@ -26,7 +26,7 @@ export const LINKS: LinkItem[] = [
   { to: "/new", defaultIcon: PlusIcon, hoverIcon: PlusIcon, activeIcon: PlusIcon, alt: "새로운 분석 아이콘", isCircle: true },
   { to: "/", defaultIcon: HomeIcon, hoverIcon: HomeWhiteIcon, activeIcon: HomeRedIcon, alt: "홈 아이콘", label: "홈", isCircle: false },
   { to: "/my_channel", defaultIcon: MyChannelIcon, hoverIcon: MyChannelWhiteIcon, activeIcon: MyChannelRedIcon, alt: "내 채널 아이콘", label: "내 채널", isCircle: false },
-  { to: "/storage", defaultIcon: StoreIcon, hoverIcon: StoreWhiteIcon, activeIcon: StoreRedIcon, alt: "저장소 아이콘", label: "저장소", isCircle: false },
+  { to: "/library", defaultIcon: StoreIcon, hoverIcon: StoreWhiteIcon, activeIcon: StoreRedIcon, alt: "저장소 아이콘", label: "저장소", isCircle: false },
   { to: "/login", defaultIcon: LoginIcon, hoverIcon: LoginIcon, activeIcon: LoginIcon, alt: "로그인 아이콘", label: "로그인", isCircle: false, size: "lg" }
 ];
 

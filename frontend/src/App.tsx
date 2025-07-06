@@ -14,9 +14,8 @@ function App() {
             <Route path="/" element={<div className="text-red-300">Channeling</div>} />
             <Route path="/new" element={<div className="text-red-300">새로운 분석</div>} />
             <Route path="/my_channel" element={<div className="text-red-300">내 채널</div>} />
-            <Route path="/storage" element={<div className="text-red-300">저장소</div>} />
-            <Route path="/login" element={<div className="text-red-300">로그인</div>} />
             <Route path="/library" element={<LibraryPage />} />
+            <Route path="/login" element={<div className="text-red-300">로그인</div>} />
           </Routes>
         </main>
         <Footer />
