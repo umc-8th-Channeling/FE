@@ -1,7 +1,10 @@
+import Mypage from "./pages/MyPage/myPage";
+
 function App() {
     return (
         <>
-            <p>타이포 및 컬러시스템</p>
+        <Mypage/>
+            {/* <p>타이포 및 컬러시스템</p>
             <div className="grid grid-cols-2">
                 <div>
                     <div className="text-primary-50 text-5xl font-bold">Dark/Primary</div>
@@ -28,7 +31,7 @@ function App() {
                     <div className="text-gray-800 text-5xl font-bold">Dark/Grayscale</div>
                     <div className="text-gray-900 text-5xl font-bold">Dark/Grayscale</div>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 }
