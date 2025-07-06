@@ -3,6 +3,7 @@ import { NavbarLink } from './NavbarLink';
 import { TOP_LINKS, BOTTOM_LINKS } from './navbarLinks';
 import { NavbarContainer } from './NavbarContainer';
 import { ToolTipBubble } from './NavbarToolTip';
+// import { NavbarUserInfo } from './NavbarUserInfo';
 
 export const NavbarDesktop = (): React.ReactElement => {
   return (
@@ -20,6 +21,10 @@ export const NavbarDesktop = (): React.ReactElement => {
       </div>
     </div>
     <div className="flex flex-col items-center">
+      {/* 로그인 성공 시 아이콘 변경
+      {user ? (
+        <NavbarUserInfo user={user} />
+      ) : */}
       {BOTTOM_LINKS.map(link => (
         <NavbarLink key={link.to} {...link} />
       ))}
