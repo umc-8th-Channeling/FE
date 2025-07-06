@@ -61,7 +61,6 @@
 
     --color-error: #ef4444;
 
-    --breakpoint-*: initial;
     --breakpoint-desktop: 1440px;
     --breakpoint-tablet: 768px;
     --breakpoint-mobile: 320px;
@@ -79,5 +78,71 @@
 
     body {
         @apply bg-surface text-gray-900 font-pretendard font-normal min-w-[320px] overflow-x-hidden overflow-y-scroll;
+    }
+}
+
+@layer components {
+    .font-title {
+        @apply text-[16px] leading-[140%] font-normal sm:text-[18px] sm:leading-[140%] sm:font-bold md:text-[20px] md:leading-[140%] md:font-bold;
+    }
+
+    .font-title-alt {
+        @apply text-[16px] leading-[140%] font-normal sm:text-[18px] sm:leading-[140%] sm:font-bold md:text-[18px] md:leading-[140%] md:font-bold;
+    }
+
+    .font-body {
+        @apply text-[14px] leading-[150%] font-bold sm:text-[24px] sm:leading-[150%] sm:font-medium md:text-[16px] md:leading-[150%] md:font-normal;
+    }
+
+    .font-body-medium {
+        @apply text-[16px] leading-[150%] font-medium sm:text-[24px] sm:leading-[150%] sm:font-medium md:text-[16px] md:leading-[150%] md:font-medium;
+    }
+
+    .font-body-regular {
+        @apply text-[14px] leading-[150%] font-normal sm:text-[24px] sm:leading-[150%] sm:font-medium md:text-[16px] md:leading-[150%] md:font-normal;
+    }
+
+    .font-body-bold {
+        @apply text-[16px] leading-[150%] font-bold sm:text-[24px] sm:leading-[150%] sm:font-medium md:text-[16px] md:leading-[150%] md:font-bold;
+    }
+
+    .font-caption {
+        @apply text-[12px] leading-[140%] font-normal tracking-tight sm:text-[14px] sm:leading-[140%] sm:font-normal md:text-[14px] md:leading-[140%] md:font-normal;
+    }
+}
+
+@layer components {
+    .font-label-fixed {
+        @apply text-[16px] leading-[150%] font-normal;
+    }
+
+    .font-footer-fixed {
+        @apply text-[14px] leading-[140%] font-normal tracking-tight;
+    }
+}
+
+#tooltip {
+  animation-name: sway;
+  animation-duration: 2s;
+  animation-iteration-count: 4;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes sway {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(5px);
+    }
+    50% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+    100% {
+        transform: translateX(0);
     }
 }
