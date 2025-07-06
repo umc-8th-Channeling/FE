@@ -55,7 +55,7 @@ export default function LibraryPage() {
             <div className="relative flex mb-6">
                 <button
                     className={`flex-1 pb-3.5 text-center text-[20px] font-bold leading-[28px] tracking-[-0.5px] relative ${
-                        activeTab === 'report' ? 'text-primary-500' : 'text-gray-300'
+                        activeTab === 'report' ? 'text-primary-500' : 'text-gray-600'
                     }`}
                     onClick={() => setActiveTab('report')}
                 >
@@ -66,7 +66,7 @@ export default function LibraryPage() {
                 </button>
                 <button
                     className={`flex-1 pb-3.5 text-center text-[20px] font-bold leading-[28px] tracking-[-0.5px] relative ${
-                        activeTab === 'scrap' ? 'text-primary-500' : 'text-gray-300'
+                        activeTab === 'scrap' ? 'text-primary-500' : 'text-gray-600'
                     }`}
                     onClick={() => setActiveTab('scrap')}
                 >
@@ -75,7 +75,7 @@ export default function LibraryPage() {
                         <span className="absolute left-0 bottom-0 h-1 w-full bg-primary-500 z-10"></span>
                     )}
                 </button>
-                <span className="absolute bottom-0 left-0 w-full h-1 bg-gray-300"></span>
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-gray-600"></span>
             </div>
             {activeTab === 'report' && (
                 <div className="flex justify-between items-center ">
