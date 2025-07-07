@@ -1,5 +1,3 @@
-// LoginModal.tsx
-
 import Modal from '../../../components/Modal'
 import GoogleIcon from '../../../../src/assets/icons/google.svg?react'
 
@@ -10,7 +8,6 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
             description={'해당 채널에 대한 로그인이 필요합니다!\n구글 계정으로 10초만에 로그인하세요.'}
             onClose={onClose}
         >
-            {/* 모달 내부는 자유 */}
             <button
                 type="button"
                 className="
