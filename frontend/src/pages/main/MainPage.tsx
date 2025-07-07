@@ -21,8 +21,10 @@ export default function MainPage() {
 
                 <UrlInputForm />
 
-                <VideoRecommendation label="내 영상의 개선점을 알고 싶다면" videos={DUMMY_MY} />
-                <VideoRecommendation label="인기있는 영상의 비결은?" videos={DUMMY_POPULAR} />
+                <div className="space-y-20 tablet:space-y-10">
+                    <VideoRecommendation label="내 영상의 개선점을 알고 싶다면" videos={DUMMY_MY} />
+                    <VideoRecommendation label="인기있는 영상의 비결은?" videos={DUMMY_POPULAR} />
+                </div>
             </div>
         </div>
     )
