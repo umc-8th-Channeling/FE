@@ -9,7 +9,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
     return (
         <div className="flex flex-col items-center justify-center gap-2 w-[288px] tablet:w-[282px]">
             {/* 영상 썸네일 이미지 */}
-            <div className="w-full h-[162px] tablet:h-[158px] rounded-lg overflow-hidden">
+            <div className="w-[288px] aspect-[16/9] tablet:w-[282px] tablet:aspect-[141/79] rounded-lg overflow-hidden">
                 <img src={video.thumbnail} className="w-full h-full object-cover" />
             </div>
 
