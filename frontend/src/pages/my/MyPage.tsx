@@ -11,6 +11,7 @@ const profileData = {
 
 import StatsCard from './_components/statsCard'
 import Targetbox from './_components/targetbox'
+import Conceptbox from './_components/conceptbox'
 
 const statsMeta = [
     { key: 'views', title: '조회수' },
@@ -45,8 +46,9 @@ export default function Mypage() {
                         </div>
                     </div>
                 </div>
-                <div className="w-[1200px] h-[336px] gap-[40px]">
+                <div className="w-[1200px] h-[336px] mt-[40px] ml-[76px] gap-y-40px">
                     <Targetbox />
+                    <Conceptbox />
                 </div>
             </div>
         </div>
