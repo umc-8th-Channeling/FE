@@ -1,6 +1,10 @@
-export default function MyShortsCard() {
+interface MyShortsCardProps {
+    onClick?: () => void
+}
+
+export default function MyShortsCard({ onClick }: MyShortsCardProps) {
     return (
-        <div className="w-[190px] h-[371px] gap-[8px]">
+        <div className="w-[190px] h-[371px] gap-[8px]" onClick={onClick}>
             <div className="h-[289px] rounded-[8px] bg-primary-800"></div>
             <div className="flex flex-col gap-[4px] mt-[8px] items-start">
                 <div className="text-gray-900 text-[18px] font-bold">
