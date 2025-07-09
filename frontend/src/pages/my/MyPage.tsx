@@ -51,19 +51,17 @@ export default function Mypage() {
     return (
         <div className="flex bg-surface-base">
             <div className=" mt-[8px] ml-[80px] bg-gray-50 w-[1352px] h-[1401px] rounded-[8px]">
-                <div className="gap-[24px] ml-[76px] mt-[80px]">
-                    <div className="flex">
-                        <ProfileCard profile={profileData} />
-                        <div className="w-[588px] h-[220px] grid grid-cols-3 gap-[24px] ">
-                            {statsMeta.map((meta) => (
-                                <StatsCard
-                                    key={meta.key}
-                                    title={meta.title}
-                                    value={stats[meta.key]}
-                                    icon={statIcons[meta.key]}
-                                />
-                            ))}
-                        </div>
+                <div className="flex gap-[24px] ml-[76px] mt-[80px]">
+                    <ProfileCard profile={profileData} />
+                    <div className="w-[588px] h-[220px] grid grid-cols-3 gap-[24px] ">
+                        {statsMeta.map((meta) => (
+                            <StatsCard
+                                key={meta.key}
+                                title={meta.title}
+                                value={stats[meta.key]}
+                                icon={statIcons[meta.key]}
+                            />
+                        ))}
                     </div>
                 </div>
                 <div className="w-[1200px] h-[336px] mt-[40px] ml-[76px] gap-y-40px">

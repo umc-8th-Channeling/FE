@@ -12,17 +12,31 @@ const Targetbox = () => {
     return (
         <div className="w-[1200px] h-[100px]">
             <div className=" flex justify-between h-[28px]">
-                <div className=" text-gray-900 font-bold text-[20px] whitespace-nowrap">시청자 타겟</div>
+                <div className=" text-gray-900 font-bold text-[20px] whitespace-nowrap leading-[140%] tracking-[-0.5px]">
+                    시청자 타겟
+                </div>
                 {!isOpen && (
                     <div className="flex gap-[4px] cursor-pointer" onClick={() => setIsOpen(true)}>
                         <Correction />
-                        <div className={'text-gray-900 text-[16px] whitespace-nowrap'}>수정</div>
+                        <div
+                            className={
+                                'text-gray-900 text-[16px] font-medium whitespace-nowrap leading-[150%] tracking-[-0.4px]'
+                            }
+                        >
+                            수정
+                        </div>
                     </div>
                 )}
                 {isOpen && !isEditing && (
                     <div className="flex gap-[4px] cursor-pointer">
                         <Correction_before />
-                        <div className={'text-gray-600 text-[16px] font-normal whitespace-nowrap'}>완료</div>
+                        <div
+                            className={
+                                'text-gray-600 text-[16px] font-medium whitespace-nowrap leading-[150%] tracking-[-0.4px]'
+                            }
+                        >
+                            완료
+                        </div>
                     </div>
                 )}
                 {isOpen && isEditing && (
@@ -34,7 +48,13 @@ const Targetbox = () => {
                         }}
                     >
                         <Correction_active />
-                        <div className={'text-primary-500 text-[16px] whitespace-nowrap'}>완료</div>
+                        <div
+                            className={
+                                'text-primary-500 text-[16px] font-medium whitespace-nowrap leading-[150%] tracking-[-0.4px]'
+                            }
+                        >
+                            완료
+                        </div>
                     </div>
                 )}
             </div>

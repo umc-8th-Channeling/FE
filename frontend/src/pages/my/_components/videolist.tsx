@@ -19,7 +19,7 @@ export default function Videolist() {
             <div className="h-[28px] text-[#fff] text-[20px] font-bold">영상 리스트</div>
             <div className="flex mt-[26px]">
                 <button
-                    className={`px-[16px] py-[8px] text-[18px] font-bold whitespace-nowrap flex justify-center items-center border-b-2 ${
+                    className={`px-[16px] py-[8px] text-[18px] font-bold whitespace-nowrap flex justify-center items-center border-b-2 cursor-pointer ${
                         activeTab === 'video' ? 'text-primary-500 border-primary-500' : 'text-[#fff] border-transparent'
                     }`}
                     onClick={() => setActiveTab('video')}
@@ -27,7 +27,7 @@ export default function Videolist() {
                     동영상
                 </button>
                 <button
-                    className={`px-[16px] py-[8px] text-[18px] font-bold flex justify-center items-center border-b-2 ${
+                    className={`px-[16px] py-[8px] text-[18px] font-bold flex justify-center items-center border-b-2 cursor-pointer ${
                         activeTab === 'shorts'
                             ? 'text-primary-500 border-primary-500'
                             : 'text-[#fff] border-transparent'
@@ -38,7 +38,7 @@ export default function Videolist() {
                 </button>
             </div>
             {activeTab === 'video' && (
-                <div className="w-[1200px] mt-[16px] grid grid-cols-3 gap-[24px]">
+                <div className="w-[1200px] mt-[16px] grid grid-cols-3 gap-[24px] cursor-pointer">
                     <MyVideoCard onClick={() => setOpen(true)} />
                     {open && (
                         <Modal
@@ -48,13 +48,13 @@ export default function Videolist() {
                         >
                             <div className="flex justify-between w-[214px] h-[40px] mt-[24px] ml-[248px]">
                                 <button
-                                    className="w-[101px] h-[40px] text-[16px] font-bold text-gray-600 border-[1px] border-gray-300 rounded-[16px]"
+                                    className="w-[101px] h-[40px] text-[16px] font-bold text-gray-600 border-[1px] border-gray-300 rounded-[16px] cursor-pointer"
                                     onClick={() => setOpen(false)}
                                 >
                                     취소
                                 </button>
                                 <button
-                                    className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px]"
+                                    className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px] cursor-pointer"
                                     onClick={getReport}
                                 >
                                     리포트 받기
@@ -65,7 +65,7 @@ export default function Videolist() {
                 </div>
             )}
             {activeTab === 'shorts' && (
-                <div className="w-[1200px] mt-[16px] grid grid-cols-6 gap-x-[12px] gap-y-[24px]">
+                <div className="w-[1200px] mt-[16px] grid grid-cols-6 gap-x-[12px] gap-y-[24px] cursor-pointer">
                     <MyShortsCard onClick={() => setOpen(true)} />
                     {open && (
                         <Modal
@@ -75,12 +75,12 @@ export default function Videolist() {
                         >
                             <div className="flex justify-between w-[214px] h-[40px] mt-[24px] ml-[248px]">
                                 <button
-                                    className="w-[101px] h-[40px] text-[16px] font-bold text-gray-600 border-[1px] border-gray-300 rounded-[16px]"
+                                    className="w-[101px] h-[40px] text-[16px] font-bold text-gray-600 border-[1px] border-gray-300 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer"
                                     onClick={() => setOpen(false)}
                                 >
                                     취소
                                 </button>
-                                <button className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px]">
+                                <button className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer">
                                     리포트 받기
                                 </button>
                             </div>
