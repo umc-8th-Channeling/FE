@@ -12,7 +12,7 @@ export function Button({ children, variant = 'default', className = '', ...props
     const variants = {
         default: 'text-[#F4F4F4]',
         secondary: 'bg-[#262626] text-white font-body tracking-tight',
-        ghost: 'bg-transparent text-white hover:bg-[#262626] font-body tracking-tight',
+        ghost: 'bg-transparent text-white font-body tracking-tight',
     }
 
     return (
