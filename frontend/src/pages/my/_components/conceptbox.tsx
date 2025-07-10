@@ -65,7 +65,7 @@ const Conceptbox = () => {
                         setMode('ACTIVE_COMPLETE')
                     }}
                     placeholder="유튜버님의 채널 컨셉에 대한 설명을 입력해주세요."
-                    className="w-full h-fit outline-none resize-none leading-[150%] tracking-[-0.4px]"
+                    className="w-full h-[120px] outline-none resize-none leading-[150%] tracking-[-0.4px]"
                 />
             </div>
         </div>
