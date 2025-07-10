@@ -31,7 +31,7 @@ export const OVERVIEW_EVALUATION = {
     likeCount: {
         current: 1_200,
         topicAvgScore: 2.1342,
-        channelAvgScore: 46.2,
+        channelAvgScore: 0.462,
     },
     commentCount: {
         current: 1_200,

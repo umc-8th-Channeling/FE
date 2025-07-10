@@ -13,9 +13,9 @@ type EvaluationItem = {
 }
 
 const evaluationItems: EvaluationItem[] = [
-    { label: '콘텐츠 컨셉 일관성', score: () => formatPercentString(OVERVIEW_EVALUATION.consistencyScore) },
-    { label: 'SEO 구성', score: () => formatPercentString(OVERVIEW_EVALUATION.seoScore) },
-    { label: '재방문률', score: () => formatPercentString(OVERVIEW_EVALUATION.retentionRate) },
+    { label: '콘텐츠 컨셉 일관성', score: () => `${formatPercentString(OVERVIEW_EVALUATION.consistencyScore)}%` },
+    { label: 'SEO 구성', score: () => `${formatPercentString(OVERVIEW_EVALUATION.seoScore)}%` },
+    { label: '재방문률', score: () => `${formatPercentString(OVERVIEW_EVALUATION.retentionRate)}%` },
     {
         label: '조회수',
         score: () => formatKoreanNumber(OVERVIEW_EVALUATION.viewCount.current),
@@ -71,7 +71,7 @@ const AverageScore = ({ topicAvg, channelAvg }: { topicAvg: number; channelAvg: 
         <div>
             <h5 className="text-[14px] leading-[140%] tracking-[-0.35px] text-gray-500">{label}</h5>
             <p className="text-[14px] leading-[140%] tracking-[-0.35px] text-primary-500">
-                {formatPercentString(value, 2)}
+                {formatPercentString(value, 2)}%
             </p>
         </div>
     )

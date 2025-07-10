@@ -64,14 +64,14 @@ export function formatKoreanDate(date: string | Date): string {
 }
 
 /**
- * 숫자를 'xx%' 형식의 문자열로 변환합니다.
- * 예: 0.65 → '65%', 1 → '100%', 2.4523 → '245.23%'
+ * 숫자를 'xx' 형식의 문자열로 변환합니다.
+ * 예: 0.65 → '65', 1 → '100', 2.4523 → '245.23'
  *
  * @param value - 퍼센트로 표시할 숫자 (예: 0.8 또는 245.23)
  * @param fractionDigits - 소수점 자리 수 (기본값: 0)
- * @returns 퍼센트 형식의 문자열 (예: '85%', '99.5%', '245.23%')
+ * @returns 퍼센트 형식의 문자열 (예: '85', '99.50', '245.23')
  */
 export const formatPercentString = (value: number, fractionDigits = 0): string => {
-    if (isNaN(value)) return '0%'
-    return `${(value * 100).toFixed(fractionDigits)}%`
+    if (isNaN(value)) return '0'
+    return (value * 100).toFixed(fractionDigits)
 }
