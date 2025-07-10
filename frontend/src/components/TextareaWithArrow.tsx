@@ -9,6 +9,7 @@ interface TextareaWithArrowProps {
     placeholder?: string
     isActive?: boolean
     buttonType?: ButtonType
+    onNext?: () => void
 }
 
 const TextareaWithArrow = ({
@@ -18,6 +19,7 @@ const TextareaWithArrow = ({
     placeholder,
     isActive = true,
     buttonType = 'button',
+    onNext,
 }: TextareaWithArrowProps) => {
     const [isFocused, setIsFocused] = useState(false)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -61,7 +63,7 @@ const TextareaWithArrow = ({
             />
 
             <div className="flex justify-end">
-                <ArrowButton type={buttonType} isActive={isActive} className="w-10 h-10" />
+                <ArrowButton type={buttonType} isActive={isActive} onClick={onNext} className="w-10 h-10" />
             </div>
         </div>
     )

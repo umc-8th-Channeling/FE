@@ -5,13 +5,30 @@ import { NavbarContainer } from './NavbarContainer'
 import { ToolTipBubble } from './NavbarToolTip'
 import { useState } from 'react'
 import LoginModal from '../../../pages/main/_components/LoginModal'
+import ViewerModal from '../../../pages/main/_components/ViewerModal'
+import ChannelConceptModal from '../../../pages/main/_components/ChannelConceptModal'
 // import { NavbarUserInfo } from './NavbarUserInfo';
 
 export const NavbarDesktop = (): React.ReactElement => {
     const [showLoginModal, setShowLoginModal] = useState(false)
+    const [showViewerModal, setShowViewerModal] = useState(false)
+
+    const [viewerValue, setViewerValue] = useState('')
+
+    const [showChannelConceptModal, setShowChannelConceptModal] = useState(false)
+    const [channelConceptValue, setChannelConceptValue] = useState('')
+
+    const handleViewerChange = (value: string) => {
+        setViewerValue(value)
+    }
 
     const handleLoginClick = () => setShowLoginModal(true)
-    const handleCloseModal = () => setShowLoginModal(false)
+    const handleCloseLoginModal = () => setShowLoginModal(false)
+    const handleOpenViewerModal = () => setShowViewerModal(true)
+    const handleCloseViewerModal = () => setShowViewerModal(false)
+    const handleOpenChannelConceptModal = () => setShowChannelConceptModal(true)
+    const handleCloseChannelConceptModal = () => setShowChannelConceptModal(false)
+    const handleChangeChannelConcept = (value: string) => setChannelConceptValue(value)
 
     return (
         <>
@@ -41,7 +58,34 @@ export const NavbarDesktop = (): React.ReactElement => {
                 <ToolTipBubble />
             </NavbarContainer>
 
-            {showLoginModal && <LoginModal onClose={handleCloseModal} />}
+            {showLoginModal && (
+                <LoginModal
+                    onClose={handleCloseLoginModal}
+                    onLoginSuccess={() => {
+                        handleCloseLoginModal()
+                        handleOpenViewerModal()
+                    }}
+                />
+            )}
+            {showViewerModal && (
+                <ViewerModal
+                    onClose={handleCloseViewerModal}
+                    value={viewerValue}
+                    onChange={handleViewerChange}
+                    onNext={() => {
+                        handleCloseViewerModal()
+                        handleOpenChannelConceptModal()
+                    }}
+                />
+            )}
+            {showChannelConceptModal && (
+                <ChannelConceptModal
+                    onClose={handleCloseChannelConceptModal}
+                    value={channelConceptValue}
+                    onNext={handleCloseChannelConceptModal}
+                    onChange={handleChangeChannelConcept}
+                />
+            )}
         </>
     )
 }
