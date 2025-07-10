@@ -23,7 +23,7 @@ export default function SettingPage() {
         <div className="fixed inset-0 z-50 bg-black/50 flex justify-center items-center">
             <div className="bg-[#262626] text-white w-[792px] max-h-[90vh] rounded-xl overflow-hidden flex flex-col">
                 <div className="flex w-[792px] h-19 px-6 justify-between items-center flex-shrink-0 bg-[#262626]">
-                    <h2 className="font-setting-fixed">설정</h2>
+                    <h2 className="font-title">설정</h2>
                 </div>
 
                 <div className="flex">
@@ -58,14 +58,16 @@ export default function SettingPage() {
                                 ></div>
                             </div>
 
-                            <div className="flex flex-col gap-2">
-                                <Label className="font-body text-[#A8A8A8]">닉네임</Label>
-                                <div className="font-title text-[#F4F4F4]">찰스엔터</div>
-                            </div>
+                            <div className="flex flex-col gap-4">
+                                <div className="flex flex-col gap-2">
+                                    <Label className="font-body text-[#A8A8A8]">닉네임</Label>
+                                    <div className="font-title text-[#F4F4F4]">찰스엔터</div>
+                                </div>
 
-                            <div>
-                                <Label className="font-body text-[#A8A8A8]">이메일</Label>
-                                <div className="font-title text-[#F4F4F4]">kjh213513@gmail.com</div>
+                                <div className="flex flex-col gap-2">
+                                    <Label className="font-body text-[#A8A8A8]">이메일</Label>
+                                    <div className="font-title text-[#F4F4F4]">kjh213513@gmail.com</div>
+                                </div>
                             </div>
 
                             <div className="flex flex-col gap-4">
@@ -102,8 +104,8 @@ export default function SettingPage() {
                                 </div>
                             </div>
 
-                            <div className="mt-4">
-                                <Button className="w-full">탈퇴하기</Button>
+                            <div className="w-full pb-6">
+                                <Button className="w-full font-title-alt">탈퇴하기</Button>
                             </div>
                         </div>
                     </div>

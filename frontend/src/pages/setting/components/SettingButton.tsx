@@ -7,13 +7,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button({ children, variant = 'default', className = '', ...props }: ButtonProps) {
-    const base =
-        'flex items-center p-2 gap-2 rounded-lg w-[135px] font-body tracking-tight self-stretch transition-colors'
+    const base = 'flex items-center p-2 gap-2 rounded-lg w-[135px] self-stretch transition-colors'
 
     const variants = {
-        default: 'bg-white text-black',
-        secondary: 'bg-[#262626] text-white',
-        ghost: 'bg-transparent text-white hover:bg-[#262626]',
+        default: 'text-[#F4F4F4]',
+        secondary: 'bg-[#262626] text-white font-body tracking-tight',
+        ghost: 'bg-transparent text-white hover:bg-[#262626] font-body tracking-tight',
     }
 
     return (
