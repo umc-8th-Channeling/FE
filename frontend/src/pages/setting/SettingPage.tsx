@@ -10,6 +10,7 @@ import CompleteRedIcon from '../../assets/icons/complete_on.svg'
 import SendIcon from '../../assets/icons/send.svg'
 import CloseIcon from '../../assets/icons/delete_normal.svg'
 import LogoutIcon from '../../assets/icons/logout.svg'
+import WithdrawlModal from './components/WithdrawlModal'
 
 const labelMap = {
     instagram: '인스타그램',
@@ -50,6 +51,13 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         setEditing(!editing)
         setModified(false)
     }
+
+    const [showWithdrawlModal, setShowWithdrawlModal] = useState(false)
+
+    const handleWithdrawlConfirm = () => {
+        setShowWithdrawlModal(false)
+    }
+
     return (
         <div className="fixed inset-0 z-50 bg-black/50 flex justify-center items-center">
             <div className="bg-[#262626] text-white w-[792px] max-h-[90vh] rounded-xl overflow-hidden flex flex-col">
@@ -81,7 +89,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                         </div>
                         <Button
                             variant="ghost"
-                            className="w-full text-left text-red-500 mt-auto
+                            className="w-full text-left text-[#F4F4F4] mt-auto
                         flex items-center justify-between"
                         >
                             <span>로그아웃</span>
@@ -143,7 +151,10 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 </div>
 
                                 <div className="w-full pb-6">
-                                    <Button className="w-full font-title-alt flex items-center justify-between">
+                                    <Button
+                                        className="w-full font-title-alt flex items-center justify-between"
+                                        onClick={() => setShowWithdrawlModal(true)}
+                                    >
                                         <span>탈퇴하기</span>
                                         <img src={SendIcon} alt="탈퇴 아이콘" />
                                     </Button>
@@ -173,6 +184,10 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                     </div>
                 </div>
             </div>
+
+            {showWithdrawlModal && (
+                <WithdrawlModal onClose={() => setShowWithdrawlModal(false)} onConfirm={handleWithdrawlConfirm} />
+            )}
         </div>
     )
 }
