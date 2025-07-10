@@ -20,14 +20,6 @@ const Modal = ({ title, description, onClose, className = '', children }: PropsW
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [onClose])
 
-    // 모달 창 열려 있는 동안 스크롤 금지
-    useEffect(() => {
-        document.body.style.overflow = 'hidden'
-        return () => {
-            document.body.style.overflow = ''
-        }
-    }, [])
-
     return (
         <div
             onClick={onClose} // 배경 클릭으로 모달 창 닫기
