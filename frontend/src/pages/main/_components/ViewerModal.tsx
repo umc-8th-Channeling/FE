@@ -11,6 +11,7 @@ export default function ViewerModal({ onClose, value, onChange }: ViewerModalPro
     return (
         <Modal title="30초면 완성해요! 유튜버님의 시청자 타겟을 알려주세요." onClose={onClose}>
             <TextareaWithArrow
+                id="viewer"
                 value={value}
                 onChange={onChange}
                 placeholder="정확한 분석을 위해 유튜버님의 시청자 타겟에 대한 설명을 입력해주세요. (예: 20대, 여성)"
