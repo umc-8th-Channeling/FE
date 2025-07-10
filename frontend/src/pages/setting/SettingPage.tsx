@@ -7,6 +7,9 @@ import '../../styles/scrollbar.css'
 import EditIcon from '../../assets/icons/edit.svg'
 import CompleteIcon from '../../assets/icons/complete_off.svg'
 import CompleteRedIcon from '../../assets/icons/complete_on.svg'
+import SendIcon from '../../assets/icons/send.svg'
+import CloseIcon from '../../assets/icons/delete_normal.svg'
+import LogoutIcon from '../../assets/icons/logout.svg'
 
 const labelMap = {
     instagram: '인스타그램',
@@ -17,7 +20,11 @@ const labelMap = {
 
 type SNSKey = keyof typeof labelMap
 
-export default function SettingPage() {
+type SettingPageProps = {
+    onClose: () => void
+}
+
+export default function SettingPage({ onClose }: SettingPageProps) {
     const [formData, setFormData] = useState<Record<SNSKey, string>>({
         instagram: '',
         tiktok: '',
@@ -48,6 +55,9 @@ export default function SettingPage() {
             <div className="bg-[#262626] text-white w-[792px] max-h-[90vh] rounded-xl overflow-hidden flex flex-col">
                 <div className="flex w-[792px] h-[76px] px-6 justify-between items-center flex-shrink-0 bg-[#262626]">
                     <h2 className="font-title">설정</h2>
+                    <button onClick={onClose}>
+                        <img src={CloseIcon} alt="닫기 아이콘" />
+                    </button>
                 </div>
 
                 <div className="flex">
@@ -69,8 +79,13 @@ export default function SettingPage() {
                                 동의
                             </Button>
                         </div>
-                        <Button variant="ghost" className="w-full text-left text-red-500 mt-auto">
-                            로그아웃
+                        <Button
+                            variant="ghost"
+                            className="w-full text-left text-red-500 mt-auto
+                        flex items-center justify-between"
+                        >
+                            <span>로그아웃</span>
+                            <img src={LogoutIcon} alt="로그아웃 아이콘" />
                         </Button>
                     </div>
 
@@ -128,7 +143,10 @@ export default function SettingPage() {
                                 </div>
 
                                 <div className="w-full pb-6">
-                                    <Button className="w-full font-title-alt">탈퇴하기</Button>
+                                    <Button className="w-full font-title-alt flex items-center justify-between">
+                                        <span>탈퇴하기</span>
+                                        <img src={SendIcon} alt="탈퇴 아이콘" />
+                                    </Button>
                                 </div>
                             </div>
                         )}
