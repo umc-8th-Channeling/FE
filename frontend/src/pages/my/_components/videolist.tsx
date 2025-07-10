@@ -54,7 +54,10 @@ export default function Videolist() {
                                     >
                                         취소
                                     </button>
-                                    <button className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer">
+                                    <button
+                                        className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer"
+                                        onClick={getReport}
+                                    >
                                         리포트 받기
                                     </button>
                                 </div>
@@ -80,7 +83,10 @@ export default function Videolist() {
                                     >
                                         취소
                                     </button>
-                                    <button className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer">
+                                    <button
+                                        className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer"
+                                        onClick={getReport}
+                                    >
                                         리포트 받기
                                     </button>
                                 </div>
