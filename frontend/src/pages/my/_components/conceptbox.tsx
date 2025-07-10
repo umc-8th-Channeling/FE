@@ -4,10 +4,39 @@ import Correction_active from '../../../assets/icons/correction_active.svg?react
 import { useState } from 'react'
 
 const Conceptbox = () => {
+    const MODES = {
+        VIEW: 'VIEW',
+        EDIT: 'EDIT',
+        ACTIVE_COMPLETE: 'ACTIVE_COMPLETE',
+    } as const
+
+    type Mode = keyof typeof MODES // 'VIEW' | 'EDIT' | 'ACTIVE_COMPLETE'
+
+    const [mode, setMode] = useState<Mode>('VIEW')
     const [value, setValue] = useState('')
-    const [isOpen, setIsOpen] = useState(false)
-    const [isEditing, setIsEditing] = useState(false)
-    const [isFocus, setISFocus] = useState(false)
+
+    const actionMap = {
+        ['VIEW']: {
+            Icon: Correction,
+            label: '수정',
+            textClass: 'text-gray-900',
+            onClick: () => setMode('EDIT'),
+        },
+        ['EDIT']: {
+            Icon: Correction_before,
+            label: '완료',
+            textClass: 'text-gray-600',
+            onClick: () => setMode('EDIT'),
+        },
+        ['ACTIVE_COMPLETE']: {
+            Icon: Correction_active,
+            label: '완료',
+            textClass: 'text-primary-500',
+            onClick: () => setMode('VIEW'),
+        },
+    }
+
+    const { Icon, label, textClass, onClick } = actionMap[mode]
 
     return (
         <div className="mt-[40px] w-[1200px] h-[100px]">
@@ -15,63 +44,26 @@ const Conceptbox = () => {
                 <div className=" text-gray-900 font-bold text-[20px] whitespace-nowrap leading-[140%] tracking-[-0.5px]">
                     채널 컨셉
                 </div>
-                {!isOpen && (
-                    <div className="flex gap-[4px] cursor-pointer" onClick={() => setIsOpen(true)}>
-                        <Correction />
-                        <div
-                            className={
-                                'text-gray-900 text-[16px] font-medium whitespace-nowrap leading-[150%] tracking-[-0.4px]'
-                            }
-                        >
-                            수정
-                        </div>
-                    </div>
-                )}
-                {isOpen && !isEditing && (
-                    <div className="flex gap-[4px] cursor-pointer">
-                        <Correction_before />
-                        <div
-                            className={
-                                'text-gray-600 text-[16px] font-medium whitespace-nowrap leading-[150%] tracking-[-0.4px]'
-                            }
-                        >
-                            완료
-                        </div>
-                    </div>
-                )}
-                {isOpen && isEditing && (
+
+                <div className="flex gap-[4px] cursor-pointer" onClick={onClick}>
+                    <Icon />
                     <div
-                        className="flex gap-[4px] cursor-pointer"
-                        onClick={() => {
-                            setIsOpen(false)
-                            setIsEditing(false)
-                        }}
+                        className={`text-[16px] font-medium whitespace-nowrap leading-[150%] tracking-[-0.4px] ${textClass}`}
                     >
-                        <Correction_active />
-                        <div
-                            className={
-                                'text-primary-500 text-[16px] font-medium whitespace-nowrap leading-[150%] tracking-[-0.4px]'
-                            }
-                        >
-                            완료
-                        </div>
+                        {label}
                     </div>
-                )}
+                </div>
             </div>
             <div
-                className={`mt-[16px] w-[1200px] h-[152px] p-[16px] rounded-[16px] gap-[24px] bg-neutral-white-opacity10 placeholder-gray-600 border-[1px] ${
-                    isFocus ? 'border-gray-400' : 'border-transparent'
-                }`}
+                className={`mt-[16px] w-[1200px] h-[152px] p-[16px] rounded-[16px] gap-[24px] bg-neutral-white-opacity10 placeholder-gray-600 border-[1px] border-transparent focus-within:border-gray-400`}
             >
                 <textarea
                     value={value}
-                    disabled={!isOpen}
+                    disabled={mode === 'VIEW'}
                     onChange={(e) => {
                         setValue(e.target.value)
-                        setIsEditing(true)
+                        setMode('ACTIVE_COMPLETE')
                     }}
-                    onFocus={() => setISFocus(true)}
-                    onBlur={() => setISFocus(false)}
                     placeholder="유튜버님의 채널 컨셉에 대한 설명을 입력해주세요."
                     className="w-full h-fit outline-none resize-none leading-[150%] tracking-[-0.4px]"
                 />
