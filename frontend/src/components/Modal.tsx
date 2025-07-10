@@ -5,9 +5,10 @@ interface ModalProps {
     title: string
     description?: string
     onClose: () => void
+    className?: string // className을 props로 전달하여 모달의 스타일 수정이 가능합니다. 예) className="w-[486px]" 전달하여 모달의 크기를 고정
 }
 
-const Modal = ({ title, description, onClose, children }: PropsWithChildren<ModalProps>) => {
+const Modal = ({ title, description, onClose, className = '', children }: PropsWithChildren<ModalProps>) => {
     const modalRef = useRef<HTMLDivElement>(null)
 
     // ESC 키로 모달 창 닫기
@@ -42,10 +43,11 @@ const Modal = ({ title, description, onClose, children }: PropsWithChildren<Moda
             <div
                 ref={modalRef}
                 onClick={(e) => e.stopPropagation()}
-                className="
+                className={`
                     relative flex flex-col min-w-[288px] tablet:min-w-[384px] desktop:min-w-[486px]
                     space-y-4 tablet:space-y-6 bg-surface-elevate-l2 p-6 rounded-3xl
-                "
+                    ${className}
+                `}
             >
                 <button
                     type="button"
