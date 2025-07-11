@@ -70,7 +70,7 @@ export default function LibraryPage() {
                     }`}
                     onClick={() => setActiveTab('scrap')}
                 >
-                    스크랩
+                    저장한 아이디어
                     {activeTab === 'scrap' && (
                         <span className="absolute left-0 bottom-0 h-1 w-full bg-primary-500 z-10"></span>
                     )}
