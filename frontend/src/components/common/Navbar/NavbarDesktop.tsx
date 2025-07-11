@@ -72,7 +72,7 @@ export const NavbarDesktop = (): React.ReactElement => {
                     onClose={handleCloseViewerModal}
                     value={viewerValue}
                     onChange={handleViewerChange}
-                    onNext={() => {
+                    handleButtonClick={() => {
                         handleCloseViewerModal()
                         handleOpenChannelConceptModal()
                     }}
@@ -82,7 +82,7 @@ export const NavbarDesktop = (): React.ReactElement => {
                 <ChannelConceptModal
                     onClose={handleCloseChannelConceptModal}
                     value={channelConceptValue}
-                    onNext={handleCloseChannelConceptModal}
+                    handleButtonClick={handleCloseChannelConceptModal}
                     onChange={handleChangeChannelConcept}
                 />
             )}
