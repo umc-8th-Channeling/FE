@@ -26,8 +26,8 @@ const TABS = COMMENTS.map(({ label, comments }) => ({
 export const CommentFeedback = () => {
     return (
         <TitledSection title="댓글 반응">
-            <div className="flex flex-col desktop:flex-row justify-center items-center desktop:items-start p-6 gap-8 border border-gray-200 rounded-lg bg-surface-elevate-l1 overflow-hidden">
-                <div className="desktop:min-w-[448px]">
+            <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start p-6 gap-8 border border-gray-200 rounded-lg bg-surface-elevate-l1 overflow-hidden">
+                <div className="w-full min-w-[280px] max-w-[448px] aspect-square">
                     <DoughnutChart labels={['긍정', '부정', '중립', '조언 및 의견']} data={[25, 25, 6, 44]} />
                 </div>
 
