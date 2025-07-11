@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
 import ArrowButton from './ArrowButton'
 import type { ButtonType } from '../types/common'
+import Textarea from './Textarea'
 
 interface TextareaWithArrowProps {
-    id: string
-    value: string
-    onChange: (value: string) => void
+    id: string // textarea 요소의 고유 id
+    value: string // textarea의 현재 값
+    onChange: (value: string) => void // 사용자가 입력한 텍스트가 변경될 때 호출되는 함수
     placeholder?: string
-    isActive?: boolean
-    buttonType?: ButtonType
-    onNext?: () => void
+    initialRows?: number // row 개수로 textarea 박스의 초기 높이를 지정할 수 있습니다. 디폴트는 1
+
+    isActive?: boolean // 화살표 버튼의 활성화 여부
+    handleButtonClick?: () => void // 화살표 버튼을 클릭했을 때 실행할 함수를 전달합니다.
+    buttonType?: ButtonType // button 태그의 타입을 지정합니다. 디폴트는 button
 }
 
 const TextareaWithArrow = ({
@@ -17,55 +19,17 @@ const TextareaWithArrow = ({
     value,
     onChange,
     placeholder,
+    initialRows = 1,
     isActive = true,
+    handleButtonClick,
     buttonType = 'button',
-    onNext,
 }: TextareaWithArrowProps) => {
-    const [isFocused, setIsFocused] = useState(false)
-    const textareaRef = useRef<HTMLTextAreaElement>(null)
-    const isMobile = window.innerWidth <= 768
-
-    // Desktop, Tablet: 5줄까지 textarea가 늘어납니다. 6줄 부터는 스크롤해서 확인합니다.
-    // Mobile: 3줄까지 textarea가 늘어납니다. 4줄 부터는 스크롤해서 확인합니다.
-    useEffect(() => {
-        const textarea = textareaRef.current
-        if (!textarea) return
-
-        textarea.style.height = 'auto'
-
-        const maxLines = isMobile ? 3 : 5
-        const maxHeight = 32 * maxLines
-        textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + 'px'
-    }, [value, isMobile])
-
     return (
-        <div
-            className={`
-                flex flex-col w-[240px] tablet:w-[540px] desktop:w-[744px] p-4 space-y-6
-                border placeholder-gray-600 bg-neutral-white-opacity10 rounded-2xl
-                transition duration-300 ${isFocused ? 'border-gray-400' : 'border-transparent'}    
-            `}
-        >
-            <textarea
-                ref={textareaRef}
-                id={id}
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-                rows={isMobile ? 1 : 3}
-                placeholder={placeholder}
-                className="
-                    w-full h-fit max-h-[65px] tablet:max-h-[120px] tablet:px-2 outline-none resize-none focus:placeholder-transparent
-                    text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
-                    whitespace-pre-line desktop:whitespace-nowrap
-                "
-            />
-
+        <Textarea id={id} value={value} onChange={onChange} placeholder={placeholder} initialRows={initialRows}>
             <div className="flex justify-end">
-                <ArrowButton type={buttonType} isActive={isActive} onClick={onNext} className="w-10 h-10" />
+                <ArrowButton type={buttonType} onClick={handleButtonClick} isActive={isActive} className="w-10 h-10" />
             </div>
-        </div>
+        </Textarea>
     )
 }
 
