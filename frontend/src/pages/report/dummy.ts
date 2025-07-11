@@ -147,5 +147,37 @@ XIII. 인터뷰어 추적 (3:58 - 끝)
 영상 종료.
 `
 
+export const IDEA_TREND = [
+    { keyword: '플루미넨시 대 울산', updatedAt: '2025-07-11T12:00:00+09:00', score: 100 },
+    { keyword: '플루미넨시 대 울산', updatedAt: '2025-07-11T12:00:00+09:00', score: 10 },
+    { keyword: '플루미넨시 대 울산', updatedAt: '2025-07-11T12:00:00+09:00', score: 3 },
+    { keyword: '플루미넨시 대 울산', updatedAt: '2025-07-10T23:00:00+09:00', score: 1 },
+    { keyword: '플루미넨시 대 울산', updatedAt: '2025-06-08T24:00:00+09:00', score: 0.1 },
+]
+
+export const IDEA_NEXT_CONTENTS = [
+    {
+        id: 1,
+        title: '코케트(coquette) 패션 인사',
+        description: '코케트 룩(리본, 파스텔톤)으로 변신 후, 지나가는  사람들에게 사랑스러운 인사 도전',
+        tags: ['거리소통', '코케트', '파스텔인사', '패션브이로그'],
+        hasBookmark: true,
+    },
+    {
+        id: 2,
+        title: '코케트(coquette) 패션 인사',
+        description: '코케트 룩(리본, 파스텔톤)으로 변신 후, 지나가는  사람들에게 사랑스러운 인사 도전',
+        tags: ['거리소통', '코케트', '파스텔인사', '패션브이로그'],
+        hasBookmark: false,
+    },
+    {
+        id: 3,
+        title: '코케트(coquette) 패션 인사',
+        description: '코케트 룩(리본, 파스텔톤)으로 변신 후, 지나가는  사람들에게 사랑스러운 인사 도전',
+        tags: ['거리소통', '코케트', '파스텔인사', '패션브이로그'],
+        hasBookmark: false,
+    },
+]
+
 export const DUMMY_IMAGE =
     'https://spangled-bridge-914.notion.site/image/attachment%3Ad71de08e-3d09-44b2-9f7a-a34ce660ba18%3Atemp.jpg?table=block&id=22608691-8f43-805d-9a40-c6e8fe09ebca&spaceId=719616fc-abf0-4573-86e5-37abb50a4cfb&width=1360&userId=&cache=v2'
