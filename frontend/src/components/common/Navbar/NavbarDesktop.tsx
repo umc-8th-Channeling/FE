@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { NavbarContainer } from './NavbarContainer'
-import { NavbarLink } from './NavbarLink'
+import { NavbarLink, NavbarModalButton } from './NavbarLink'
 import { ToolTipBubble } from './NavbarToolTip'
 import Modal from '../../Modal'
-import { TOP_LINKS, BOTTOM_LINKS } from './navbarLinks'
+import { PLUS_LINK, NAVIGATE_LINKS, LOGIN_LINK } from './navbarLinks'
 import ChannelingLogo from '../../../assets/icons/channeling.svg?react'
 import { NavbarUserInfo } from './NavbarUserInfo'
 import { DUMMY_USER } from './dummy'
@@ -13,13 +13,14 @@ type ToolTipPos = { top: number; left: number }
 
 export const NavbarDesktop = () => {
     const [showLoginModal, setShowLoginModal] = useState(false)
+    const [showPlusModal, setShowPlusModal] = useState(false)
     const isGuest = !localStorage.getItem('token')
     const user = DUMMY_USER
 
     const loginRef = useRef<HTMLDivElement>(null)
     const [tooltipPos, setTooltipPos] = useState<ToolTipPos | null>(null)
 
-    // 로그인 툴팁 위치 설정
+    // 로그인 툴팁 위치 계산
     useEffect(() => {
         if (isGuest && loginRef.current) {
             const rect = loginRef.current.getBoundingClientRect()
@@ -30,24 +31,25 @@ export const NavbarDesktop = () => {
         }
     }, [isGuest])
 
-    const handleShowModalChange = () => setShowLoginModal(!showLoginModal)
+    const handleLoginModalClick = () => setShowLoginModal(!showLoginModal)
+    const handlePlusModalClick = () => setShowPlusModal(!showPlusModal)
 
     return (
         <>
             <NavbarContainer>
                 <div className="flex flex-col justify-between h-full w-full">
                     {/* 네비게이션 메뉴 */}
-                    <div className="flex flex-col items-center gap-22">
-                        <Link to="/">
+                    <div className="flex flex-col items-center">
+                        <Link to="/" className="mb-22">
                             <ChannelingLogo />
                         </Link>
-                        <div className="flex flex-col items-center gap-6">
-                            <NavbarLink {...TOP_LINKS.find((link) => link.to === '/report')!} />
-                            <div className="flex flex-col items-center gap-2">
-                                {TOP_LINKS.filter((link) => link.to !== '/report').map((link) => (
-                                    <NavbarLink key={link.to} {...link} />
-                                ))}
-                            </div>
+
+                        <NavbarModalButton {...PLUS_LINK} onClick={handlePlusModalClick} />
+
+                        <div className="flex flex-col items-center gap-2 mt-6">
+                            {NAVIGATE_LINKS.map((link) => (
+                                <NavbarLink key={link.to} {...link} />
+                            ))}
                         </div>
                     </div>
 
@@ -56,11 +58,7 @@ export const NavbarDesktop = () => {
                         {!isGuest && user ? (
                             <NavbarUserInfo user={DUMMY_USER} />
                         ) : (
-                            <>
-                                {BOTTOM_LINKS.map((link) => (
-                                    <NavbarLink key={link.alt} {...link} onLoginClick={handleShowModalChange} />
-                                ))}
-                            </>
+                            <NavbarModalButton key={LOGIN_LINK.alt} {...LOGIN_LINK} onClick={handleLoginModalClick} />
                         )}
                     </div>
 
@@ -74,7 +72,7 @@ export const NavbarDesktop = () => {
             </NavbarContainer>
 
             {/* 로그인 모달 */}
-            {showLoginModal && <Modal title="로그인" onClose={handleShowModalChange} />}
+            {showLoginModal && <Modal title="로그인" onClose={handleLoginModalClick} />}
         </>
     )
 }
