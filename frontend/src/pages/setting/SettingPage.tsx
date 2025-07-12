@@ -98,7 +98,20 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                     </div>
 
                     {/* 본문 */}
-                    <div className="w-[625px] h-[524px] self-stretch flex flex-col items-end p-8 gap-10 overflow-y-auto">
+                    <div
+                        className="w-[625px] h-[524px] self-stretch flex flex-col items-end p-8 gap-10 overflow-y-auto"
+                        style={{
+                            scrollbarWidth: 'none',
+                            msOverflowStyle: 'none',
+                        }}
+                    >
+                        <style>
+                            {`
+                                div::-webkit-scrollbar {
+                                display: none;
+                                }
+                                `}
+                        </style>
                         {activeTab === 'profile' && (
                             <div className="flex flex-col gap-10 w-full">
                                 <div className="flex items-center justify-center h-full gap-4">
