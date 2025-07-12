@@ -6,17 +6,20 @@ import { ToolTipBubble } from './NavbarToolTip'
 import Modal from '../../Modal'
 import { TOP_LINKS, BOTTOM_LINKS } from './navbarLinks'
 import ChannelingLogo from '../../../assets/icons/channeling.svg?react'
-// import { NavbarUserInfo } from './NavbarUserInfo';
+import { NavbarUserInfo } from './NavbarUserInfo'
+import { DUMMY_USER } from './dummy'
 
 type ToolTipPos = { top: number; left: number }
 
 export const NavbarDesktop = () => {
     const [showLoginModal, setShowLoginModal] = useState(false)
     const isGuest = !localStorage.getItem('token')
+    const user = DUMMY_USER
 
     const loginRef = useRef<HTMLDivElement>(null)
     const [tooltipPos, setTooltipPos] = useState<ToolTipPos | null>(null)
 
+    // 로그인 툴팁 위치 설정
     useEffect(() => {
         if (isGuest && loginRef.current) {
             const rect = loginRef.current.getBoundingClientRect()
@@ -33,6 +36,7 @@ export const NavbarDesktop = () => {
         <>
             <NavbarContainer>
                 <div className="flex flex-col justify-between h-full w-full">
+                    {/* 네비게이션 메뉴 */}
                     <div className="flex flex-col items-center gap-22">
                         <Link to="/">
                             <ChannelingLogo />
@@ -47,14 +51,17 @@ export const NavbarDesktop = () => {
                         </div>
                     </div>
 
+                    {/* 로그인 버튼 혹은 유저 프로필 */}
                     <div ref={loginRef} className="flex flex-col items-center">
-                        {/* 로그인 성공 시 아이콘 변경
-                        {user ? (
-                            <NavbarUserInfo user={user} />
-                        ) : */}
-                        {BOTTOM_LINKS.map((link) => (
-                            <NavbarLink key={link.alt} {...link} onLoginClick={handleShowModalChange} />
-                        ))}
+                        {!isGuest && user ? (
+                            <NavbarUserInfo user={DUMMY_USER} />
+                        ) : (
+                            <>
+                                {BOTTOM_LINKS.map((link) => (
+                                    <NavbarLink key={link.alt} {...link} onLoginClick={handleShowModalChange} />
+                                ))}
+                            </>
+                        )}
                     </div>
 
                     {/* 게스트일 경우, 10초만에 로그인 툴팁 */}
