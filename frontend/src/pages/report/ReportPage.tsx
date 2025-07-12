@@ -60,7 +60,7 @@ export default function ReportPage() {
             <button
                 onClick={handleOpenModalClick}
                 className="
-                    cursor-pointer absolute bottom-6 right-6 p-4 rounded-2xl 
+                    cursor-pointer fixed bottom-6 right-6 p-4 rounded-2xl 
                     border border-primary-600 bg-primary-500 shadow-[0_0_8px_0_var(--color-primary-500)]
                 "
             >
