@@ -9,7 +9,7 @@ export default function RootLayoutMobile() {
         <div className="flex tablet:hidden">
             <NavbarMobile />
 
-            <main className="mt-14 w-full h-screen flex items-center justify-center bg-surface">
+            <main className="pt-14 w-full h-screen flex items-center justify-center bg-surface">
                 {/* 메인 페이지일 경우 고정 위치 그라데이션 배경 */}
                 {isMain && <div className="absolute inset-0 z-0 bg-linear-to-b from-gray-50 to-primary-50" />}
 

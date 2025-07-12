@@ -9,7 +9,7 @@ export default function RootLayoutDesktop() {
         <div className="hidden desktop:flex">
             <NavbarDesktop />
 
-            <main className="ml-18 w-full h-screen flex items-center justify-center bg-surface">
+            <main className="pl-18 w-full h-screen flex items-center justify-center bg-surface">
                 <div className="m-2 w-full h-[calc(100%-16px)] rounded-lg overflow-hidden relative">
                     {/* 메인 페이지일 경우 고정 위치 그라데이션 배경 */}
                     {isMain && <div className="absolute inset-0 z-0 bg-linear-to-b from-gray-50 to-primary-50" />}
