@@ -144,6 +144,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                                     value={formData[sns]}
                                                     onChange={handleChange}
                                                     disabled={!editing}
+                                                    editing={editing}
                                                 />
                                             </div>
                                         ))}
