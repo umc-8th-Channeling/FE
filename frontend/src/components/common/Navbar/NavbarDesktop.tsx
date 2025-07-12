@@ -20,14 +20,27 @@ export const NavbarDesktop = () => {
     const loginRef = useRef<HTMLDivElement>(null)
     const [tooltipPos, setTooltipPos] = useState<ToolTipPos | null>(null)
 
-    // 로그인 툴팁 위치 계산
+    // 로그인 툴팁 위치 조정
     useEffect(() => {
-        if (isGuest && loginRef.current) {
-            const rect = loginRef.current.getBoundingClientRect()
-            setTooltipPos({
-                top: rect.top + window.scrollY,
-                left: rect.right + window.scrollX + 32,
-            })
+        const updateTooltipPosition = () => {
+            if (isGuest && loginRef.current) {
+                const rect = loginRef.current.getBoundingClientRect()
+                setTooltipPos({
+                    top: rect.top + window.scrollY,
+                    left: rect.right + window.scrollX + 32,
+                })
+            }
+        }
+
+        updateTooltipPosition() // 초기 실행
+
+        // 화면 크기 변경에 따라 툴팁의 위치를 업데이트
+        window.addEventListener('scroll', updateTooltipPosition)
+        window.addEventListener('resize', updateTooltipPosition)
+
+        return () => {
+            window.removeEventListener('scroll', updateTooltipPosition)
+            window.removeEventListener('resize', updateTooltipPosition)
         }
     }, [isGuest])
 
