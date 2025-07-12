@@ -1,39 +1,13 @@
-import { useEffect, useState } from 'react'
-import { useForm, type SubmitHandler } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
 import clsx from 'clsx'
-
-import { urlSchema, type UrlForm } from '../../../lib/validation/urlSchema'
 import ErrorIcon from '../../../assets/icons/error.svg?react'
 import ArrowButton from '../../../components/ArrowButton'
 import { ErrorToast } from './ErrorToast'
+import { useUrlInput } from '../../../hooks/main/useUrlInput'
 
 export const UrlInputForm = () => {
-    const [isActive, setIsActive] = useState(false)
     const [isFocused, setIsFocused] = useState(false)
-    const [error, setError] = useState<string | null>(null)
-
-    const { register, handleSubmit, watch } = useForm<UrlForm>({
-        defaultValues: {
-            url: '',
-        },
-        resolver: zodResolver(urlSchema),
-    })
-
-    const urlValue = watch('url')
-
-    useEffect(() => {
-        const isValid = urlSchema.safeParse({ url: urlValue }).success
-        setIsActive(isValid && !error)
-    }, [urlValue, error])
-
-    const onSubmit: SubmitHandler<UrlForm> = async ({ url }) => {
-        try {
-            console.log('MainPage: ', url)
-        } catch {
-            setError('유효하지 않은 링크입니다.') // 임시 에러 메시지 API 연결 시 수정 필요
-        }
-    }
+    const { register, handleSubmit, isActive, error, setError } = useUrlInput()
 
     return (
         <>
@@ -51,7 +25,7 @@ export const UrlInputForm = () => {
 
             <div className="mb-[100px] tablet:mb-20 desktop:mb-[100px]">
                 <form
-                    onSubmit={handleSubmit(onSubmit)}
+                    onSubmit={handleSubmit}
                     className={clsx(
                         'flex flex-row items-center justify-center w-[328px] tablet:w-[588px] p-2 tablet:px-4 tablet:py-3',
                         'bg-neutral-white-opacity10 border rounded-full transition-colors duration-300',
@@ -71,9 +45,9 @@ export const UrlInputForm = () => {
                         onBlur={() => setIsFocused(false)}
                         placeholder="유튜브 영상 URL을 입력하세요."
                         className="
-                                flex-1 px-2 placeholder-gray-600 outline-none focus:placeholder-transparent
-                                text-[14px] leading-[150%] font-normal tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]    
-                            "
+                            flex-1 outline-none px-2 placeholder-gray-600 focus:placeholder-transparent
+                            text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
+                        "
                     />
                     <ArrowButton type="submit" isActive={isActive} className="w-6 h-6 tablet:w-8 tablet:h-8" />
                 </form>
