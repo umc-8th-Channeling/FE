@@ -17,7 +17,7 @@ export const NavbarLink = (props: NavbarLinkProps): React.ReactElement => {
     // 모달용
     if (action === 'login') {
         return (
-            <button onClick={onLoginClick} className={`block ${className ?? ''}`}>
+            <button onClick={onLoginClick} className={`block z-10 ${className ?? ''}`}>
                 <div className="flex flex-col items-center py-2">
                     <IconWrapper
                         defaultIcon={defaultIcon}

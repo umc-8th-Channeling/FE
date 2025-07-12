@@ -10,8 +10,7 @@ import Modal from '../../Modal'
 export const NavbarDesktop = (): React.ReactElement => {
     const [showLoginModal, setShowLoginModal] = useState(false)
 
-    const handleLoginClick = () => setShowLoginModal(true)
-    const handleCloseModal = () => setShowLoginModal(false)
+    const handleShowModalChange = () => setShowLoginModal(!showLoginModal)
 
     return (
         <>
@@ -34,14 +33,14 @@ export const NavbarDesktop = (): React.ReactElement => {
         <NavbarUserInfo user={user} />
       ) : */}
                         {BOTTOM_LINKS.map((link) => (
-                            <NavbarLink key={link.alt} {...link} onLoginClick={handleLoginClick} />
+                            <NavbarLink key={link.alt} {...link} onLoginClick={handleShowModalChange} />
                         ))}
                     </div>
                 </div>
                 <ToolTipBubble />
             </NavbarContainer>
 
-            {showLoginModal && <Modal title="로그인" onClose={handleCloseModal} />}
+            {showLoginModal && <Modal title="로그인" onClose={handleShowModalChange} />}
         </>
     )
 }
