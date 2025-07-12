@@ -1,30 +1,19 @@
 import { useEffect, useState } from 'react'
-import ToolTipIcon from '../../../assets/icons/tooltip.svg'
+import LoginToolTip from '../../../assets/icons/tooltip.svg?react'
 
-export const ToolTipBubble = (): React.ReactElement | null => {
+export const ToolTipBubble = () => {
     const [visible, setVisible] = useState(true)
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setVisible(false)
-        }, 8000)
-
+        const timer = setTimeout(() => setVisible(false), 8000)
         return () => clearTimeout(timer)
     }, [])
 
     if (!visible) return null
 
     return (
-        <div
-            className="
-        absolute left-4 bottom-16
-        w-[140px] h-[38px] pr-[9px]
-        flex items-center z-0
-        pointer-events-none
-      "
-        >
-            <div className="w-24 flex-none"></div>
-            <img src={ToolTipIcon} alt="툴팁" id="tooltip" />
+        <div className="pointer-events-none motion-safe:animate-sway">
+            <LoginToolTip />
         </div>
     )
 }
