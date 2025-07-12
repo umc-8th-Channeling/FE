@@ -4,18 +4,15 @@ import { TOP_LINKS, BOTTOM_LINKS } from './navbarLinks'
 import { NavbarContainer } from './NavbarContainer'
 import { ToolTipBubble } from './NavbarToolTip'
 import { useState } from 'react'
-import LoginModal from '../../../pages/main/_components/LoginModal'
-import ViewerModal from '../../../pages/main/_components/ViewerModal'
-import ChannelConceptModal from '../../../pages/main/_components/ChannelConceptModal'
+import Modal from '../../Modal'
 // import { NavbarUserInfo } from './NavbarUserInfo';
 
 export const NavbarDesktop = (): React.ReactElement => {
     const [showLoginModal, setShowLoginModal] = useState(false)
     const [showViewerModal, setShowViewerModal] = useState(false)
+    const [showChannelConceptModal, setShowChannelConceptModal] = useState(false)
 
     const [viewerValue, setViewerValue] = useState('')
-
-    const [showChannelConceptModal, setShowChannelConceptModal] = useState(false)
     const [channelConceptValue, setChannelConceptValue] = useState('')
 
     const handleViewerChange = (value: string) => {
