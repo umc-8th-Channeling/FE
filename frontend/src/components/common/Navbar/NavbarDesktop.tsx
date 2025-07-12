@@ -8,6 +8,7 @@ import { PLUS_LINK, NAVIGATE_LINKS, LOGIN_LINK } from './navbarLinks'
 import ChannelingLogo from '../../../assets/icons/channeling.svg?react'
 import { NavbarUserInfo } from './NavbarUserInfo'
 import { DUMMY_USER } from './dummy'
+import { UrlInputModal } from '../../../pages/main/_components'
 
 type ToolTipPos = { top: number; left: number }
 
@@ -57,6 +58,7 @@ export const NavbarDesktop = () => {
                             <ChannelingLogo />
                         </Link>
 
+                        {/* + 버튼 */}
                         <NavbarModalButton {...PLUS_LINK} onClick={handlePlusModalClick} />
 
                         <div className="flex flex-col items-center gap-2 mt-6">
@@ -83,6 +85,9 @@ export const NavbarDesktop = () => {
                     )}
                 </div>
             </NavbarContainer>
+
+            {/* + 버튼 유튜브 URL 입력 모달  */}
+            {showPlusModal && <UrlInputModal onClose={handlePlusModalClick} />}
 
             {/* 로그인 모달 */}
             {showLoginModal && <Modal title="로그인" onClose={handleLoginModalClick} />}

@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { urlSchema, type UrlForm } from '../../lib/validation/urlSchema'
-import { useNavigate } from 'react-router-dom'
 
-export const useUrlInput = () => {
-    const navigate = useNavigate()
+export const useUrlInput = (onSubmitSuccess: (url: string) => void) => {
     const [isActive, setIsActive] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
@@ -23,8 +21,7 @@ export const useUrlInput = () => {
 
     const onSubmit: SubmitHandler<UrlForm> = async ({ url }) => {
         try {
-            console.log('Youtube URL Input: ', url)
-            navigate('/report')
+            onSubmitSuccess(url)
         } catch {
             setError('유효하지 않은 링크입니다.') // 임시 에러 메시지 API 연결 시 수정 필요
         }

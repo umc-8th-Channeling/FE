@@ -4,10 +4,15 @@ import ErrorIcon from '../../../assets/icons/error.svg?react'
 import ArrowButton from '../../../components/ArrowButton'
 import { ErrorToast } from './ErrorToast'
 import { useUrlInput } from '../../../hooks/main/useUrlInput'
+import { useNavigate } from 'react-router-dom'
 
 export const UrlInputForm = () => {
+    const navigate = useNavigate()
     const [isFocused, setIsFocused] = useState(false)
-    const { register, handleSubmit, isActive, error, setError } = useUrlInput()
+    const { register, handleSubmit, isActive, error, setError } = useUrlInput((url) => {
+        console.log('메인 페이지에서 받은 URL:', url)
+        navigate('/report')
+    })
 
     return (
         <>
@@ -49,7 +54,7 @@ export const UrlInputForm = () => {
                             text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
                         "
                     />
-                    <ArrowButton type="submit" isActive={isActive} className="w-6 h-6 tablet:w-8 tablet:h-8" />
+                    <ArrowButton type="submit" isActive={isActive} className="size-6 tablet:size-8" />
                 </form>
 
                 <p
