@@ -8,7 +8,7 @@ interface ChannelConceptModalProps {
     onChange: (value: string) => void
 }
 
-export default function ChannelConceptModal({ onClose, handleButtonClick, value, onChange }: ChannelConceptModalProps) {
+export const ChannelConceptModal = ({ onClose, handleButtonClick, value, onChange }: ChannelConceptModalProps) => {
     return (
         <Modal title="마지막이에요! 유튜버님의 채널 컨셉을 알려주세요." onClose={onClose}>
             <TextareaWithArrow

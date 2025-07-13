@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom'
 import { NavbarContainer } from './NavbarContainer'
 import { NavbarLink, NavbarModalButton } from './NavbarLink'
 import { ToolTipBubble } from './NavbarToolTip'
-import Modal from '../../Modal'
 import { PLUS_LINK, NAVIGATE_LINKS, LOGIN_LINK } from './navbarLinks'
 import ChannelingLogo from '../../../assets/icons/channeling.svg?react'
 import { NavbarUserInfo } from './NavbarUserInfo'
 import { DUMMY_USER } from './dummy'
-import { UrlInputModal } from '../../../pages/main/_components'
+import { ChannelConceptModal, LoginModal, UrlInputModal, ViewerModal } from '../../../pages/main/_components'
 
 type ToolTipPos = { top: number; left: number }
 
@@ -24,7 +23,6 @@ export const NavbarDesktop = () => {
         setViewerValue(value)
     }
 
-    const handleLoginClick = () => setShowLoginModal(true)
     const handleCloseLoginModal = () => setShowLoginModal(false)
     const handleOpenViewerModal = () => setShowViewerModal(true)
     const handleCloseViewerModal = () => setShowViewerModal(false)
@@ -135,9 +133,6 @@ export const NavbarDesktop = () => {
 
             {/* + 버튼 유튜브 URL 입력 모달  */}
             {showPlusModal && <UrlInputModal onClose={handlePlusModalClick} />}
-
-            {/* 로그인 모달 */}
-            {showLoginModal && <Modal title="로그인" onClose={handleLoginModalClick} />}
         </>
     )
 }
