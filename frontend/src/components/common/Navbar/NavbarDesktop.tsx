@@ -14,6 +14,24 @@ type ToolTipPos = { top: number; left: number }
 
 export const NavbarDesktop = () => {
     const [showLoginModal, setShowLoginModal] = useState(false)
+    const [showViewerModal, setShowViewerModal] = useState(false)
+    const [showChannelConceptModal, setShowChannelConceptModal] = useState(false)
+
+    const [viewerValue, setViewerValue] = useState('')
+    const [channelConceptValue, setChannelConceptValue] = useState('')
+
+    const handleViewerChange = (value: string) => {
+        setViewerValue(value)
+    }
+
+    const handleLoginClick = () => setShowLoginModal(true)
+    const handleCloseLoginModal = () => setShowLoginModal(false)
+    const handleOpenViewerModal = () => setShowViewerModal(true)
+    const handleCloseViewerModal = () => setShowViewerModal(false)
+    const handleOpenChannelConceptModal = () => setShowChannelConceptModal(true)
+    const handleCloseChannelConceptModal = () => setShowChannelConceptModal(false)
+    const handleChangeChannelConcept = (value: string) => setChannelConceptValue(value)
+
     const [showPlusModal, setShowPlusModal] = useState(false)
     const isGuest = !localStorage.getItem('token')
     const user = DUMMY_USER
@@ -85,6 +103,35 @@ export const NavbarDesktop = () => {
                     )}
                 </div>
             </NavbarContainer>
+
+            {showLoginModal && (
+                <LoginModal
+                    onClose={handleCloseLoginModal}
+                    onLoginSuccess={() => {
+                        handleCloseLoginModal()
+                        handleOpenViewerModal()
+                    }}
+                />
+            )}
+            {showViewerModal && (
+                <ViewerModal
+                    onClose={handleCloseViewerModal}
+                    value={viewerValue}
+                    onChange={handleViewerChange}
+                    handleButtonClick={() => {
+                        handleCloseViewerModal()
+                        handleOpenChannelConceptModal()
+                    }}
+                />
+            )}
+            {showChannelConceptModal && (
+                <ChannelConceptModal
+                    onClose={handleCloseChannelConceptModal}
+                    value={channelConceptValue}
+                    handleButtonClick={handleCloseChannelConceptModal}
+                    onChange={handleChangeChannelConcept}
+                />
+            )}
 
             {/* + 버튼 유튜브 URL 입력 모달  */}
             {showPlusModal && <UrlInputModal onClose={handlePlusModalClick} />}
