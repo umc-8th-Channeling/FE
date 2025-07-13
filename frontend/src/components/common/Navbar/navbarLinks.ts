@@ -19,10 +19,10 @@ export type LinkItem = {
     label?: string
     isCircle: boolean
     size?: 'sm' | 'md' | 'lg'
+    action?: string
 }
 
 export const LINKS: LinkItem[] = [
-
     {
         to: '/report',
         defaultIcon: PlusIcon,
@@ -59,7 +59,7 @@ export const LINKS: LinkItem[] = [
         isCircle: false,
     },
     {
-        to: '/login',
+        to: '',
         defaultIcon: LoginIcon,
         hoverIcon: LoginIcon,
         activeIcon: LoginIcon,
@@ -67,9 +67,9 @@ export const LINKS: LinkItem[] = [
         label: '로그인',
         isCircle: false,
         size: 'lg',
+        action: 'login',
     },
 ]
 
-
-export const TOP_LINKS = LINKS.filter((link) => link.to !== '/login')
-export const BOTTOM_LINKS = LINKS.filter((link) => link.to === '/login')
+export const TOP_LINKS = LINKS.filter((link) => link.action !== 'login')
+export const BOTTOM_LINKS = LINKS.filter((link) => link.action === 'login')
