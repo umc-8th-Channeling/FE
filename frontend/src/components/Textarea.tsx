@@ -6,6 +6,8 @@ interface TextareaProps {
     onChange: (value: string) => void // 사용자가 입력한 텍스트가 변경될 때 호출되는 함수
     placeholder?: string
     initialRows?: number // row 개수로 textarea 박스의 초기 높이를 지정할 수 있습니다. 디폴트는 1
+    disabled?: boolean
+    className?: string
 }
 
 const Textarea = ({
@@ -15,6 +17,8 @@ const Textarea = ({
     placeholder,
     initialRows = 1,
     children,
+    disabled = false,
+    className,
 }: PropsWithChildren<TextareaProps>) => {
     const [isFocused, setIsFocused] = useState(false)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -39,13 +43,14 @@ const Textarea = ({
             className={`
                 flex flex-col w-full min-w-[240px] tablet:min-w-[540px] desktop:min-w-[744px] p-4 space-y-6
                 border placeholder-gray-600 bg-neutral-white-opacity10 rounded-2xl
-                transition duration-300 ${isFocused ? 'border-gray-400' : 'border-transparent'}    
+                transition duration-300 ${isFocused ? 'border-gray-400' : 'border-transparent'} ${className ?? ''}   
             `}
         >
             <textarea
                 ref={textareaRef}
                 id={id}
                 value={value}
+                disabled={disabled}
                 onChange={(e) => onChange(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}

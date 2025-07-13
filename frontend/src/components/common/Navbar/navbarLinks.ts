@@ -21,16 +21,16 @@ export type LinkItem = {
     size?: 'sm' | 'md' | 'lg'
 }
 
-export const LINKS: LinkItem[] = [
+export const PLUS_LINK: LinkItem = {
+    to: '',
+    defaultIcon: PlusIcon,
+    hoverIcon: PlusIcon,
+    activeIcon: PlusIcon,
+    alt: '새로운 분석 아이콘',
+    isCircle: true,
+}
 
-    {
-        to: '/report',
-        defaultIcon: PlusIcon,
-        hoverIcon: PlusIcon,
-        activeIcon: PlusIcon,
-        alt: '새로운 분석 아이콘',
-        isCircle: true,
-    },
+export const NAVIGATE_LINKS: LinkItem[] = [
     {
         to: '/',
         defaultIcon: HomeIcon,
@@ -58,18 +58,15 @@ export const LINKS: LinkItem[] = [
         label: '저장소',
         isCircle: false,
     },
-    {
-        to: '/login',
-        defaultIcon: LoginIcon,
-        hoverIcon: LoginIcon,
-        activeIcon: LoginIcon,
-        alt: '로그인 아이콘',
-        label: '로그인',
-        isCircle: false,
-        size: 'lg',
-    },
 ]
 
-
-export const TOP_LINKS = LINKS.filter((link) => link.to !== '/login')
-export const BOTTOM_LINKS = LINKS.filter((link) => link.to === '/login')
+export const LOGIN_LINK: LinkItem = {
+    to: '',
+    defaultIcon: LoginIcon,
+    hoverIcon: LoginIcon,
+    activeIcon: LoginIcon,
+    alt: '로그인 아이콘',
+    label: '로그인',
+    isCircle: false,
+    size: 'lg',
+}
