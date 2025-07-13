@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
-type IconWrapperProps = {
+interface IconWrapperProps {
     defaultIcon: string
     hoverIcon?: string
     activeIcon?: string
@@ -19,7 +19,7 @@ export const IconWrapper = ({
     isCircle,
     isActive,
     size = 'md',
-}: IconWrapperProps): React.ReactElement => {
+}: IconWrapperProps) => {
     const [isHover, setIsHover] = useState(false)
 
     const currentIcon = isActive ? activeIcon : isHover ? hoverIcon : defaultIcon
@@ -33,19 +33,19 @@ export const IconWrapper = ({
 
     return isCircle ? (
         <div
-            className="w-12 h-12 rounded-full bg-[#393939] flex items-center justify-center mb-1"
+            className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center"
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
         >
-            <img src={currentIcon} alt={alt} className={sizeClass} style={{ aspectRatio: '1 / 1' }} />
+            <img src={currentIcon} alt={alt} className={sizeClass} />
         </div>
     ) : (
         <div
-            className="flex justify-center items-center mb-2 flex-none"
+            className="flex justify-center items-center flex-none"
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
         >
-            <img src={currentIcon} alt={alt} className={sizeClass} style={{ aspectRatio: '1 / 1' }} />
+            <img src={currentIcon} alt={alt} className={sizeClass} />
         </div>
     )
 }
