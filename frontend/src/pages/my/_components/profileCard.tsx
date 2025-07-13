@@ -12,7 +12,7 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
             <div className="flex items-center">
                 <span className="w-[180px] h-[180px] rounded-full object-cover bg-pink-400"></span>
             </div>
-            <div className="flex flex-col w-[384px] items-start mt-[28px] ml-[24px] gap-0.5 font-[pretendard]">
+            <div className="flex flex-col w-[384px] items-start mt-[28px] ml-[24px] gap-0.5">
                 <div className="flex justify-center items-center w-[100px] h-[28px] whitespace-nowrap bg-[#fa4d56]/50 rounded-[2px]">
                     <span className="  text-[#fff] text-[14px] font-medium leading-[140%] tracking-[-0.35px]">
                         {profile.category}

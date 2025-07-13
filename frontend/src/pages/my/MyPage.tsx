@@ -64,7 +64,7 @@ export default function Mypage() {
                         ))}
                     </div>
                 </div>
-                <div className="w-[1200px] h-[336px] mt-[40px] ml-[76px] gap-y-40px">
+                <div className="w-[1200px] h-[336px] mt-[40px] ml-[76px]">
                     <Targetbox />
                     <Conceptbox />
                 </div>
