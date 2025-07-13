@@ -7,11 +7,42 @@ import type { LinkItem } from './navbarLinks'
 }
 type NavbarLinkProps = LinkItem & {
     className?: string
+<<<<<<< HEAD
 }
 
 export const NavbarLink = (props: NavbarLinkProps): React.ReactElement => {
     const { to, label, defaultIcon, hoverIcon, activeIcon, alt, isCircle, size, className } = props
 
+=======
+    onLoginClick?: () => void
+}
+
+export const NavbarLink = (props: NavbarLinkProps): React.ReactElement => {
+    const { to, label, defaultIcon, hoverIcon, activeIcon, alt, isCircle, size, className, action, onLoginClick } =
+        props
+
+    // 모달용
+    if (action === 'login') {
+        return (
+            <button onClick={onLoginClick} className={`block z-10 ${className ?? ''}`}>
+                <div className="flex flex-col items-center py-2">
+                    <IconWrapper
+                        defaultIcon={defaultIcon}
+                        hoverIcon={hoverIcon}
+                        activeIcon={activeIcon}
+                        alt={alt}
+                        isCircle={isCircle}
+                        isActive={false}
+                        size={size}
+                    />
+                    {label && <span className={`font-label-fixed text-gray-900 mt-[5px]`}>{label}</span>}
+                </div>
+            </button>
+        )
+    }
+
+    // 기본
+>>>>>>> f938de64ae5512765a7e3002fc0d28b1efa4e464
     return (
         <NavLink to={to} end={true} className={`block ${className ?? ''}`}>
             {({ isActive }) => (
