@@ -46,6 +46,7 @@
     --color-primary-700: #ffb3b8;
     --color-primary-800: #ffd7d9;
     --color-primary-900: #fff1f1;
+    --color-primary-opacity50: #fa4d5680;
 
     --color-surface: var(--color-gray-100);
     --color-surface-elevate-l1: var(--color-gray-100);
