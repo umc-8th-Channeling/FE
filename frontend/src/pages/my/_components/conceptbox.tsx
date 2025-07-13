@@ -2,6 +2,7 @@ import Correction from '../../../assets/icons/correction.svg?react'
 import Correction_before from '../../../assets/icons/correction_before.svg?react'
 import Correction_active from '../../../assets/icons/correction_active.svg?react'
 import { useState } from 'react'
+import Textarea from '../../../components/Textarea'
 
 const Conceptbox = () => {
     const MODES = {
@@ -54,18 +55,17 @@ const Conceptbox = () => {
                     </div>
                 </div>
             </div>
-            <div
-                className={`mt-[16px] w-[1200px] h-[152px] p-[16px] rounded-[16px] gap-[24px] bg-neutral-white-opacity10 placeholder-gray-600 border-[1px] border-transparent focus-within:border-gray-400`}
-            >
-                <textarea
+            <div className="mt-[16px]">
+                <Textarea
+                    id=""
                     value={value}
                     disabled={mode === 'VIEW'}
-                    onChange={(e) => {
-                        setValue(e.target.value)
+                    onChange={(newVal) => {
+                        setValue(newVal)
                         setMode('ACTIVE_COMPLETE')
                     }}
                     placeholder="유튜버님의 채널 컨셉에 대한 설명을 입력해주세요."
-                    className="w-full h-[120px] outline-none resize-none leading-[150%] tracking-[-0.4px]"
+                    initialRows={5}
                 />
             </div>
         </div>

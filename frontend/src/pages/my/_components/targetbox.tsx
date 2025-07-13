@@ -56,15 +56,15 @@ const Targetbox = () => {
             <div
                 className={`mt-[16px] w-[1200px] h-[56px] p-[16px] rounded-[16px] bg-neutral-white-opacity10 placeholder-gray-600 border-[1px] border-transparent focus-within:border-gray-400`}
             >
-                <textarea
+                <input
                     value={value}
                     disabled={mode === 'VIEW'}
                     onChange={(e) => {
                         setValue(e.target.value)
                         setMode('ACTIVE_COMPLETE')
                     }}
+                    className="flex ml-[8px] w-[1168px] h-fit text-[16px] outline-none resize-none leading-[150%] tracking-[-0.4px]"
                     placeholder="유튜버님의 시청자 타겟에 대한 설명을 입력해주세요."
-                    className="flex w-[1200px] h-fit outline-none resize-none leading-[150%] tracking-[-0.4px]"
                 />
             </div>
         </div>
