@@ -1,9 +1,10 @@
+import { Footer } from '../../components/common/Footer'
 import { UrlInputForm, VideoRecommendation } from './_components'
 import { DUMMY_MY, DUMMY_POPULAR } from './dummy'
 
 export default function MainPage() {
     return (
-        <div className="min-h-screen h-full flex flex-col items-center justify-center bg-linear-to-b from-gray-50 to-primary-50">
+        <div className="flex flex-col items-center justify-center z-50">
             <div
                 className="
                     flex flex-col items-center justify-center mb-[222px] tablet:mb-[324px] desktop:mb-[84px]
@@ -26,6 +27,8 @@ export default function MainPage() {
                     <VideoRecommendation label="인기있는 영상의 비결은?" videos={DUMMY_POPULAR} />
                 </div>
             </div>
+
+            <Footer />
         </div>
     )
 }

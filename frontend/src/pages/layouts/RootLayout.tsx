@@ -1,15 +1,13 @@
-import { Outlet } from 'react-router-dom'
-import { Footer } from '../../components/common/Footer'
-import { NavbarWrapper } from '../../components/common/Navbar/NavbarWrapper'
+import RootLayoutDesktop from './RootLayoutDesktop'
+import RootLayoutMobile from './RootLayoutMobile'
+import RootLayoutTablet from './RootLayoutTablet'
 
 export default function RootLayout() {
     return (
-        <div>
-            <NavbarWrapper />
-            <main>
-                <Outlet />
-            </main>
-            <Footer />
-        </div>
+        <>
+            <RootLayoutDesktop />
+            <RootLayoutTablet />
+            <RootLayoutMobile />
+        </>
     )
 }
