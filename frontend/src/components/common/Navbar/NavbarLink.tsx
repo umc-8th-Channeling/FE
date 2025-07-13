@@ -7,13 +7,6 @@ import type { LinkItem } from './navbarLinks'
 }
 type NavbarLinkProps = LinkItem & {
     className?: string
-<<<<<<< HEAD
-}
-
-export const NavbarLink = (props: NavbarLinkProps): React.ReactElement => {
-    const { to, label, defaultIcon, hoverIcon, activeIcon, alt, isCircle, size, className } = props
-
-=======
     onLoginClick?: () => void
 }
 
@@ -42,7 +35,6 @@ export const NavbarLink = (props: NavbarLinkProps): React.ReactElement => {
     }
 
     // 기본
->>>>>>> f938de64ae5512765a7e3002fc0d28b1efa4e464
     return (
         <NavLink to={to} end={true} className={`block ${className ?? ''}`}>
             {({ isActive }) => (

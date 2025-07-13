@@ -10,6 +10,7 @@ import CompleteRedIcon from '../../assets/icons/complete_on.svg'
 import SendIcon from '../../assets/icons/send.svg'
 import CloseIcon from '../../assets/icons/delete_normal.svg'
 import LogoutIcon from '../../assets/icons/logout.svg'
+import CameraIcon from '../../assets/icons/camera.svg'
 import WithdrawlModal from './components/WithdrawlModal'
 
 const labelMap = {
@@ -99,7 +100,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
                     {/* 본문 */}
                     <div
-                        className="w-[625px] h-[524px] self-stretch flex flex-col items-end p-8 gap-10 overflow-y-auto"
+                        className="relative w-[625px] h-[524px] self-stretch flex flex-col items-end p-8 gap-10 overflow-y-auto"
                         style={{
                             scrollbarWidth: 'none',
                             msOverflowStyle: 'none',
@@ -112,6 +113,14 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 }
                                 `}
                         </style>
+
+                        <button
+                            className="absolute top-[100px] right-[263px] w-8 h-8 p-1 flex items-center
+                        justify-center rounded-full bg-[#393939]"
+                            onClick={() => console.log('프로필 이미지 변경')}
+                        >
+                            <img src={CameraIcon} alt="카메라 아이콘" className="w-full h-full object-contain" />
+                        </button>
                         {activeTab === 'profile' && (
                             <div className="flex flex-col gap-10 w-full">
                                 <div className="flex items-center justify-center h-full gap-4">

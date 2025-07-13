@@ -3,14 +3,29 @@ import { NavbarLink } from './NavbarLink'
 import { TOP_LINKS, BOTTOM_LINKS } from './navbarLinks'
 import { NavbarContainer } from './NavbarContainer'
 import { ToolTipBubble } from './NavbarToolTip'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Modal from '../../Modal'
-// import { NavbarUserInfo } from './NavbarUserInfo';
+import SettingPage from '../../../pages/setting/SettingPage'
 
 export const NavbarDesktop = (): React.ReactElement => {
-    const [showLoginModal, setShowLoginModal] = useState(false)
+    const [isLogin, setIsLogin] = useState(false)
+    const [showSettingModal, setShowSettingModal] = useState(false)
 
-    const handleShowModalChange = () => setShowLoginModal(!showLoginModal)
+    useEffect(() => {
+        // 로그인 상태 가져오기
+        const loginFlag = localStorage.getItem('isLogin')
+        if (loginFlag === 'true') {
+            setIsLogin(true)
+        }
+    }, [])
+
+    const handleOpenSettingModal = () => {
+        setShowSettingModal(true)
+    }
+
+    const handleCloseSettingModal = () => {
+        setShowSettingModal(false)
+    }
 
     return (
         <>
@@ -27,20 +42,27 @@ export const NavbarDesktop = (): React.ReactElement => {
                             </div>
                         </div>
                     </div>
+
                     <div className="flex flex-col items-center">
-                        {/* 로그인 성공 시 아이콘 변경
-      {user ? (
-        <NavbarUserInfo user={user} />
-      ) : */}
-                        {BOTTOM_LINKS.map((link) => (
-                            <NavbarLink key={link.alt} {...link} onLoginClick={handleShowModalChange} />
-                        ))}
+                        {isLogin ? (
+                            <button onClick={handleOpenSettingModal} className="text-gray-600 font-caption mb-4">
+                                로그인 성공
+                            </button>
+                        ) : (
+                            BOTTOM_LINKS.map((link) => (
+                                <NavbarLink key={link.alt} {...link} onLoginClick={handleOpenSettingModal} />
+                            ))
+                        )}
                     </div>
                 </div>
                 <ToolTipBubble />
             </NavbarContainer>
 
-            {showLoginModal && <Modal title="로그인" onClose={handleShowModalChange} />}
+            {showSettingModal && (
+                <Modal title="설정" onClose={handleCloseSettingModal}>
+                    <SettingPage onClose={handleCloseSettingModal} />
+                </Modal>
+            )}
         </>
     )
 }
