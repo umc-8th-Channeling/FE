@@ -1,14 +1,13 @@
 import { useRef } from 'react'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, type ScriptableContext, type ChartEvent } from 'chart.js'
+import { Chart as ChartJS, ArcElement, Tooltip, type ScriptableContext, type ChartEvent } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
-import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 import type { TabItem } from '../../types/common'
 import { iconDefaultPlugin, iconActivePlugin } from './iconPlugin'
 import { tooltipExternalHandler } from './tooltipHandler'
 import './tooltip.css'
 
-ChartJS.register(ArcElement, Tooltip, ChartDataLabels, Legend)
+ChartJS.register(ArcElement, Tooltip)
 
 type Color = string | CanvasGradient | CanvasPattern
 type AnyObject = Record<string, unknown>
@@ -77,7 +76,6 @@ export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: Dough
 
             if (points.length) {
                 const index = points[0].index
-                chartRef.current.update()
                 if (onClickSegment) onClickSegment(tabs[index])
             }
         },
