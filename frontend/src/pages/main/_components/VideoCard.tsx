@@ -1,5 +1,5 @@
 import type { DUMMY_MY } from '../dummy'
-import { formatRelativeTime, formatViewCount } from '../../../utils/format'
+import { formatRelativeTime, formatKoreanNumber } from '../../../utils/format'
 
 interface VideoCardProps {
     video: (typeof DUMMY_MY)[0] // 임시
@@ -9,7 +9,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
     return (
         <div className="flex flex-col items-center justify-center gap-2 w-[288px] tablet:w-[282px]">
             {/* 영상 썸네일 이미지 */}
-            <div className="w-full h-[162px] tablet:h-[158px] rounded-lg overflow-hidden">
+            <div className="w-[288px] aspect-[16/9] tablet:w-[282px] tablet:aspect-[141/79] rounded-lg overflow-hidden">
                 <img src={video.thumbnail} className="w-full h-full object-cover" />
             </div>
 
@@ -27,7 +27,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
                     <div className="flex flex-row gap-1 whitespace-nowrap text-[12px] leading-[140%] tracking-[-0.3px] tablet:text-[14px] tablet:tracking-[-0.35px] text-gray-600">
                         <p>{video.channelTitle}</p>
                         <span>·</span>
-                        <p>조회수 {formatViewCount(video.viewCount)}</p>
+                        <p>조회수 {formatKoreanNumber(video.viewCount, '회')}</p>
                         <span>·</span>
                         <p>{formatRelativeTime(video.publishedAt)}</p>
                     </div>

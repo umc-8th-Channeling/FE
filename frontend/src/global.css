@@ -46,6 +46,7 @@
     --color-primary-700: #ffb3b8;
     --color-primary-800: #ffd7d9;
     --color-primary-900: #fff1f1;
+    --color-primary-opacity50: #fa4d5680;
 
     --color-surface: var(--color-gray-100);
     --color-surface-elevate-l1: var(--color-gray-100);
@@ -63,7 +64,21 @@
 
     --breakpoint-desktop: 1440px;
     --breakpoint-tablet: 768px;
-    --breakpoint-mobile: 320px;
+    --breakpoint-mobile: 360px;
+}
+
+@theme {
+    --animate-sway: sway 1s ease-in-out infinite;
+
+    @keyframes sway {
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+        50% {
+            transform: translateX(10px);
+        }
+    }
 }
 
 @layer base {
@@ -77,7 +92,7 @@
     }
 
     body {
-        @apply bg-surface text-gray-900 font-pretendard font-normal min-w-[320px] overflow-x-hidden overflow-y-scroll;
+        @apply bg-surface text-gray-900 font-pretendard font-normal min-w-[360px] overflow-x-hidden;
     }
 }
 
@@ -117,32 +132,6 @@
     }
 
     .font-footer-fixed {
-        @apply text-[14px] leading-[140%] font-normal tracking-tight;
-    }
-}
-
-#tooltip {
-  animation-name: sway;
-  animation-duration: 2s;
-  animation-iteration-count: 4;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: forwards;
-}
-
-@keyframes sway {
-    0% {
-        transform: translateX(0);
-    }
-    25% {
-        transform: translateX(5px);
-    }
-    50% {
-        transform: translateX(-5px);
-    }
-    75% {
-        transform: translateX(5px);
-    }
-    100% {
-        transform: translateX(0);
+        @apply text-[14px] leading-[140%] font-normal tracking-[-0.35px];
     }
 }
