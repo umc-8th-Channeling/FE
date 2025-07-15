@@ -1,13 +1,9 @@
 import type { ArcElement, Chart } from 'chart.js'
-
+import type { CustomPluginsOptions } from './DoughnutChart'
 import positiveSVG from '../../assets/icons/chart/positive.svg'
 import negativeSVG from '../../assets/icons/chart/negative.svg'
 import neutralSVG from '../../assets/icons/chart/neutral.svg'
 import suggestionSVG from '../../assets/icons/chart/suggestion.svg'
-
-interface IconPluginsOptions {
-    iconPlugin?: { activeIndex?: number }
-}
 
 const icons = [positiveSVG, negativeSVG, neutralSVG, suggestionSVG].map((src) => {
     const img = new Image()
@@ -25,7 +21,7 @@ export const iconDefaultPlugin = {
 export const iconActivePlugin = {
     id: 'iconPlugin',
     afterDraw(chart: Chart<'doughnut'>) {
-        const pluginOptions = (chart.options.plugins as IconPluginsOptions)?.iconPlugin || {}
+        const pluginOptions = (chart.options.plugins as CustomPluginsOptions)?.customPlugin || {}
         const activeIndex = pluginOptions.activeIndex
         drawIconsPlugin(chart, activeIndex, true)
     },

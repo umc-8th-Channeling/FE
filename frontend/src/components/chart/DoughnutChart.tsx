@@ -4,13 +4,17 @@ import { Doughnut } from 'react-chartjs-2'
 
 import type { TabItem } from '../../types/common'
 import { iconDefaultPlugin, iconActivePlugin } from './iconPlugin'
-import { tooltipExternalHandler } from './tooltipHandler'
+import { activeTooltipPlugin, tooltipHandler } from './tooltipPlugin'
 import './tooltip.css'
 
 ChartJS.register(ArcElement, Tooltip)
 
 type Color = string | CanvasGradient | CanvasPattern
 type AnyObject = Record<string, unknown>
+
+export interface CustomPluginsOptions {
+    customPlugin?: { activeIndex?: number }
+}
 
 interface DoughnutChartProps {
     data: number[]
@@ -62,8 +66,8 @@ export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: Dough
         plugins: {
             legend: { display: false },
             datalabels: { display: false },
-            tooltip: { enabled: false, external: tooltipExternalHandler, intersect: true }, // 정확도를 낮추고 싶으면 false로 변경
-            iconPlugin: { activeIndex },
+            tooltip: { enabled: false, external: tooltipHandler, intersect: true }, // 정확도를 낮추고 싶으면 false로 변경
+            customPlugin: { activeIndex },
         },
         onClick: (evt: ChartEvent) => {
             if (!chartRef.current) return
@@ -85,7 +89,11 @@ export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: Dough
         <div className="relative size-full cursor-pointer">
             <Doughnut ref={chartRef} data={defaultData} options={options} plugins={[iconDefaultPlugin]} />
             <div className="absolute inset-0">
-                <Doughnut data={activeData} options={{ ...options, cutout: '43%' }} plugins={[iconActivePlugin]} />
+                <Doughnut
+                    data={activeData}
+                    options={{ ...options, cutout: '43%' }}
+                    plugins={[iconActivePlugin, activeTooltipPlugin]}
+                />
             </div>
         </div>
     )
