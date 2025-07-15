@@ -82,7 +82,7 @@ export const UrlInputForm = () => {
                 <div className="fixed inset-0 h-screen z-50 flex items-center justify-center">
                     <div className="absolute inset-0 bg-neutral-black-opacity50 backdrop-blur-sm" />
 
-                    <div className="relative ml-20 flex flex-col justify-center items-center text-center gap-6">
+                    <div className="desktop:ml-20 relative flex flex-col justify-center items-center text-center gap-6">
                         <Spinner className="animate-spin" />
                         <div className="space-y-2">
                             <h3 className="text-[20px] font-bold leading-[140%] tracking-[-0.5px]">영상 분석 중...</h3>
