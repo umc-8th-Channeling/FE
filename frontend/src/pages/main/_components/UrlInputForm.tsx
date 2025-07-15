@@ -39,7 +39,7 @@ export const UrlInputForm = () => {
             </button>
             {/* 확인 용 임시 버튼 끝 */}
 
-            <div className="mb-[100px] tablet:mb-20 desktop:mb-[100px]">
+            <div className="relative mb-[100px] tablet:mb-20 desktop:mb-[100px]">
                 <form
                     onSubmit={handleSubmit}
                     className={clsx(
@@ -74,8 +74,8 @@ export const UrlInputForm = () => {
 
                 <p
                     className={`
-                        mt-2 ml-6 tablet:ml-10 text-error text-[14px] leading-[140%] tracking-[-0.35px]
-                        transition-all duration-300 ease-in-out ${error ? 'opacity-100 max-h-20' : 'opacity-0 max-h-0'}
+                        absolute mt-2 ml-6 text-error text-[14px] leading-[140%] tracking-[-0.35px]
+                        transition-all duration-300 ease-in-out ${error ? 'opacity-100 max-h-5' : 'opacity-0 max-h-0'}
                     `}
                 >
                     {error}
