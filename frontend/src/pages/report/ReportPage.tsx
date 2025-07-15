@@ -35,7 +35,7 @@ export default function ReportPage() {
 
     return (
         <>
-            <div className="px-[76px] py-20 space-y-10 bg-gray-50">
+            <div className="px-[76px] py-20 space-y-10">
                 <VideoSummary video={video} />
                 <Tabs tabs={TABS} activeTab={activeTab} onChangeTab={setActiveTab} />
 
