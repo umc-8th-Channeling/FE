@@ -1,22 +1,26 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
+import { useReportStore } from '../../../stores/reportStore'
+
 import ArrowButton from '../../../components/ArrowButton'
 import { ErrorToast } from './ErrorToast'
 import ErrorIcon from '../../../assets/icons/error.svg?react'
-import Spinner from '../../../assets/loading/spinner.svg?react'
 import { useUrlInput } from '../../../hooks/main/useUrlInput'
 
 export const UrlInputForm = () => {
     const navigate = useNavigate()
     const [isFocused, setIsFocused] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
+
+    const startGenerating = useReportStore((state) => state.actions.startGenerating)
+    const endGenerating = useReportStore((state) => state.actions.endGenerating)
+
     const { register, handleSubmit, isActive, error, setError } = useUrlInput((url) => {
         console.log('메인 페이지에서 받은 URL:', url)
 
-        setIsLoading(true)
+        startGenerating()
         setTimeout(() => {
-            setIsLoading(false)
+            endGenerating()
             navigate('/report')
         }, 5000)
     })
@@ -76,23 +80,6 @@ export const UrlInputForm = () => {
 
             {/* 입력 에러 토스트 */}
             {error && <ErrorToast errorMessage={error} />}
-
-            {/* URL 제출 후 로딩 스피너 */}
-            {isLoading && (
-                <div className="fixed inset-0 h-screen z-50 flex items-center justify-center">
-                    <div className="absolute inset-0 bg-neutral-black-opacity50 backdrop-blur-sm" />
-
-                    <div className="desktop:ml-20 relative flex flex-col justify-center items-center text-center gap-6">
-                        <Spinner className="animate-spin" />
-                        <div className="space-y-2">
-                            <h3 className="text-[20px] font-bold leading-[140%] tracking-[-0.5px]">영상 분석 중...</h3>
-                            <p className="text-[16px] leading-[150%] tracking-[-0.4px]">
-                                조금만 기다려 주세요. 곧 결과가 나와요!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            )}
         </>
     )
 }
