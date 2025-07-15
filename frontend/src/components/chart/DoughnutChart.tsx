@@ -58,7 +58,7 @@ export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: Dough
 
     const options = {
         responsive: true,
-        cutout: '50%',
+        cutout: '45%',
         plugins: {
             legend: { display: false },
             datalabels: { display: false },
@@ -85,7 +85,7 @@ export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: Dough
         <div className="relative size-full cursor-pointer">
             <Doughnut ref={chartRef} data={defaultData} options={options} plugins={[iconDefaultPlugin]} />
             <div className="absolute inset-0">
-                <Doughnut data={activeData} options={{ ...options, cutout: '48%' }} plugins={[iconActivePlugin]} />
+                <Doughnut data={activeData} options={{ ...options, cutout: '43%' }} plugins={[iconActivePlugin]} />
             </div>
         </div>
     )
