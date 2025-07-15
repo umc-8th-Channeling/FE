@@ -52,7 +52,11 @@ export const UrlInputForm = () => {
                         }
                     )}
                 >
-                    {error && <ErrorIcon className="ml-2" />}
+                    <ErrorIcon
+                        className={`ml-2 transition-opacity duration-300 ${
+                            error ? 'opacity-100 max-w-6' : 'opacity-0 max-w-0'
+                        }`}
+                    />
                     <input
                         {...register('url')}
                         id="youtube url input"
