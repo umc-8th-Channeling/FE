@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react'
 import { formatPercentString, formatKoreanNumber } from '../../../../utils/format'
-import { OVERVIEW_EVALUATION } from '../../dummy'
+import { OVERVIEW_EVALUATION as EVALUATION } from '../../dummy'
 import { TitledSection } from '../TitledSection'
 
 type EvaluationItem = {
@@ -13,31 +13,31 @@ type EvaluationItem = {
 }
 
 const evaluationItems: EvaluationItem[] = [
-    { label: '콘텐츠 컨셉 일관성', score: () => `${formatPercentString(OVERVIEW_EVALUATION.consistencyScore)}%` },
-    { label: 'SEO 구성', score: () => `${formatPercentString(OVERVIEW_EVALUATION.seoScore)}%` },
-    { label: '재방문률', score: () => `${formatPercentString(OVERVIEW_EVALUATION.retentionRate)}%` },
+    { label: '콘텐츠 컨셉 일관성', score: () => `${formatPercentString(EVALUATION.consistencyScore)}%` },
+    { label: 'SEO 구성', score: () => `${formatPercentString(EVALUATION.seoScore)}%` },
+    { label: '재방문률', score: () => `${formatPercentString(EVALUATION.retentionRate)}%` },
     {
         label: '조회수',
-        score: () => formatKoreanNumber(OVERVIEW_EVALUATION.viewCount.current),
+        score: () => formatKoreanNumber(EVALUATION.viewCount.current),
         avg: {
-            topic: OVERVIEW_EVALUATION.viewCount.topicAvgScore,
-            channel: OVERVIEW_EVALUATION.viewCount.channelAvgScore,
+            topic: EVALUATION.viewCount.topicAvgScore,
+            channel: EVALUATION.viewCount.channelAvgScore,
         },
     },
     {
         label: '좋아요',
-        score: () => OVERVIEW_EVALUATION.likeCount.current.toLocaleString('ko-KR'),
+        score: () => formatKoreanNumber(EVALUATION.likeCount.current),
         avg: {
-            topic: OVERVIEW_EVALUATION.likeCount.topicAvgScore,
-            channel: OVERVIEW_EVALUATION.likeCount.channelAvgScore,
+            topic: EVALUATION.likeCount.topicAvgScore,
+            channel: EVALUATION.likeCount.channelAvgScore,
         },
     },
     {
         label: '댓글',
-        score: () => OVERVIEW_EVALUATION.commentCount.current.toLocaleString('ko-KR'),
+        score: () => formatKoreanNumber(EVALUATION.commentCount.current),
         avg: {
-            topic: OVERVIEW_EVALUATION.commentCount.topicAvgScore,
-            channel: OVERVIEW_EVALUATION.commentCount.channelAvgScore,
+            topic: EVALUATION.commentCount.topicAvgScore,
+            channel: EVALUATION.commentCount.channelAvgScore,
         },
     },
 ]
