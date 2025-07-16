@@ -1,13 +1,13 @@
 import Modal from '../../../components/Modal'
 import GoogleIcon from '../../../../src/assets/icons/google.svg?react'
 
-export default function LoginModal({
+export const LoginModal = ({
     onClose,
     onLoginSuccess, // ✅ 새로운 prop 추가
 }: {
     onClose: () => void
     onLoginSuccess: () => void
-}) {
+}) => {
     return (
         <Modal
             title="로그인/회원가입"

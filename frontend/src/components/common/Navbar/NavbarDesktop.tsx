@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom'
 import { NavbarContainer } from './NavbarContainer'
 import { NavbarLink, NavbarModalButton } from './NavbarLink'
 import { ToolTipBubble } from './NavbarToolTip'
-import Modal from '../../Modal'
 import { PLUS_LINK, NAVIGATE_LINKS, LOGIN_LINK } from './navbarLinks'
 import ChannelingLogo from '../../../assets/icons/channeling.svg?react'
 import { NavbarUserInfo } from './NavbarUserInfo'
 import { DUMMY_USER } from './dummy'
-import { UrlInputModal } from '../../../pages/main/_components'
-import ViewerModal from '../../../pages/main/_components/ViewerModal'
-import ChannelConceptModal from '../../../pages/main/_components/ChannelConceptModal'
-import LoginModal from '../../../pages/main/_components/LoginModal'
+import { ChannelConceptModal, LoginModal, UrlInputModal, ViewerModal } from '../../../pages/main/_components'
+import SettingPage from '../../../pages/setting/SettingPage'
 
 type ToolTipPos = { top: number; left: number }
 
@@ -27,7 +24,6 @@ export const NavbarDesktop = () => {
         setViewerValue(value)
     }
 
-    const handleLoginClick = () => setShowLoginModal(true)
     const handleCloseLoginModal = () => setShowLoginModal(false)
     const handleOpenViewerModal = () => setShowViewerModal(true)
     const handleCloseViewerModal = () => setShowViewerModal(false)
@@ -41,6 +37,11 @@ export const NavbarDesktop = () => {
 
     const loginRef = useRef<HTMLDivElement>(null)
     const [tooltipPos, setTooltipPos] = useState<ToolTipPos | null>(null)
+
+    const [showSettingPage, setShowSettingPage] = useState(false)
+
+    const handleOpenSettingPage = () => setShowSettingPage(true)
+    const handleCloseSettingPage = () => setShowSettingPage(false)
 
     // 로그인 툴팁 위치 조정
     useEffect(() => {
@@ -92,7 +93,7 @@ export const NavbarDesktop = () => {
                     {/* 로그인 버튼 혹은 유저 프로필 */}
                     <div ref={loginRef} className="flex flex-col items-center">
                         {!isGuest && user ? (
-                            <NavbarUserInfo user={DUMMY_USER} />
+                            <NavbarUserInfo user={DUMMY_USER} onClick={handleOpenSettingPage} />
                         ) : (
                             <NavbarModalButton key={LOGIN_LINK.alt} {...LOGIN_LINK} onClick={handleLoginModalClick} />
                         )}
@@ -139,8 +140,7 @@ export const NavbarDesktop = () => {
             {/* + 버튼 유튜브 URL 입력 모달  */}
             {showPlusModal && <UrlInputModal onClose={handlePlusModalClick} />}
 
-            {/* 로그인 모달 */}
-            {showLoginModal && <Modal title="로그인" onClose={handleLoginModalClick} />}
+            {showSettingPage && <SettingPage onClose={handleCloseSettingPage} />}
         </>
     )
 }

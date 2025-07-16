@@ -8,7 +8,7 @@ interface ViewerModalProps {
     handleButtonClick: () => void
 }
 
-export default function ViewerModal({ onClose, value, onChange, handleButtonClick }: ViewerModalProps) {
+export const ViewerModal = ({ onClose, value, onChange, handleButtonClick }: ViewerModalProps) => {
     return (
         <Modal title="30초면 완성해요! 유튜버님의 시청자 타겟을 알려주세요." onClose={onClose}>
             <TextareaWithArrow
