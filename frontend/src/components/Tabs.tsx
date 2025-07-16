@@ -14,7 +14,7 @@ const Tabs = ({
     tabs,
     activeTab: controlledActiveTab,
     onChangeTab,
-    textStyle = 'text-[18px] leading-[140%] tracking-[-0.45px]',
+    textStyle = 'text-[16px] leading-[140%] tracking-[-0.4px] tablet:text-[18px] tablet:tracking-[-0.45px]',
     bgColor = 'bg-surface-elevate-l1',
     spaceY = 'space-y-10',
 }: TabsProps) => {
