@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Button } from './components/SettingButton'
 import { Label } from './components/SettingLabel'
 import Input from './components/SettingInput'
@@ -40,6 +40,22 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const [editing, setEditing] = useState(false)
     const [modified, setModified] = useState(false)
 
+    const [showWithdrawlModal, setShowWithdrawlModal] = useState(false)
+
+    const [profileImageUrl, setProfileImageUrl] = useState('/path-to-image.jpg')
+    const fileInputRef = useRef<HTMLInputElement>(null)
+
+    const handleCameraClick = () => {
+        fileInputRef.current?.click()
+    }
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+        const previewUrl = URL.createObjectURL(file)
+        setProfileImageUrl(previewUrl)
+    }
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({
             ...formData,
@@ -52,8 +68,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         setEditing(!editing)
         setModified(false)
     }
-
-    const [showWithdrawlModal, setShowWithdrawlModal] = useState(false)
 
     const handleWithdrawlConfirm = () => {
         setShowWithdrawlModal(false)
@@ -114,10 +128,18 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 `}
                         </style>
 
+                        <input
+                            type="file"
+                            accept="image/*"
+                            ref={fileInputRef}
+                            className="hidden"
+                            onChange={handleFileChange}
+                        />
+
                         <button
                             className="absolute top-[100px] right-[263px] w-8 h-8 p-1 flex items-center
                         justify-center rounded-full bg-[#393939]"
-                            onClick={() => console.log('프로필 이미지 변경')}
+                            onClick={handleCameraClick}
                         >
                             <img src={CameraIcon} alt="카메라 아이콘" className="w-full h-full object-contain" />
                         </button>
@@ -127,7 +149,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                     <div
                                         className="w-[100px] h-[100px] rounded-[100px] bg-cover bg-no-repeat bg-center"
                                         style={{
-                                            backgroundImage: `url('/path-to-image.jpg')`,
+                                            backgroundImage: `url(${profileImageUrl})`,
                                             backgroundColor: 'lightgray',
                                         }}
                                     ></div>
