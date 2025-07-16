@@ -6,13 +6,13 @@ import { useEffect, useState } from 'react'
 import Modal from '../../components/Modal'
 
 const TABS = [
-    { label: '개요', component: <TabOverview /> },
-    { label: '분석', component: <TabAnalysis /> },
-    { label: '아이디어', component: <TabIdea /> },
+    { index: 0, label: '개요', component: <TabOverview /> },
+    { index: 1, label: '분석', component: <TabAnalysis /> },
+    { index: 2, label: '아이디어', component: <TabIdea /> },
 ]
 
 export default function ReportPage() {
-    const [activeTab, setActiveTab] = useState(TABS[0].label)
+    const [activeTab, setActiveTab] = useState(TABS[0])
     const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false)
     const [isOpenGuestModal, setIsOpenGuestModal] = useState(false) // 전역 상태 전환 필요
 
@@ -29,7 +29,7 @@ export default function ReportPage() {
     const handleUpdateClick = () => {
         console.log('Report Page: update')
 
-        setActiveTab(TABS[0].label) // 업데이트 후 탭 초기화
+        setActiveTab(TABS[0]) // 업데이트 후 탭 초기화
         handleOpenUpdateModalClick()
     }
 
