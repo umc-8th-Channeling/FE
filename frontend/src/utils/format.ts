@@ -13,6 +13,9 @@ export function formatKoreanNumber(value: number, suffix: string = ''): string {
     if (value >= 10_000) {
         return `${Math.floor(value / 10_000)}만${suffix}`
     }
+    if (value >= 1000) {
+        return `${value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}${suffix}`
+    }
     return `${value.toLocaleString()}${suffix}`
 }
 
@@ -74,21 +77,4 @@ export function formatKoreanDate(date: string | Date): string {
 export const formatPercentString = (value: number, fractionDigits = 0): string => {
     if (isNaN(value)) return '0'
     return (value * 100).toFixed(fractionDigits)
-}
-/**
- * 숫자를 천 단위마다 ',' 표시를 넣어 포맷합니다.
- * 예: 1200 -> 1,200
- */
-export const formatThousandComma = (value: number): string => {
-    return value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-}
-
-/**
- * 숫자가 1만 이상일 시 formatKoreanNumber로
- * 숫자가 1천 이상일 시 formatThousandComma로 포맷합니다.
- */
-export const formatCompactNumber = (value: number): string => {
-    if (value >= 10_000) return formatKoreanNumber(value)
-    else if (value >= 1000) return formatThousandComma(value)
-    else return value.toString()
 }
