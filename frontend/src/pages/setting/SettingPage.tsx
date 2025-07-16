@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from './components/SettingButton'
 import { Label } from './components/SettingLabel'
 import Input from './components/SettingInput'
@@ -44,6 +44,20 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
     const [profileImageUrl, setProfileImageUrl] = useState('/path-to-image.jpg')
     const fileInputRef = useRef<HTMLInputElement>(null)
+
+    const [deviceSize, setDeviceSize] = useState<'desktop' | 'tablet' | 'mobile'>('desktop')
+
+    useEffect(() => {
+        const updateSize = () => {
+            const width = window.innerWidth
+            if (width >= 1440) setDeviceSize('desktop')
+            else if (width >= 768) setDeviceSize('tablet')
+            else setDeviceSize('mobile')
+        }
+        updateSize()
+        window.addEventListener('resize', updateSize)
+        return () => window.removeEventListener('resize', updateSize)
+    }, [])
 
     const handleCameraClick = () => {
         fileInputRef.current?.click()
