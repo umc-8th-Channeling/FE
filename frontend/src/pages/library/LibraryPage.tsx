@@ -1,12 +1,24 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import RecentReportCard from './_components/RecentReportCard'
 import ScrapCard from './_components/ScrapCard'
-import { DUMMY_REPORT, DUMMY_SCRAP } from './dummy'
+import { DUMMY_REPORT, DUMMY_SCRAP, DUMMY_SHORTS } from './dummy'
+import RecentReportShortsCard from './_components/RecentReportShortsCard'
+import type { LibraryItem, ScrapItem } from '../../types/library'
 //import type { LibraryItem, ScrapItem } from '../../types/library'
 
 export default function LibraryPage() {
     const [activeTab, setActiveTab] = useState<'report' | 'scrap'>('report')
     const [subTab, setSubTab] = useState<'video' | 'shorts'>('video')
+
+    const filteredList = useMemo(() => {
+        if (activeTab === 'report' && subTab === 'video') {
+            return DUMMY_REPORT as LibraryItem[]
+        } else if (activeTab === 'report' && subTab === 'shorts') {
+            return DUMMY_SHORTS as LibraryItem[]
+        } else {
+            return DUMMY_SCRAP as ScrapItem[]
+        }
+    }, [activeTab, subTab])
 
     return (
         <div className="px-6 py-20 bg-gray-50 min-h-screen">
@@ -56,9 +68,9 @@ export default function LibraryPage() {
                         </button>
                     </div>
 
-                    <p className="mb-6 text-base font-medium leading-[24px] tracking-[-0.4px] ">
-                        {DUMMY_REPORT.length}개의 영상 리포트
-                    </p>
+                    {subTab === 'video'
+                        ? `${DUMMY_REPORT.length}개의 영상 리포트`
+                        : `${DUMMY_SHORTS.length}개의 영상 리포트`}
                 </div>
             )}
             {activeTab === 'scrap' && (
@@ -68,10 +80,24 @@ export default function LibraryPage() {
                     </p>
                 </div>
             )}
-            <div className={activeTab === 'report' ? 'grid grid-cols-4 gap-6' : 'grid grid-cols-1  gap-6'}>
-                {activeTab === 'report'
-                    ? DUMMY_REPORT.map((item) => <RecentReportCard key={item.id} item={item} />)
-                    : DUMMY_SCRAP.map((item) => <ScrapCard key={item.title} item={item} />)}
+            <div
+                className={
+                    activeTab === 'report'
+                        ? subTab === 'video'
+                            ? 'grid grid-cols-2 tablet:grid-cols-4 gap-6'
+                            : 'grid grid-cols-3 tablet:grid-cols-6 gap-3'
+                        : 'grid grid-cols-1 tablet:grid-cols-1 gap-6'
+                }
+            >
+                {filteredList.map((item) =>
+                    activeTab === 'scrap' ? (
+                        <ScrapCard key={(item as ScrapItem).title} item={item as ScrapItem} />
+                    ) : subTab === 'video' ? (
+                        <RecentReportCard key={(item as LibraryItem).id} item={item as LibraryItem} />
+                    ) : (
+                        <RecentReportShortsCard key={(item as LibraryItem).id} item={item as LibraryItem} />
+                    )
+                )}
             </div>
         </div>
     )
