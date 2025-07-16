@@ -1,5 +1,5 @@
-import Modal from '../../../components/Modal'
-import GoogleIcon from '../../../../src/assets/icons/google.svg?react'
+import Modal from '../../../../components/Modal'
+import GoogleIcon from '../../../../assets/icons/google.svg?react'
 
 export const LoginModal = ({
     onClose,
@@ -17,11 +17,11 @@ export const LoginModal = ({
             <button
                 type="button"
                 className="
-    flex items-center py-4 px-6
-    gap-4 rounded-xl
-    bg-gray-300 hover:bg-neutral-white-opacity20
-    text-gray-900 font-bold text-base leading-6 tracking-[-0.4px] text-center
-  "
+                    flex items-center py-4 px-6
+                    gap-4 rounded-xl
+                    bg-gray-300 hover:bg-neutral-white-opacity20
+                    text-gray-900 font-bold text-base leading-6 tracking-[-0.4px] text-center
+                "
                 onClick={() => {
                     // 1) 실제로는 여기서 구글 로그인 처리하고,
                     // 2) 성공 시 onLoginSuccess() 호출
