@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { NavbarWrapper } from '../../components/common/Navbar/NavbarWrapper'
+import ReportLoadingSpinner from '../../components/ReportLoadingSpinner'
 
 export default function RootLayout() {
     const location = useLocation()
@@ -30,14 +31,9 @@ export default function RootLayout() {
                         <Outlet />
                     </div>
                 </div>
+
+                <ReportLoadingSpinner />
             </main>
         </>
     )
 }
-
-;<main className="pt-18 w-full h-screen flex items-center justify-center bg-surface">
-    <div className="absolute inset-0 z-0 bg-linear-to-b from-gray-50 to-primary-50" />
-    <div className="[&::-webkit-scrollbar]:hidden w-full h-full overflow-y-auto z-10 relative">
-        <Outlet />
-    </div>
-</main>
