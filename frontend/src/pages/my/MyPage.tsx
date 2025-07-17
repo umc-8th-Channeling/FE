@@ -51,7 +51,7 @@ const statIcons = {
 export default function Mypage() {
     return (
         <div className="flex bg-surface-base">
-            <div className=" mt-[8px] ml-[80px] bg-gray-50 w-[1352px] h-[1401px] rounded-[8px]">
+            <div className=" mt-[8px] ml-[80px] w-[1352px] h-[1401px] rounded-[8px]">
                 <div className="flex gap-[24px] ml-[76px] mt-[80px]">
                     <ProfileCard profile={profileData} />
                     <div className="w-[588px] h-[220px] grid grid-cols-3 gap-[24px] ">
