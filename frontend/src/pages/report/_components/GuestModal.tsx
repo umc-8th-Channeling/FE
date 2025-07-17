@@ -6,7 +6,7 @@ export const GuestModal = ({ onClose }: { onClose: () => void }) => {
         <div className="absolute top-0 flex justify-center w-full">
             <motion.div
                 initial={{ opacity: 0, y: 0 }}
-                animate={{ opacity: 1, y: [0, 32, 24, 28] }}
+                animate={{ opacity: 1, y: [0, 24, 16, 20] }}
                 transition={{
                     duration: 0.8,
                     ease: 'easeOut',
