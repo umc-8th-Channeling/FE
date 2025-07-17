@@ -15,7 +15,7 @@ export default function Videolist() {
     }
 
     return (
-        <div className="flex flex-col max-w-[1200px] tablet:w-[588px] items-start content-start tablet:pb-[80px] gap-[16px] desktop:gap-[24px] self-stretch">
+        <div className="flex flex-col tablet:w-[588px] desktop:w-[1200px] items-start content-start pb-[80px] gap-[16px]">
             {/* // <div> */}
             <div className="self-stretch text-[#fff] text-[20px] font-bold leading-[140%] tracking-[-0.5px]">
                 영상 리스트
@@ -41,8 +41,7 @@ export default function Videolist() {
                 </button>
             </div>
             {activeTab === 'video' && (
-                // <div className="w-[1200px] mt-[16px] grid grid-col-2 desktop:grid-cols-3 gap-[24px] cursor-pointer">
-                <div className="max-w-[1200px] flex flex-wrap items-start content-start align-stretch gap-[24px] cursor-pointer">
+                <div className="flex max-w-[1200px] flex-wrap items-start content-start self-stretch gap-[24px] cursor-pointer">
                     <MyVideoCard onClick={() => setOpen(true)} />
                     {open && (
                         <Modal
@@ -74,11 +73,12 @@ export default function Videolist() {
                     <MyVideoCard />
                     <MyVideoCard />
                     <MyVideoCard />
+                    <MyVideoCard />
+                    <MyVideoCard />
                 </div>
             )}
             {activeTab === 'shorts' && (
-                // <div className="max-w-[1200px] desktop:w-[1200px] mt-[16px] grid desktop:grid-cols-6 gap-x-[12px] gap-y-[24px] cursor-pointer">
-                <div className="flex max-w-[1200px] mt-[16px] flex-wrap items-start tablet:content-between desktop:content-start align-stretch gap-[9px] cursor-pointer">
+                <div className="flex max-w-[1200px] flex-wrap items-start tablet:content-between desktop:content-start align-stretch desktop:gap-x-[12px] desktop:gap-y-[24px] tablet:gap-[9px] cursor-pointer">
                     <MyShortsCard onClick={() => setOpen(true)} />
                     {open && (
                         <Modal
@@ -106,6 +106,9 @@ export default function Videolist() {
                         </Modal>
                     )}
                     {/* 더미데이터 */}
+                    <MyShortsCard />
+                    <MyShortsCard />
+                    <MyShortsCard />
                     <MyShortsCard />
                     <MyShortsCard />
                     <MyShortsCard />
