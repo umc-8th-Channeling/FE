@@ -49,11 +49,12 @@ const statIcons = {
 
 export default function Mypage() {
     return (
-        <div className="">
+        <div className="desktop:w-[1352px] flex flex-col pt-[80px] items-center ">
             <div className="">
-                <div className="flex gap-[24px] ml-[76px] mt-[80px]">
+                <div className="flex tablet:w-[588px] desktop:w-[1200px] gap-[24px] items-start tablet:content-start tablet:flex-wrap">
                     <ProfileCard profile={profileData} />
-                    <div className="w-[588px] h-[220px] grid grid-cols-3 gap-[24px] ">
+
+                    <div className="flex w-[588px] itmes-start content-start gap-[24px] flex-wrap shrink-0 ">
                         {statsMeta.map((meta) => (
                             <StatsCard
                                 key={meta.key}
@@ -64,11 +65,11 @@ export default function Mypage() {
                         ))}
                     </div>
                 </div>
-                <div className="w-[1200px] h-[336px] mt-[40px] ml-[76px]">
+                <div className="flex flex-col w-fit items-start">
                     <Targetbox />
                     <Conceptbox />
                 </div>
-                <div className="mt-[40px] ml-[76px]">
+                <div className="flex w-full max-w-[1200px] items-start content-start gap-[24px] self-stretch flex-wrap border-1 border-pink-400">
                     <Videolist />
                 </div>
             </div>

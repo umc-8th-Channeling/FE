@@ -40,7 +40,7 @@ const Conceptbox = () => {
     const { Icon, label, textClass, onClick } = actionMap[mode]
 
     return (
-        <div className="mt-[40px] w-[1200px] h-[100px]">
+        <div className="mt-[40px] w-[588px] desktop:w-[1200px] ">
             <div className=" flex justify-between h-[28px]">
                 <div className=" text-gray-900 font-bold text-[20px] whitespace-nowrap leading-[140%] tracking-[-0.5px]">
                     채널 컨셉
@@ -55,7 +55,7 @@ const Conceptbox = () => {
                     </div>
                 </div>
             </div>
-            <div className="mt-[16px]">
+            <div className="mt-[16px] ">
                 <Textarea
                     id=""
                     value={value}
@@ -66,6 +66,7 @@ const Conceptbox = () => {
                     }}
                     placeholder="유튜버님의 채널 컨셉에 대한 설명을 입력해주세요."
                     initialRows={5}
+                    className="w-full min-h-[120px]"
                 />
             </div>
         </div>
