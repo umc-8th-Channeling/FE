@@ -21,7 +21,7 @@ export default function LibraryPage() {
     }, [activeTab, subTab])
 
     return (
-        <div className="px-6 py-20 bg-gray-50 min-h-screen">
+        <div className="px-6 py-20 min-h-screen">
             <div className="relative flex mb-6">
                 <button
                     className={`flex-1 pb-3.5 text-center text-[20px] font-bold leading-[28px] tracking-[-0.5px] relative ${
