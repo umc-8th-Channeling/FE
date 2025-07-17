@@ -142,23 +142,28 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 `}
                         </style>
 
-                        <input
-                            type="file"
-                            accept="image/*"
-                            ref={fileInputRef}
-                            className="hidden"
-                            onChange={handleFileChange}
-                        />
-
-                        <button
-                            className="absolute top-[100px] right-[263px] w-8 h-8 p-1 flex items-center
-                        justify-center rounded-full bg-[#393939]"
-                            onClick={handleCameraClick}
-                        >
-                            <img src={CameraIcon} alt="카메라 아이콘" className="w-full h-full object-contain" />
-                        </button>
                         {activeTab === 'profile' && (
                             <div className="flex flex-col gap-10 w-full">
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    ref={fileInputRef}
+                                    className="hidden"
+                                    onChange={handleFileChange}
+                                />
+
+                                <button
+                                    className="absolute top-[100px] right-[263px] w-8 h-8 p-1 flex items-center
+                        justify-center rounded-full bg-[#393939]"
+                                    onClick={handleCameraClick}
+                                >
+                                    <img
+                                        src={CameraIcon}
+                                        alt="카메라 아이콘"
+                                        className="w-full h-full object-contain"
+                                    />
+                                </button>
+
                                 <div className="flex items-center justify-center h-full gap-4">
                                     <div
                                         className="w-[100px] h-[100px] rounded-[100px] bg-cover bg-no-repeat bg-center"
