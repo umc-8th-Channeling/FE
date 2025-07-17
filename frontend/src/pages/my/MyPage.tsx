@@ -69,7 +69,7 @@ export default function Mypage() {
                     <Targetbox />
                     <Conceptbox />
                 </div>
-                <div className="flex w-full max-w-[1200px] items-start content-start gap-[24px] self-stretch flex-wrap border-1 border-pink-400">
+                <div className="flex w-full max-w-[1200px] items-start content-start gap-[24px] self-stretch flex-wrap">
                     <Videolist />
                 </div>
             </div>

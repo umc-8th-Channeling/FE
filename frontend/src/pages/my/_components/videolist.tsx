@@ -42,7 +42,7 @@ export default function Videolist() {
             </div>
             {activeTab === 'video' && (
                 // <div className="w-[1200px] mt-[16px] grid grid-col-2 desktop:grid-cols-3 gap-[24px] cursor-pointer">
-                <div className="max-w-[1200px] mt-[16px] flex flex-wrap items-start content-start align-stretch gap-[24px] cursor-pointer">
+                <div className="max-w-[1200px] flex flex-wrap items-start content-start align-stretch gap-[24px] cursor-pointer">
                     <MyVideoCard onClick={() => setOpen(true)} />
                     {open && (
                         <Modal
@@ -69,11 +69,16 @@ export default function Videolist() {
                             </div>
                         </Modal>
                     )}
+                    {/* 더미데이터 */}
+                    <MyVideoCard />
+                    <MyVideoCard />
+                    <MyVideoCard />
+                    <MyVideoCard />
                 </div>
             )}
             {activeTab === 'shorts' && (
                 // <div className="max-w-[1200px] desktop:w-[1200px] mt-[16px] grid desktop:grid-cols-6 gap-x-[12px] gap-y-[24px] cursor-pointer">
-                <div className="max-w-[1200px] mt-[16px] flex flex-wrap items-start content-start align-stretch gap-[24px] cursor-pointer">
+                <div className="flex max-w-[1200px] mt-[16px] flex-wrap items-start tablet:content-between desktop:content-start align-stretch gap-[9px] cursor-pointer">
                     <MyShortsCard onClick={() => setOpen(true)} />
                     {open && (
                         <Modal
@@ -100,6 +105,12 @@ export default function Videolist() {
                             </div>
                         </Modal>
                     )}
+                    {/* 더미데이터 */}
+                    <MyShortsCard />
+                    <MyShortsCard />
+                    <MyShortsCard />
+                    <MyShortsCard />
+                    <MyShortsCard />
                 </div>
             )}
         </div>
