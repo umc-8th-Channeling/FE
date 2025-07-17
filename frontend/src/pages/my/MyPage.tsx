@@ -50,7 +50,7 @@ const statIcons = {
 export default function Mypage() {
     return (
         <div className="desktop:w-[1352px] flex flex-col pt-[80px] items-center ">
-            <div className="">
+            <div className="flex flex-col gap-[40px]">
                 <div className="flex tablet:w-[588px] desktop:w-[1200px] gap-[24px] items-start tablet:content-start tablet:flex-wrap">
                     <ProfileCard profile={profileData} />
 
