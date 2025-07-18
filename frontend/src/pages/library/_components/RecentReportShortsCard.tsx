@@ -9,7 +9,7 @@ export default memo(function RecentReportShortsCard({ item }: { item: LibraryIte
                 <p className="text-sm font-normal leading-[19.6px] tracking-[-0.35px] text-gray-600">
                     업데이트 : {item.updatedAt}
                 </p>
-                <button className="absolute w-6 h-6 -right-[4px] hidden group-hover:block ">
+                <button className="absolute w-6 h-6 -right-[4px] hidden group-hover:block  ">
                     <X className="w-full h-full fill-gray-900 " />
                 </button>
             </div>
