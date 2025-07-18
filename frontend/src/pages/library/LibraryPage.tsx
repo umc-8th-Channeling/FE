@@ -24,7 +24,7 @@ export default function LibraryPage() {
         <div className="px-6 py-20 min-h-screen">
             <div className="relative flex mb-6">
                 <button
-                    className={`flex-1 pb-3.5 text-center text-[20px] font-bold leading-[28px] tracking-[-0.5px] relative ${
+                    className={`flex-1 cursor-pointer pb-3.5 text-center text-[20px] font-bold leading-[28px] tracking-[-0.5px] relative ${
                         activeTab === 'report' ? 'text-primary-500' : 'text-gray-600'
                     }`}
                     onClick={() => setActiveTab('report')}
@@ -35,7 +35,7 @@ export default function LibraryPage() {
                     )}
                 </button>
                 <button
-                    className={`flex-1 pb-3.5 text-center text-[20px] font-bold leading-[28px] tracking-[-0.5px] relative ${
+                    className={`flex-1 cursor-pointer pb-3.5 text-center text-[20px] font-bold leading-[28px] tracking-[-0.5px] relative ${
                         activeTab === 'scrap' ? 'text-primary-500' : 'text-gray-600'
                     }`}
                     onClick={() => setActiveTab('scrap')}
@@ -51,7 +51,7 @@ export default function LibraryPage() {
                 <div className="flex justify-between items-center ">
                     <div className="flex gap-2 mb-6">
                         <button
-                            className={`px-4 py-2 rounded-lg font-bold leading-[24px] tracking-[-0.4px] ${
+                            className={`px-4 cursor-pointer py-2 rounded-lg font-bold leading-[24px] tracking-[-0.4px] ${
                                 subTab === 'video' ? 'bg-primary-500 ' : 'bg-gray-100 '
                             }`}
                             onClick={() => setSubTab('video')}
@@ -59,7 +59,7 @@ export default function LibraryPage() {
                             동영상
                         </button>
                         <button
-                            className={`px-4 py-2 rounded-lg font-bold leading-[24px] tracking-[-0.4px] ${
+                            className={`px-4 cursor-pointer py-2 rounded-lg font-bold leading-[24px] tracking-[-0.4px] ${
                                 subTab === 'shorts' ? 'bg-primary-500' : 'bg-gray-100'
                             }`}
                             onClick={() => setSubTab('shorts')}
