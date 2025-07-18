@@ -6,7 +6,7 @@ export default memo(function ScrapCard({ item }: { item: ScrapItem }) {
     const [isFilled, setIsFilled] = useState(true) // true면 채워짐
 
     return (
-        <div className="relative w-full p-5 rounded-lg bg-gray-100 hover:shadow transition">
+        <div className="relative w-full p-5 rounded-lg border border-gray-200 bg-gray-100 hover:bg-gray-200 transition">
             <Bookmark
                 className="absolute top-5 right-5 w-5 h-5 cursor-pointer text-primary-500"
                 fill={isFilled ? 'var(--color-primary-500)' : 'none'}
