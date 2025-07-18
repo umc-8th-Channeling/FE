@@ -58,7 +58,12 @@ export const Evaluation = () => {
 
 const EvaluationCard = ({ label, score, children }: PropsWithChildren<{ label: string; score: string }>) => {
     return (
-        <div className="whitespace-nowrap px-4 py-6 space-y-2 border border-gray-200 rounded-lg bg-surface-elevate-l1 overflow-hidden">
+        <div
+            className={`
+                flex flex-col justify-between px-4 py-6 ${children ? 'space-y-2' : 'space-y-4'}
+                border border-gray-200 rounded-lg bg-surface-elevate-l1 whitespace-nowrap overflow-hidden
+            `}
+        >
             <h3
                 className="
                     text-[12px] text-gray-700 whitespace-pre-line
@@ -68,7 +73,7 @@ const EvaluationCard = ({ label, score, children }: PropsWithChildren<{ label: s
                 {label}
             </h3>
             <p className="text-[20px] tablet:text-[24px] font-bold leading-[140%]">{score}</p>
-            {children && <div className="mt-6">{children}</div>}
+            {children && <div className="mt-4">{children}</div>}
         </div>
     )
 }

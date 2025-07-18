@@ -5,37 +5,8 @@ import ScoreUp from '../../../../assets/icons/up.svg?react'
 
 const body18m = 'text-[16px] tablet:text-[18px] font-medium leading-[150%] tracking-[-0.45px]'
 const body16m = 'text-[14px] tablet:text-[16px] font-medium leading-[150%] tracking-[-0.4px]'
-const title18b = 'text-[16px] tablet:text-[18px] font-bold leading-[140%] tracking-[-0.45px]'
-const body16r = 'text-[14px] tablet:text-[16px] leading-[150%] tracking-[-0.4px]'
-
-const KeywordBox = ({ label, items }: { label: string; items: typeof IDEA_TREND }) => {
-    return (
-        <div className="overflow-hidden whitespace-nowrap p-4 space-y-4 rounded-lg border border-gray-200 bg-surface-elevate-l1">
-            {/* header */}
-            <div className="overflow-hidden grid grid-cols-8 items-center">
-                <h3 className={`col-span-5 ${body18m}`}>{label}</h3>
-                <h6 className={`text-gray-700 ${body16m}`}>시작일</h6>
-                <h6 className={`col-span-2 flex justify-end pr-4 text-gray-700 ${body16m}`}>트렌드 점수</h6>
-            </div>
-
-            {/* keyword items */}
-            <div className="space-y-2">
-                {items.map((item, index) => (
-                    <div
-                        key={index}
-                        className="overflow-hidden grid grid-cols-8 items-center py-4 rounded-lg bg-surface-elevate-l2"
-                    >
-                        <p className={`col-span-5 ml-4 ${title18b}`}>{item.keyword}</p>
-                        <p className={`text-gray-600 ${body16r}`}>{formatRelativeTime(item.updatedAt)}</p>
-                        <p className={`col-span-2 flex flex-row justify-end pr-4 text-primary-500 ${body16r}`}>
-                            +{formatPercentString(item.score)}% <ScoreUp />
-                        </p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    )
-}
+const title18b = 'text-[14px] tablet:text-[18px] font-bold leading-[140%] tracking-[-0.45px]'
+const body16r = 'text-[12px] tablet:text-[16px] leading-[150%] tracking-[-0.4px]'
 
 export const TrendKeywords = () => {
     return (
@@ -45,5 +16,38 @@ export const TrendKeywords = () => {
                 <KeywordBox label="✨ 내 채널 맞춤형" items={IDEA_TREND} />
             </div>
         </TitledSection>
+    )
+}
+
+const KeywordBox = ({ label, items }: { label: string; items: typeof IDEA_TREND }) => {
+    return (
+        <div className="overflow-hidden whitespace-nowrap p-4 space-y-4 rounded-lg border border-gray-200 bg-surface-elevate-l1">
+            {/* header */}
+            <div className="overflow-hidden grid grid-cols-6 tablet:grid-cols-8 items-center">
+                <h3 className={`col-span-3 tablet:col-span-5 ${body18m}`}>{label}</h3>
+                <h6 className={`text-gray-700 ${body16m}`}>시작일</h6>
+                <h6 className={`col-span-2 flex items-center justify-end pr-2 text-gray-700 ${body16m}`}>
+                    트렌드 점수
+                </h6>
+            </div>
+
+            {/* keyword items */}
+            <div className="space-y-2">
+                {items.map((item, index) => (
+                    <div
+                        key={index}
+                        className="overflow-hidden grid grid-cols-6 tablet:grid-cols-8 items-center py-4 rounded-lg bg-surface-elevate-l2"
+                    >
+                        <p className={`col-span-3 tablet:col-span-5 ml-4 ${title18b}`}>{item.keyword}</p>
+                        <p className={`text-gray-600 ${body16r}`}>{formatRelativeTime(item.updatedAt)}</p>
+                        <p
+                            className={`col-span-2 flex flex-row items-center justify-end pr-2 text-primary-500 ${body16r}`}
+                        >
+                            +{formatPercentString(item.score)}% <ScoreUp />
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </div>
     )
 }
