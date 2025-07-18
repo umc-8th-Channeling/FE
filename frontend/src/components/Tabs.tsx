@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import type { TabItem } from '../types/common'
 
 interface TabsProps {
@@ -27,6 +27,11 @@ const Tabs = ({
         else setInternalActiveTab(tab)
     }
 
+    // 활성화 탭 컴포넌트 메모이제이션
+    const ActiveTabComponent = useMemo(() => {
+        return tabs.find((tab) => tab.index === activeTab.index)?.component
+    }, [activeTab.index, tabs])
+
     return (
         <div className={`flex flex-col w-full ${spaceY}`}>
             <div className={`flex flex-row justify-between p-1 gap-2 rounded-lg ${bgColor}`}>
@@ -42,7 +47,7 @@ const Tabs = ({
                     </button>
                 ))}
             </div>
-            <div>{tabs.find((tab) => activeTab.label === tab.label)?.component}</div>
+            <div>{ActiveTabComponent}</div>
         </div>
     )
 }

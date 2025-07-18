@@ -1,8 +1,8 @@
+import { useEffect, useState } from 'react'
 import Tabs from '../../components/Tabs'
 import { TabOverview, TabAnalysis, TabIdea, VideoSummary, GuestModal, UpdateModal } from './_components'
 import { VIDEO } from './dummy'
 import Refresh from '../../assets/icons/refresh_2.svg?react'
-import { useEffect, useState } from 'react'
 
 const TABS = [
     { index: 0, label: '개요', component: <TabOverview /> },
