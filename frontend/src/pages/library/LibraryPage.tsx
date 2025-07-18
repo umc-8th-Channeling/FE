@@ -84,9 +84,9 @@ export default function LibraryPage() {
                 className={
                     activeTab === 'report'
                         ? subTab === 'video'
-                            ? 'grid grid-cols-2 tablet:grid-cols-4 gap-6'
-                            : 'grid grid-cols-3 tablet:grid-cols-6 gap-3'
-                        : 'grid grid-cols-1 tablet:grid-cols-1 gap-6'
+                            ? 'grid grid-cols-2 desktop:grid-cols-4 gap-6'
+                            : 'grid grid-cols-3 desktop:grid-cols-6 gap-3'
+                        : 'grid grid-cols-1 desktop:grid-cols-1 gap-6'
                 }
             >
                 {filteredList.map((item) =>
