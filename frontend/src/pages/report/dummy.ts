@@ -44,7 +44,7 @@ export const OVERVIEW_COMMENTS = [
     {
         key: 'positive',
         label: '긍정',
-        value: 0.25,
+        value: 0.47,
         comments: [
             '많은 사용자들이 영상 내용에 크게 공감하며 감동을 받았다는 반응을 보였습니다.',
             '댓글에는 "이 영상 덕분에 위로받았다"는 반응이 많았습니다.',
@@ -55,7 +55,7 @@ export const OVERVIEW_COMMENTS = [
     {
         key: 'negative',
         label: '부정',
-        value: 0.25,
+        value: 0.04,
         comments: [
             '댓글에는 "이 영상 덕분에 위로받았다"는 반응이 많았습니다.',
             '많은 사용자들이 영상 내용에 크게 공감하며 감동을 받았다는 반응을 보였습니다.',
@@ -66,7 +66,7 @@ export const OVERVIEW_COMMENTS = [
     {
         key: 'netural',
         label: '중립',
-        value: 0.06,
+        value: 0.28,
         comments: [
             '진정성 있는 이야기와 현실적인 사례에 공감한 사용자가 많았고, “마치 내 얘기 같았다”, “마음이 편해졌다”와 같은 반응이 반복적으로 등장했습니다.',
             '많은 사용자들이 영상 내용에 크게 공감하며 감동을 받았다는 반응을 보였습니다.',
@@ -77,7 +77,7 @@ export const OVERVIEW_COMMENTS = [
     {
         key: 'suggestion',
         label: '조언 및 의견',
-        value: 0.44,
+        value: 0.21,
         comments: [
             '많은 사용자들이 영상 내용에 크게 공감하며 감동을 받았다는 반응을 보였습니다.',
             '많은 사용자들이 영상 내용에 크게 공감하며 감동을 받았다는 반응을 보였습니다. 특히 진정성 있는 메시지와 따뜻한 연출에 호평이 많았고, 일부는 ‘눈물났다’, ‘위로받았다’는 표현으로 감정을 표현',
