@@ -8,17 +8,17 @@ interface ProfileCardProps {
 
 const ProfileCard = ({ profile }: ProfileCardProps) => {
     return (
-        <div className="flex w-[588px] h-[180px] ">
-            <div className="flex items-center">
-                <span className="w-[180px] h-[180px] rounded-full object-cover bg-pink-400"></span>
-            </div>
-            <div className="flex flex-col w-[384px] items-start mt-[28px] ml-[24px] gap-[8px]">
-                <div className="flex justify-center items-center w-[100px] h-[28px] whitespace-nowrap bg-[#fa4d56]/50 rounded-[2px] ">
+        <div className="flex justify-center items-center gap-[24px] ">
+            {/* <div className="flex items-center"> */}
+            <span className="w-[180px] h-[180px] rounded-full object-cover bg-pink-400"></span>
+            {/* </div> */}
+            <div className="flex flex-col w-[384px] items-start gap-[8px]  ">
+                <div className="flex items-start px-[8px] py-[4px] gap-[8px] whitespace-nowrap bg-[#fa4d56]/50 rounded-[2px] ">
                     <span className="  text-[#fff] text-[14px] font-medium leading-[140%] tracking-[-0.35px]">
                         {profile.category}
                     </span>
                 </div>
-                <div className="text-[#fff]  h-[34px] text-[24px] font-bold leading-[140%] tracking-[-0.6px]">
+                <div className="text-[#fff] text-[24px] font-bold leading-[140%] tracking-[-0.6px]">
                     {profile.channelName}
                 </div>
                 <div>
@@ -32,7 +32,7 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
                         {profile.channelName} 채널 바로가기
                     </a>
                 </div>
-                <div className="h-[24px] text-[#fff] text-[16px] font-medium leading-[150%] tracking-[-0.4px]">
+                <div className="flex w-[384px] items-end gap-[8px] overflow-hidden text-ellipsis text-[#fff] text-[16px] font-medium leading-[150%] tracking-[-0.4px]">
                     가입일: {profile.joinDate}
                 </div>
             </div>
