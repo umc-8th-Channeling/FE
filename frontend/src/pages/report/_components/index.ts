@@ -1,6 +1,6 @@
-export * from './overview'
-export * from './analysis'
-export * from './idea'
+export * from './overview/TabOverview'
+export * from './analysis/TabAnalysis'
+export * from './idea/TabIdea'
 
 export * from './VideoSummary'
 export * from './Tag'
