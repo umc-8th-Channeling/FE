@@ -13,9 +13,6 @@ export function formatKoreanNumber(value: number, suffix: string = ''): string {
     if (value >= 10_000) {
         return `${Math.floor(value / 10_000)}만${suffix}`
     }
-    if (value >= 1000) {
-        return `${value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}${suffix}`
-    }
     return `${value.toLocaleString()}${suffix}`
 }
 
