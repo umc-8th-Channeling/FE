@@ -5,9 +5,13 @@ import { Tag } from './Tag'
 export const VideoSummary = ({ video }: { video: typeof VIDEO }) => {
     return (
         <div className="flex flex-col tablet:flex-row gap-6">
-            <div className="w-[282px] aspect-[141/79] rounded-lg overflow-hidden">
-                <img src={video.thumbnail} className="w-full h-full object-cover" />
-            </div>
+            <iframe
+                id="ytplayer"
+                width="480"
+                height="270"
+                src={`https://www.youtube.com/embed/${video.videoId}?controls=0&rel=0&origin=http://localhost:5173`}
+                className="w-[282px] h-full aspect-[141/79] rounded-lg"
+            />
 
             <div className="space-y-2">
                 <Tag text={video.tag} />
