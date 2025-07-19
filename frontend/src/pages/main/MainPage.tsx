@@ -10,12 +10,13 @@ export default function MainPage() {
         <div className="flex flex-col items-center justify-center z-50">
             <div
                 className="
-                    flex flex-col items-center justify-center mb-[222px] tablet:mb-[324px] desktop:mb-[84px]
+                    flex flex-col items-center justify-center 
+                    mt-[100px] tablet:mt-60 desktop:mt-80 mb-[222px] tablet:mb-[324px] desktop:mb-[84px]
                     space-y-4 tablet:space-y-6 whitespace-pre-line tablet:whitespace-
                 "
             >
                 <h1
-                    className="mt-[100px] tablet:mt-60 desktop:mt-80
+                    className="
                         text-center text-[18px] leading-[150%] font-bold tracking-[-0.45px] tablet:text-[20px] tablet:leading-[140%] tablet:tracking-[-0.5px]
                         whitespace-pre-line tablet:whitespace-nowrap
                     "
