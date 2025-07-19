@@ -3,6 +3,7 @@ import MyVideoCard from './myVideoCard'
 import MyShortsCard from './myShortsCard'
 import Modal from '../../../components/Modal'
 import { useNavigate } from 'react-router-dom'
+import Pagination from '../../../components/pagination'
 
 export default function Videolist() {
     const [activeTab, setActiveTab] = useState<'video' | 'shorts'>('video')
@@ -13,6 +14,10 @@ export default function Videolist() {
         setOpen(false)
         navigate('/report')
     }
+
+    // 페이지네이션 더미데이터
+    const dummyTotalItems = 100
+    const dummyItemCountPerPage = 10
 
     return (
         <div className="w-[1200px] h-[685px]">
@@ -97,6 +102,9 @@ export default function Videolist() {
                     )}
                 </div>
             )}
+            <div className="flex flex-col pt-[40px] justify-center items-center gap-[8px] self-stretch">
+                <Pagination totalItems={dummyTotalItems} itemCountPerPage={dummyItemCountPerPage} />
+            </div>
         </div>
     )
 }
