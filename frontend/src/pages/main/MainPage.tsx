@@ -1,8 +1,11 @@
 import { Footer } from '../../components/common/Footer'
+import { useAuthStore } from '../../stores/authStore'
 import { UrlInputForm, VideoRecommendation } from './_components'
 import { DUMMY_MY, DUMMY_POPULAR } from './dummy'
 
 export default function MainPage() {
+    const isAuth = useAuthStore((state) => state.isAuth)
+
     return (
         <div className="flex flex-col items-center justify-center z-50">
             <div
@@ -23,7 +26,7 @@ export default function MainPage() {
                 <UrlInputForm />
 
                 <div className="space-y-20 tablet:space-y-10">
-                    <VideoRecommendation label="내 영상의 개선점을 알고 싶다면" videos={DUMMY_MY} />
+                    {isAuth && <VideoRecommendation label="내 영상의 개선점을 알고 싶다면" videos={DUMMY_MY} />}
                     <VideoRecommendation label="인기있는 영상의 비결은?" videos={DUMMY_POPULAR} />
                 </div>
             </div>

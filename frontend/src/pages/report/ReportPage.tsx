@@ -1,9 +1,11 @@
 import Tabs from '../../components/Tabs'
 import { TabOverview, TabAnalysis, TabIdea, VideoSummary, GuestModal } from './_components'
-import { VIDEO } from './dummy'
+import { AUTH_VIDEO, GUEST_VIDEO } from './dummy'
 import Refresh from '../../assets/icons/refresh_2.svg?react'
 import { useEffect, useState } from 'react'
 import Modal from '../../components/Modal'
+import { useAuthStore } from '../../stores/authStore'
+import { useParams } from 'react-router-dom'
 
 const TABS = [
     { index: 0, label: '개요', component: <TabOverview /> },
@@ -12,16 +14,24 @@ const TABS = [
 ]
 
 export default function ReportPage() {
+    const { reportId } = useParams()
+    const isAuth = useAuthStore((state) => state.isAuth)
+
     const [activeTab, setActiveTab] = useState(TABS[0])
     const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false)
     const [isOpenGuestModal, setIsOpenGuestModal] = useState(false) // 전역 상태 전환 필요
 
-    const video = VIDEO
+    // ✅ 임시 비디오 데이터 (API 연결시 수정)
+    let video
+    if (reportId) {
+        video = AUTH_VIDEO
+    } else {
+        video = GUEST_VIDEO
+    }
 
     useEffect(() => {
-        const isGuest = !localStorage.getItem('token')
-        setIsOpenGuestModal(isGuest)
-    }, [])
+        setIsOpenGuestModal(!isAuth)
+    }, [isAuth])
 
     const handleOpenUpdateModalClick = () => setIsOpenUpdateModal(!isOpenUpdateModal)
     const handleOpenGuestModalClick = () => setIsOpenGuestModal(!isOpenGuestModal)
