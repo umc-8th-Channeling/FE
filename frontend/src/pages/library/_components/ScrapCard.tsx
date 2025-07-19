@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Bookmark } from 'lucide-react';
-import type { ScrapItem } from '../../../types/library';
+import { memo, useState } from 'react'
+import { Bookmark } from 'lucide-react'
+import type { ScrapItem } from '../../../types/library'
 
-export default function ScrapCard({ item }: { item: ScrapItem }) {
-    const [isFilled, setIsFilled] = useState(true); // true면 채워짐
+export default memo(function ScrapCard({ item }: { item: ScrapItem }) {
+    const [isFilled, setIsFilled] = useState(true) // true면 채워짐
 
     return (
         <div className="relative w-full p-5 rounded-lg bg-gray-100 hover:shadow transition">
@@ -29,5 +29,5 @@ export default function ScrapCard({ item }: { item: ScrapItem }) {
                 ))}
             </div>
         </div>
-    );
-}
+    )
+})

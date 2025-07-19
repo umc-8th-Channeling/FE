@@ -1,17 +1,28 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
-import ErrorIcon from '../../../assets/icons/error.svg?react'
+import { useReportStore } from '../../../stores/reportStore'
+
 import ArrowButton from '../../../components/ArrowButton'
 import { ErrorToast } from './ErrorToast'
+import ErrorIcon from '../../../assets/icons/error.svg?react'
 import { useUrlInput } from '../../../hooks/main/useUrlInput'
-import { useNavigate } from 'react-router-dom'
 
 export const UrlInputForm = () => {
     const navigate = useNavigate()
     const [isFocused, setIsFocused] = useState(false)
+
+    const startGenerating = useReportStore((state) => state.actions.startGenerating)
+    const endGenerating = useReportStore((state) => state.actions.endGenerating)
+
     const { register, handleSubmit, isActive, error, setError } = useUrlInput((url) => {
         console.log('메인 페이지에서 받은 URL:', url)
-        navigate('/report')
+
+        startGenerating()
+        setTimeout(() => {
+            endGenerating()
+            navigate('/report')
+        }, 5000)
     })
 
     return (
@@ -28,7 +39,7 @@ export const UrlInputForm = () => {
             </button>
             {/* 확인 용 임시 버튼 끝 */}
 
-            <div className="mb-[100px] tablet:mb-20 desktop:mb-[100px]">
+            <div className="relative mb-[100px] tablet:mb-20 desktop:mb-[100px]">
                 <form
                     onSubmit={handleSubmit}
                     className={clsx(
@@ -41,7 +52,11 @@ export const UrlInputForm = () => {
                         }
                     )}
                 >
-                    {error && <ErrorIcon className="ml-2" />}
+                    <ErrorIcon
+                        className={`ml-2 transition-opacity duration-300 ${
+                            error ? 'opacity-100 max-w-6' : 'opacity-0 max-w-0'
+                        }`}
+                    />
                     <input
                         {...register('url')}
                         id="youtube url input"
@@ -59,8 +74,8 @@ export const UrlInputForm = () => {
 
                 <p
                     className={`
-                        mt-2 ml-6 tablet:ml-10 text-error text-[14px] leading-[140%] tracking-[-0.35px]
-                        transition-all duration-300 ease-in-out ${error ? 'opacity-100 max-h-20' : 'opacity-0 max-h-0'}
+                        absolute mt-2 ml-6 text-error text-[14px] leading-[140%] tracking-[-0.35px]
+                        transition-all duration-300 ease-in-out ${error ? 'opacity-100 max-h-5' : 'opacity-0 max-h-0'}
                     `}
                 >
                     {error}

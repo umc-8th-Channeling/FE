@@ -1,18 +1,39 @@
-import { useEffect } from 'react'
-import RootLayoutDesktop from './RootLayoutDesktop'
-import RootLayoutMobile from './RootLayoutMobile'
-import RootLayoutTablet from './RootLayoutTablet'
+import { Outlet, useLocation } from 'react-router-dom'
+import { NavbarWrapper } from '../../components/common/Navbar/NavbarWrapper'
+import ReportLoadingSpinner from '../../components/ReportLoadingSpinner'
 
 export default function RootLayout() {
-    useEffect(() => {
-        localStorage.setItem('accessToken', 'temp-token')
-        localStorage.setItem('isLogin', 'true')
-    }, [])
+    const location = useLocation()
+    const isMain = location.pathname === '/'
+
     return (
         <>
-            <RootLayoutDesktop />
-            <RootLayoutTablet />
-            <RootLayoutMobile />
+            <NavbarWrapper />
+
+            <main
+                className={`
+                    w-full h-screen flex items-center justify-center bg-surface
+                    tablet:pt-18 desktop:pt-0 desktop:pl-18 
+                    pt-14 pl-0 
+                `}
+            >
+                <div className="relative w-full desktop:m-2 h-full desktop:h-[calc(100%-16px)] desktop:rounded-lg overflow-hidden">
+                    {/* 메인 페이지일 경우 고정 위치 그라데이션 배경 */}
+                    <div className="absolute inset-0 z-0 bg-gradient-to-b from-gray-50 to-primary-50" />
+
+                    <div
+                        className={`
+                            relative z-10 w-full h-full overflow-y-auto [&::-webkit-scrollbar]:hidden
+                            bg-linear-to-b from-gray-50 to-primary-50 
+                            ${!isMain && 'desktop:bg-none desktop:bg-gray-50'}
+                        `}
+                    >
+                        <Outlet />
+                    </div>
+                </div>
+
+                <ReportLoadingSpinner />
+            </main>
         </>
     )
 }

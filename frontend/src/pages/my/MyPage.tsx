@@ -10,6 +10,7 @@ import People from '../../assets/icons/people.svg?react'
 import Share from '../../assets/icons/share.svg?react'
 import Videos from '../../assets/icons/videos.svg?react'
 import Comment from '../../assets/icons/comment.svg?react'
+import { formatKoreanNumber } from '../../utils/format'
 
 const profileData = {
     imageUrl: 'https://placekitten.com/200/200',
@@ -50,7 +51,7 @@ const statIcons = {
 export default function Mypage() {
     return (
         <div className="flex bg-surface-base">
-            <div className=" mt-[8px] ml-[80px] bg-gray-50 w-[1352px] h-[1401px] rounded-[8px]">
+            <div className=" mt-[8px] ml-[80px] w-[1352px] h-[1401px] rounded-[8px]">
                 <div className="flex gap-[24px] ml-[76px] mt-[80px]">
                     <ProfileCard profile={profileData} />
                     <div className="w-[588px] h-[220px] grid grid-cols-3 gap-[24px] ">
@@ -58,7 +59,7 @@ export default function Mypage() {
                             <StatsCard
                                 key={meta.key}
                                 title={meta.title}
-                                value={stats[meta.key]}
+                                value={formatKoreanNumber(stats[meta.key])}
                                 icon={statIcons[meta.key]}
                             />
                         ))}
