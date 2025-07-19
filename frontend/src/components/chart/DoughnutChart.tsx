@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2'
 
 import type { TabItem } from '../../types/common'
 import { iconDefaultPlugin, iconActivePlugin } from './iconPlugin'
-import { activeTooltipPlugin, tooltipHandler } from './tooltipPlugin'
+import { activeTooltipPlugin, externalTooltipHandler } from './tooltipPlugin'
 import './tooltip.css'
 
 ChartJS.register(ArcElement, Tooltip)
@@ -66,7 +66,7 @@ export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: Dough
         plugins: {
             legend: { display: false },
             datalabels: { display: false },
-            tooltip: { enabled: false, external: tooltipHandler, intersect: true }, // 정확도를 낮추고 싶으면 false로 변경
+            tooltip: { enabled: false, external: externalTooltipHandler, intersect: true }, // 정확도를 낮추고 싶으면 false로 변경
             customPlugin: { activeIndex },
         },
         onClick: (evt: ChartEvent) => {
