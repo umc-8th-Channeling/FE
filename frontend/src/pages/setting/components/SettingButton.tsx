@@ -7,7 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button({ children, variant = 'default', className = '', ...props }: ButtonProps) {
-    const base = 'flex items-center p-2 gap-2 rounded-lg w-[135px] self-stretch'
+    const base = 'flex items-center p-2 gap-2 rounded-lg w-full self-stretch'
 
     const variants = {
         default: 'text-[#F4F4F4]',

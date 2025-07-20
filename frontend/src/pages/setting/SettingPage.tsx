@@ -39,13 +39,13 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const [dailyContentEmail, setDailyContentEmail] = useState(true)
     const [editing, setEditing] = useState(false)
     const [modified, setModified] = useState(false)
-
     const [showWithdrawlModal, setShowWithdrawlModal] = useState(false)
 
     const [profileImageUrl, setProfileImageUrl] = useState('/path-to-image.jpg')
     const fileInputRef = useRef<HTMLInputElement>(null)
 
     const [deviceSize, setDeviceSize] = useState<'desktop' | 'tablet' | 'mobile'>('desktop')
+    const [imageChanged, setImageChanged] = useState(false)
 
     useEffect(() => {
         const updateSize = () => {
@@ -68,7 +68,15 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         if (!file) return
         const previewUrl = URL.createObjectURL(file)
         setProfileImageUrl(previewUrl)
+        setImageChanged(true)
     }
+
+    useEffect(() => {
+        if (imageChanged) {
+            console.log('이미지 저장됨:', profileImageUrl)
+            setImageChanged(false)
+        }
+    }, [profileImageUrl, imageChanged])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({
@@ -103,7 +111,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                         <div className="flex flex-col gap-y-4">
                             <Button
                                 variant={activeTab === 'profile' ? 'secondary' : 'ghost'}
-                                className="w-full text-left"
+                                className="min-w-max whitespace-nowrap"
                                 onClick={() => setActiveTab('profile')}
                             >
                                 계정 및 프로필 설정
@@ -118,8 +126,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                         </div>
                         <Button
                             variant="ghost"
-                            className="w-full text-left text-[#F4F4F4] mt-auto
-                        flex items-center justify-between"
+                            className="w-full text-left text-[#F4F4F4] mt-auto flex items-center justify-between"
                         >
                             <span>로그아웃</span>
                             <img src={LogoutIcon} alt="로그아웃 아이콘" />
@@ -137,9 +144,9 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                         <style>
                             {`
                                 div::-webkit-scrollbar {
-                                display: none;
+                                    display: none;
                                 }
-                                `}
+                            `}
                         </style>
 
                         {activeTab === 'profile' && (
@@ -153,8 +160,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 />
 
                                 <button
-                                    className="absolute top-[100px] right-[263px] w-8 h-8 p-1 flex items-center
-                        justify-center rounded-full bg-[#393939]"
+                                    className="absolute top-[100px] right-[263px] w-8 h-8 p-1 flex items-center justify-center rounded-full bg-[#393939]"
                                     onClick={handleCameraClick}
                                 >
                                     <img
