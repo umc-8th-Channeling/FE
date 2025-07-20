@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { CommentFeedback } from './CommentFeedback'
 import { Evaluation } from './Evaluation'
 import { Summary } from './Summary'
-import { Skeleton } from './skeleton'
+import { Skeleton } from './Skeleton'
 
 const EvaluationAndSummary = memo(() => {
     return (
