@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import type { LibraryItem } from '../../../types/library'
-import { X } from 'lucide-react'
+import X from '../../../assets/icons/X.svg?react'
 
 export default memo(function RecentReportShortsCard({ item }: { item: LibraryItem }) {
     return (

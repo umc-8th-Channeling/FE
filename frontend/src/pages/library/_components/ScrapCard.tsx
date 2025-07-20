@@ -1,5 +1,6 @@
 import { memo, useState } from 'react'
-import { Bookmark } from 'lucide-react'
+import Bookmark from '../../../assets/icons/bookmark.svg?react'
+import BookmarkActive from '../../../assets/icons/bookmark_active.svg?react'
 import type { ScrapItem } from '../../../types/library'
 
 export default memo(function ScrapCard({ item }: { item: ScrapItem }) {
@@ -7,13 +8,14 @@ export default memo(function ScrapCard({ item }: { item: ScrapItem }) {
 
     return (
         <div className="relative w-full p-5 rounded-lg border border-gray-200 bg-gray-100 hover:bg-gray-200 duration-300 transition">
-            <Bookmark
-                className="absolute top-5 right-5 w-5 h-5 cursor-pointer text-primary-500"
-                fill={isFilled ? 'var(--color-primary-500)' : 'none'}
-                stroke="currentColor"
-                strokeWidth={2}
-                onClick={() => setIsFilled(!isFilled)}
-            />
+            {isFilled ? (
+                <BookmarkActive
+                    className="absolute top-5 right-5 w-5 h-5 cursor-pointer"
+                    onClick={() => setIsFilled(false)}
+                />
+            ) : (
+                <Bookmark className="absolute top-5 right-5 w-5 h-5 cursor-pointer" onClick={() => setIsFilled(true)} />
+            )}
 
             <h3 className="text-[20px] font-bold leading-[28px] tracking-[-0.5px] mb-2 flex items-center gap-2">
                 <span>코케트(coquette) 패션 인사</span>
