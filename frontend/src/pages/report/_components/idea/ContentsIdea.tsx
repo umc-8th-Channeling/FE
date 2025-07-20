@@ -10,13 +10,13 @@ const IdeaBox = ({ idea }: { idea: (typeof IDEA_NEXT_CONTENTS)[0] }) => {
 
     return (
         <div className="relative p-6 space-y-4 rounded-lg border border-gray-200 bg-surface-elevate-l1">
-            <h3 className="text-[20px] font-bold leading-[140%] tracking-[-0.5px]">{idea.title}</h3>
-            <p className="text-[18px] leading-[150%] tracking-[-0.45px]">{idea.description}</p>
-            <div className="flex flex-row gap-2">
+            <h3 className="text-[18px] tablet:text-[20px] font-bold leading-[140%] tracking-[-0.5px]">{idea.title}</h3>
+            <p className="text-[14px] tablet:text-[18px] leading-[150%] tracking-[-0.45px]">{idea.description}</p>
+            <div className="flex flex-row flex-wrap gap-2">
                 {idea.tags.map((tag, index) => (
                     <p
                         key={index}
-                        className="px-2 py-1 rounded-xs bg-primary-opacity50 text-[16px] font-medium leading-[150%] tracking-[-0.4px]"
+                        className="px-2 py-1 rounded-xs bg-primary-opacity50 text-[14px] tablet:text-[16px] font-medium leading-[150%] tracking-[-0.4px]"
                     >
                         #{tag}
                     </p>
