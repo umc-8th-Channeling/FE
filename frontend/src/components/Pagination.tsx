@@ -6,7 +6,7 @@ const Pagination = ({ totalItems, itemCountPerPage }: PagingProps) => {
     const [startPage, setStartPage] = useState(1) // 페이지 번호 시작하는 값
     const [nowPage, setNowPage] = useState(1) //현재 페이지 값
 
-    const totalPageCount = totalItems / itemCountPerPage
+    const totalPageCount = totalItems / itemCountPerPage // 총 페이지 수
     const visiblePages = Array.from({ length: 5 }, (_, i) => startPage + i)
 
     return (
@@ -21,7 +21,7 @@ const Pagination = ({ totalItems, itemCountPerPage }: PagingProps) => {
                     <button
                         key={page}
                         className={`flex flex-col w-[36px] h-[36px] justify-center items-center gap-[8px] rounded-[12px]  text-gray-900 font-medium text-[16px] hover:bg-primary-opacity50 ${
-                            page <= nowPage ? 'bg-primary-500' : ''
+                            page == nowPage ? 'bg-primary-500' : 'bg-transparent'
                         }`}
                         onClick={() => setNowPage(page)}
                     >
