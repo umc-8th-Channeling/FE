@@ -7,28 +7,27 @@ import { PLUS_LINK, NAVIGATE_LINKS, LOGIN_LINK } from './navbarLinks'
 import ChannelingLogo from '../../../assets/icons/channeling.svg?react'
 import { NavbarUserInfo } from './NavbarUserInfo'
 import { DUMMY_USER } from './dummy'
+import { useNavbarModals } from '../../../hooks/main/navbar/useNavbarModal'
 import { ChannelConceptModal, LoginModal, UrlInputModal, ViewerModal } from '../../../pages/main/_components'
 
 type ToolTipPos = { top: number; left: number }
 
 export const NavbarDesktop = () => {
-    const [showLoginModal, setShowLoginModal] = useState(false)
-    const [showViewerModal, setShowViewerModal] = useState(false)
-    const [showChannelConceptModal, setShowChannelConceptModal] = useState(false)
-
-    const [viewerValue, setViewerValue] = useState('')
-    const [channelConceptValue, setChannelConceptValue] = useState('')
-
-    const handleViewerChange = (value: string) => {
-        setViewerValue(value)
-    }
-
-    const handleCloseLoginModal = () => setShowLoginModal(false)
-    const handleOpenViewerModal = () => setShowViewerModal(true)
-    const handleCloseViewerModal = () => setShowViewerModal(false)
-    const handleOpenChannelConceptModal = () => setShowChannelConceptModal(true)
-    const handleCloseChannelConceptModal = () => setShowChannelConceptModal(false)
-    const handleChangeChannelConcept = (value: string) => setChannelConceptValue(value)
+    const {
+        showLoginModal,
+        showViewerModal,
+        showChannelConceptModal,
+        viewerValue,
+        channelConceptValue,
+        openLoginModal,
+        closeLoginModal,
+        openViewerModal,
+        closeViewerModal,
+        openChannelConceptModal,
+        closeChannelConceptModal,
+        changeViewerValue,
+        changeChannelConceptValue,
+    } = useNavbarModals()
 
     const [showPlusModal, setShowPlusModal] = useState(false)
     const isGuest = !localStorage.getItem('token')
@@ -61,7 +60,6 @@ export const NavbarDesktop = () => {
         }
     }, [isGuest])
 
-    const handleLoginModalClick = () => setShowLoginModal(!showLoginModal)
     const handlePlusModalClick = () => setShowPlusModal(!showPlusModal)
 
     return (
@@ -89,7 +87,7 @@ export const NavbarDesktop = () => {
                         {!isGuest && user ? (
                             <NavbarUserInfo user={DUMMY_USER} />
                         ) : (
-                            <NavbarModalButton key={LOGIN_LINK.alt} {...LOGIN_LINK} onClick={handleLoginModalClick} />
+                            <NavbarModalButton key={LOGIN_LINK.alt} {...LOGIN_LINK} onClick={openLoginModal} />
                         )}
                     </div>
 
@@ -104,30 +102,32 @@ export const NavbarDesktop = () => {
 
             {showLoginModal && (
                 <LoginModal
-                    onClose={handleCloseLoginModal}
+                    onClose={closeLoginModal}
                     onLoginSuccess={() => {
-                        handleCloseLoginModal()
-                        handleOpenViewerModal()
+                        changeViewerValue('')
+                        closeLoginModal()
+                        openViewerModal()
                     }}
                 />
             )}
             {showViewerModal && (
                 <ViewerModal
-                    onClose={handleCloseViewerModal}
+                    onClose={closeViewerModal}
                     value={viewerValue}
-                    onChange={handleViewerChange}
+                    onChange={changeViewerValue}
                     handleButtonClick={() => {
-                        handleCloseViewerModal()
-                        handleOpenChannelConceptModal()
+                        changeChannelConceptValue('')
+                        closeViewerModal()
+                        openChannelConceptModal()
                     }}
                 />
             )}
             {showChannelConceptModal && (
                 <ChannelConceptModal
-                    onClose={handleCloseChannelConceptModal}
+                    onClose={closeChannelConceptModal}
                     value={channelConceptValue}
-                    handleButtonClick={handleCloseChannelConceptModal}
-                    onChange={handleChangeChannelConcept}
+                    handleButtonClick={closeChannelConceptModal}
+                    onChange={changeChannelConceptValue}
                 />
             )}
 
