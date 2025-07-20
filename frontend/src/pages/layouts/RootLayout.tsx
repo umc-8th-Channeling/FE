@@ -23,7 +23,7 @@ export default function RootLayout() {
 
                     <div
                         className={`
-                            relative z-10 w-full h-full overflow-y-auto [&::-webkit-scrollbar]:hidden
+                            relative w-full h-full overflow-y-auto [&::-webkit-scrollbar]:hidden
                             bg-linear-to-b from-gray-50 to-primary-50 
                             ${!isMain && 'desktop:bg-none desktop:bg-gray-50'}
                         `}

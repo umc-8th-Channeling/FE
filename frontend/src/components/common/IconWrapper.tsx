@@ -18,22 +18,24 @@ export const IconWrapper = ({
     alt,
     isCircle,
     isActive,
-    size = 'md',
+    size = 'sm',
 }: IconWrapperProps) => {
     const [isHover, setIsHover] = useState(false)
 
     const currentIcon = isActive ? activeIcon : isHover ? hoverIcon : defaultIcon
 
-    let sizeClass = 'w-6 h-6'
+    let sizeClass
     if (size === 'lg') {
-        sizeClass = 'w-10 h-10'
-    } else if (size === 'sm') {
-        sizeClass = 'w-6 h-6'
+        sizeClass = 'size-10'
+    } else if (size === 'md') {
+        sizeClass = 'size-8'
+    } else {
+        sizeClass = 'size-6'
     }
 
     return isCircle ? (
         <div
-            className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center"
+            className="size-8 desktop:size-12 rounded-full bg-gray-200 flex items-center justify-center"
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
         >

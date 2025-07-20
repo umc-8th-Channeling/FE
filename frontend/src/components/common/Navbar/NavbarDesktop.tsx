@@ -1,47 +1,32 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { NavbarContainer } from './NavbarContainer'
-import { NavbarLink, NavbarModalButton } from './NavbarLink'
+import ChannelingLogo from '../../../assets/icons/channelingLogo.svg?react'
+import { useAuthStore } from '../../../stores/authStore'
+import { NavbarLinksList } from './NavbarLinksList'
 import { ToolTipBubble } from './NavbarToolTip'
-import { PLUS_LINK, NAVIGATE_LINKS, LOGIN_LINK } from './navbarLinks'
-import ChannelingLogo from '../../../assets/icons/channeling.svg?react'
-import { NavbarUserInfo } from './NavbarUserInfo'
-import { DUMMY_USER } from './dummy'
-import { ChannelConceptModal, LoginModal, UrlInputModal, ViewerModal } from '../../../pages/main/_components'
+import { UrlInputModal } from '../../../pages/main/_components'
+import Modal from '../../Modal' // ✅ 임시
 
 type ToolTipPos = { top: number; left: number }
 
 export const NavbarDesktop = () => {
-    const [showLoginModal, setShowLoginModal] = useState(false)
-    const [showViewerModal, setShowViewerModal] = useState(false)
-    const [showChannelConceptModal, setShowChannelConceptModal] = useState(false)
+    const [showUrlModal, setShowUrlModal] = useState(false)
 
-    const [viewerValue, setViewerValue] = useState('')
-    const [channelConceptValue, setChannelConceptValue] = useState('')
+    const isAuth = useAuthStore((state) => state.isAuth)
+    const setAuthMember = useAuthStore((state) => state.actions.setAuthMember) // ✅ 임시
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false) // ✅ 임시
 
-    const handleViewerChange = (value: string) => {
-        setViewerValue(value)
-    }
-
-    const handleCloseLoginModal = () => setShowLoginModal(false)
-    const handleOpenViewerModal = () => setShowViewerModal(true)
-    const handleCloseViewerModal = () => setShowViewerModal(false)
-    const handleOpenChannelConceptModal = () => setShowChannelConceptModal(true)
-    const handleCloseChannelConceptModal = () => setShowChannelConceptModal(false)
-    const handleChangeChannelConcept = (value: string) => setChannelConceptValue(value)
-
-    const [showPlusModal, setShowPlusModal] = useState(false)
-    const isGuest = !localStorage.getItem('token')
-    const user = DUMMY_USER
-
-    const loginRef = useRef<HTMLDivElement>(null)
+    const loginButtonRef = useRef<HTMLDivElement>(null)
     const [tooltipPos, setTooltipPos] = useState<ToolTipPos | null>(null)
+
+    const handlePlusClick = () => setShowUrlModal(!showUrlModal)
+    const handleLoginClick = () => setIsLoginModalOpen(!isLoginModalOpen)
 
     // 로그인 툴팁 위치 조정
     useEffect(() => {
         const updateTooltipPosition = () => {
-            if (isGuest && loginRef.current) {
-                const rect = loginRef.current.getBoundingClientRect()
+            if (!isAuth && loginButtonRef.current) {
+                const rect = loginButtonRef.current.getBoundingClientRect()
                 setTooltipPos({
                     top: rect.top + window.scrollY,
                     left: rect.right + window.scrollX + 32,
@@ -59,80 +44,42 @@ export const NavbarDesktop = () => {
             window.removeEventListener('scroll', updateTooltipPosition)
             window.removeEventListener('resize', updateTooltipPosition)
         }
-    }, [isGuest])
-
-    const handleLoginModalClick = () => setShowLoginModal(!showLoginModal)
-    const handlePlusModalClick = () => setShowPlusModal(!showPlusModal)
+    }, [isAuth])
 
     return (
-        <>
-            <NavbarContainer>
-                <div className="flex flex-col justify-between h-full w-full">
-                    {/* 네비게이션 메뉴 */}
-                    <div className="flex flex-col items-center">
-                        <Link to="/" className="mb-22">
-                            <ChannelingLogo />
-                        </Link>
+        <div className="hidden desktop:block">
+            <div className="fixed top-0 left-0 flex flex-col items-center w-20 h-full px-4 py-9 gap-[88px] bg-gray-100">
+                <Link to="/">
+                    <ChannelingLogo />
+                </Link>
 
-                        {/* + 버튼 */}
-                        <NavbarModalButton {...PLUS_LINK} onClick={handlePlusModalClick} />
+                <NavbarLinksList
+                    loginButtonRef={loginButtonRef}
+                    handlePlusClick={handlePlusClick}
+                    handleLoginClick={handleLoginClick}
+                />
+            </div>
 
-                        <div className="flex flex-col items-center gap-2 mt-6">
-                            {NAVIGATE_LINKS.map((link) => (
-                                <NavbarLink key={link.to} {...link} />
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* 로그인 버튼 혹은 유저 프로필 */}
-                    <div ref={loginRef} className="flex flex-col items-center">
-                        {!isGuest && user ? (
-                            <NavbarUserInfo user={DUMMY_USER} />
-                        ) : (
-                            <NavbarModalButton key={LOGIN_LINK.alt} {...LOGIN_LINK} onClick={handleLoginModalClick} />
-                        )}
-                    </div>
-
-                    {/* 게스트일 경우, 10초만에 로그인 툴팁 */}
-                    {isGuest && tooltipPos && (
-                        <div style={{ position: 'absolute', top: tooltipPos.top, left: tooltipPos.left }}>
-                            <ToolTipBubble />
-                        </div>
-                    )}
+            {/* 게스트일 경우, 10초만에 로그인 툴팁 */}
+            {!isAuth && tooltipPos && (
+                <div style={{ position: 'absolute', top: tooltipPos.top, left: tooltipPos.left }}>
+                    <ToolTipBubble />
                 </div>
-            </NavbarContainer>
-
-            {showLoginModal && (
-                <LoginModal
-                    onClose={handleCloseLoginModal}
-                    onLoginSuccess={() => {
-                        handleCloseLoginModal()
-                        handleOpenViewerModal()
-                    }}
-                />
-            )}
-            {showViewerModal && (
-                <ViewerModal
-                    onClose={handleCloseViewerModal}
-                    value={viewerValue}
-                    onChange={handleViewerChange}
-                    handleButtonClick={() => {
-                        handleCloseViewerModal()
-                        handleOpenChannelConceptModal()
-                    }}
-                />
-            )}
-            {showChannelConceptModal && (
-                <ChannelConceptModal
-                    onClose={handleCloseChannelConceptModal}
-                    value={channelConceptValue}
-                    handleButtonClick={handleCloseChannelConceptModal}
-                    onChange={handleChangeChannelConcept}
-                />
             )}
 
             {/* + 버튼 유튜브 URL 입력 모달  */}
-            {showPlusModal && <UrlInputModal onClose={handlePlusModalClick} />}
-        </>
+            {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
+
+            {/* ✅ 임시 로그인 모달 */}
+            {isLoginModalOpen && (
+                <Modal
+                    title="임시 로그인 모달"
+                    onClose={() => {
+                        setAuthMember()
+                        setIsLoginModalOpen(false)
+                    }}
+                />
+            )}
+        </div>
     )
 }

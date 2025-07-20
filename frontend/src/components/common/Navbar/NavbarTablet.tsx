@@ -1,56 +1,75 @@
-import { useState } from 'react'
-import ChannelingLogoIcon from '../../../assets/icons/channeling_logo.svg'
-import MenuIcon from '../../../assets/icons/menu.svg'
-import DeleteIcon from '../../../assets/icons/delete_normal.svg'
-import { NavbarLink } from './NavbarLink'
-import { NAVIGATE_LINKS } from './navbarLinks'
-// import { NavbarLinksList } from './NavbarLinksList'
+import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import Channeling from '../../../assets/icons/channeling.svg?react'
+import MenuIcon from '../../../assets/icons/menu.svg?react'
+import X from '../../../assets/icons/X.svg?react'
+import { useAuthStore } from '../../../stores/authStore'
+import { NavbarLinksList } from './NavbarLinksList'
+import { UrlInputModal } from '../../../pages/main/_components'
+import Modal from '../../Modal' // ✅ 임시
 
-export const NavbarTablet = (): React.ReactElement => {
+export const NavbarTablet = () => {
+    const location = useLocation()
+    const [showUrlModal, setShowUrlModal] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
 
-    const toggleMenu = () => setIsOpen((prev) => !prev)
-    const closeMenu = () => setIsOpen(false)
+    const setAuthMember = useAuthStore((state) => state.actions.setAuthMember) // ✅ 임시
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false) // ✅ 임시
+
+    const toggleMenu = () => setIsOpen(!isOpen)
+
+    const handlePlusClick = () => setShowUrlModal(!showUrlModal)
+    const handleLoginClick = () => setIsLoginModalOpen(!isLoginModalOpen)
+
+    useEffect(() => setIsOpen(false), [location])
 
     return (
-        <>
-            {/* 상단바 */}
-            <div className="fixed top-0 w-full h-18 bg-[#262626] flex items-center px-4 z-20">
-                <button onClick={toggleMenu} className="p-1 w-8 flex items-center justify-center">
-                    <img src={MenuIcon} alt="메뉴" />
+        <div className="hidden tablet:block desktop:hidden">
+            {/* 사이드 바 오버레이 */}
+            {isOpen && <div className="fixed inset-0 bg-neutral-black-opacity50 z-20" />}
+
+            {/* 상단 바 */}
+            <div className="fixed top-0 flex items-center w-full px-4 py-6 gap-4 bg-gray-100 z-20">
+                <button
+                    aria-label="메뉴 토글하기"
+                    onClick={toggleMenu}
+                    className="flex items-center justify-center cursor-pointer"
+                >
+                    <MenuIcon />
                 </button>
-                <img src={ChannelingLogoIcon} alt="Channeling 글자 로고" className="w-35 ml-2" />
+                <Channeling aria-label="Channeling 글자 로고" />
             </div>
 
-            {/* 슬라이드형 사이드바 */}
+            {/* 슬라이드형 사이드 바 */}
             <div
-                className={`fixed top-0 left-0 h-screen w-50 bg-[#262626] p-4 flex flex-col z-30 transform ${
-                    isOpen ? 'translate-x-0' : '-translate-x-full'
-                } transition-transform duration-300`}
+                className={`fixed top-0 left-0 flex flex-col w-[372px] h-screen z-30 p-6 space-y-20 bg-gray-100 
+                    transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
             >
-                {/* 로고 및 닫기 버튼 */}
-                <div className="flex items-center justify-between mb-20">
-                    <img src={ChannelingLogoIcon} alt="Channeling 글자 로고" className="w-35 h-10" />
-                    <button onClick={closeMenu} className="w-8 -mt-1 flex items-center justify-center">
-                        <img src={DeleteIcon} alt="닫기" />
+                <div className="flex flex-row items-center justify-between">
+                    <Link to="/">
+                        <Channeling aria-label="Channeling 글자 로고" />
+                    </Link>
+                    <button aria-label="사이드 바 닫기" onClick={toggleMenu} className="cursor-pointer">
+                        <X />
                     </button>
                 </div>
 
-                {/* <div className="flex flex-col">
-                    <NavbarLinksList />
-                </div> */}
-
-                <div className="flex flex-col gap-4 mt-auto">
-                    {NAVIGATE_LINKS.map((link) => (
-                        <NavbarLink key={link.to} {...link} />
-                    ))}
-                </div>
-
-                {/* 이 위치에 로그인 ? */}
+                <NavbarLinksList handlePlusClick={handlePlusClick} handleLoginClick={handleLoginClick} />
             </div>
 
-            {/* 사이드 바 오버레이 */}
-            {isOpen && <div className="fixed top-0 left-0 w-screen h-screen bg-black/50 z-20" />}
-        </>
+            {/* + 버튼 유튜브 URL 입력 모달  */}
+            {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
+
+            {/* ✅ 임시 로그인 모달 */}
+            {isLoginModalOpen && (
+                <Modal
+                    title="임시 로그인 모달"
+                    onClose={() => {
+                        setAuthMember()
+                        setIsLoginModalOpen(false)
+                    }}
+                />
+            )}
+        </div>
     )
 }
