@@ -1,5 +1,5 @@
 import ProfileCard from './_components/profileCard'
-import { type Stats } from './profile'
+import { type Stats } from '../../types/profile'
 import StatsCard from './_components/statsCard'
 import Targetbox from './_components/targetbox'
 import Conceptbox from './_components/conceptbox'

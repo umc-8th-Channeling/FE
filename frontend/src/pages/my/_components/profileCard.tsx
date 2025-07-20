@@ -1,5 +1,5 @@
 // import React from "react";
-import { type Profile } from '../profile'
+import { type Profile } from '../../../types/profile'
 import Linkto from '../../../assets/icons/linkto.svg?react'
 
 interface ProfileCardProps {
