@@ -1,5 +1,5 @@
 import { TrendKeywords } from './TrendKeywords'
-import { NextContentsIdea } from './NextContentsIdea'
+import { NextContentsIdea } from './ContentsIdea'
 
 export const TabIdea = () => {
     return (

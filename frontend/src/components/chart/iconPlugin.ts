@@ -42,6 +42,7 @@ function drawIconsPlugin(chart: Chart<'doughnut'>, activeIndex?: number, drawAct
     const total = dataset.data.reduce((a: number, b: number) => a + b, 0)
 
     dataset.data.forEach((value: number, index: number) => {
+        const width = window.innerWidth
         const percentage = (value / total) * 100
         if (percentage <= 6) return
 
@@ -52,9 +53,21 @@ function drawIconsPlugin(chart: Chart<'doughnut'>, activeIndex?: number, drawAct
 
         const center = arc.getCenterPoint(true)
         const icon = icons[index % icons.length]
-        const iconSize = drawActiveOnly ? 48 : 24
+        const iconSize = (() => {
+            if (drawActiveOnly) {
+                if (width >= 768) return 48
+                return 32
+            } else {
+                if (width >= 768) return 24
+                return 20
+            }
+        })()
+        const labelFontSize = (() => {
+            if (width >= 768) return 14
+            return 12
+        })()
 
-        drawLabelWithIcon(ctx, center.x, center.y, percentage, icon, iconSize, 14, drawActiveOnly)
+        drawLabelWithIcon(ctx, center.x, center.y, percentage, icon, iconSize, labelFontSize, drawActiveOnly)
     })
 }
 
