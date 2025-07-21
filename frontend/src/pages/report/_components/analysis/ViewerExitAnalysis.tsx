@@ -12,7 +12,7 @@ export const ViewerExitAnalysis = () => {
             bg-surface-elevate-l1 p-6 overflow-y-auto overflow-hidden"
             >
                 <div className="flex flex-col space-y-4 font-body-regular">
-                    <p className="text-primary-600 font-body-regular">{EXIT_ANALYSIS_HIGHLIGHT}</p>
+                    <p className="text-primary-600 font-body-medium">{EXIT_ANALYSIS_HIGHLIGHT}</p>
                     <Markdown
                         remarkPlugins={[remarkGfm]}
                         rehypePlugins={[rehypeRaw]}
