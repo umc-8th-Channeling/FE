@@ -1,5 +1,5 @@
-import ToggleOnIcon from '../../../assets/icons/toggle_on.svg'
-import ToggleOffIcon from '../../../assets/icons/toggle_off.svg'
+import ToggleOnIcon from '../../../assets/icons/toggle_on.svg?react'
+import ToggleOffIcon from '../../../assets/icons/toggle_off.svg?react'
 
 type ToggleProps = {
     checked: boolean
@@ -7,9 +7,11 @@ type ToggleProps = {
 }
 
 export default function SettingToggle({ checked, onChange }: ToggleProps) {
+    const Icon = checked ? ToggleOnIcon : ToggleOffIcon
+
     return (
-        <button onClick={() => onChange(!checked)}>
-            <img src={checked ? ToggleOnIcon : ToggleOffIcon} alt={checked ? '활성화됨' : '비활성화됨'} />
+        <button onClick={() => onChange(!checked)} aria-label={checked ? '활성화됨' : '비활성화됨'}>
+            <Icon />
         </button>
     )
 }

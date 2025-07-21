@@ -14,7 +14,7 @@ import CameraIcon from '../../assets/icons/camera.svg?react'
 import WithdrawlModal from './components/WithdrawlModal'
 
 const labelMap = {
-    instagram: '인스타그램',
+    instagram: '인스타',
     tiktok: '틱톡',
     facebook: '페이스북',
     x: 'X',
@@ -97,8 +97,8 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
     return (
         <div className="fixed inset-0 z-50 bg-neutral-black-opacity50 flex justify-center items-center">
-            <div className="bg-gray-100 w-[792px] max-h-[90vh] rounded-xl overflow-hidden flex flex-col">
-                <div className="flex w-[792px] h-[76px] px-6 justify-between items-center flex-shrink-0 bg-gray-100">
+            <div className="bg-gray-100 w-full max-w-[792px] max-h-[90vh] rounded-xl overflow-hidden flex flex-col">
+                <div className="flex w-full h-[76px] px-6 justify-between items-center flex-shrink-0 bg-gray-100">
                     <h2 className="font-title">설정</h2>
                     <button onClick={onClose}>
                         <CloseIcon />
@@ -107,7 +107,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
                 <div className="flex">
                     {/* 사이드바 */}
-                    <div className="flex flex-col justify-between items-start self-stretch p-4 w-[167px] box-border bg-gray-50">
+                    <div className="flex flex-col justify-between items-start self-stretch p-4 w-full max-w-[167px] box-border bg-gray-50">
                         <div className="flex flex-col gap-y-4">
                             <Button
                                 variant={activeTab === 'profile' ? 'secondary' : 'ghost'}
@@ -131,7 +131,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                     </div>
 
                     {/* 본문 */}
-                    <div className="[&::-webkit-scrollbar]:hidden relative w-[625px] h-[524px] self-stretch flex flex-col items-end p-8 gap-10 overflow-y-auto">
+                    <div className="[&::-webkit-scrollbar]:hidden relative w-full max-w-[625px] h-[524px] self-stretch flex flex-col items-end p-8 gap-10 overflow-y-auto">
                         {activeTab === 'profile' && (
                             <div className="flex flex-col gap-10 w-full">
                                 <input
@@ -142,37 +142,37 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                     onChange={handleFileChange}
                                 />
 
-                                <button
-                                    className="absolute top-[100px] right-[263px] w-8 h-8 p-1 flex items-center justify-center rounded-full bg-gray-200"
-                                    onClick={handleCameraClick}
-                                >
-                                    <div className="w-full h-full object-contain">
-                                        <CameraIcon />
+                                {/* 프로필 이미지 + 카메라 버튼 */}
+                                <div className="flex items-center justify-center w-full">
+                                    <div className="relative w-[100px] h-[100px]">
+                                        <div
+                                            className="w-full h-full rounded-full bg-cover bg-no-repeat bg-center bg-[lightgray]"
+                                            style={{ backgroundImage: `url(${profileImageUrl})` }}
+                                        ></div>
+                                        <button
+                                            className="absolute bottom-0 right-0 w-8 h-8 p-1 flex items-center justify-center rounded-full bg-gray-200"
+                                            onClick={handleCameraClick}
+                                        >
+                                            <CameraIcon />
+                                        </button>
                                     </div>
-                                </button>
-
-                                <div className="flex items-center justify-center h-full gap-4">
-                                    <div
-                                        className="w-[100px] h-[100px] rounded-full bg-cover bg-no-repeat bg-center bg-[lightgray]"
-                                        style={{ backgroundImage: `url(${profileImageUrl})` }}
-                                    ></div>
                                 </div>
 
                                 <div className="flex flex-col gap-4">
                                     <div className="flex flex-col gap-2">
-                                        <Label className="font-body text-gray-600">닉네임</Label>
+                                        <Label className="font-body-bold text-gray-600">닉네임</Label>
                                         <div className="font-title">찰스엔터</div>
                                     </div>
 
                                     <div className="flex flex-col gap-2">
-                                        <Label className="font-body text-gray-600">이메일</Label>
+                                        <Label className="font-body-bold text-gray-600">이메일</Label>
                                         <div className="font-title">kjh213513@gmail.com</div>
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col gap-4">
                                     <div className="flex justify-between items-center">
-                                        <Label className="font-body">SNS 링크 추가</Label>
+                                        <Label className="font-body-bold">SNS 링크 추가</Label>
                                         <button onClick={handleEditToggle}>
                                             {editing ? modified ? <CompleteRedIcon /> : <CompleteIcon /> : <EditIcon />}
                                         </button>
@@ -197,7 +197,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
                                 <div className="w-full pb-6">
                                     <Button
-                                        className="w-full font-title-alt flex items-center justify-between"
+                                        className="w-full font-title-bold flex items-center justify-between"
                                         onClick={() => setShowWithdrawlModal(true)}
                                     >
                                         <span>탈퇴하기</span>
@@ -210,18 +210,25 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                         {activeTab === 'consent' && (
                             <div className="flex flex-col gap-4 w-full">
                                 <div className="flex flex-col gap-2">
-                                    <Label className="font-caption text-gray-600">이메일 알림</Label>
-                                    <div className="flex items-center justify-between">
-                                        <span className="font-body">
-                                            이벤트 또는 혜택과 관련된 마케팅 이메일 수신에 동의합니다.
-                                        </span>
+                                    <Label className="font-caption-medium text-gray-600">이메일 알림</Label>
+
+                                    <div className="flex items-start justify-between">
+                                        <div className="flex flex-col">
+                                            <span className="font-body-bold">마케팅 이메일 수신 동의</span>
+                                            <span className="font-caption text-gray-600">
+                                                이벤트 또는 혜택과 관련된 마케팅 이메일 수신을 받아요.
+                                            </span>
+                                        </div>
                                         <SettingToggle checked={marketingEmail} onChange={setMarketingEmail} />
                                     </div>
                                 </div>
-                                <div className="flex items-center justify-between">
-                                    <span className="font-body">
-                                        프리미엄 요금제의 기능인 일일 콘텐츠 추천 메일 수신에 동의합니다.
-                                    </span>
+                                <div className="flex items-start justify-between">
+                                    <div className="flex flex-col">
+                                        <span className="font-body-bold">일일 콘텐츠 추천 이메일 수신</span>
+                                        <span className="font-caption text-gray-600">
+                                            프리미엄 요금제에서 제공되는 일일 콘텐츠를 추천받아요.
+                                        </span>
+                                    </div>
                                     <SettingToggle checked={dailyContentEmail} onChange={setDailyContentEmail} />
                                 </div>
                             </div>

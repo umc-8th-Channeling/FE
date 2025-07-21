@@ -10,10 +10,10 @@ export function Button({ children, variant = 'default', className = '', ...props
     const base = 'flex items-center p-2 gap-2 rounded-lg w-full self-stretch'
 
     const variants = {
-        default: 'text-[#F4F4F4]',
-        secondary: 'bg-[#262626] text-[#F4F4F4] font-body tracking-[-0.4px]',
-        ghost: 'bg-transparent text-[#F4F4F4] font-body tracking-[-0.4px]',
-        danger: 'bg-[#fa4d56] text-[#F4F4F4] font-body tracking-[-0.4px]',
+        default: 'text-gray-900',
+        secondary: 'bg-gray-100 font-body-medium',
+        ghost: 'bg-transparent font-body-medium',
+        danger: 'bg-primary-500 font-body',
     }
 
     return (
