@@ -8,7 +8,7 @@ export default function RootLayout() {
     const location = useLocation()
     const isMain = location.pathname === '/'
 
-    const isLoginFlowOpen = useLoginStore((state) => state.isLoginFlowOpen())
+    const isLoginFlowOpen = useLoginStore((state) => state.isLoginFlowOpen)
 
     return (
         <>

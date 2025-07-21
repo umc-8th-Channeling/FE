@@ -16,7 +16,7 @@ type ToolTipPos = { top: number; left: number }
 export const NavbarDesktop = () => {
     // const { showLoginModal, openLoginModal, closeLoginModal } = useAuthStore()
 
-    const { openLoginModal } = useLoginStore().actions
+    const { openLoginFlow } = useLoginStore().actions
     const [showPlusModal, setShowPlusModal] = useState(false)
     const isGuest = !localStorage.getItem('token')
     const user = DUMMY_USER
@@ -75,7 +75,7 @@ export const NavbarDesktop = () => {
                         {!isGuest && user ? (
                             <NavbarUserInfo user={DUMMY_USER} />
                         ) : (
-                            <NavbarModalButton key={LOGIN_LINK.alt} {...LOGIN_LINK} onClick={openLoginModal} />
+                            <NavbarModalButton key={LOGIN_LINK.alt} {...LOGIN_LINK} onClick={openLoginFlow} />
                         )}
                     </div>
 
