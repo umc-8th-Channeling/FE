@@ -8,8 +8,20 @@ export const Footer = () => {
                 }}
             >
                 <div className="grid grid-cols-2 tablet:grid-cols-4 gap-y-4 gap-x-[56px] tablet:gap-x-[69px] text-center">
-                    <div>서비스 이용약관</div>
-                    <div>개인정보 처리방침</div>
+                    <a
+                        href="https://www.notion.so/1f7086918f4380e8a744d961e8efaa9c"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        서비스 이용약관
+                    </a>
+                    <a
+                        href="https://www.notion.so/1f7086918f4380d88829f055b0f0732a"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        개인정보 처리방침
+                    </a>
                     <div>문의하기</div>
                     <div>Contact Us</div>
                 </div>
