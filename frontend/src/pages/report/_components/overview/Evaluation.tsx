@@ -13,7 +13,7 @@ type EvaluationItem = {
 }
 
 const evaluationItems: EvaluationItem[] = [
-    { label: '콘텐츠 컨셉 일관성', score: () => `${formatPercentString(EVALUATION.consistencyScore)}%` },
+    { label: '콘텐츠 \n컨셉 일관성', score: () => `${formatPercentString(EVALUATION.consistencyScore)}%` },
     { label: 'SEO 구성', score: () => `${formatPercentString(EVALUATION.seoScore)}%` },
     { label: '재방문률', score: () => `${formatPercentString(EVALUATION.retentionRate)}%` },
     {
@@ -58,10 +58,22 @@ export const Evaluation = () => {
 
 const EvaluationCard = ({ label, score, children }: PropsWithChildren<{ label: string; score: string }>) => {
     return (
-        <div className="whitespace-nowrap px-4 py-6 space-y-2 border border-gray-200 rounded-lg bg-surface-elevate-l1 overflow-hidden">
-            <h3 className="text-[14px] leading-[140%] tracking-[-0.35px] text-gray-700">{label}</h3>
-            <p className="text-[24px] font-bold leading-[140%]">{score}</p>
-            {children && <div className="mt-6">{children}</div>}
+        <div
+            className={`
+                flex flex-col justify-between px-4 py-6 ${children ? 'space-y-2' : 'space-y-4'}
+                border border-gray-200 rounded-lg bg-surface-elevate-l1 whitespace-nowrap overflow-hidden
+            `}
+        >
+            <h3
+                className="
+                    text-[12px] text-gray-700 whitespace-pre-line
+                    tablet:text-[14px] leading-[140%] tracking-[-0.35px] tablet:whitespace-nowrap 
+                "
+            >
+                {label}
+            </h3>
+            <p className="text-[20px] tablet:text-[24px] font-bold leading-[140%]">{score}</p>
+            {children && <div className="mt-4">{children}</div>}
         </div>
     )
 }
@@ -69,17 +81,17 @@ const EvaluationCard = ({ label, score, children }: PropsWithChildren<{ label: s
 const AverageScore = ({ topicAvg, channelAvg }: { topicAvg: number; channelAvg: number }) => {
     const averageBlock = (label: string, value: number) => (
         <div>
-            <h5 className="text-[14px] leading-[140%] tracking-[-0.35px] text-gray-500">{label}</h5>
-            <p className="text-[14px] leading-[140%] tracking-[-0.35px] text-primary-500">
+            <h5 className="text-[12px] tablet:text-[14px] leading-[140%] tracking-[-0.35px] text-gray-500">{label}</h5>
+            <p className="text-[12px] tablet:text-[14px] leading-[140%] tracking-[-0.35px] text-primary-500">
                 {formatPercentString(value, 2)}%
             </p>
         </div>
     )
 
     return (
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-col tablet:flex-row gap-2">
             {averageBlock('Topic Avg', topicAvg)}
-            <span className="border-l border-gray-200" />
+            <span className="border-b tablet:border-l border-gray-200" />
             {averageBlock('Channel Avg', channelAvg)}
         </div>
     )

@@ -11,7 +11,10 @@ const Comments = ({ comments }: { comments: string[] }) => {
             {comments.map((comment, index) => (
                 <div
                     key={index}
-                    className="px-4 py-2 rounded-lg bg-surface-elevate-l2 text-[16px] leading-[150%] tracking-[-0.4px]"
+                    className="
+                        px-4 py-2 rounded-lg bg-surface-elevate-l2 text-[14px] leading-[150%] tracking-[-0.35px] 
+                        tablet:text-[16px] tablet:tracking-[-0.4px]
+                    "
                 >
                     {comment}
                 </div>
@@ -34,7 +37,13 @@ export const CommentFeedback = () => {
 
     return (
         <TitledSection title="댓글 반응">
-            <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start p-6 gap-8 border border-gray-200 rounded-lg bg-surface-elevate-l1 overflow-hidden">
+            <div
+                className="
+                    flex flex-col justify-start items-center min-h-[976px] p-6 gap-8
+                    border border-gray-200 rounded-lg bg-surface-elevate-l1 overflow-hidden
+                    desktop:flex-row desktop:items-start desktop:min-h-full
+                "
+            >
                 <div className="w-full min-w-[280px] max-w-[448px] aspect-square">
                     <DoughnutChart
                         tabs={TABS}
@@ -48,7 +57,7 @@ export const CommentFeedback = () => {
                     tabs={TABS}
                     activeTab={activeTab}
                     onChangeTab={handleChartLabelChange}
-                    textStyle="text-[16px] leading-[150%] tracking-[-0.4px]"
+                    textStyle="text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]"
                     bgColor="bg-surface-elevate-l2"
                     spaceY="space-y-4"
                 />
