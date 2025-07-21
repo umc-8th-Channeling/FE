@@ -4,13 +4,13 @@ import { Label } from './components/SettingLabel'
 import Input from './components/SettingInput'
 import SettingToggle from './components/SettingToggle'
 import '../../styles/scrollbar.css'
-import EditIcon from '../../assets/icons/edit.svg'
-import CompleteIcon from '../../assets/icons/complete_off.svg'
-import CompleteRedIcon from '../../assets/icons/complete_on.svg'
-import SendIcon from '../../assets/icons/send.svg'
-import CloseIcon from '../../assets/icons/delete_normal.svg'
-import LogoutIcon from '../../assets/icons/logout.svg'
-import CameraIcon from '../../assets/icons/camera.svg'
+import EditIcon from '../../assets/icons/edit.svg?react'
+import CompleteIcon from '../../assets/icons/complete_off.svg?react'
+import CompleteRedIcon from '../../assets/icons/complete_on.svg?react'
+import SendIcon from '../../assets/icons/send.svg?react'
+import CloseIcon from '../../assets/icons/delete_normal.svg?react'
+import LogoutIcon from '../../assets/icons/logout.svg?react'
+import CameraIcon from '../../assets/icons/camera.svg?react'
 import WithdrawlModal from './components/WithdrawlModal'
 
 const labelMap = {
@@ -101,7 +101,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                 <div className="flex w-[792px] h-[76px] px-6 justify-between items-center flex-shrink-0 bg-[#262626]">
                     <h2 className="font-title">설정</h2>
                     <button onClick={onClose}>
-                        <img src={CloseIcon} alt="닫기 아이콘" />
+                        <CloseIcon />
                     </button>
                 </div>
 
@@ -129,7 +129,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                             className="w-full text-left text-[#F4F4F4] mt-auto flex items-center justify-between"
                         >
                             <span>로그아웃</span>
-                            <img src={LogoutIcon} alt="로그아웃 아이콘" />
+                            <LogoutIcon />
                         </Button>
                     </div>
 
@@ -163,11 +163,9 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                     className="absolute top-[100px] right-[263px] w-8 h-8 p-1 flex items-center justify-center rounded-full bg-[#393939]"
                                     onClick={handleCameraClick}
                                 >
-                                    <img
-                                        src={CameraIcon}
-                                        alt="카메라 아이콘"
-                                        className="w-full h-full object-contain"
-                                    />
+                                    <div className="w-full h-full object-contain">
+                                        <CameraIcon />
+                                    </div>
                                 </button>
 
                                 <div className="flex items-center justify-center h-full gap-4">
@@ -196,10 +194,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                     <div className="flex justify-between items-center">
                                         <Label className="font-body text-[#F4F4F4]">SNS 링크 추가</Label>
                                         <button onClick={handleEditToggle}>
-                                            <img
-                                                src={editing ? (modified ? CompleteRedIcon : CompleteIcon) : EditIcon}
-                                                alt={editing ? '완료' : '수정'}
-                                            />
+                                            {editing ? modified ? <CompleteRedIcon /> : <CompleteIcon /> : <EditIcon />}
                                         </button>
                                     </div>
 
@@ -226,7 +221,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                         onClick={() => setShowWithdrawlModal(true)}
                                     >
                                         <span>탈퇴하기</span>
-                                        <img src={SendIcon} alt="탈퇴 아이콘" />
+                                        <SendIcon />
                                     </Button>
                                 </div>
                             </div>
