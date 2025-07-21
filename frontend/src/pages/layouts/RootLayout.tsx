@@ -8,8 +8,7 @@ export default function RootLayout() {
     const location = useLocation()
     const isMain = location.pathname === '/'
 
-    const { showLoginModal, showViewerModal, showChannelConceptModal } = useLoginStore()
-    const isLoginFlowOpen = showLoginModal || showViewerModal || showChannelConceptModal
+    const isLoginFlowOpen = useLoginStore((state) => state.isLoginFlowOpen())
 
     return (
         <>
