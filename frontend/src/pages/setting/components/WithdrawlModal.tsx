@@ -17,15 +17,15 @@ export default function WithdrawlModal({ onClose, onConfirm }: WithdrawlModalPro
                 <Button
                     variant="ghost"
                     onClick={onClose}
-                    className="flex items-center justify-center gap-2 px-4 !w-[103px] h-[40px] !rounded-[16px]
-                    font-body-bold border border-[#525252]"
+                    className="flex items-center justify-center gap-2 px-4 w-full !max-w-[103px] h-[40px] !rounded-[16px]
+                    font-body-bold border border-gray-300"
                 >
                     취소
                 </Button>
                 <Button
                     variant="danger"
                     onClick={onConfirm}
-                    className="flex items-center justify-center gap-2 px-4 !w-[87px] h-[40px] !rounded-[16px]
+                    className="flex items-center justify-center gap-2 px-4 w-full !max-w-[87px] h-[40px] !rounded-[16px]
                     font-body-bold"
                 >
                     탈퇴하기

@@ -44,20 +44,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const [profileImageUrl, setProfileImageUrl] = useState('/path-to-image.jpg')
     const fileInputRef = useRef<HTMLInputElement>(null)
 
-    const [deviceSize, setDeviceSize] = useState<'desktop' | 'tablet' | 'mobile'>('desktop')
     const [imageChanged, setImageChanged] = useState(false)
-
-    useEffect(() => {
-        const updateSize = () => {
-            const width = window.innerWidth
-            if (width >= 1440) setDeviceSize('desktop')
-            else if (width >= 768) setDeviceSize('tablet')
-            else setDeviceSize('mobile')
-        }
-        updateSize()
-        window.addEventListener('resize', updateSize)
-        return () => window.removeEventListener('resize', updateSize)
-    }, [])
 
     const handleCameraClick = () => {
         fileInputRef.current?.click()
@@ -97,7 +84,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
     return (
         <div className="fixed inset-0 z-50 bg-neutral-black-opacity50 flex justify-center items-center">
-            <div className="bg-gray-100 w-full max-w-[792px] max-h-[90vh] rounded-xl overflow-hidden flex flex-col">
+            <div className="bg-gray-100 w-full tablet:max-w-[588px] desktop:max-w-[792px] tablet:max-h-[841px] desktop:max-h-[600px] rounded-xl overflow-hidden flex flex-col">
                 <div className="flex w-full h-[76px] px-6 justify-between items-center flex-shrink-0 bg-gray-100">
                     <h2 className="font-title">설정</h2>
                     <button onClick={onClose}>
@@ -111,7 +98,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                         <div className="flex flex-col gap-y-4">
                             <Button
                                 variant={activeTab === 'profile' ? 'secondary' : 'ghost'}
-                                className="min-w-max whitespace-nowrap"
+                                className="min-w-max text-left"
                                 onClick={() => setActiveTab('profile')}
                             >
                                 계정 및 프로필 설정
@@ -131,7 +118,10 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                     </div>
 
                     {/* 본문 */}
-                    <div className="[&::-webkit-scrollbar]:hidden relative w-full max-w-[625px] h-[524px] self-stretch flex flex-col items-end p-8 gap-10 overflow-y-auto">
+                    <div
+                        className="[&::-webkit-scrollbar]:hidden relative w-full tablet:max-w-[421px] desktop:max-w-[625px] tablet:h-[765px] desktop:h-[524px]
+                    self-stretch flex flex-col items-end p-8 gap-10 overflow-y-auto"
+                    >
                         {activeTab === 'profile' && (
                             <div className="flex flex-col gap-10 w-full">
                                 <input
