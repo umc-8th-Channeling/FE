@@ -20,11 +20,13 @@ export default function Videolist() {
     const dummyItemCountPerPage = 10
 
     return (
-        <div className="w-[1200px] h-[685px]">
-            <div className="h-[28px] text-[#fff] text-[20px] font-bold">영상 리스트</div>
-            <div className="flex mt-[26px]">
+        <div className="flex flex-col w-full  max-w-[1200px] items-start content-start pb-[80px] gap-[16px]">
+            <div className="self-stretch text-[#fff] text-[20px] font-bold leading-[140%] tracking-[-0.5px]">
+                영상 리스트
+            </div>
+            <div className="flex items-center">
                 <button
-                    className={`px-[16px] py-[8px] text-[18px] font-bold whitespace-nowrap flex justify-center items-center border-b-2 cursor-pointer ${
+                    className={`flex justify-center items-center gap-[8px] px-[16px] py-[8px] text-[18px] font-bold leading-[140%] tracking-[-0.45px] whitespace-nowrap border-b-2 cursor-pointer ${
                         activeTab === 'video' ? 'text-primary-500 border-primary-500' : 'text-[#fff] border-transparent'
                     }`}
                     onClick={() => setActiveTab('video')}
@@ -32,7 +34,7 @@ export default function Videolist() {
                     동영상
                 </button>
                 <button
-                    className={`px-[16px] py-[8px] text-[18px] font-bold flex justify-center items-center border-b-2 cursor-pointer ${
+                    className={`px-[16px] py-[8px] text-[18px] font-bold leading-[140%] tracking-[-0.45px] flex justify-center items-center border-b-2 cursor-pointer ${
                         activeTab === 'shorts'
                             ? 'text-primary-500 border-primary-500'
                             : 'text-[#fff] border-transparent'
@@ -43,7 +45,7 @@ export default function Videolist() {
                 </button>
             </div>
             {activeTab === 'video' && (
-                <div className="w-[1200px] mt-[16px] grid grid-cols-3 gap-[24px] cursor-pointer">
+                <div className="flex flex-wrap w-full self-stretch gap-[24px] cursor-pointer">
                     <MyVideoCard onClick={() => setOpen(true)} />
                     {open && (
                         <Modal
@@ -70,10 +72,18 @@ export default function Videolist() {
                             </div>
                         </Modal>
                     )}
+                    {/* 더미데이터 */}
+                    <MyVideoCard />
+                    <MyVideoCard />
+                    <MyVideoCard />
+                    <MyVideoCard />
+                    <MyVideoCard />
+                    <MyVideoCard />
                 </div>
             )}
             {activeTab === 'shorts' && (
-                <div className="w-[1200px] mt-[16px] grid grid-cols-6 gap-x-[12px] gap-y-[24px] cursor-pointer">
+                // <div className="flex flex-wrap items-start tablet:content-between desktop:content-start align-stretch desktop:gap-x-[12px] desktop:gap-y-[24px] tablet:gap-[9px] cursor-pointer">
+                <div className="flex flex-wrap w-full self-stretch desktop:gap-[12px] mobile:gap-[9px] cursor-pointer">
                     <MyShortsCard onClick={() => setOpen(true)} />
                     {open && (
                         <Modal
@@ -100,6 +110,15 @@ export default function Videolist() {
                             </div>
                         </Modal>
                     )}
+                    {/* 더미데이터 */}
+                    <MyShortsCard />
+                    <MyShortsCard />
+                    <MyShortsCard />
+                    <MyShortsCard />
+                    <MyShortsCard />
+                    <MyShortsCard />
+                    <MyShortsCard />
+                    <MyShortsCard />
                 </div>
             )}
             <div className="flex flex-col pt-[40px] justify-center items-center gap-[8px] self-stretch">
