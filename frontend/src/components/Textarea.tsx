@@ -58,7 +58,7 @@ const Textarea = ({
                 placeholder={placeholder}
                 className="
                     w-full h-fit max-h-[120px] px-2 outline-none resize-none focus:placeholder-transparent
-                    text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
+                     leading-[150%] tracking-[-0.35px] text-[16px] tablet:tracking-[-0.4px]
                 "
             />
 

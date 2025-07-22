@@ -50,12 +50,13 @@ const statIcons = {
 
 export default function Mypage() {
     return (
-        <div className="desktop:w-[1352px] flex flex-col pt-[80px] items-center ">
-            <div className="flex flex-col gap-[40px]">
-                <div className="flex tablet:w-[588px] desktop:w-[1200px] gap-[24px] items-start tablet:content-start tablet:flex-wrap">
-                    <ProfileCard profile={profileData} />
-
-                    <div className="flex w-[588px] itmes-start content-start gap-[24px] flex-wrap shrink-0 ">
+        <div className="w-full max-w-[1352px] mx-auto tablet:px-[76px] mobile:px-[90px] flex flex-col pt-[80px] items-center">
+            <div className="flex flex-col w-full max-w-[1200px] gap-[40px] items-start ">
+                <div className="flex flex-col tablet:flex-row w-full justify-between items-start space-y-6 ">
+                    <div className="flex max-w-[380px] w-full items-center">
+                        <ProfileCard profile={profileData} />
+                    </div>
+                    <div className="grid grid-cols-3 gap-6 max-w-[588px] w-full min-w-0">
                         {statsMeta.map((meta) => (
                             <StatsCard
                                 key={meta.key}
@@ -66,11 +67,11 @@ export default function Mypage() {
                         ))}
                     </div>
                 </div>
-                <div className="flex flex-col w-fit items-start">
+                <div className="flex flex-col w-full items-start">
                     <Targetbox />
                     <Conceptbox />
                 </div>
-                <div className="flex w-full max-w-[1200px] items-start content-start gap-[24px] self-stretch flex-wrap">
+                <div className="flex items-start content-start self-stretch flex-wrap">
                     <Videolist />
                 </div>
             </div>
