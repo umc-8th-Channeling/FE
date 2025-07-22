@@ -15,7 +15,7 @@ export default function Videolist() {
     }
 
     return (
-        <div className="flex flex-col w-full min-w-[588px] max-w-[1200px] items-start content-start pb-[80px] gap-[16px]">
+        <div className="flex flex-col w-full  max-w-[1200px] items-start content-start pb-[80px] gap-[16px]">
             <div className="self-stretch text-[#fff] text-[20px] font-bold leading-[140%] tracking-[-0.5px]">
                 영상 리스트
             </div>

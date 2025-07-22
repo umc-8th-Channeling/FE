@@ -39,7 +39,7 @@ const Targetbox = () => {
     const { Icon, label, textClass, onClick } = actionMap[mode]
 
     return (
-        <div className="w-full max-w-[1200px] min-w-[588px]">
+        <div className="w-full max-w-[1200px] ">
             <div className="flex flex-row justify-between h-[28px]">
                 <div className=" text-gray-900 font-bold text-[20px] whitespace-nowrap leading-[140%] tracking-[-0.5px]">
                     시청자 타겟
@@ -54,7 +54,7 @@ const Targetbox = () => {
                 </div>
             </div>
             <div
-                className={`mt-[16px] w-full min-w-[588px] max-w-[1200px] p-[16px] rounded-[16px] text-[16px] placeholder-gray-600 bg-neutral-white-opacity10 border-[1px] border-transparent focus-within:border-gray-400`}
+                className={`mt-[16px] w-full  max-w-[1200px] p-[16px] rounded-[16px] text-[16px] placeholder-gray-600 bg-neutral-white-opacity10 border-[1px] border-transparent focus-within:border-gray-400`}
             >
                 <input
                     value={value}
