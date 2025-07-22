@@ -33,14 +33,14 @@ export default function Videolist() {
                         activeTab === 'shorts'
                             ? 'text-primary-500 border-primary-500'
                             : 'text-[#fff] border-transparent'
-                    }`}
+                    } transition-colors duration-300`}
                     onClick={() => setActiveTab('shorts')}
                 >
                     Shorts
                 </button>
             </div>
             {activeTab === 'video' && (
-                <div className="grid grid-cols-2 desktop:grid-cols-4 w-full self-stretch gap-[24px] cursor-pointer">
+                <div className="grid grid-cols-2 desktop:grid-cols-4 w-full self-stretch gap-4 tablet:gap-6 cursor-pointer">
                     <MyVideoCard onClick={() => setOpen(true)} />
                     {open && (
                         <Modal

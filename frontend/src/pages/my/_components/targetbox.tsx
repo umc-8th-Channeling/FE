@@ -57,7 +57,10 @@ const Targetbox = () => {
                         setValue(e.target.value)
                         setMode('ACTIVE_COMPLETE')
                     }}
-                    className="flex ml-[8px] max-w-[1168px] w-full h-fit outline-none resize-none leading-[150%] tracking-[-0.4px]"
+                    className="
+                        flex px-2 w-full h-fit outline-none resize-none 
+                        text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
+                    "
                     placeholder="유튜버님의 시청자 타겟에 대한 설명을 입력해주세요."
                 />
             </div>

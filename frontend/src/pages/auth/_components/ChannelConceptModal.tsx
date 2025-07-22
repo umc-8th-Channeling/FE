@@ -12,7 +12,7 @@ export const ChannelConceptModal = ({ onClose, handleButtonClick, value, onChang
     const isActive = value.trim().length > 0
 
     return (
-        <Modal title="마지막이에요! 유튜버님의 채널 컨셉을 알려주세요." onClose={onClose}>
+        <Modal title={`마지막이에요! \n유튜버님의 채널 컨셉을 알려주세요.`} onClose={onClose}>
             <TextareaWithArrow
                 id="channelConcept"
                 value={value}
