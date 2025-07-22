@@ -10,6 +10,7 @@ import { DUMMY_USER } from './dummy'
 import { UrlInputModal } from '../../../pages/main/_components'
 import { NavbarModalsContainer } from './NavbarModalsContainer'
 import { useLoginStore } from '../../../stores/LoginStore'
+import { useAuthStore } from '../../../stores/authStore'
 
 type ToolTipPos = { top: number; left: number }
 
@@ -18,8 +19,8 @@ export const NavbarDesktop = () => {
 
     const { openLoginFlow } = useLoginStore().actions
     const [showPlusModal, setShowPlusModal] = useState(false)
-    const isGuest = !localStorage.getItem('token')
-    const user = DUMMY_USER
+    const isAuth = useAuthStore((state) => state.isAuth) // ✅ 임시
+    const user = DUMMY_USER // ✅ 임시
 
     const loginRef = useRef<HTMLDivElement>(null)
     const [tooltipPos, setTooltipPos] = useState<ToolTipPos | null>(null)
@@ -27,7 +28,7 @@ export const NavbarDesktop = () => {
     // 로그인 툴팁 위치 조정
     useEffect(() => {
         const updateTooltipPosition = () => {
-            if (isGuest && loginRef.current) {
+            if (!isAuth && loginRef.current) {
                 const rect = loginRef.current.getBoundingClientRect()
                 setTooltipPos({
                     top: rect.top + window.scrollY,
@@ -46,7 +47,7 @@ export const NavbarDesktop = () => {
             window.removeEventListener('scroll', updateTooltipPosition)
             window.removeEventListener('resize', updateTooltipPosition)
         }
-    }, [isGuest])
+    }, [isAuth])
 
     const handlePlusModalClick = () => setShowPlusModal(!showPlusModal)
 
@@ -72,7 +73,7 @@ export const NavbarDesktop = () => {
 
                     {/* 로그인 버튼 혹은 유저 프로필 */}
                     <div ref={loginRef} className="flex flex-col items-center">
-                        {!isGuest && user ? (
+                        {isAuth && user ? (
                             <NavbarUserInfo user={DUMMY_USER} />
                         ) : (
                             <NavbarModalButton key={LOGIN_LINK.alt} {...LOGIN_LINK} onClick={openLoginFlow} />
@@ -80,7 +81,7 @@ export const NavbarDesktop = () => {
                     </div>
 
                     {/* 게스트일 경우, 10초만에 로그인 툴팁 */}
-                    {isGuest && tooltipPos && (
+                    {!isAuth && tooltipPos && (
                         <div style={{ position: 'absolute', top: tooltipPos.top, left: tooltipPos.left }}>
                             <ToolTipBubble />
                         </div>
