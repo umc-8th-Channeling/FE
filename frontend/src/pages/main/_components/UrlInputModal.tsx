@@ -9,7 +9,6 @@ import ArrowButton from '../../../components/ArrowButton'
 import ErrorIcon from '../../../assets/icons/error.svg?react'
 import { useUrlInput } from '../../../hooks/main/useUrlInput'
 import { ErrorToast } from './ErrorToast'
-import { NavbarModalsContainer } from '../../../components/common/Navbar/NavbarModalsContainer'
 
 interface UrlInputModalProps {
     onClose: () => void
@@ -120,9 +119,6 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
 
             {/* 입력 에러 토스트 */}
             {error && <ErrorToast errorMessage={error} />}
-
-            {/* 로그인 관련 모달 로직 */}
-            <NavbarModalsContainer />
         </div>
     )
 }

@@ -7,7 +7,6 @@ import { useLoginStore } from '../../../stores/LoginStore'
 import { NavbarLinksList } from './NavbarLinksList'
 import { ToolTipBubble } from './NavbarToolTip'
 import { UrlInputModal } from '../../../pages/main/_components'
-import { NavbarModalsContainer } from './NavbarModalsContainer'
 
 type ToolTipPos = { top: number; left: number }
 
@@ -68,9 +67,6 @@ export const NavbarDesktop = () => {
 
             {/* + 버튼 유튜브 URL 입력 모달  */}
             {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
-
-            {/* 로그인 관련 모달 로직 */}
-            <NavbarModalsContainer />
         </div>
     )
 }

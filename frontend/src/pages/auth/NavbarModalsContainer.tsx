@@ -1,7 +1,7 @@
-import { ChannelConceptModal, LoginModal, ViewerModal } from '../../../pages/main/_components'
+import { ChannelConceptModal, LoginModal, ViewerModal } from './_components'
 import { useState } from 'react'
-import { useLoginStore } from '../../../stores/LoginStore'
-import { useAuthStore } from '../../../stores/authStore'
+import { useLoginStore } from '../../stores/LoginStore'
+import { useAuthStore } from '../../stores/authStore'
 
 export const NavbarModalsContainer = () => {
     const { isLoginFlowOpen, step } = useLoginStore()

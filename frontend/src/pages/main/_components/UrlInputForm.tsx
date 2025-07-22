@@ -9,7 +9,6 @@ import { useReportStore } from '../../../stores/reportStore'
 
 import ArrowButton from '../../../components/ArrowButton'
 import { ErrorToast } from './ErrorToast'
-import { NavbarModalsContainer } from '../../../components/common/Navbar/NavbarModalsContainer'
 
 export const UrlInputForm = () => {
     const navigate = useNavigate()
@@ -94,9 +93,6 @@ export const UrlInputForm = () => {
 
             {/* 입력 에러 토스트 */}
             {error && <ErrorToast errorMessage={error} />}
-
-            {/* 로그인 관련 모달 로직 */}
-            <NavbarModalsContainer />
         </>
     )
 }

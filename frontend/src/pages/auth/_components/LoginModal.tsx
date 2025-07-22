@@ -1,5 +1,5 @@
-import Modal from '../../../../components/Modal'
-import GoogleIcon from '../../../../assets/icons/google.svg?react'
+import Modal from '../../../components/Modal'
+import GoogleIcon from '../../../assets/icons/google.svg?react'
 
 export const LoginModal = ({
     onClose,

@@ -1,5 +1,5 @@
-import Modal from '../../../../components/Modal'
-import TextareaWithArrow from '../../../../components/TextareaWithArrow'
+import Modal from '../../../components/Modal'
+import TextareaWithArrow from '../../../components/TextareaWithArrow'
 
 interface ChannelConceptModalProps {
     onClose: () => void

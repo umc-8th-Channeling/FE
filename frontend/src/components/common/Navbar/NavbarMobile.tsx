@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useLoginStore } from '../../../stores/LoginStore'
 
 import ChannelingLogo from '../../../assets/icons/channelingLogo.svg?react'
 import Channeling from '../../../assets/icons/channeling.svg?react'
@@ -7,8 +8,6 @@ import MenuIcon from '../../../assets/icons/menu.svg?react'
 import X from '../../../assets/icons/X.svg?react'
 import { NavbarLinksList } from './NavbarLinksList'
 import { UrlInputModal } from '../../../pages/main/_components'
-import { NavbarModalsContainer } from './NavbarModalsContainer'
-import { useLoginStore } from '../../../stores/LoginStore'
 
 export const NavbarMobile = () => {
     const location = useLocation()
@@ -58,9 +57,6 @@ export const NavbarMobile = () => {
 
             {/* + 버튼 유튜브 URL 입력 모달  */}
             {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
-
-            {/* 로그인 관련 모달 로직 */}
-            <NavbarModalsContainer />
         </div>
     )
 }

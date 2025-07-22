@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useLoginStore } from '../../../stores/LoginStore'
 
 import Channeling from '../../../assets/icons/channeling.svg?react'
 import MenuIcon from '../../../assets/icons/menu.svg?react'
 import X from '../../../assets/icons/X.svg?react'
 import { NavbarLinksList } from './NavbarLinksList'
 import { UrlInputModal } from '../../../pages/main/_components'
-import { useLoginStore } from '../../../stores/LoginStore'
-import { NavbarModalsContainer } from './NavbarModalsContainer'
 
 export const NavbarTablet = () => {
     const location = useLocation()
@@ -56,9 +55,6 @@ export const NavbarTablet = () => {
 
             {/* + 버튼 유튜브 URL 입력 모달  */}
             {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
-
-            {/* 로그인 관련 모달 로직 */}
-            <NavbarModalsContainer />
         </div>
     )
 }
