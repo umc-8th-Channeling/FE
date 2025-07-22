@@ -2,25 +2,24 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ChannelingLogo from '../../../assets/icons/channelingLogo.svg?react'
 import { useAuthStore } from '../../../stores/authStore'
+import { useLoginStore } from '../../../stores/LoginStore'
+
 import { NavbarLinksList } from './NavbarLinksList'
 import { ToolTipBubble } from './NavbarToolTip'
 import { UrlInputModal } from '../../../pages/main/_components'
-import Modal from '../../Modal' // ✅ 임시
+import { NavbarModalsContainer } from './NavbarModalsContainer'
 
 type ToolTipPos = { top: number; left: number }
 
 export const NavbarDesktop = () => {
     const [showUrlModal, setShowUrlModal] = useState(false)
+    const [tooltipPos, setTooltipPos] = useState<ToolTipPos | null>(null)
+    const loginButtonRef = useRef<HTMLDivElement>(null)
+    const { openLoginFlow } = useLoginStore().actions
 
     const isAuth = useAuthStore((state) => state.isAuth)
-    const setAuthMember = useAuthStore((state) => state.actions.setAuthMember) // ✅ 임시
-    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false) // ✅ 임시
-
-    const loginButtonRef = useRef<HTMLDivElement>(null)
-    const [tooltipPos, setTooltipPos] = useState<ToolTipPos | null>(null)
 
     const handlePlusClick = () => setShowUrlModal(!showUrlModal)
-    const handleLoginClick = () => setIsLoginModalOpen(!isLoginModalOpen)
 
     // 로그인 툴팁 위치 조정
     useEffect(() => {
@@ -56,7 +55,7 @@ export const NavbarDesktop = () => {
                 <NavbarLinksList
                     loginButtonRef={loginButtonRef}
                     handlePlusClick={handlePlusClick}
-                    handleLoginClick={handleLoginClick}
+                    handleLoginClick={openLoginFlow}
                 />
             </div>
 
@@ -70,16 +69,8 @@ export const NavbarDesktop = () => {
             {/* + 버튼 유튜브 URL 입력 모달  */}
             {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
 
-            {/* ✅ 임시 로그인 모달 */}
-            {isLoginModalOpen && (
-                <Modal
-                    title="임시 로그인 모달"
-                    onClose={() => {
-                        setAuthMember()
-                        setIsLoginModalOpen(false)
-                    }}
-                />
-            )}
+            {/* 로그인 관련 모달 로직 */}
+            <NavbarModalsContainer />
         </div>
     )
 }

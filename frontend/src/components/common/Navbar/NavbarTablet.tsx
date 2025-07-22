@@ -1,25 +1,23 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+
 import Channeling from '../../../assets/icons/channeling.svg?react'
 import MenuIcon from '../../../assets/icons/menu.svg?react'
 import X from '../../../assets/icons/X.svg?react'
-import { useAuthStore } from '../../../stores/authStore'
 import { NavbarLinksList } from './NavbarLinksList'
 import { UrlInputModal } from '../../../pages/main/_components'
-import Modal from '../../Modal' // ✅ 임시
+import { useLoginStore } from '../../../stores/LoginStore'
+import { NavbarModalsContainer } from './NavbarModalsContainer'
 
 export const NavbarTablet = () => {
     const location = useLocation()
     const [showUrlModal, setShowUrlModal] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
-
-    const setAuthMember = useAuthStore((state) => state.actions.setAuthMember) // ✅ 임시
-    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false) // ✅ 임시
+    const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
 
     const toggleMenu = () => setIsOpen(!isOpen)
 
     const handlePlusClick = () => setShowUrlModal(!showUrlModal)
-    const handleLoginClick = () => setIsLoginModalOpen(!isLoginModalOpen)
 
     useEffect(() => setIsOpen(false), [location])
 
@@ -39,7 +37,6 @@ export const NavbarTablet = () => {
                 </button>
                 <Channeling aria-label="Channeling 글자 로고" />
             </div>
-
             {/* 슬라이드형 사이드 바 */}
             <div
                 className={`fixed top-0 left-0 flex flex-col w-[372px] h-screen z-30 p-6 space-y-20 bg-gray-100 
@@ -54,22 +51,14 @@ export const NavbarTablet = () => {
                     </button>
                 </div>
 
-                <NavbarLinksList handlePlusClick={handlePlusClick} handleLoginClick={handleLoginClick} />
+                <NavbarLinksList handlePlusClick={handlePlusClick} handleLoginClick={openLoginFlow} />
             </div>
 
             {/* + 버튼 유튜브 URL 입력 모달  */}
             {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
 
-            {/* ✅ 임시 로그인 모달 */}
-            {isLoginModalOpen && (
-                <Modal
-                    title="임시 로그인 모달"
-                    onClose={() => {
-                        setAuthMember()
-                        setIsLoginModalOpen(false)
-                    }}
-                />
-            )}
+            {/* 로그인 관련 모달 로직 */}
+            <NavbarModalsContainer />
         </div>
     )
 }
