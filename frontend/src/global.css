@@ -136,3 +136,13 @@
         @apply text-[14px] leading-[140%] font-normal tracking-[-0.35px];
     }
 }
+@tailwind utilities;
+
+@layer utilities {
+    .multi-line-ellipsis {
+        @apply overflow-hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+}
