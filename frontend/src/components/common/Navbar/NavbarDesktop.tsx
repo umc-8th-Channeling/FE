@@ -7,30 +7,17 @@ import { PLUS_LINK, NAVIGATE_LINKS, LOGIN_LINK } from './navbarLinks'
 import ChannelingLogo from '../../../assets/icons/channeling.svg?react'
 import { NavbarUserInfo } from './NavbarUserInfo'
 import { DUMMY_USER } from './dummy'
-import { ChannelConceptModal, LoginModal, UrlInputModal, ViewerModal } from '../../../pages/main/_components'
+import { UrlInputModal } from '../../../pages/main/_components'
+import { NavbarModalsContainer } from './NavbarModalsContainer'
+import { useLoginStore } from '../../../stores/LoginStore'
 import { useAuthStore } from '../../../stores/authStore'
 
 type ToolTipPos = { top: number; left: number }
 
 export const NavbarDesktop = () => {
-    const [showLoginModal, setShowLoginModal] = useState(false)
-    const [showViewerModal, setShowViewerModal] = useState(false)
-    const [showChannelConceptModal, setShowChannelConceptModal] = useState(false)
+    // const { showLoginModal, openLoginModal, closeLoginModal } = useAuthStore()
 
-    const [viewerValue, setViewerValue] = useState('')
-    const [channelConceptValue, setChannelConceptValue] = useState('')
-
-    const handleViewerChange = (value: string) => {
-        setViewerValue(value)
-    }
-
-    const handleCloseLoginModal = () => setShowLoginModal(false)
-    const handleOpenViewerModal = () => setShowViewerModal(true)
-    const handleCloseViewerModal = () => setShowViewerModal(false)
-    const handleOpenChannelConceptModal = () => setShowChannelConceptModal(true)
-    const handleCloseChannelConceptModal = () => setShowChannelConceptModal(false)
-    const handleChangeChannelConcept = (value: string) => setChannelConceptValue(value)
-
+    const { openLoginFlow } = useLoginStore().actions
     const [showPlusModal, setShowPlusModal] = useState(false)
     const isAuth = useAuthStore((state) => state.isAuth) // ✅ 임시
     const user = DUMMY_USER // ✅ 임시
@@ -62,7 +49,6 @@ export const NavbarDesktop = () => {
         }
     }, [isAuth])
 
-    const handleLoginModalClick = () => setShowLoginModal(!showLoginModal)
     const handlePlusModalClick = () => setShowPlusModal(!showPlusModal)
 
     return (
@@ -90,7 +76,7 @@ export const NavbarDesktop = () => {
                         {isAuth && user ? (
                             <NavbarUserInfo user={DUMMY_USER} />
                         ) : (
-                            <NavbarModalButton key={LOGIN_LINK.alt} {...LOGIN_LINK} onClick={handleLoginModalClick} />
+                            <NavbarModalButton key={LOGIN_LINK.alt} {...LOGIN_LINK} onClick={openLoginFlow} />
                         )}
                     </div>
 
@@ -103,34 +89,8 @@ export const NavbarDesktop = () => {
                 </div>
             </NavbarContainer>
 
-            {showLoginModal && (
-                <LoginModal
-                    onClose={handleCloseLoginModal}
-                    onLoginSuccess={() => {
-                        handleCloseLoginModal()
-                        handleOpenViewerModal()
-                    }}
-                />
-            )}
-            {showViewerModal && (
-                <ViewerModal
-                    onClose={handleCloseViewerModal}
-                    value={viewerValue}
-                    onChange={handleViewerChange}
-                    handleButtonClick={() => {
-                        handleCloseViewerModal()
-                        handleOpenChannelConceptModal()
-                    }}
-                />
-            )}
-            {showChannelConceptModal && (
-                <ChannelConceptModal
-                    onClose={handleCloseChannelConceptModal}
-                    value={channelConceptValue}
-                    handleButtonClick={handleCloseChannelConceptModal}
-                    onChange={handleChangeChannelConcept}
-                />
-            )}
+            {/* 로그인 관련 모달 로직 */}
+            <NavbarModalsContainer />
 
             {/* + 버튼 유튜브 URL 입력 모달  */}
             {showPlusModal && <UrlInputModal onClose={handlePlusModalClick} />}

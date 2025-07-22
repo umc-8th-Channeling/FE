@@ -1,11 +1,15 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { NavbarWrapper } from '../../components/common/Navbar/NavbarWrapper'
 import ReportLoadingSpinner from '../../components/ReportLoadingSpinner'
+import { useLoginStore } from '../../stores/LoginStore'
+import { NavbarModalsContainer } from '../../components/common/Navbar/NavbarModalsContainer'
 import ScrollToTop from '../../components/ScrollToTop'
 
 export default function RootLayout() {
     const location = useLocation()
     const isMain = location.pathname === '/'
+
+    const isLoginFlowOpen = useLoginStore((state) => state.isLoginFlowOpen)
 
     return (
         <>
@@ -36,6 +40,8 @@ export default function RootLayout() {
                 </div>
 
                 <ReportLoadingSpinner />
+
+                {isLoginFlowOpen && <NavbarModalsContainer />}
             </main>
         </>
     )
