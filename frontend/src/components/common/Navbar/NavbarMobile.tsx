@@ -24,7 +24,9 @@ export const NavbarMobile = () => {
     return (
         <div className="block tablet:hidden">
             {/* 사이드 바 오버레이 */}
-            {isOpen && <div className="fixed inset-0 bg-neutral-black-opacity50 z-20" />}
+            {isOpen && (
+                <div onClick={toggleMenu} className="cursor-pointer fixed inset-0 bg-neutral-black-opacity50 z-20" />
+            )}
 
             {/* 상단 바 */}
             <div className="fixed top-0 flex items-center w-full p-4 gap-4 bg-gray-100 z-20">
@@ -40,6 +42,7 @@ export const NavbarMobile = () => {
 
             {/* 슬라이드형 사이드 바 */}
             <div
+                onClick={(e) => e.stopPropagation()}
                 className={`fixed top-0 left-0 flex flex-col w-[248px] h-screen z-30 p-4 space-y-20 bg-gray-100 
                     transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
             >
