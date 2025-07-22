@@ -9,7 +9,7 @@ const StatsCard = ({ title, value, icon }: StatsCardProps) => (
         <div className="flex flex-col items-start gap-[8px]">
             <div className="flex justify-center items-center gap-[4px]">
                 <div>{icon}</div>
-                <div className="text-gray-600 text-[14px] leading-[140%] tracking-[-0.35px] whitespace-nowrap">
+                <div className="text-gray-700 text-[14px] leading-[140%] tracking-[-0.35px] whitespace-nowrap">
                     {title}
                 </div>
             </div>
