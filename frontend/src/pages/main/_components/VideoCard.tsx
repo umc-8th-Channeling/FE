@@ -1,13 +1,18 @@
 import type { DUMMY_MY } from '../dummy'
 import { formatRelativeTime, formatKoreanNumber } from '../../../utils/format'
+import { Link } from 'react-router-dom'
+import { useAuthStore } from '../../../stores/authStore'
 
 interface VideoCardProps {
     video: (typeof DUMMY_MY)[0] // 임시
 }
 
 export const VideoCard = ({ video }: VideoCardProps) => {
+    const isAuth = useAuthStore((state) => state.isAuth)
+    const linkTo = isAuth ? `/report/${video.id}` : '/report'
+
     return (
-        <div className="flex flex-col items-center justify-center gap-2 w-[288px] tablet:w-[282px]">
+        <Link to={linkTo} className="flex flex-col items-center justify-center gap-2 w-[288px] tablet:w-[282px]">
             {/* 영상 썸네일 이미지 */}
             <div className="w-[288px] aspect-[16/9] tablet:w-[282px] tablet:aspect-[141/79] rounded-lg overflow-hidden">
                 <img src={video.thumbnail} className="w-full h-full object-cover" />
@@ -33,6 +38,6 @@ export const VideoCard = ({ video }: VideoCardProps) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }

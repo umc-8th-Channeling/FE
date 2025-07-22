@@ -1,4 +1,4 @@
-export const VIDEO = {
+export const AUTH_VIDEO = {
     id: 1,
     title: '저 드디어 독립했어요!',
     videoId: 'GHR8R9i0t4A',
@@ -7,7 +7,7 @@ export const VIDEO = {
         'https://spangled-bridge-914.notion.site/image/attachment%3A77a4c727-0e03-4344-bab2-477fc4fc8dab%3Aimage.png?table=block&id=22a08691-8f43-8057-9906-f248115469bf&spaceId=719616fc-abf0-4573-86e5-37abb50a4cfb&width=1950&userId=&cache=v2',
     tag: 'Long-form',
     channel: {
-        id: 1,
+        id: 2,
         title: '찰스엔터',
         profileImage:
             'https://spangled-bridge-914.notion.site/image/attachment%3A7eb67923-ecc1-4552-87dc-5353e0029be5%3Aimage.png?table=block&id=22608691-8f43-804d-a067-cb0a9b30207b&spaceId=719616fc-abf0-4573-86e5-37abb50a4cfb&width=2000&userId=&cache=v2',
@@ -15,6 +15,29 @@ export const VIDEO = {
     viewCount: 170_000,
     likeCount: 1_300,
     publishedAt: '2022-11-05T12:00:00+09:00',
+    report: {
+        createdAt: '2022-11-05T12:00:00+09:00',
+        updatedAt: '2025-06-21T03:39:00+09:00',
+    },
+}
+
+export const GUEST_VIDEO = {
+    id: 2,
+    title: `
+"수능 잘 보고 고려대에서 만나요" 헬스터디 학생들의 5월 학력평가 성적을 공개합니다 | 헬스터디3 EP.11`,
+    videoId: 'S_H2Re2li0A',
+    thumbnail:
+        'https://spangled-bridge-914.notion.site/image/attachment%3A98b7d8c1-b4cb-4d5d-b986-fafde4f6df5d%3Aimage.png?table=block&id=22608691-8f43-80b6-8012-f1c90b3b4ce2&spaceId=719616fc-abf0-4573-86e5-37abb50a4cfb&width=1130&userId=&cache=v2',
+    tag: 'Long-form',
+    channel: {
+        id: 1,
+        title: '미미미누',
+        profileImage:
+            'https://spangled-bridge-914.notion.site/image/attachment%3A7eb67923-ecc1-4552-87dc-5353e0029be5%3Aimage.png?table=block&id=22608691-8f43-804d-a067-cb0a9b30207b&spaceId=719616fc-abf0-4573-86e5-37abb50a4cfb&width=2000&userId=&cache=v2',
+    },
+    viewCount: 230_000,
+    likeCount: 3_600,
+    publishedAt: '2025-05-20T12:00:00+09:00',
     report: {
         createdAt: '2022-11-05T12:00:00+09:00',
         updatedAt: '2025-06-21T03:39:00+09:00',

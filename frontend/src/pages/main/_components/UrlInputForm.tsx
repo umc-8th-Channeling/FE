@@ -7,6 +7,8 @@ import ArrowButton from '../../../components/ArrowButton'
 import { ErrorToast } from './ErrorToast'
 import ErrorIcon from '../../../assets/icons/error.svg?react'
 import { useUrlInput } from '../../../hooks/main/useUrlInput'
+import Modal from '../../../components/Modal'
+import { useAuthStore } from '../../../stores/authStore'
 
 export const UrlInputForm = () => {
     const navigate = useNavigate()
@@ -15,14 +17,25 @@ export const UrlInputForm = () => {
     const startGenerating = useReportStore((state) => state.actions.startGenerating)
     const endGenerating = useReportStore((state) => state.actions.endGenerating)
 
+    const isAuth = useAuthStore((state) => state.isAuth)
+
+    // ✅ 임시 로그인 모달 열림 상태
+    const setAuthMember = useAuthStore((state) => state.actions.setAuthMember)
+    const [isOpen, setIsOpen] = useState(false)
+
     const { register, handleSubmit, isActive, error, setError } = useUrlInput((url) => {
         console.log('메인 페이지에서 받은 URL:', url)
 
-        startGenerating()
-        setTimeout(() => {
-            endGenerating()
-            navigate('/report')
-        }, 5000)
+        if (isAuth) {
+            startGenerating()
+            setTimeout(() => {
+                endGenerating()
+                navigate('/report/1') // ✅ 임시 네비게이션: API 연결시 응답 영상 id로 수정 필요
+            }, 5000)
+        } else {
+            // ✅ 임시 비로그인 로직
+            setIsOpen(true)
+        }
     })
 
     return (
@@ -84,6 +97,17 @@ export const UrlInputForm = () => {
 
             {/* 입력 에러 토스트 */}
             {error && <ErrorToast errorMessage={error} />}
+
+            {/* ✅ 임시 로그인 모달 */}
+            {isOpen && (
+                <Modal
+                    title="임시 로그인 모달"
+                    onClose={() => {
+                        setAuthMember()
+                        setIsOpen(false)
+                    }}
+                />
+            )}
         </>
     )
 }
