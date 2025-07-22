@@ -50,7 +50,7 @@ const statIcons = {
 
 export default function Mypage() {
     return (
-        <div className="w-full max-w-[1352px] desktop:px-[76px] px-[90px] desktop:pt-[80px] pt-[40px] ">
+        <div className="w-full max-w-[1352px] mx-auto desktop:px-[76px] px-[90px] desktop:pt-[80px] pt-[40px] ">
             <div className="flex flex-col w-full max-w-[1200px] gap-[40px] items-start ">
                 <div className="flex flex-col desktop:flex-row w-full justify-between items-start space-y-6 ">
                     <div className="flex max-w-[380px] w-full items-center">
