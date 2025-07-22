@@ -1,6 +1,8 @@
 export const VIDEO = {
     id: 1,
     title: '저 드디어 독립했어요!',
+    videoId: 'GHR8R9i0t4A',
+    // videoId: 'na3kswvVbq8',
     thumbnail:
         'https://spangled-bridge-914.notion.site/image/attachment%3A77a4c727-0e03-4344-bab2-477fc4fc8dab%3Aimage.png?table=block&id=22a08691-8f43-8057-9906-f248115469bf&spaceId=719616fc-abf0-4573-86e5-37abb50a4cfb&width=1950&userId=&cache=v2',
     tag: 'Long-form',
