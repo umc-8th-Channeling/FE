@@ -1,23 +1,23 @@
 import { useState } from 'react'
 import MyVideoCard from './myVideoCard'
 import MyShortsCard from './myShortsCard'
-import Modal from '../../../components/Modal'
-import { useNavigate } from 'react-router-dom'
-import Pagination from '../../../components/pagination'
+import Pagination from '../../../components/Pagination'
+import { shortsData, videosData } from '../dummy'
 
 export default function Videolist() {
+    const [videoCurrentPage, setVideoCurrentPage] = useState(1)
+    const [shortsCurrentPage, setShortsCurrentPage] = useState(1)
+    const itemsPerPage = 12
+    const videoTotalItems = videosData.length
+    const shortsTotalItems = shortsData.length
+
     const [activeTab, setActiveTab] = useState<'video' | 'shorts'>('video')
-    const [open, setOpen] = useState(false)
 
-    const navigate = useNavigate()
-    const getReport = () => {
-        setOpen(false)
-        navigate('/report')
-    }
+    const offset =
+        activeTab === 'video' ? (videoCurrentPage - 1) * itemsPerPage : (shortsCurrentPage - 1) * itemsPerPage
 
-    // 페이지네이션 더미데이터
-    const dummyTotalItems = 100
-    const dummyItemCountPerPage = 10
+    const data = activeTab === 'video' ? videosData : shortsData
+    const currentItems = data.slice(offset, offset + itemsPerPage)
 
     return (
         <div className="flex flex-col w-full items-start content-start pb-[80px] gap-[16px]">
@@ -45,83 +45,27 @@ export default function Videolist() {
                 </button>
             </div>
             {activeTab === 'video' && (
-                <div className="grid grid-cols-2 desktop:grid-cols-4 w-full self-stretch gap-4 tablet:gap-6 cursor-pointer">
-                    <MyVideoCard onClick={() => setOpen(true)} />
-                    {open && (
-                        <Modal
-                            title="해당 영상에 대한 리포트를 받아 보시겠어요?"
-                            description="‘저 맘먹으면 광태님 꼬실 수 있어요ㅎ [월간데이트 4월호 ] (ENG / JP SUB)’을 유튜버님의 타겟과 컨셉을 고려하여 분석해요."
-                            onClose={() => setOpen(false)}
-                            className="w-[486px]"
-                        >
-                            <div className="flex justify-end">
-                                <div className="flex justify-between w-[214px] h-[40px] items-end">
-                                    <button
-                                        className="w-[101px] h-[40px] text-[16px] font-bold text-gray-600 border-[1px] border-gray-300 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer"
-                                        onClick={() => setOpen(false)}
-                                    >
-                                        취소
-                                    </button>
-                                    <button
-                                        className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer"
-                                        onClick={getReport}
-                                    >
-                                        리포트 받기
-                                    </button>
-                                </div>
-                            </div>
-                        </Modal>
-                    )}
-                    {/* 더미데이터 */}
-                    <MyVideoCard />
-                    <MyVideoCard />
-                    <MyVideoCard />
-                    <MyVideoCard />
-                    <MyVideoCard />
-                    <MyVideoCard />
+                <div className="grid grid-cols-2 desktop:grid-cols-4 w-full desktop:h-[744px] h-[1560px] self-stretch gap-4 tablet:gap-6 cursor-pointer">
+                    {currentItems.map((video) => (
+                        <MyVideoCard video={video} key={video.id} />
+                    ))}
                 </div>
             )}
             {activeTab === 'shorts' && (
-                // <div className="flex flex-wrap items-start tablet:content-between desktop:content-start align-stretch desktop:gap-x-[12px] desktop:gap-y-[24px] tablet:gap-[9px] cursor-pointer">
-                <div className="grid grid-cols-3 desktop:grid-cols-6 w-full desktop:gap-x-4 gap-x-[9px] gap-y-6 cursor-pointer">
-                    <MyShortsCard onClick={() => setOpen(true)} />
-                    {open && (
-                        <Modal
-                            title="해당 영상에 대한 리포트를 받아 보시겠어요?"
-                            description="‘저 맘먹으면 광태님 꼬실 수 있어요ㅎ [월간데이트 4월호 ] (ENG / JP SUB)’을 유튜버님의 타겟과 컨셉을 고려하여 분석해요."
-                            onClose={() => setOpen(false)}
-                            className="w-[486px]"
-                        >
-                            <div className="flex justify-end">
-                                <div className="flex justify-between w-[214px] h-[40px] items-end">
-                                    <button
-                                        className="w-[101px] h-[40px] text-[16px] font-bold text-gray-600 border-[1px] border-gray-300 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer"
-                                        onClick={() => setOpen(false)}
-                                    >
-                                        취소
-                                    </button>
-                                    <button
-                                        className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer"
-                                        onClick={getReport}
-                                    >
-                                        리포트 받기
-                                    </button>
-                                </div>
-                            </div>
-                        </Modal>
-                    )}
-                    {/* 더미데이터 */}
-                    <MyShortsCard />
-                    <MyShortsCard />
-                    <MyShortsCard />
-                    <MyShortsCard />
-                    <MyShortsCard />
-                    <MyShortsCard />
-                    <MyShortsCard />
+                <div className="grid grid-cols-3 desktop:grid-cols-6 w-full desktop:h-[766px] h-[1556px] self-stretch desktop:gap-x-4 gap-x-[9px] gap-y-6 cursor-pointer">
+                    {currentItems.map((short) => (
+                        <MyShortsCard shorts={short} key={short.id} />
+                    ))}
                 </div>
             )}
+
             <div className="flex flex-col pt-[40px] justify-center items-center gap-[8px] self-stretch">
-                <Pagination totalItems={dummyTotalItems} itemCountPerPage={dummyItemCountPerPage} />
+                <Pagination
+                    totalItems={activeTab === 'video' ? videoTotalItems : shortsTotalItems}
+                    itemCountPerPage={itemsPerPage}
+                    currentPage={activeTab === 'video' ? videoCurrentPage : shortsCurrentPage}
+                    onChangePage={activeTab === 'video' ? setVideoCurrentPage : setShortsCurrentPage}
+                />
             </div>
         </div>
     )
