@@ -7,6 +7,7 @@ import MenuIcon from '../../../assets/icons/menu.svg?react'
 import X from '../../../assets/icons/X.svg?react'
 import { NavbarLinksList } from './NavbarLinksList'
 import { UrlInputModal } from '../../../pages/main/_components'
+import { useSettingModal } from '../../../pages/setting/components/SettingPageModalController'
 
 export const NavbarTablet = () => {
     const location = useLocation()
@@ -15,9 +16,11 @@ export const NavbarTablet = () => {
     const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
 
     const toggleMenu = () => setIsOpen(!isOpen)
-
     const handlePlusClick = () => setShowUrlModal(!showUrlModal)
 
+    const { openModal, Modal: SettingModal } = useSettingModal()
+
+    // 페이지 이동 시 사이드바 닫기
     useEffect(() => setIsOpen(false), [location])
 
     return (
@@ -38,6 +41,7 @@ export const NavbarTablet = () => {
                 </button>
                 <Channeling aria-label="Channeling 글자 로고" />
             </div>
+
             {/* 슬라이드형 사이드 바 */}
             <div
                 onClick={(e) => e.stopPropagation()}
@@ -53,11 +57,18 @@ export const NavbarTablet = () => {
                     </button>
                 </div>
 
-                <NavbarLinksList handlePlusClick={handlePlusClick} handleLoginClick={openLoginFlow} />
+                <NavbarLinksList
+                    handlePlusClick={handlePlusClick}
+                    handleLoginClick={openLoginFlow}
+                    handleUserClick={openModal}
+                />
             </div>
 
-            {/* + 버튼 유튜브 URL 입력 모달  */}
+            {/* + 버튼 유튜브 URL 입력 모달 */}
             {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
+
+            {/* 설정 모달 */}
+            {SettingModal}
         </div>
     )
 }

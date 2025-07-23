@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import ChannelingLogo from '../../../assets/icons/channelingLogo.svg?react'
 import { useAuthStore } from '../../../stores/authStore'
 import { useLoginStore } from '../../../stores/LoginStore'
-
 import { NavbarLinksList } from './NavbarLinksList'
 import { ToolTipBubble } from './NavbarToolTip'
 import { UrlInputModal } from '../../../pages/main/_components'
+import { useSettingModal } from '../../../pages/setting/components/SettingPageModalController'
 
 type ToolTipPos = { top: number; left: number }
 
@@ -17,6 +17,8 @@ export const NavbarDesktop = () => {
     const { openLoginFlow } = useLoginStore().actions
 
     const isAuth = useAuthStore((state) => state.isAuth)
+
+    const { openModal, Modal: SettingModal } = useSettingModal()
 
     const handlePlusClick = () => setShowUrlModal(!showUrlModal)
 
@@ -32,9 +34,8 @@ export const NavbarDesktop = () => {
             }
         }
 
-        updateTooltipPosition() // 초기 실행
+        updateTooltipPosition()
 
-        // 화면 크기 변경에 따라 툴팁의 위치를 업데이트
         window.addEventListener('scroll', updateTooltipPosition)
         window.addEventListener('resize', updateTooltipPosition)
 
@@ -55,6 +56,7 @@ export const NavbarDesktop = () => {
                     loginButtonRef={loginButtonRef}
                     handlePlusClick={handlePlusClick}
                     handleLoginClick={openLoginFlow}
+                    handleUserClick={openModal}
                 />
             </div>
 
@@ -67,6 +69,9 @@ export const NavbarDesktop = () => {
 
             {/* + 버튼 유튜브 URL 입력 모달  */}
             {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
+
+            {/* 설정 모달 */}
+            {SettingModal}
         </div>
     )
 }

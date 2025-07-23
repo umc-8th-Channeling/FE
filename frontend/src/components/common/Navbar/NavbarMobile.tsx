@@ -8,6 +8,7 @@ import MenuIcon from '../../../assets/icons/menu.svg?react'
 import X from '../../../assets/icons/X.svg?react'
 import { NavbarLinksList } from './NavbarLinksList'
 import { UrlInputModal } from '../../../pages/main/_components'
+import { useSettingModal } from '../../../pages/setting/components/SettingPageModalController'
 
 export const NavbarMobile = () => {
     const location = useLocation()
@@ -16,8 +17,9 @@ export const NavbarMobile = () => {
     const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
 
     const toggleMenu = () => setIsOpen(!isOpen)
-
     const handlePlusClick = () => setShowUrlModal(!showUrlModal)
+
+    const { openModal, Modal: SettingModal } = useSettingModal()
 
     useEffect(() => setIsOpen(false), [location])
 
@@ -55,11 +57,18 @@ export const NavbarMobile = () => {
                     </button>
                 </div>
 
-                <NavbarLinksList handlePlusClick={handlePlusClick} handleLoginClick={openLoginFlow} />
+                <NavbarLinksList
+                    handlePlusClick={handlePlusClick}
+                    handleLoginClick={openLoginFlow}
+                    handleUserClick={openModal}
+                />
             </div>
 
-            {/* + 버튼 유튜브 URL 입력 모달  */}
+            {/* + 버튼 유튜브 URL 입력 모달 */}
             {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
+
+            {/* 설정 모달 */}
+            {SettingModal}
         </div>
     )
 }
