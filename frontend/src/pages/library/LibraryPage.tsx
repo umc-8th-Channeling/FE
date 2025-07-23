@@ -21,7 +21,7 @@ export default function LibraryPage() {
     }, [activeTab, subTab])
 
     return (
-        <div className="px-[76px] py-20">
+        <div className="px-6 tablet:px-[76px] py-20">
             <div className="relative flex mb-6">
                 <button
                     className={`flex-1 cursor-pointer pb-3.5 text-center text-[20px] font-bold 

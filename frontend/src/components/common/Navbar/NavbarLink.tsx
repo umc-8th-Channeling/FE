@@ -15,7 +15,7 @@ export const NavbarLink = (props: NavbarLinkProps) => {
     return (
         <NavLink to={to} end={true} className={`block ${className ?? ''}`}>
             {({ isActive }) => (
-                <div className="flex flex-col items-center px-2 py-1 space-y-2">
+                <div className="flex flex-row desktop:flex-col items-center px-2 py-1 gap-4 desktop:gap-2">
                     <IconWrapper
                         defaultIcon={defaultIcon}
                         hoverIcon={hoverIcon}
@@ -25,7 +25,9 @@ export const NavbarLink = (props: NavbarLinkProps) => {
                         isActive={isActive}
                         size={size}
                     />
-                    {label && <span className="font-label-fixed text-gray-900 whitespace-nowrap">{label}</span>}
+                    <span className="text-[16px] tablet:text-[24px] leading-[150%] font-medium tracking-[-0.6px] desktop:text-[16px] desktop:trakcing-[-0.4px] text-gray-900 whitespace-nowrap">
+                        {label}
+                    </span>
                 </div>
             )}
         </NavLink>
@@ -38,7 +40,7 @@ export const NavbarModalButton = (props: NavbarLinkProps) => {
 
     return (
         <button onClick={onClick} className={`block ${className ?? ''}`}>
-            <div className="flex flex-col items-center space-y-[5px] cursor-pointer">
+            <div className="flex flex-row desktop:flex-col items-center p-1 desktop:p-0 gap-3 desktop:gap-[5px] cursor-pointer">
                 <IconWrapper
                     defaultIcon={defaultIcon}
                     hoverIcon={hoverIcon}
@@ -48,7 +50,9 @@ export const NavbarModalButton = (props: NavbarLinkProps) => {
                     isActive={false}
                     size={size}
                 />
-                {label && <span className="font-label-fixed text-gray-900">{label}</span>}
+                <span className="text-[16px] tablet:text-[24px] leading-[150%] font-medium tracking-[-0.6px] desktop:text-[16px] desktop:trakcing-[-0.4px] text-gray-900 whitespace-nowrap">
+                    {label}
+                </span>
             </div>
         </button>
     )

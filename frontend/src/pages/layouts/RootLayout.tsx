@@ -2,8 +2,9 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { NavbarWrapper } from '../../components/common/Navbar/NavbarWrapper'
 import ReportLoadingSpinner from '../../components/ReportLoadingSpinner'
 import { useLoginStore } from '../../stores/LoginStore'
-import { NavbarModalsContainer } from '../../components/common/Navbar/NavbarModalsContainer'
+
 import ScrollToTop from '../../components/ScrollToTop'
+import { NavbarModalsContainer } from '../auth'
 
 export default function RootLayout() {
     const location = useLocation()
@@ -29,7 +30,7 @@ export default function RootLayout() {
                     <div
                         id="scroll-container"
                         className={`
-                            relative z-10 w-full h-full overflow-y-auto [&::-webkit-scrollbar]:hidden
+                            relative w-full h-full overflow-y-auto [&::-webkit-scrollbar]:hidden
                             bg-linear-to-b from-gray-50 to-primary-50 
                             ${!isMain && 'desktop:bg-none desktop:bg-gray-50'}
                         `}
