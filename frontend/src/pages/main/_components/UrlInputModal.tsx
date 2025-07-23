@@ -2,10 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import { useReportStore } from '../../../stores/reportStore'
+import { useAuthStore } from '../../../stores/authStore'
+import { useLoginStore } from '../../../stores/LoginStore'
 
 import ArrowButton from '../../../components/ArrowButton'
 import ErrorIcon from '../../../assets/icons/error.svg?react'
 import { useUrlInput } from '../../../hooks/main/useUrlInput'
+import { ErrorToast } from './ErrorToast'
 
 interface UrlInputModalProps {
     onClose: () => void
@@ -16,18 +19,25 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
     const [isFocused, setIsFocused] = useState(false)
     const modalRef = useRef<HTMLDivElement>(null)
 
+    const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
     const startGenerating = useReportStore((state) => state.actions.startGenerating)
     const endGenerating = useReportStore((state) => state.actions.endGenerating)
+
+    const isAuth = useAuthStore((state) => state.isAuth)
 
     const { register, handleSubmit, isActive, error, setError } = useUrlInput((url) => {
         console.log('모달에서 받은 URL:', url)
 
-        startGenerating()
-        setTimeout(() => {
-            endGenerating()
-            onClose()
-            navigate('/report')
-        }, 5000)
+        if (isAuth) {
+            startGenerating()
+            setTimeout(() => {
+                endGenerating()
+                onClose()
+                navigate('/report/1') // ✅ 임시 네비게이션: API 연결시 응답 영상 id로 수정 필요
+            }, 5000)
+        } else {
+            openLoginFlow()
+        }
     })
 
     // ESC 키로 모달 창 닫기
@@ -67,7 +77,7 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
                 ref={modalRef}
                 onClick={(e) => e.stopPropagation()}
                 className={clsx(
-                    'relative min-w-[588px] px-6 py-4 gap-x-2 rounded-full',
+                    'relative w-[328px] tablet:w-[588px] px-4 py-2 tablet:px-6 tablet:py-4 gap-x-2 rounded-full',
                     'bg-surface-elevate-l3 border transition-colors duration-300',
                     {
                         'border-2 border-error': error,
@@ -106,6 +116,9 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
                     {error}
                 </p>
             </div>
+
+            {/* 입력 에러 토스트 */}
+            {error && <ErrorToast errorMessage={error} />}
         </div>
     )
 }

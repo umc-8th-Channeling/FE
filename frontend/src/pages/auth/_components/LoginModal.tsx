@@ -1,5 +1,5 @@
-import Modal from '../../../../components/Modal'
-import GoogleIcon from '../../../../assets/icons/google.svg?react'
+import Modal from '../../../components/Modal'
+import GoogleIcon from '../../../assets/icons/google.svg?react'
 
 export const LoginModal = ({
     onClose,
@@ -26,7 +26,6 @@ export const LoginModal = ({
                     // 1) 실제로는 여기서 구글 로그인 처리하고,
                     // 2) 성공 시 onLoginSuccess() 호출
                     onLoginSuccess()
-                    onClose() // 원하면 기존 모달도 닫기
                 }}
             >
                 <GoogleIcon className="w-5 h-5" />

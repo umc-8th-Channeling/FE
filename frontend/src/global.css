@@ -54,6 +54,7 @@
     --color-surface-elevate-l3: var(--color-gray-300);
 
     --color-neutral-white: #ffffff;
+    --color-neutral-white-opacity5: #ffffff0d;
     --color-neutral-white-opacity10: #ffffff1a;
     --color-neutral-white-opacity20: #ffffff33;
 
@@ -69,6 +70,7 @@
 
 @theme {
     --animate-sway: sway 1s ease-in-out infinite;
+    --animate-wave: wave 2s linear infinite;
 
     @keyframes sway {
         0%,
@@ -77,6 +79,15 @@
         }
         50% {
             transform: translateX(10px);
+        }
+    }
+
+    @keyframes wave {
+        0% {
+            background-position: 200% 0;
+        }
+        100% {
+            background-position: -200% 0;
         }
     }
 }
@@ -122,7 +133,7 @@
     }
 
     .font-body-regular {
-        @apply text-[14px] leading-[150%] font-normal md:text-[16px] md:leading-[150%] md:font-normal;
+        @apply text-[14px] leading-[150%] font-normal tracking-[-0.4px] md:text-[16px] md:leading-[150%] md:font-normal;
     }
 
     .font-body-bold {
@@ -145,5 +156,15 @@
 
     .font-footer-fixed {
         @apply text-[14px] leading-[140%] font-normal tracking-[-0.35px];
+    }
+}
+@tailwind utilities;
+
+@layer utilities {
+    .multi-line-ellipsis {
+        @apply overflow-hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
     }
 }

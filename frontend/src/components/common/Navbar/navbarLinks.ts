@@ -27,6 +27,7 @@ export const PLUS_LINK: LinkItem = {
     hoverIcon: PlusIcon,
     activeIcon: PlusIcon,
     alt: '새로운 분석 아이콘',
+    label: '새 분석',
     isCircle: true,
 }
 

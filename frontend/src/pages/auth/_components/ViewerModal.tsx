@@ -1,5 +1,5 @@
-import Modal from '../../../../components/Modal'
-import TextareaWithArrow from '../../../../components/TextareaWithArrow'
+import Modal from '../../../components/Modal'
+import TextareaWithArrow from '../../../components/TextareaWithArrow'
 
 interface ViewerModalProps {
     onClose: () => void
@@ -12,7 +12,7 @@ export const ViewerModal = ({ onClose, value, onChange, handleButtonClick }: Vie
     const isActive = value.trim().length > 0
 
     return (
-        <Modal title="30초면 완성해요! 유튜버님의 시청자 타겟을 알려주세요." onClose={onClose}>
+        <Modal title={`30초면 완성해요! \n유튜버님의 시청자 타겟을 알려주세요.`} onClose={onClose}>
             <TextareaWithArrow
                 id="viewer"
                 value={value}
