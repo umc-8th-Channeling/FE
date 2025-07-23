@@ -8,7 +8,7 @@ import MenuIcon from '../../../assets/icons/menu.svg?react'
 import X from '../../../assets/icons/X.svg?react'
 import { NavbarLinksList } from './NavbarLinksList'
 import { UrlInputModal } from '../../../pages/main/_components'
-import { useSettingModal } from '../../../pages/setting/components/SettingPageModalController'
+import { useSettingModal } from '../../../pages/setting/_components/SettingPageModalController'
 
 export const NavbarMobile = () => {
     const location = useLocation()

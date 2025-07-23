@@ -6,7 +6,7 @@ import { useLoginStore } from '../../../stores/LoginStore'
 import { NavbarLinksList } from './NavbarLinksList'
 import { ToolTipBubble } from './NavbarToolTip'
 import { UrlInputModal } from '../../../pages/main/_components'
-import { useSettingModal } from '../../../pages/setting/components/SettingPageModalController'
+import { useSettingModal } from '../../../pages/setting/_components/SettingPageModalController'
 
 type ToolTipPos = { top: number; left: number }
 

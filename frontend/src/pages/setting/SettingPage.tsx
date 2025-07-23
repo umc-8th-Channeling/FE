@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { Button } from './components/SettingButton'
-import { Label } from './components/SettingLabel'
-import Input from './components/SettingInput'
-import SettingToggle from './components/SettingToggle'
+import { Button } from './_components/SettingButton'
+import { Label } from './_components/SettingLabel'
+import Input from './_components/SettingInput'
+import SettingToggle from './_components/SettingToggle'
 import '../../styles/scrollbar.css'
 import EditIcon from '../../assets/icons/edit.svg?react'
 import CompleteIcon from '../../assets/icons/complete_off.svg?react'
@@ -11,7 +11,7 @@ import SendIcon from '../../assets/icons/send.svg?react'
 import CloseIcon from '../../assets/icons/delete_normal.svg?react'
 import LogoutIcon from '../../assets/icons/logout.svg?react'
 import CameraIcon from '../../assets/icons/camera.svg?react'
-import WithdrawlModal from './components/WithdrawlModal'
+import WithdrawlModal from './_components/WithdrawlModal'
 
 const labelMap = {
     instagram: '인스타',
