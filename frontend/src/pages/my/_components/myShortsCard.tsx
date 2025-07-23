@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { Shorts } from '../../../types/profile'
 import Modal from '../../../components/Modal'
+import { formatKoreanNumber, formatRelativeTime } from '../../../utils/format'
 
 interface MyShortsCardProps {
     shorts: Shorts
@@ -25,12 +26,12 @@ export default function MyShortsCard({ shorts }: MyShortsCardProps) {
                 <div className="w-full aspect-[192/289] rounded-[8px]">
                     <img src={shorts.thumbnailUrl} alt={shorts.title} className="w-full h-full object-cover" />
                 </div>
-                <div className="w-full gap-1 mt-[8px] items-start ">
+                <div className="w-full gap-1 mt-[8px] items-start">
                     <div className="text-gray-900 text-[16px] tablet:text-[18px] multi-line-ellipsis font-bold leading-[140%] tracking-[-0.45px] ">
                         {shorts.title}
                     </div>
                     <div className="text-gray-600 text-[12px] tablet:text-[14px] font-normal leading-[140%] tracking-[-0.35px]">
-                        조회수 {shorts.viewCount}회 · {shorts.publishedAt} 전
+                        조회수 {formatKoreanNumber(shorts.viewCount)}회 · {formatRelativeTime(shorts.publishedAt)}
                     </div>
                 </div>
             </div>

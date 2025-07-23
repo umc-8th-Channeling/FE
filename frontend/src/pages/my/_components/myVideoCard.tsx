@@ -2,6 +2,7 @@ import type { Video } from '../../../types/profile'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Modal from '../../../components/Modal'
+import { formatKoreanNumber, formatRelativeTime } from '../../../utils/format'
 
 interface MyVideoCardProps {
     video: Video
@@ -27,7 +28,7 @@ export default function MyVideoCard({ video }: MyVideoCardProps) {
                         {video.title}
                     </div>
                     <div className="self-stretch text-gray-600 text-[12px] tablet:text-[14px] font-normal leading-[140%] tracking-[-0.35px]">
-                        조회수 {video.viewCount}회 · {video.publishedAt} 전
+                        조회수 {formatKoreanNumber(video.viewCount)}회 · {formatRelativeTime(video.publishedAt)}
                     </div>
                 </div>
             </div>
