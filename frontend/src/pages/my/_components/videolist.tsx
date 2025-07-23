@@ -15,7 +15,7 @@ export default function Videolist() {
     }
 
     return (
-        <div className="flex flex-col w-full  max-w-[1200px] items-start content-start pb-[80px] gap-[16px]">
+        <div className="flex flex-col w-full items-start content-start pb-[80px] gap-[16px]">
             <div className="self-stretch text-[#fff] text-[20px] font-bold leading-[140%] tracking-[-0.5px]">
                 영상 리스트
             </div>
@@ -33,14 +33,14 @@ export default function Videolist() {
                         activeTab === 'shorts'
                             ? 'text-primary-500 border-primary-500'
                             : 'text-[#fff] border-transparent'
-                    }`}
+                    } transition-colors duration-300`}
                     onClick={() => setActiveTab('shorts')}
                 >
                     Shorts
                 </button>
             </div>
             {activeTab === 'video' && (
-                <div className="flex flex-wrap w-full self-stretch gap-[24px] cursor-pointer">
+                <div className="grid grid-cols-2 desktop:grid-cols-4 w-full self-stretch gap-4 tablet:gap-6 cursor-pointer">
                     <MyVideoCard onClick={() => setOpen(true)} />
                     {open && (
                         <Modal
@@ -78,7 +78,7 @@ export default function Videolist() {
             )}
             {activeTab === 'shorts' && (
                 // <div className="flex flex-wrap items-start tablet:content-between desktop:content-start align-stretch desktop:gap-x-[12px] desktop:gap-y-[24px] tablet:gap-[9px] cursor-pointer">
-                <div className="flex flex-wrap w-full self-stretch desktop:gap-[12px] mobile:gap-[9px] cursor-pointer">
+                <div className="grid grid-cols-3 desktop:grid-cols-6 w-full desktop:gap-x-4 gap-x-[9px] gap-y-6 cursor-pointer">
                     <MyShortsCard onClick={() => setOpen(true)} />
                     {open && (
                         <Modal
@@ -106,7 +106,6 @@ export default function Videolist() {
                         </Modal>
                     )}
                     {/* 더미데이터 */}
-                    <MyShortsCard />
                     <MyShortsCard />
                     <MyShortsCard />
                     <MyShortsCard />
