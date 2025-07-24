@@ -12,7 +12,12 @@ export const ViewerModal = ({ onClose, value, onChange, handleButtonClick }: Vie
     const isActive = value.trim().length > 0
 
     return (
-        <Modal title={`30초면 완성해요! \n유튜버님의 시청자 타겟을 알려주세요.`} onClose={onClose}>
+        <Modal
+            title={`30초면 완성해요! \n유튜버님의 시청자 타겟을 알려주세요.`}
+            onClose={onClose}
+            className="mt-[30vh] tablet:mt-[37vh]"
+            align="start"
+        >
             <TextareaWithArrow
                 id="viewer"
                 value={value}

@@ -1,4 +1,5 @@
 import { useEffect, useRef, type PropsWithChildren } from 'react'
+import clsx from 'clsx'
 import X from '../assets/icons/X.svg?react'
 
 interface ModalProps {
@@ -6,9 +7,24 @@ interface ModalProps {
     description?: string
     onClose: () => void
     className?: string // className을 props로 전달하여 모달의 스타일 수정이 가능합니다. 예) className="w-[486px]" 전달하여 모달의 크기를 고정
+
+    /**
+     * 모달의 수직 정렬 방식
+     * - 'center': 화면 세로 중앙 정렬 (기본값)
+     * - 'start': 상단 정렬 (스크롤이 필요한 textarea 등 내용이 긴 경우에 사용)
+     *   이 경우 className을 통해 mt-[값]으로 위치 조정
+     */
+    align?: 'center' | 'start'
 }
 
-const Modal = ({ title, description, onClose, className = '', children }: PropsWithChildren<ModalProps>) => {
+const Modal = ({
+    title,
+    description,
+    onClose,
+    className = '',
+    align = 'center',
+    children,
+}: PropsWithChildren<ModalProps>) => {
     const modalRef = useRef<HTMLDivElement>(null)
 
     // ESC 키로 모달 창 닫기
@@ -27,7 +43,10 @@ const Modal = ({ title, description, onClose, className = '', children }: PropsW
             role="dialog"
             aria-labelledby="modal-title"
             aria-describedby="modal-description"
-            className="fixed inset-0 z-50 flex items-center justify-center min-w-[288px]"
+            className={clsx('fixed inset-0 z-50 flex justify-center min-w-[288px]', {
+                'items-center': align === 'center',
+                'items-start': align === 'start',
+            })}
         >
             <div className="absolute inset-0 bg-neutral-black-opacity50" />
 
