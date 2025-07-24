@@ -1,5 +1,5 @@
 import { TrendKeywords } from './TrendKeywords'
-import { NextContentsIdea } from './ContentsIdea'
+import { ContentsIdea } from './ContentsIdea'
 import { Skeleton } from './Skeleton'
 
 export const TabIdea = () => {
@@ -10,7 +10,7 @@ export const TabIdea = () => {
     return (
         <div className="space-y-16">
             <TrendKeywords />
-            <NextContentsIdea />
+            <ContentsIdea />
         </div>
     )
 }
