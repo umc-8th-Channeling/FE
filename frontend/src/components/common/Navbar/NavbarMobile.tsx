@@ -1,25 +1,24 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useLoginStore } from '../../../stores/LoginStore'
-
 import ChannelingLogo from '../../../assets/icons/channelingLogo.svg?react'
 import Channeling from '../../../assets/icons/channeling.svg?react'
 import MenuIcon from '../../../assets/icons/menu.svg?react'
 import X from '../../../assets/icons/X.svg?react'
 import { NavbarLinksList } from './NavbarLinksList'
 import { UrlInputModal } from '../../../pages/main/_components'
-import { useSettingModal } from '../../../pages/setting/_components/SettingPageModalController'
+import { useOpenSetting } from '../../../pages/setting/_components/OpenSettingPage'
 
 export const NavbarMobile = () => {
     const location = useLocation()
     const [showUrlModal, setShowUrlModal] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
+
     const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
+    const handleUserClick = useOpenSetting()
 
     const toggleMenu = () => setIsOpen(!isOpen)
     const handlePlusClick = () => setShowUrlModal(!showUrlModal)
-
-    const { openModal, Modal: SettingModal } = useSettingModal()
 
     useEffect(() => setIsOpen(false), [location])
 
@@ -60,15 +59,12 @@ export const NavbarMobile = () => {
                 <NavbarLinksList
                     handlePlusClick={handlePlusClick}
                     handleLoginClick={openLoginFlow}
-                    handleUserClick={openModal}
+                    handleUserClick={handleUserClick}
                 />
             </div>
 
             {/* + 버튼 유튜브 URL 입력 모달 */}
             {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
-
-            {/* 설정 모달 */}
-            {SettingModal}
         </div>
     )
 }

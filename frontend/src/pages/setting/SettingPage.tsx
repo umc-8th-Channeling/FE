@@ -23,7 +23,7 @@ const labelMap = {
 type SNSKey = keyof typeof labelMap
 
 type SettingPageProps = {
-    onClose: () => void
+    onClose?: () => void
 }
 
 export default function SettingPage({ onClose }: SettingPageProps) {
