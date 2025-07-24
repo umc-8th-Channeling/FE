@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import Chevron_left from '../assets/icons/chevron_left.svg?react'
-import Chevron_right from '../assets/icons/chevron_right.svg?react'
+import { useEffect, useState } from 'react'
+import ChevronLeft from '../assets/icons/chevron_left.svg?react'
+import ChevronRight from '../assets/icons/chevron_right.svg?react'
 
 interface PagingProps {
     totalItems: number //데이터 총 개수
@@ -14,21 +14,30 @@ const Pagination = ({ totalItems, itemCountPerPage, currentPage, onChangePage }:
 
     const totalPageCount = Math.ceil(totalItems / itemCountPerPage) // 총 페이지 수 계산
     const visiblePages = Array.from({ length: Math.min(5, totalPageCount - startPage + 1) }, (_, i) => startPage + i) // 하단에 보이는 페이지
-    const noNext = currentPage >= totalPageCount
+    const noNext = startPage + 5 > totalPageCount
+    const noPrev = startPage == 1
+
+    useEffect(() => {
+        if (currentPage >= startPage + 5 && !noNext) setStartPage(currentPage)
+        else if (currentPage <= startPage - 1 && !noPrev) setStartPage(currentPage - 4)
+    }, [currentPage])
 
     return (
         <div className="flex items-center gap-[16px]">
-            <Chevron_left
+            <ChevronLeft
                 onClick={() => {
-                    if (startPage > 5) setStartPage(startPage - 5)
+                    if (noPrev) return
+                    onChangePage(startPage - 1)
                 }}
+                className={`cursor-pointer ${noPrev ? 'text-gray-600' : 'text-primary-500'}`}
+                aria-disabled={noPrev ? true : false}
             />
             <div className="flex items-start content-start gap-x-[8px] flex-wrap">
                 {visiblePages.map((page) => (
                     <button
                         key={page}
-                        className={`flex flex-col w-[36px] h-[36px] justify-center items-center gap-[8px] rounded-[12px] text-gray-900 font-medium text-[16px] hover:bg-primary-opacity50 ${
-                            page == currentPage ? 'bg-primary-500' : 'bg-transparent'
+                        className={`flex flex-col w-[36px] h-[36px] justify-center items-center gap-[8px] rounded-[12px] text-gray-900 font-medium text-[16px] cursor-pointer ${
+                            page == currentPage ? 'bg-primary-500' : 'bg-transparent  hover:bg-primary-opacity50'
                         }`}
                         onClick={() => {
                             onChangePage(page)
@@ -38,10 +47,12 @@ const Pagination = ({ totalItems, itemCountPerPage, currentPage, onChangePage }:
                     </button>
                 ))}
             </div>
-            <Chevron_right
+            <ChevronRight
                 onClick={() => {
-                    if (startPage + 5 <= totalPageCount) setStartPage(startPage + 5)
+                    if (noNext) return
+                    if (startPage + 5 <= totalPageCount) onChangePage(startPage + 5)
                 }}
+                className={`cursor-pointer ${noNext ? 'text-gray-600' : 'text-primary-500'}`}
                 aria-disabled={noNext ? true : false}
             />
         </div>
