@@ -35,7 +35,7 @@ export default function MyVideoCard({ video }: MyVideoCardProps) {
             {open && (
                 <Modal
                     title="해당 영상에 대한 리포트를 받아 보시겠어요?"
-                    description={`‘${video.title}’을 유튜버님의 타겟과 컨셉을 고려하여 분석해요.`}
+                    description={`${video.title}’을 유튜버님의 타겟과 컨셉을 고려하여 분석해요.`}
                     onClose={() => setOpen(false)}
                     className="w-[486px]"
                 >

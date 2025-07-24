@@ -7,9 +7,9 @@ import { shortsData, videosData } from '../dummy'
 export default function Videolist() {
     const [videoCurrentPage, setVideoCurrentPage] = useState(1)
     const [shortsCurrentPage, setShortsCurrentPage] = useState(1)
-    const itemsPerPage = 12
-    const videoTotalItems = videosData.length
-    const shortsTotalItems = shortsData.length
+    const itemsPerPage = 12 // 페이지당 보여줄 아이템 개수
+    const videoTotalItems = videosData.length //동영상 총 개수
+    const shortsTotalItems = shortsData.length //숏츠 총 개수
 
     const [activeTab, setActiveTab] = useState<'video' | 'shorts'>('video')
 
@@ -45,14 +45,14 @@ export default function Videolist() {
                 </button>
             </div>
             {activeTab === 'video' && (
-                <div className="grid grid-cols-2 desktop:grid-cols-4 w-full desktop:h-[744px] h-[1560px] self-stretch gap-4 tablet:gap-6 cursor-pointer">
+                <div className="grid grid-cols-2 desktop:grid-cols-4 w-full desktop:min-h-[744px] min-h-[1560px] self-stretch gap-4 tablet:gap-6 cursor-pointer">
                     {currentItems.map((video) => (
                         <MyVideoCard video={video} key={video.id} />
                     ))}
                 </div>
             )}
             {activeTab === 'shorts' && (
-                <div className="grid grid-cols-3 desktop:grid-cols-6 w-full desktop:h-[766px] h-[1556px] self-stretch desktop:gap-x-4 gap-x-[9px] gap-y-6 cursor-pointer">
+                <div className="grid grid-cols-3 desktop:grid-cols-6 w-full desktop:min-h-[766px] min-h-[1556px] self-stretch desktop:gap-x-4 gap-x-[9px] gap-y-6 cursor-pointer">
                     {currentItems.map((short) => (
                         <MyShortsCard shorts={short} key={short.id} />
                     ))}

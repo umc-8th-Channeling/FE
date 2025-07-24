@@ -2,6 +2,13 @@ import { useState } from 'react'
 import Chevron_left from '../assets/icons/chevron_left.svg?react'
 import Chevron_right from '../assets/icons/chevron_right.svg?react'
 
+interface PagingProps {
+    totalItems: number //데이터 총 개수
+    itemCountPerPage: number //페이지당 보여줄 아이템 개수
+    currentPage: number //현재 페이지
+    onChangePage: (page: number) => void
+}
+
 const Pagination = ({ totalItems, itemCountPerPage, currentPage, onChangePage }: PagingProps) => {
     const [startPage, setStartPage] = useState(1) // 페이지 번호 시작하는 값
 
@@ -41,11 +48,3 @@ const Pagination = ({ totalItems, itemCountPerPage, currentPage, onChangePage }:
     )
 }
 export default Pagination
-
-interface PagingProps {
-    totalItems: number //데이터 총 개수
-    itemCountPerPage: number //페이지당 보여줄 아이템 개수
-    // pageCount: number //보여줄 페이지 수
-    currentPage: number //현재 페이지
-    onChangePage: (page: number) => void
-}
