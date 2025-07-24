@@ -1,9 +1,9 @@
 import { memo } from 'react'
 import { formatKoreanDate, formatRelativeTime } from '../../../utils/format'
-import { type VIDEO } from '../dummy'
 import { Tag } from './Tag'
+import type { ReportVideoSummary } from '../../../types/report'
 
-export const VideoSummary = memo(({ video }: { video: typeof VIDEO }) => {
+export const VideoSummary = memo(({ video }: { video: ReportVideoSummary }) => {
     return (
         <div className="flex flex-col tablet:flex-row gap-6">
             <iframe

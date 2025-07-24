@@ -1,4 +1,6 @@
-export const AUTH_VIDEO = {
+import type { ReportVideoSummary } from '../../types/report'
+
+export const AUTH_VIDEO: ReportVideoSummary = {
     id: 1,
     title: '저 드디어 독립했어요!',
     videoId: 'GHR8R9i0t4A',
@@ -21,7 +23,7 @@ export const AUTH_VIDEO = {
     },
 }
 
-export const GUEST_VIDEO = {
+export const GUEST_VIDEO: ReportVideoSummary = {
     id: 2,
     title: `
 "수능 잘 보고 고려대에서 만나요" 헬스터디 학생들의 5월 학력평가 성적을 공개합니다 | 헬스터디3 EP.11`,
