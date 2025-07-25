@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { Button } from './_components/SettingButton'
 import { Label } from './_components/SettingLabel'
 import Input from './_components/SettingInput'
-import SettingToggle from './_components/SettingToggle'
 import '../../styles/scrollbar.css'
 import EditIcon from '../../assets/icons/edit.svg?react'
 import CompleteIcon from '../../assets/icons/complete_off.svg?react'
@@ -12,6 +11,7 @@ import CloseIcon from '../../assets/icons/delete_normal.svg?react'
 import LogoutIcon from '../../assets/icons/logout.svg?react'
 import CameraIcon from '../../assets/icons/camera.svg?react'
 import WithdrawlModal from './_components/WithdrawlModal'
+import CustomToggle from '../../components/CustomToggle'
 
 const labelMap = {
     instagram: '인스타',
@@ -83,45 +83,45 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     }
 
     return (
-        <div className="fixed inset-0 z-50 bg-neutral-black-opacity50 flex justify-center items-center">
-            <div className="bg-gray-100 w-full tablet:max-w-[588px] desktop:max-w-[792px] tablet:max-h-[841px] desktop:max-h-[600px] rounded-xl overflow-hidden flex flex-col">
-                <div className="flex w-full h-[76px] px-6 justify-between items-center flex-shrink-0 bg-gray-100">
+        <div className="fixed inset-0 z-50 bg-neutral-black-opacity50 flex justify-center items-center tablet:py-10">
+            <div
+                className="
+                    flex flex-col w-full h-full bg-gray-100 overflow-hidden
+                    tablet:rounded-3xl tablet:max-w-[588px] tablet:max-h-[841px] desktop:max-w-[792px] desktop:max-h-[600px]
+                "
+            >
+                <div className="flex shrink-0 justify-between items-center w-full p-6 bg-gray-100">
                     <h2 className="font-title">설정</h2>
                     <button onClick={onClose}>
                         <CloseIcon />
                     </button>
                 </div>
 
-                <div className="flex">
+                <div className="flex flex-1 min-h-0 w-full">
                     {/* 사이드바 */}
-                    <div className="flex flex-col justify-between items-start self-stretch p-4 w-full max-w-[167px] box-border bg-gray-50">
+                    <div className="flex flex-col justify-between items-start p-4 w-fit bg-gray-50">
                         <div className="flex flex-col gap-y-4">
                             <Button
                                 variant={activeTab === 'profile' ? 'secondary' : 'ghost'}
-                                className="min-w-max text-left"
                                 onClick={() => setActiveTab('profile')}
                             >
                                 계정 및 프로필 설정
                             </Button>
                             <Button
                                 variant={activeTab === 'consent' ? 'secondary' : 'ghost'}
-                                className="w-full text-left"
                                 onClick={() => setActiveTab('consent')}
                             >
                                 동의
                             </Button>
                         </div>
-                        <Button variant="ghost" className="w-full text-left mt-auto flex items-center justify-between">
+                        <Button variant="ghost" className="flex items-center justify-between">
                             <span>로그아웃</span>
                             <LogoutIcon />
                         </Button>
                     </div>
 
                     {/* 본문 */}
-                    <div
-                        className="[&::-webkit-scrollbar]:hidden relative w-full tablet:max-w-[421px] desktop:max-w-[625px] mobile:h-[765px] tablet:h-[765px] desktop:h-[524px]
-                    self-stretch flex flex-col items-end p-8 gap-10 overflow-y-auto"
-                    >
+                    <div className="[&::-webkit-scrollbar]:hidden flex flex-1 flex-col p-8 gap-10 overflow-y-auto">
                         {activeTab === 'profile' && (
                             <div className="flex flex-col gap-10 w-full">
                                 <input
@@ -185,14 +185,14 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                     </div>
                                 </div>
 
-                                <div className="w-full pb-6">
-                                    <Button
+                                <div className="desktop:pb-6">
+                                    <button
                                         className="w-full font-title-bold flex items-center justify-between"
                                         onClick={() => setShowWithdrawlModal(true)}
                                     >
                                         <span>탈퇴하기</span>
                                         <SendIcon />
-                                    </Button>
+                                    </button>
                                 </div>
                             </div>
                         )}
@@ -219,7 +219,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                             프리미엄 요금제에서 제공되는 일일 콘텐츠를 추천받아요.
                                         </span>
                                     </div>
-                                    <SettingToggle checked={dailyContentEmail} onChange={setDailyContentEmail} />
                                 </div>
                             </div>
                         )}
