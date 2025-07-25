@@ -119,7 +119,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
                     {/* 본문 */}
                     <div
-                        className="[&::-webkit-scrollbar]:hidden relative w-full tablet:max-w-[421px] desktop:max-w-[625px] tablet:h-[765px] desktop:h-[524px]
+                        className="[&::-webkit-scrollbar]:hidden relative w-full tablet:max-w-[421px] desktop:max-w-[625px] mobile:h-[765px] tablet:h-[765px] desktop:h-[524px]
                     self-stretch flex flex-col items-end p-8 gap-10 overflow-y-auto"
                     >
                         {activeTab === 'profile' && (
