@@ -4,21 +4,35 @@ import ScrapCard from './_components/ScrapCard'
 import { DUMMY_REPORT, DUMMY_SCRAP, DUMMY_SHORTS } from './dummy'
 import RecentReportShortsCard from './_components/RecentReportShortsCard'
 import type { LibraryItem, ScrapItem } from '../../types/library'
-//import type { LibraryItem, ScrapItem } from '../../types/library'
 
 export default function LibraryPage() {
     const [activeTab, setActiveTab] = useState<'report' | 'scrap'>('report')
     const [subTab, setSubTab] = useState<'video' | 'shorts'>('video')
 
+    const [reportList, setReportList] = useState<LibraryItem[]>(DUMMY_REPORT)
+    const [shortsList, setShortsList] = useState<LibraryItem[]>(DUMMY_SHORTS)
+    const [scrapList, setScrapList] = useState<ScrapItem[]>(DUMMY_SCRAP)
+
     const filteredList = useMemo(() => {
         if (activeTab === 'report' && subTab === 'video') {
-            return DUMMY_REPORT as LibraryItem[]
+            return reportList
         } else if (activeTab === 'report' && subTab === 'shorts') {
-            return DUMMY_SHORTS as LibraryItem[]
+            return shortsList
         } else {
-            return DUMMY_SCRAP as ScrapItem[]
+            return scrapList
         }
-    }, [activeTab, subTab])
+    }, [activeTab, subTab, reportList, shortsList, scrapList])
+
+    // 삭제함수
+    const handleDeleteReport = (id: number) => {
+        setReportList((prev) => prev.filter((item) => item.id !== id))
+    }
+    const handleDeleteShorts = (id: number) => {
+        setShortsList((prev) => prev.filter((item) => item.id !== id))
+    }
+    const handleDeleteScrap = (title: string) => {
+        setScrapList((prev) => prev.filter((item) => item.title !== title))
+    }
 
     return (
         <div className="px-6 tablet:px-[76px] py-20">
@@ -102,15 +116,34 @@ export default function LibraryPage() {
                         : 'grid grid-cols-1 desktop:grid-cols-1 gap-6'
                 }
             >
-                {filteredList.map((item) =>
-                    activeTab === 'scrap' ? (
-                        <ScrapCard key={(item as ScrapItem).title} item={item as ScrapItem} />
-                    ) : subTab === 'video' ? (
-                        <RecentReportCard key={(item as LibraryItem).id} item={item as LibraryItem} />
-                    ) : (
-                        <RecentReportShortsCard key={(item as LibraryItem).id} item={item as LibraryItem} />
+                {filteredList.map((item) => {
+                    if (activeTab === 'scrap') {
+                        const scrap = item as ScrapItem
+                        return (
+                            <ScrapCard key={scrap.title} item={scrap} onDelete={() => handleDeleteScrap(scrap.title)} />
+                        )
+                    }
+
+                    if (subTab === 'video') {
+                        const report = item as LibraryItem
+                        return (
+                            <RecentReportCard
+                                key={report.id}
+                                item={report}
+                                onDelete={() => handleDeleteReport(report.id)}
+                            />
+                        )
+                    }
+
+                    const shorts = item as LibraryItem
+                    return (
+                        <RecentReportShortsCard
+                            key={shorts.id}
+                            item={shorts}
+                            onDelete={() => handleDeleteShorts(shorts.id)}
+                        />
                     )
-                )}
+                })}
             </div>
         </div>
     )
