@@ -1,4 +1,6 @@
-export const AUTH_VIDEO = {
+import type { ReportVideoSummary } from '../../types/report'
+
+export const AUTH_VIDEO: ReportVideoSummary = {
     id: 1,
     title: '저 드디어 독립했어요!',
     videoId: 'GHR8R9i0t4A',
@@ -21,7 +23,7 @@ export const AUTH_VIDEO = {
     },
 }
 
-export const GUEST_VIDEO = {
+export const GUEST_VIDEO: ReportVideoSummary = {
     id: 2,
     title: `
 "수능 잘 보고 고려대에서 만나요" 헬스터디 학생들의 5월 학력평가 성적을 공개합니다 | 헬스터디3 EP.11`,
@@ -183,8 +185,9 @@ export const IDEA_TREND = [
 export const IDEA_NEXT_CONTENTS = [
     {
         id: 1,
-        title: '코케트(coquette) 패션 인사',
-        description: '코케트 룩(리본, 파스텔톤)으로 변신 후, 지나가는  사람들에게 사랑스러운 인사 도전',
+        title: '코케트(coquette) 패션 인사 코케트(coquette) 패션 인사 코케트(coquette) 패션 인사 코케트(coquette) 패션 인사 코케트(coquette) 패션 인사 코케트(coquette) 패션 인사',
+        description:
+            '코케트 룩(리본, 파스텔톤)으로 변신 후, 지나가는  사람들에게 사랑스러운 인사 도전 코케트 룩(리본, 파스텔톤)으로 변신 후, 지나가는  사람들에게 사랑스러운 인사 도전 코케트 룩(리본, 파스텔톤)으로 변신 후, 지나가는  사람들에게 사랑스러운 인사 도전 코케트 룩(리본, 파스텔톤)으로 변신 후, 지나가는  사람들에게 사랑스러운 인사 도전 코케트 룩(리본, 파스텔톤)으로 변신 후, 지나가는  사람들에게 사랑스러운 인사 도전 코케트 룩(리본, 파스텔톤)으로 변신 후, 지나가는  사람들에게 사랑스러운 인사 도전 ',
         tags: ['거리소통', '코케트', '파스텔인사', '패션브이로그'],
         hasBookmark: true,
     },

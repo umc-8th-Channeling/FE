@@ -53,14 +53,16 @@ export const CommentFeedback = () => {
                     />
                 </div>
 
-                <Tabs
-                    tabs={TABS}
-                    activeTab={activeTab}
-                    onChangeTab={handleChartLabelChange}
-                    textStyle="text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]"
-                    bgColor="bg-surface-elevate-l2"
-                    spaceY="space-y-4"
-                />
+                <div className="desktop:min-w-[672px]">
+                    <Tabs
+                        tabs={TABS}
+                        activeTab={activeTab}
+                        onChangeTab={handleChartLabelChange}
+                        textStyle="text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]"
+                        bgColor="bg-surface-elevate-l2"
+                        spaceY="space-y-4"
+                    />
+                </div>
             </div>
         </TitledSection>
     )
