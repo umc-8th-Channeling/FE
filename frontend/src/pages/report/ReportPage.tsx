@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useAuthStore } from '../../stores/authStore'
+import type { ReportVideoSummary } from '../../types/report'
+
+import Refresh from '../../assets/icons/refresh_2.svg?react'
 import Tabs from '../../components/Tabs'
 import { TabOverview, TabAnalysis, TabIdea, VideoSummary, GuestModal, UpdateModal } from './_components'
 import { AUTH_VIDEO, GUEST_VIDEO } from './dummy'
-import Refresh from '../../assets/icons/refresh_2.svg?react'
-import { useAuthStore } from '../../stores/authStore'
-import { useParams } from 'react-router-dom'
 
 const TABS = [
     { index: 0, label: '개요', component: <TabOverview /> },
@@ -21,7 +23,7 @@ export default function ReportPage() {
     const [isOpenGuestModal, setIsOpenGuestModal] = useState(false) // 전역 상태 전환 필요
 
     // ✅ 임시 비디오 데이터 (API 연결시 수정)
-    let video
+    let video: ReportVideoSummary
     if (reportId) {
         video = AUTH_VIDEO
     } else {
