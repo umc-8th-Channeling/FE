@@ -19,4 +19,4 @@ for item in *; do
   fi
 done
 
-echo "--- 파일 복사가 성공적으로 완료되었습니다 ---"
+echo "[✅ SUCCESS] 파일 복사가 성공적으로 완료되었습니다"
