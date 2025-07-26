@@ -1,31 +1,23 @@
-import { useEffect, useRef, type PropsWithChildren } from 'react'
-import clsx from 'clsx'
+import { useEffect, useLayoutEffect, useRef, useState, type PropsWithChildren } from 'react'
 import X from '../assets/icons/X.svg?react'
 
 interface ModalProps {
     title: string
     description?: string
     onClose: () => void
-    className?: string // className을 props로 전달하여 모달의 스타일 수정이 가능합니다. 예) className="w-[486px]" 전달하여 모달의 크기를 고정
 
     /**
-     * 모달의 수직 정렬 방식
-     * - 'center': 화면 세로 중앙 정렬 (기본값)
-     * - 'start': 상단 정렬 (스크롤이 필요한 textarea 등 내용이 긴 경우에 사용)
-     *   이 경우 className을 통해 mt-[값]으로 위치 조정
+     * 모달 컨테이너에 적용할 Tailwind 클래스
+     *
+     * - 모달의 크기나 여백 등의 스타일을 외부에서 조정할 수 있습니다.
+     * - 예: className="w-[486px]" → 모달 너비를 고정
      */
-    align?: 'center' | 'start'
+    className?: string
 }
 
-const Modal = ({
-    title,
-    description,
-    onClose,
-    className = '',
-    align = 'center',
-    children,
-}: PropsWithChildren<ModalProps>) => {
+const Modal = ({ title, description, onClose, className = '', children }: PropsWithChildren<ModalProps>) => {
     const modalRef = useRef<HTMLDivElement>(null)
+    const [marginTop, setMarginTop] = useState<number | null>(null)
 
     // ESC 키로 모달 창 닫기
     useEffect(() => {
@@ -36,6 +28,14 @@ const Modal = ({
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [onClose])
 
+    useLayoutEffect(() => {
+        if (!modalRef.current) return
+        const modalHeight = modalRef.current.getBoundingClientRect().height
+        const windowHeight = window.innerHeight
+        const calculatedMarginTop = Math.max((windowHeight - modalHeight) / 2, 24) // 최소 여백 확보
+        setMarginTop(calculatedMarginTop)
+    }, [])
+
     return (
         <div
             onClick={onClose} // 배경 클릭으로 모달 창 닫기
@@ -43,10 +43,7 @@ const Modal = ({
             role="dialog"
             aria-labelledby="modal-title"
             aria-describedby="modal-description"
-            className={clsx('fixed inset-0 z-50 flex justify-center min-w-[288px]', {
-                'items-center': align === 'center',
-                'items-start': align === 'start',
-            })}
+            className="fixed inset-0 z-50 flex items-start justify-center min-w-[288px]"
         >
             <div className="absolute inset-0 bg-neutral-black-opacity50" />
 
@@ -59,6 +56,7 @@ const Modal = ({
                     space-y-4 tablet:space-y-6 bg-surface-elevate-l2 p-6 rounded-3xl
                     ${className}
                 `}
+                style={marginTop !== null ? { marginTop } : undefined}
             >
                 <button
                     type="button"
