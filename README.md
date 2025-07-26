@@ -2,12 +2,12 @@
 
 [▶ 채널링 - Channeling](https://github.com/umc-8th-Channeling)
 
+**Coding conventions are documented in [Rules.md](./Rules.md).**
+
 ## 💡 Project Overview
 
 유튜브 채널 및 개별 영상 데이터를 AI로 분석해, 개선점과 트렌드 기반 콘텐츠 아이디어를 제공하는 솔루션입니다.  
 초보 유튜버부터 전문 크리에이터, 브랜드 마케팅 팀까지 모두가 활용할 수 있는 맞춤형 리포트를 자동 생성합니다.
-
-Coding conventions are documented in [Rules.md](./Rules.md).
 
 ## ⚙️ Getting Started
 
