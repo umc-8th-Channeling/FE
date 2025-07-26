@@ -1,4 +1,4 @@
-import { useRef, type RefObject } from 'react'
+import { type RefObject } from 'react'
 import { Label } from './SettingLabel'
 import Input from './SettingInput'
 import EditIcon from '../../../assets/icons/edit.svg?react'
@@ -39,9 +39,8 @@ export default function ProfileTab({
     onFileChange,
     onCameraClick,
     onWithdraw,
+    fileInputRef,
 }: Props) {
-    const fileInputRef = useRef<HTMLInputElement>(null)
-
     return (
         <div className="flex flex-col gap-10 w-full">
             <input type="file" accept="image/*" ref={fileInputRef} className="hidden" onChange={onFileChange} />
