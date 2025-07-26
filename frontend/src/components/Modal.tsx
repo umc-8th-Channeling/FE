@@ -29,11 +29,18 @@ const Modal = ({ title, description, onClose, className = '', children }: PropsW
     }, [onClose])
 
     useLayoutEffect(() => {
-        if (!modalRef.current) return
-        const modalHeight = modalRef.current.getBoundingClientRect().height
-        const windowHeight = window.innerHeight
-        const calculatedMarginTop = Math.max((windowHeight - modalHeight) / 2, 24) // 최소 여백 확보
-        setMarginTop(calculatedMarginTop)
+        const handleResize = () => {
+            if (modalRef.current) {
+                const modalHeight = modalRef.current.getBoundingClientRect().height
+                const windowHeight = window.innerHeight
+                const calculatedMarginTop = Math.max((windowHeight - modalHeight) / 2, 24)
+                setMarginTop(calculatedMarginTop)
+            }
+        }
+        handleResize()
+
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
     }, [])
 
     return (
@@ -77,12 +84,14 @@ const Modal = ({ title, description, onClose, className = '', children }: PropsW
                     >
                         {title}
                     </h1>
-                    <p
-                        id="modal-description"
-                        className="text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px] text-gray-600"
-                    >
-                        {description}
-                    </p>
+                    {description && (
+                        <p
+                            id="modal-description"
+                            className="text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px] text-gray-600"
+                        >
+                            {description}
+                        </p>
+                    )}
                 </div>
                 {children}
             </div>
