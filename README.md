@@ -7,15 +7,15 @@
 유튜브 채널 및 개별 영상 데이터를 AI로 분석해, 개선점과 트렌드 기반 콘텐츠 아이디어를 제공하는 솔루션입니다.  
 초보 유튜버부터 전문 크리에이터, 브랜드 마케팅 팀까지 모두가 활용할 수 있는 맞춤형 리포트를 자동 생성합니다.
 
-<img width="810" alt="채널링 메인 페이지" src="https://github.com/user-attachments/assets/ad801b4f-d1ff-4e59-b72b-3246c8d20f28" />
+Coding conventions are documented in [Rules.md](./Rules.md).
 
 ## ⚙️ Getting Started
 
 1. Install Plugin at your IDE
 
-- [tailwindcss](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
-- [prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-- [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+-   [tailwindcss](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+-   [prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+-   [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
 2. Install project dependencies
 
