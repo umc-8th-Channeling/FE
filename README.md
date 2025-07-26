@@ -17,13 +17,19 @@
 -   [prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 -   [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
-2. Install project dependencies
+2. Move to the frontend directory
+
+```bash
+cd frontend
+```
+
+3. Install project dependencies
 
 ```bash
 pnpm install
 ```
 
-3. Run development server
+4. Run development server
 
 ```bash
 pnpm run dev
