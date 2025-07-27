@@ -1,20 +1,32 @@
+import type { Video } from '../../../types/profile'
+import { useState } from 'react'
+
+import { formatKoreanNumber, formatRelativeTime } from '../../../utils/format'
+import { MyReportModal } from './myreportModal'
+
 interface MyVideoCardProps {
-    onClick?: () => void
+    video: Video
 }
 
-export default function MyVideoCard({ onClick }: MyVideoCardProps) {
+export default function MyVideoCard({ video }: MyVideoCardProps) {
+    const [open, setOpen] = useState(false)
+
     return (
-        <div className="flex flex-col h-fit items-center gap-[8px] " onClick={onClick}>
-            <div className="w-full aspect-[141/79] shrink-0 rounded-[8px] bg-primary-600"></div>
-            <div className="flex flex-col items-start gap-[4px] w-full ">
-                <div className="self-stretch text-gray-900 text-[16px] tablet:text-[18px] font-bold multi-line-ellipsis leading-[140%] tracking-[-0.45px]">
-                    통행을 방해하는 불법 주차 차량을 보았다. 트윈스의
-                    선택은?[LP]ddddddddddddddddddpppppppppppppppppppppppp
+        <>
+            <div className="flex flex-col h-full items-center gap-[8px] " onClick={() => setOpen(true)}>
+                <div className="w-full aspect-[141/79] shrink-0 rounded-[8px] ">
+                    <img src={video.thumbnailUrl} alt={video.title} className="w-full h-full object-cover" />
                 </div>
-                <div className="self-stretch text-gray-600 text-[12px] tablet:text-[14px] font-normal leading-[140%] tracking-[-0.35px]">
-                    조회수 17만회 · 3년 전
+                <div className="w-full flex flex-col h-[74px] items-start gap-[4px] ">
+                    <div className="self-stretch text-gray-900 text-[16px] tablet:text-[18px] font-bold multi-line-ellipsis leading-[140%] tracking-[-0.45px]">
+                        {video.title}
+                    </div>
+                    <div className="self-stretch text-gray-600 text-[12px] tablet:text-[14px] font-normal leading-[140%] tracking-[-0.35px]">
+                        조회수 {formatKoreanNumber(video.viewCount)}회 · {formatRelativeTime(video.publishedAt)}
+                    </div>
                 </div>
             </div>
-        </div>
+            {open && <MyReportModal title={video.title} open={open} setOpen={setOpen} />}
+        </>
     )
 }
