@@ -3,11 +3,10 @@ import Modal from '../../../components/Modal'
 
 interface MyReportModalProps {
     title: string
-    open: boolean
     setOpen: (open: boolean) => void
 }
 
-export const MyReportModal = ({ title, open, setOpen }: MyReportModalProps) => {
+export const MyReportModal = ({ title, setOpen }: MyReportModalProps) => {
     const navigate = useNavigate()
     const getReport = () => {
         setOpen(false)

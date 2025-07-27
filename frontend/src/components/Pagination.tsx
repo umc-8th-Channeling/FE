@@ -20,7 +20,7 @@ const Pagination = ({ totalItems, itemCountPerPage, currentPage, onChangePage }:
     useEffect(() => {
         if (currentPage >= startPage + 5 && !noNext) setStartPage(currentPage)
         else if (currentPage <= startPage - 1 && !noPrev) setStartPage(currentPage - 4)
-    }, [currentPage])
+    }, [noPrev, noNext, startPage, currentPage])
 
     return (
         <div className="flex items-center gap-[16px]">
