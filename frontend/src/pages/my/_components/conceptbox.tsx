@@ -1,8 +1,6 @@
-import Correction from '../../../assets/icons/correction.svg?react'
-import Correction_before from '../../../assets/icons/correction_before.svg?react'
-import Correction_active from '../../../assets/icons/correction_active.svg?react'
 import { useState } from 'react'
 import Textarea from '../../../components/Textarea'
+import { EditButton } from '../../../components/EditButton'
 
 type Mode = 'VIEW' | 'EDIT' | 'ACTIVE_COMPLETE'
 
@@ -12,26 +10,26 @@ const Conceptbox = () => {
 
     const actionMap = {
         ['VIEW']: {
-            Icon: Correction,
+            buttonColor: 'text-gray-900',
             label: '수정',
-            textClass: 'text-gray-900',
             onClick: () => setMode('EDIT'),
+            isDisabled: true,
         },
         ['EDIT']: {
-            Icon: Correction_before,
+            buttonColor: 'text-gray-600',
             label: '완료',
-            textClass: 'text-gray-600',
             onClick: () => setMode('EDIT'),
+            isDisabled: false,
         },
         ['ACTIVE_COMPLETE']: {
-            Icon: Correction_active,
+            buttonColor: 'text-primary-500',
             label: '완료',
-            textClass: 'text-primary-500',
             onClick: () => setMode('VIEW'),
+            isDisabled: false,
         },
     }
 
-    const { Icon, label, textClass, onClick } = actionMap[mode]
+    const { buttonColor, label, onClick, isDisabled } = actionMap[mode]
 
     return (
         <div className="mt-[40px] w-full">
@@ -39,21 +37,13 @@ const Conceptbox = () => {
                 <div className="text-gray-900 font-bold text-[20px] whitespace-nowrap leading-[140%] tracking-[-0.5px]">
                     채널 컨셉
                 </div>
-
-                <div className="flex gap-[4px] cursor-pointer" onClick={onClick}>
-                    <Icon />
-                    <div
-                        className={`text-[16px] font-medium whitespace-nowrap leading-[150%] tracking-[-0.4px] ${textClass}`}
-                    >
-                        {label}
-                    </div>
-                </div>
+                <EditButton onClick={onClick} buttonColor={buttonColor} label={label} />
             </div>
             <div className="mt-[16px]">
                 <Textarea
                     id=""
                     value={value}
-                    disabled={mode === 'VIEW'}
+                    disabled={isDisabled}
                     onChange={(newVal) => {
                         setValue(newVal)
                         setMode('ACTIVE_COMPLETE')
