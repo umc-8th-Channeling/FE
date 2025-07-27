@@ -18,9 +18,9 @@ const Pagination = ({ totalItems, itemCountPerPage, currentPage, onChangePage }:
     const noPrev = startPage == 1
 
     useEffect(() => {
-        if (currentPage >= startPage + 5 && !noNext) setStartPage(currentPage)
-        else if (currentPage <= startPage - 1 && !noPrev) setStartPage(currentPage - 4)
-    }, [currentPage])
+        if (currentPage >= startPage + 5 && !noNext) setStartPage(currentPage) // 다음 페이지 리스트
+        else if (currentPage <= startPage - 1 && !noPrev) setStartPage(currentPage - 4) // 이전 페이지 리스트
+    }, [noPrev, noNext, startPage, currentPage])
 
     return (
         <div className="flex items-center gap-[16px]">
