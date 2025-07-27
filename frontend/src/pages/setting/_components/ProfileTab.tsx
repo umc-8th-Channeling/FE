@@ -1,9 +1,7 @@
 import { type RefObject } from 'react'
 import { Label } from './SettingLabel'
 import Input from './SettingInput'
-import EditIcon from '../../../assets/icons/edit.svg?react'
-import CompleteIcon from '../../../assets/icons/complete_off.svg?react'
-import CompleteRedIcon from '../../../assets/icons/complete_on.svg?react'
+import { EditButton } from '../../../components/EditButton'
 import SendIcon from '../../../assets/icons/send.svg?react'
 import CameraIcon from '../../../assets/icons/camera.svg?react'
 
@@ -45,12 +43,13 @@ export default function ProfileTab({
         <div className="flex flex-col gap-10 w-full">
             <input type="file" accept="image/*" ref={fileInputRef} className="hidden" onChange={onFileChange} />
 
+            {/* 프로필 이미지 */}
             <div className="flex items-center justify-center w-full">
                 <div className="relative w-[100px] h-[100px]">
                     <div
                         className="w-full h-full rounded-full bg-cover bg-no-repeat bg-center bg-[lightgray]"
                         style={{ backgroundImage: `url(${profileImageUrl})` }}
-                    ></div>
+                    />
                     <button
                         className="absolute bottom-0 right-0 w-8 h-8 p-1 flex items-center justify-center rounded-full bg-gray-200"
                         onClick={onCameraClick}
@@ -60,6 +59,7 @@ export default function ProfileTab({
                 </div>
             </div>
 
+            {/* 유저 정보 */}
             <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
                     <Label className="font-body-bold text-gray-600">닉네임</Label>
@@ -71,12 +71,15 @@ export default function ProfileTab({
                 </div>
             </div>
 
+            {/* SNS 링크 */}
             <div className="flex flex-col gap-4">
                 <div className="flex justify-between items-center">
                     <Label className="font-body-bold">SNS 링크 추가</Label>
-                    <button onClick={onEditToggle}>
-                        {editing ? modified ? <CompleteRedIcon /> : <CompleteIcon /> : <EditIcon />}
-                    </button>
+                    <EditButton
+                        onClick={onEditToggle}
+                        label={editing ? '완료' : '수정'}
+                        buttonColor={editing ? (modified ? 'text-primary-500' : 'text-gray-600') : 'text-gray-900'}
+                    />
                 </div>
 
                 <div className="flex flex-col gap-2">
