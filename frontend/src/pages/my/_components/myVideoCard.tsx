@@ -2,7 +2,7 @@ import type { Video } from '../../../types/profile'
 import { useState } from 'react'
 
 import { formatKoreanNumber, formatRelativeTime } from '../../../utils/format'
-import { MyReportModal } from './myreportModal'
+import { MyReportModal } from './myReportModal'
 
 interface MyVideoCardProps {
     video: Video
@@ -26,7 +26,7 @@ export default function MyVideoCard({ video }: MyVideoCardProps) {
                     </div>
                 </div>
             </div>
-            {open && <MyReportModal title={video.title} open={open} setOpen={setOpen} />}
+            {open && <MyReportModal title={video.title} setOpen={setOpen} />}
         </>
     )
 }
