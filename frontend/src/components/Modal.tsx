@@ -1,15 +1,23 @@
-import { useEffect, useRef, type PropsWithChildren } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type PropsWithChildren } from 'react'
 import X from '../assets/icons/X.svg?react'
 
 interface ModalProps {
     title: string
     description?: string
     onClose: () => void
-    className?: string // className을 props로 전달하여 모달의 스타일 수정이 가능합니다. 예) className="w-[486px]" 전달하여 모달의 크기를 고정
+
+    /**
+     * 모달 컨테이너에 적용할 Tailwind 클래스
+     *
+     * - 모달의 크기나 여백 등의 스타일을 외부에서 조정할 수 있습니다.
+     * - 예: className="w-[486px]" → 모달 너비를 고정
+     */
+    className?: string
 }
 
 const Modal = ({ title, description, onClose, className = '', children }: PropsWithChildren<ModalProps>) => {
     const modalRef = useRef<HTMLDivElement>(null)
+    const [marginTop, setMarginTop] = useState<number | null>(null)
 
     // ESC 키로 모달 창 닫기
     useEffect(() => {
@@ -20,6 +28,21 @@ const Modal = ({ title, description, onClose, className = '', children }: PropsW
         return () => window.removeEventListener('keydown', handleKeyDown)
     }, [onClose])
 
+    useLayoutEffect(() => {
+        const handleResize = () => {
+            if (modalRef.current) {
+                const modalHeight = modalRef.current.getBoundingClientRect().height
+                const windowHeight = window.innerHeight
+                const calculatedMarginTop = Math.max((windowHeight - modalHeight) / 2, 24)
+                setMarginTop(calculatedMarginTop)
+            }
+        }
+        handleResize()
+
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
     return (
         <div
             onClick={onClose} // 배경 클릭으로 모달 창 닫기
@@ -27,7 +50,7 @@ const Modal = ({ title, description, onClose, className = '', children }: PropsW
             role="dialog"
             aria-labelledby="modal-title"
             aria-describedby="modal-description"
-            className="fixed inset-0 z-50 flex items-center justify-center min-w-[288px]"
+            className="fixed inset-0 z-50 flex items-start justify-center min-w-[288px]"
         >
             <div className="absolute inset-0 bg-neutral-black-opacity50" />
 
@@ -40,6 +63,7 @@ const Modal = ({ title, description, onClose, className = '', children }: PropsW
                     space-y-4 tablet:space-y-6 bg-surface-elevate-l2 p-6 rounded-3xl
                     ${className}
                 `}
+                style={marginTop !== null ? { marginTop } : undefined}
             >
                 <button
                     type="button"
@@ -60,12 +84,14 @@ const Modal = ({ title, description, onClose, className = '', children }: PropsW
                     >
                         {title}
                     </h1>
-                    <p
-                        id="modal-description"
-                        className="text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px] text-gray-600"
-                    >
-                        {description}
-                    </p>
+                    {description && (
+                        <p
+                            id="modal-description"
+                            className="text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px] text-gray-600"
+                        >
+                            {description}
+                        </p>
+                    )}
                 </div>
                 {children}
             </div>

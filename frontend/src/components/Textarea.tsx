@@ -29,13 +29,18 @@ const Textarea = ({
         const textarea = textareaRef.current
         if (!textarea) return
 
-        textarea.style.height = 'auto'
+        const handleResize = () => {
+            textarea.style.height = 'auto'
 
-        const isMobile = window.innerWidth <= 768
+            const isMobile = window.innerWidth <= 768
+            const maxLines = isMobile ? 3 : 5
+            const maxHeight = 32 * maxLines
+            textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + 'px'
+        }
+        handleResize()
 
-        const maxLines = isMobile ? 3 : 5
-        const maxHeight = 32 * maxLines
-        textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + 'px'
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
     }, [value])
 
     return (
