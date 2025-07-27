@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { Shorts } from '../../../types/profile'
 import { formatKoreanNumber, formatRelativeTime } from '../../../utils/format'
-import { MyReportModal } from './myreportModal'
+import { MyReportModal } from './myReportModal'
 
 interface MyShortsCardProps {
     shorts: Shorts
@@ -28,7 +28,7 @@ export default function MyShortsCard({ shorts }: MyShortsCardProps) {
                     </div>
                 </div>
             </div>
-            {open && <MyReportModal title={shorts.title} open={open} setOpen={setOpen} />}
+            {open && <MyReportModal title={shorts.title} setOpen={setOpen} />}
         </>
     )
 }
