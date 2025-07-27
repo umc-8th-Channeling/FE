@@ -22,3 +22,11 @@ export interface Video {
     viewCount: number
     publishedAt: string
 }
+
+export interface Shorts {
+    id: string
+    thumbnailUrl: string
+    title: string
+    viewCount: number
+    publishedAt: string
+}
