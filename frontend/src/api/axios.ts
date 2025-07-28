@@ -1,7 +1,11 @@
-import axios from 'axios'
+import axios, { type AxiosInstance } from 'axios'
 import { LOCAL_STORAGE_KEY } from '../constants/key'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
+export const customAxios: AxiosInstance = axios.create({
+    withCredentials: true,
+    baseURL: '/api',
+})
 export const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_SERVER_API_URL,
 })
