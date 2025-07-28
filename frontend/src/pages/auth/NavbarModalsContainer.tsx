@@ -2,6 +2,7 @@ import { ChannelConceptModal, LoginModal, ViewerModal } from './_components'
 import { useState } from 'react'
 import { useLoginStore } from '../../stores/LoginStore'
 import { useAuthStore } from '../../stores/authStore'
+import { updateChannelConcept, updateChannelTarget } from '../../api/channel'
 
 export const NavbarModalsContainer = () => {
     const { isLoginFlowOpen, step } = useLoginStore()
@@ -36,8 +37,16 @@ export const NavbarModalsContainer = () => {
                             value={viewerValue}
                             onChange={setViewerValue}
                             handleButtonClick={() => {
-                                setChannelConceptValue('')
-                                goToConceptStep()
+                                updateChannelTarget(4, viewerValue) //실제 채널 ID로 변경해야됨
+                                    .then(() => {
+                                        setChannelConceptValue('') // 다음 거 초기화
+                                        goToConceptStep()
+                                    })
+                                    .catch((err) => {
+                                        console.error('타겟 저장 실패:', err)
+
+                                        alert('타겟 저장 실패')
+                                    })
                             }}
                         />
                     )}
@@ -47,7 +56,16 @@ export const NavbarModalsContainer = () => {
                             onClose={closeLoginFlow}
                             value={channelConceptValue}
                             onChange={setChannelConceptValue}
-                            handleButtonClick={finishLoginAndAuthenticate}
+                            handleButtonClick={() => {
+                                updateChannelConcept(4, channelConceptValue) //실제 채널 ID로 변경해야됨
+                                    .then(() => {
+                                        setChannelConceptValue('') // 다음 거 초기화
+                                        finishLoginAndAuthenticate()
+                                    })
+                                    .catch(() => {
+                                        alert('채널 콘셉트 저장 실패')
+                                    })
+                            }}
                         />
                     )}
                 </>
