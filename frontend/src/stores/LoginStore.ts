@@ -20,8 +20,8 @@ export const useLoginStore = create<LoginState>()(
         step: 'login',
         actions: {
             openLoginFlow: () => set({ isLoginFlowOpen: true, step: 'login' }),
-            goToViewerStep: () => set({ step: 'viewer' }),
-            goToConceptStep: () => set({ step: 'concept' }),
+            goToViewerStep: () => set({ isLoginFlowOpen: true, step: 'viewer' }),
+            goToConceptStep: () => set({ isLoginFlowOpen: true, step: 'concept' }),
             closeLoginFlow: () => set({ isLoginFlowOpen: false, step: 'login' }), // 초기화도 함께 수행
         },
     }))
