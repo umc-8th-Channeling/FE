@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
                 element: <LibraryPage />,
             },
             {
-                path: 'login/oauth',
+                path: '/google/callback',
                 element: <GoogleLoginRedirectPage />,
             },
         ],
