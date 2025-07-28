@@ -12,6 +12,8 @@ export const NavbarModalsContainer = () => {
     const [viewerValue, setViewerValue] = useState('')
     const [channelConceptValue, setChannelConceptValue] = useState('')
 
+    const channelId = useAuthStore((state) => state.user?.channelId)
+
     const finishLoginAndAuthenticate = () => {
         setAuthMember()
         closeLoginFlow()
@@ -37,8 +39,14 @@ export const NavbarModalsContainer = () => {
                             value={viewerValue}
                             onChange={setViewerValue}
                             handleButtonClick={() => {
-                                updateChannelTarget(4, viewerValue) //실제 채널 ID로 변경해야됨
-                                    .then(() => {
+                                if (!channelId) {
+                                    alert('채널 ID가 존재하지 않습니다. 로그인 상태를 확인해주세요.')
+                                    return
+                                }
+                                updateChannelTarget(channelId, viewerValue) //실제 채널 ID로 변경해야됨
+                                    .then((res) => {
+                                        console.log('🎯 updateChannelTarget 응답:', res)
+
                                         setChannelConceptValue('') // 다음 거 초기화
                                         goToConceptStep()
                                     })
@@ -57,8 +65,14 @@ export const NavbarModalsContainer = () => {
                             value={channelConceptValue}
                             onChange={setChannelConceptValue}
                             handleButtonClick={() => {
-                                updateChannelConcept(4, channelConceptValue) //실제 채널 ID로 변경해야됨
-                                    .then(() => {
+                                if (!channelId) {
+                                    alert('채널 ID가 존재하지 않습니다. 로그인 상태를 확인해주세요.')
+                                    return
+                                }
+                                updateChannelConcept(channelId, channelConceptValue) //실제 채널 ID로 변경해야됨
+                                    .then((res) => {
+                                        console.log('🎯 updateChannelConcept 응답:', res)
+
                                         setChannelConceptValue('') // 다음 거 초기화
                                         finishLoginAndAuthenticate()
                                     })
