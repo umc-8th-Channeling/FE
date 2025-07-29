@@ -5,6 +5,7 @@ import { useLoginStore } from '../../stores/LoginStore'
 
 import ScrollToTop from '../../components/ScrollToTop'
 import { NavbarModalsContainer } from '../auth'
+import { SettingModalContainer } from '../setting/_components/SettingModalContainer'
 
 export default function RootLayout() {
     const location = useLocation()
@@ -15,6 +16,8 @@ export default function RootLayout() {
     return (
         <>
             <NavbarWrapper />
+
+            <SettingModalContainer />
 
             <main
                 className={`

@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useLoginStore } from '../../../stores/LoginStore'
-
 import Channeling from '../../../assets/icons/channeling.svg?react'
 import MenuIcon from '../../../assets/icons/menu.svg?react'
 import X from '../../../assets/icons/X.svg?react'
 import { NavbarLinksList } from './NavbarLinksList'
 import { UrlInputModal } from '../../../pages/main/_components'
+import { useOpenSetting } from '../../../pages/setting/_components/OpenSettingPage'
 
 export const NavbarTablet = () => {
     const location = useLocation()
     const [showUrlModal, setShowUrlModal] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
+
     const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
+    const handleUserClick = useOpenSetting()
 
     const toggleMenu = () => setIsOpen(!isOpen)
-
     const handlePlusClick = () => setShowUrlModal(!showUrlModal)
 
     useEffect(() => setIsOpen(false), [location])
@@ -38,6 +39,7 @@ export const NavbarTablet = () => {
                 </button>
                 <Channeling aria-label="Channeling 글자 로고" />
             </div>
+
             {/* 슬라이드형 사이드 바 */}
             <div
                 onClick={(e) => e.stopPropagation()}
@@ -53,10 +55,14 @@ export const NavbarTablet = () => {
                     </button>
                 </div>
 
-                <NavbarLinksList handlePlusClick={handlePlusClick} handleLoginClick={openLoginFlow} />
+                <NavbarLinksList
+                    handlePlusClick={handlePlusClick}
+                    handleLoginClick={openLoginFlow}
+                    handleUserClick={handleUserClick}
+                />
             </div>
 
-            {/* + 버튼 유튜브 URL 입력 모달  */}
+            {/* + 버튼 유튜브 URL 입력 모달 */}
             {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
         </div>
     )
