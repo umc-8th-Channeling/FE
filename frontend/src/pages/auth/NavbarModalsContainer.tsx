@@ -2,9 +2,12 @@ import { ChannelConceptModal, LoginModal, ViewerModal } from './_components'
 import { useState } from 'react'
 import { useLoginStore } from '../../stores/LoginStore'
 import { useAuthStore } from '../../stores/authStore'
-import { updateChannelConcept, updateChannelTarget } from '../../api/channel'
+import { useUpdateChannelConcept, useUpdateChannelTarget } from '../../hooks/mutations/channelMutations'
 
 export const NavbarModalsContainer = () => {
+    const { mutate: updateTarget } = useUpdateChannelTarget()
+    const { mutate: updateConcept } = useUpdateChannelConcept()
+
     const { isLoginFlowOpen, step } = useLoginStore()
     const { closeLoginFlow, goToViewerStep, goToConceptStep } = useLoginStore().actions
     const setAuthMember = useAuthStore((state) => state.actions.setAuthMember)
@@ -43,18 +46,20 @@ export const NavbarModalsContainer = () => {
                                     alert('채널 ID가 존재하지 않습니다. 로그인 상태를 확인해주세요.')
                                     return
                                 }
-                                updateChannelTarget(channelId, viewerValue) //실제 채널 ID로 변경해야됨
-                                    .then((res) => {
-                                        console.log('🎯 updateChannelTarget 응답:', res)
-
-                                        setChannelConceptValue('') // 다음 거 초기화
-                                        goToConceptStep()
-                                    })
-                                    .catch((err) => {
-                                        console.error('타겟 저장 실패:', err)
-
-                                        alert('타겟 저장 실패')
-                                    })
+                                updateTarget(
+                                    { channelId, target: viewerValue },
+                                    {
+                                        onSuccess: (res) => {
+                                            console.log(' updateChannelTarget 응답:', res)
+                                            setChannelConceptValue('') // 다음 모달 입력창 초기화
+                                            goToConceptStep()
+                                        },
+                                        onError: (err) => {
+                                            console.error('타겟 저장 실패:', err)
+                                            alert('타겟 저장 실패')
+                                        },
+                                    }
+                                )
                             }}
                         />
                     )}
@@ -69,16 +74,19 @@ export const NavbarModalsContainer = () => {
                                     alert('채널 ID가 존재하지 않습니다. 로그인 상태를 확인해주세요.')
                                     return
                                 }
-                                updateChannelConcept(channelId, channelConceptValue) //실제 채널 ID로 변경해야됨
-                                    .then((res) => {
-                                        console.log('🎯 updateChannelConcept 응답:', res)
-
-                                        setChannelConceptValue('') // 다음 거 초기화
-                                        finishLoginAndAuthenticate()
-                                    })
-                                    .catch(() => {
-                                        alert('채널 콘셉트 저장 실패')
-                                    })
+                                updateConcept(
+                                    { channelId, concept: channelConceptValue },
+                                    {
+                                        onSuccess: (res) => {
+                                            console.log(' updateChannelConcept 응답:', res)
+                                            setChannelConceptValue('') // 입력 초기화
+                                            finishLoginAndAuthenticate()
+                                        },
+                                        onError: () => {
+                                            alert('채널 콘셉트 저장 실패')
+                                        },
+                                    }
+                                )
                             }}
                         />
                     )}
