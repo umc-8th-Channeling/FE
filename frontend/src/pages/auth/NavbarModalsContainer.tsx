@@ -2,7 +2,7 @@ import { ChannelConceptModal, LoginModal, ViewerModal } from './_components'
 import { useState } from 'react'
 import { useLoginStore } from '../../stores/LoginStore'
 import { useAuthStore } from '../../stores/authStore'
-import { useUpdateChannelConcept, useUpdateChannelTarget } from '../../hooks/mutations/channelMutations'
+import { useUpdateChannelConcept, useUpdateChannelTarget } from '../../hooks/channel/useUpdateIdentity'
 
 export const NavbarModalsContainer = () => {
     const { mutate: updateTarget } = useUpdateChannelTarget()

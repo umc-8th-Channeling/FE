@@ -4,8 +4,7 @@ import MainPage from '../pages/main/MainPage'
 import LibraryPage from '../pages/library/LibraryPage'
 import ReportPage from '../pages/report/ReportPage'
 import MyPage from '../pages/my/MyPage'
-import GoogleLoginRedirectPage from '../pages/main/GoogleRedirectPage'
-import SettingPageRoute from '../pages/setting/_components/SettingPageRoute'
+import GoogleLoginRedirectPage from '../pages/auth/GoogleRedirectPage'
 
 export const router = createBrowserRouter([
     {
@@ -31,10 +30,6 @@ export const router = createBrowserRouter([
             {
                 path: '/auth/callback',
                 element: <GoogleLoginRedirectPage />,
-            },
-            {
-                path: '/setting',
-                element: <SettingPageRoute />,
             },
         ],
     },
