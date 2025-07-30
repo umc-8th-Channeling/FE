@@ -1,13 +1,11 @@
-import axios, { type AxiosInstance } from 'axios'
+import axios from 'axios'
 import { LOCAL_STORAGE_KEY } from '../constants/key'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
-export const customAxios: AxiosInstance = axios.create({
+const axiosInstance = axios.create({
     withCredentials: true,
-    baseURL: '/api',
-})
-export const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_SERVER_API_URL,
+    baseURL: '/api', //개발 환경에서
+    // baseURL: import.meta.env.VITE_SERVER_API_URL,
 })
 
 //요청 인터셉터
