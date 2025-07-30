@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import ChannelingLogo from '../../../assets/icons/channelingLogo.svg?react'
 import { useAuthStore } from '../../../stores/authStore'
 import { useLoginStore } from '../../../stores/LoginStore'
-
 import { NavbarLinksList } from './NavbarLinksList'
 import { ToolTipBubble } from './NavbarToolTip'
 import { UrlInputModal } from '../../../pages/main/_components'
+import { useOpenSetting } from '../../../pages/setting/_components/OpenSettingPage'
 
 type ToolTipPos = { top: number; left: number }
 
@@ -15,12 +15,12 @@ export const NavbarDesktop = () => {
     const [tooltipPos, setTooltipPos] = useState<ToolTipPos | null>(null)
     const loginButtonRef = useRef<HTMLDivElement>(null)
     const { openLoginFlow } = useLoginStore().actions
-
     const isAuth = useAuthStore((state) => state.isAuth)
 
     const handlePlusClick = () => setShowUrlModal(!showUrlModal)
 
-    // 로그인 툴팁 위치 조정
+    const handleUserClick = useOpenSetting()
+
     useEffect(() => {
         const updateTooltipPosition = () => {
             if (!isAuth && loginButtonRef.current) {
@@ -32,9 +32,7 @@ export const NavbarDesktop = () => {
             }
         }
 
-        updateTooltipPosition() // 초기 실행
-
-        // 화면 크기 변경에 따라 툴팁의 위치를 업데이트
+        updateTooltipPosition()
         window.addEventListener('scroll', updateTooltipPosition)
         window.addEventListener('resize', updateTooltipPosition)
 
@@ -55,17 +53,16 @@ export const NavbarDesktop = () => {
                     loginButtonRef={loginButtonRef}
                     handlePlusClick={handlePlusClick}
                     handleLoginClick={openLoginFlow}
+                    handleUserClick={handleUserClick}
                 />
             </div>
 
-            {/* 게스트일 경우, 10초만에 로그인 툴팁 */}
             {!isAuth && tooltipPos && (
                 <div style={{ position: 'absolute', top: tooltipPos.top, left: tooltipPos.left }}>
                     <ToolTipBubble />
                 </div>
             )}
 
-            {/* + 버튼 유튜브 URL 입력 모달  */}
             {showUrlModal && <UrlInputModal onClose={handlePlusClick} />}
         </div>
     )
