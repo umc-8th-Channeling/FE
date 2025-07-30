@@ -1,15 +1,12 @@
-import { customAxios } from './axios'
+import type { ChannelTargetDto, ChannelConceptDto } from '../types/channel'
+import { axiosInstance } from './axios'
 
-export const updateChannelTarget = async (channelId: number, target: string) => {
-    const response = await customAxios.patch(`/channels/${channelId}/target`, {
-        target,
-    })
-    return response.data
+export const updateChannelTarget = async ({ channelId, target }: ChannelTargetDto) => {
+    const res = await axiosInstance.patch(`/channels/${channelId}/target`, { target })
+    return res.data
 }
 
-export const updateChannelConcept = async (channelId: number, concept: string) => {
-    const response = await customAxios.patch(`/channels/${channelId}/concept`, {
-        concept,
-    })
-    return response.data
+export const updateChannelConcept = async ({ channelId, concept }: ChannelConceptDto) => {
+    const res = await axiosInstance.patch(`/channels/${channelId}/concept`, { concept })
+    return res.data
 }
