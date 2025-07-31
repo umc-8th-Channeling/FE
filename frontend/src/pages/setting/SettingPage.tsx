@@ -33,6 +33,10 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
     const { mutate: updateAgree } = useUpdateMemberAgree()
 
+    // 임시 사용자 정보 값
+    const memberId = 0
+    const agreeId = 0
+
     const handleCameraClick = () => fileInputRef.current?.click()
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,13 +72,17 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         if (key === 'marketingEmailAgree') setMarketingEmailAgree(value)
         if (key === 'dayContentEmailAgree') setDayContentEmailAgree(value)
 
-        updateAgree(
-            { marketingEmailAgree, dayContentEmailAgree, [key]: value },
-            {
-                onSuccess: (data) => console.log('성공입니다', data),
-                onError: () => alert('존재하지 않는 회원 동의입니다.'),
-            }
-        )
+        const payload = {
+            id: agreeId,
+            memberId: memberId,
+            marketingEmailAgree: key === 'marketingEmailAgree' ? value : marketingEmailAgree,
+            dayContentEmailAgree: key === 'dayContentEmailAgree' ? value : dayContentEmailAgree,
+        }
+
+        updateAgree(payload, {
+            onSuccess: (data) => console.log('성공입니다', data),
+            onError: () => alert('존재하지 않는 회원 동의입니다.'),
+        })
     }
 
     return (
