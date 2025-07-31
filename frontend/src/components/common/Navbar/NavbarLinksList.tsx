@@ -3,8 +3,6 @@ import { LOGIN_LINK, NAVIGATE_LINKS, PLUS_LINK } from './navbarLinks'
 import { NavbarUserInfo } from './NavbarUserInfo'
 import { useAuthStore } from '../../../stores/authStore'
 import { DUMMY_USER } from './dummy'
-import useIsMobile from '../../../hooks/main/useIsMobile'
-import { useNavigate } from 'react-router-dom'
 
 interface NavbarLinksListProps {
     loginButtonRef?: React.RefObject<HTMLDivElement | null>
@@ -21,18 +19,8 @@ export const NavbarLinksList = ({
 }: NavbarLinksListProps) => {
     const isAuth = useAuthStore((state) => state.isAuth)
     const user = DUMMY_USER
-    const isMobile = useIsMobile()
-    const navigate = useNavigate()
 
     const label = loginButtonRef ? undefined : PLUS_LINK.label
-
-    const responsiveUserClick = () => {
-        if (isMobile) {
-            navigate('/setting')
-        } else {
-            handleUserClick()
-        }
-    }
 
     return (
         <div className="flex flex-col justify-between items-start desktop:items-center h-full">
@@ -47,7 +35,7 @@ export const NavbarLinksList = ({
 
             <div ref={loginButtonRef} className="mb-4 desktop:m-0">
                 {isAuth && user ? (
-                    <NavbarUserInfo user={user} onUserClick={responsiveUserClick} />
+                    <NavbarUserInfo user={user} onUserClick={handleUserClick} />
                 ) : (
                     <NavbarModalButton {...LOGIN_LINK} onClick={handleLoginClick} />
                 )}
