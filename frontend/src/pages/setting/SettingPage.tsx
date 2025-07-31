@@ -6,6 +6,7 @@ import LogoutIcon from '../../assets/icons/logout.svg?react'
 import WithdrawlModal from './_components/WithdrawlModal'
 import ProfileTab from './_components/ProfileTab'
 import ConsentTab from './_components/ConsentTab'
+import { useUpdateMemberAgree } from '../../hooks/mutations/userMutations'
 
 type SettingPageProps = {
     onClose?: () => void
@@ -20,8 +21,8 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     })
 
     const [activeTab, setActiveTab] = useState<'profile' | 'consent'>('profile')
-    const [marketingEmail, setMarketingEmail] = useState(false)
-    const [dailyContentEmail, setDailyContentEmail] = useState(true)
+    const [marketingEmailAgree, setMarketingEmailAgree] = useState(false)
+    const [dayContentEmailAgree, setDayContentEmailAgree] = useState(true)
     const [editing, setEditing] = useState(false)
     const [modified, setModified] = useState(false)
     const [showWithdrawlModal, setShowWithdrawlModal] = useState(false)
@@ -29,6 +30,8 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const [profileImageUrl, setProfileImageUrl] = useState('/path-to-image.jpg')
     const fileInputRef = useRef<HTMLInputElement>(null)
     const [imageChanged, setImageChanged] = useState(false)
+
+    const { mutate: updateAgree } = useUpdateMemberAgree()
 
     const handleCameraClick = () => fileInputRef.current?.click()
 
@@ -59,6 +62,19 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
     const handleWithdrawlConfirm = () => {
         setShowWithdrawlModal(false)
+    }
+
+    const handleAgreeChange = (key: 'marketingEmailAgree' | 'dayContentEmailAgree', value: boolean) => {
+        if (key === 'marketingEmailAgree') setMarketingEmailAgree(value)
+        if (key === 'dayContentEmailAgree') setDayContentEmailAgree(value)
+
+        updateAgree(
+            { marketingEmailAgree, dayContentEmailAgree, [key]: value },
+            {
+                onSuccess: (data) => console.log('성공입니다', data),
+                onError: () => alert('존재하지 않는 회원 동의입니다.'),
+            }
+        )
     }
 
     return (
@@ -118,10 +134,10 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
                         {activeTab === 'consent' && (
                             <ConsentTab
-                                marketingEmail={marketingEmail}
-                                dailyContentEmail={dailyContentEmail}
-                                onMarketingChange={setMarketingEmail}
-                                onDailyContentChange={setDailyContentEmail}
+                                marketingEmail={marketingEmailAgree}
+                                dailyContentEmail={dayContentEmailAgree}
+                                onMarketingChange={(value) => handleAgreeChange('marketingEmailAgree', value)}
+                                onDailyContentChange={(value) => handleAgreeChange('dayContentEmailAgree', value)}
                             />
                         )}
                     </div>
