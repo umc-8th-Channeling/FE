@@ -1,20 +1,20 @@
 import { useMutation } from '@tanstack/react-query'
-import { patchMemberAgree, patchMemberProfileImage, patchMemberSNS } from '../../api/user'
+import { updateMemberAgree, updateMemberProfileImage, updateMemberSNS } from '../../api/user'
 
-export const usePatchMemberAgree = () => {
+export const useUpdateMemberAgree = () => {
     return useMutation({
-        mutationFn: patchMemberAgree,
+        mutationFn: updateMemberAgree,
     })
 }
 
-export const usePatchMemberSNS = () => {
+export const useUpdateMemberSNS = () => {
     return useMutation({
-        mutationFn: patchMemberSNS,
+        mutationFn: updateMemberSNS,
     })
 }
 
-export const usePatchMemberProfileImage = () => {
+export const useUpdateMemberProfileImage = () => {
     return useMutation({
-        mutationFn: patchMemberProfileImage,
+        mutationFn: updateMemberProfileImage,
     })
 }

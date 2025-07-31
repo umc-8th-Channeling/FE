@@ -1,7 +1,12 @@
 import type { MemberAgreeDto, MemberProfileImageDto, MemberSNSDto } from '../types/user'
 import { axiosInstance } from './axios'
 
-export const patchMemberAgree = async ({ marketingEmailAgree, dayContentEmailAgree, id, memberId }: MemberAgreeDto) => {
+export const updateMemberAgree = async ({
+    marketingEmailAgree,
+    dayContentEmailAgree,
+    id,
+    memberId,
+}: MemberAgreeDto) => {
     const { data } = await axiosInstance.patch('/member-agree', {
         marketingEmailAgree,
         dayContentEmailAgree,
@@ -11,7 +16,7 @@ export const patchMemberAgree = async ({ marketingEmailAgree, dayContentEmailAgr
     return data
 }
 
-export const patchMemberSNS = async ({ instagramLink, tiktokLink, facebookLink, twitterLink }: MemberSNSDto) => {
+export const updateMemberSNS = async ({ instagramLink, tiktokLink, facebookLink, twitterLink }: MemberSNSDto) => {
     const { data } = await axiosInstance.patch('/members/update-sns', {
         instagramLink,
         tiktokLink,
@@ -21,7 +26,7 @@ export const patchMemberSNS = async ({ instagramLink, tiktokLink, facebookLink, 
     return data
 }
 
-export const patchMemberProfileImage = async ({ updateProfileImageReq }: MemberProfileImageDto) => {
+export const updateMemberProfileImage = async ({ updateProfileImageReq }: MemberProfileImageDto) => {
     const formData = new FormData()
     if (updateProfileImageReq?.image) {
         formData.append('image', updateProfileImageReq.image)
