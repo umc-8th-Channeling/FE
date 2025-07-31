@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { NavbarWrapper } from '../../components/common/Navbar/NavbarWrapper'
-import ReportLoadingSpinner from '../../components/ReportLoadingSpinner'
+import LoadingSpinner from '../../components/LoadingSpinner'
 import { useLoginStore } from '../../stores/LoginStore'
 
 import ScrollToTop from '../../components/ScrollToTop'
@@ -16,8 +16,6 @@ export default function RootLayout() {
     return (
         <>
             <NavbarWrapper />
-
-            <SettingModalContainer />
 
             <main
                 className={`
@@ -43,9 +41,15 @@ export default function RootLayout() {
                     </div>
                 </div>
 
-                <ReportLoadingSpinner />
+                <SettingModalContainer />
 
                 {isLoginFlowOpen && <NavbarModalsContainer />}
+
+                <LoadingSpinner
+                    title="영상 분석 중..."
+                    description="조금만 기다려 주세요. 곧 결과가 나와요!
+"
+                />
             </main>
         </>
     )
