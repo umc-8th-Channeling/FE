@@ -13,7 +13,7 @@ export type MemberSNSDto = {
 }
 
 export type MemberProfileImageDto = {
-    member: {
+    member?: {
         createdAt?: string
         updatedAt?: string
         id?: number
@@ -28,6 +28,6 @@ export type MemberProfileImageDto = {
     }
 
     updateProfileImageReq: {
-        image?: string
+        image?: string | File
     }
 }

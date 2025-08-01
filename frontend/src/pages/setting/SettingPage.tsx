@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Button } from './_components/SettingButton'
 import '../../styles/scrollbar.css'
 import CloseIcon from '../../assets/icons/delete_normal.svg?react'
@@ -6,7 +6,11 @@ import LogoutIcon from '../../assets/icons/logout.svg?react'
 import WithdrawlModal from './_components/WithdrawlModal'
 import ProfileTab from './_components/ProfileTab'
 import ConsentTab from './_components/ConsentTab'
-import { useUpdateMemberAgree, useUpdateMemberSNS } from '../../hooks/mutations/userMutations'
+import {
+    useUpdateMemberAgree,
+    useUpdateMemberProfileImage,
+    useUpdateMemberSNS,
+} from '../../hooks/mutations/userMutations'
 
 type SettingPageProps = {
     onClose?: () => void
@@ -29,10 +33,10 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
     const [profileImageUrl, setProfileImageUrl] = useState('/path-to-image.jpg')
     const fileInputRef = useRef<HTMLInputElement>(null)
-    const [imageChanged, setImageChanged] = useState(false)
 
     const { mutate: updateAgree } = useUpdateMemberAgree()
     const { mutate: updateSNS } = useUpdateMemberSNS()
+    const { mutate: updateProfileImage } = useUpdateMemberProfileImage()
 
     // 임시 사용자 정보 값
     const memberId = 1
@@ -43,17 +47,22 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (!file) return
+
         const previewUrl = URL.createObjectURL(file)
         setProfileImageUrl(previewUrl)
-        setImageChanged(true)
-    }
 
-    useEffect(() => {
-        if (imageChanged) {
-            console.log('이미지 저장됨:', profileImageUrl)
-            setImageChanged(false)
-        }
-    }, [profileImageUrl, imageChanged])
+        updateProfileImage(
+            { updateProfileImageReq: { image: file } },
+            {
+                onSuccess: (data) => {
+                    console.log('프로필 이미지 업로드 성공: ', data)
+                },
+                onError: () => {
+                    alert('프로필 이미지 업로드에 실패했습니다.')
+                },
+            }
+        )
+    }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
