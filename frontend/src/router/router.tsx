@@ -5,6 +5,7 @@ import LibraryPage from '../pages/library/LibraryPage'
 import ReportPage from '../pages/report/ReportPage'
 import MyPage from '../pages/my/MyPage'
 import GoogleLoginRedirectPage from '../pages/auth/GoogleRedirectPage'
+import SettingPageRoute from '../pages/setting/_components/SettingPageRoute'
 
 export const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
             {
                 path: '/library',
                 element: <LibraryPage />,
+            },
+            {
+                path: '/setting',
+                element: <SettingPageRoute />,
             },
             {
                 path: '/auth/callback',
