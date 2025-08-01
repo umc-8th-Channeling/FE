@@ -20,6 +20,7 @@ type Props = {
     modified: boolean
     profileImageUrl: string
     onEditToggle: () => void
+    onSaveSNS: () => void
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     onCameraClick: () => void
@@ -33,12 +34,22 @@ export default function ProfileTab({
     modified,
     profileImageUrl,
     onEditToggle,
+    onSaveSNS,
     onChange,
     onFileChange,
     onCameraClick,
     onWithdraw,
     fileInputRef,
 }: Props) {
+    // 버튼 클릭 시: 수정 → 완료 전환될 때 onSaveSNS 실행
+    const handleEditButtonClick = () => {
+        if (editing) {
+            // 완료 버튼 클릭 시 저장 호출
+            onSaveSNS()
+        }
+        onEditToggle()
+    }
+
     return (
         <div className="flex flex-col gap-10 w-full">
             <input type="file" accept="image/*" ref={fileInputRef} className="hidden" onChange={onFileChange} />
@@ -76,7 +87,7 @@ export default function ProfileTab({
                 <div className="flex justify-between items-center">
                     <Label className="font-body-bold">SNS 링크 추가</Label>
                     <EditButton
-                        onClick={onEditToggle}
+                        onClick={handleEditButtonClick}
                         label={editing ? '완료' : '수정'}
                         buttonColor={editing ? (modified ? 'text-primary-500' : 'text-gray-600') : 'text-gray-900'}
                     />

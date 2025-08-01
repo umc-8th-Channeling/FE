@@ -6,7 +6,7 @@ import LogoutIcon from '../../assets/icons/logout.svg?react'
 import WithdrawlModal from './_components/WithdrawlModal'
 import ProfileTab from './_components/ProfileTab'
 import ConsentTab from './_components/ConsentTab'
-import { useUpdateMemberAgree } from '../../hooks/mutations/userMutations'
+import { useUpdateMemberAgree, useUpdateMemberSNS } from '../../hooks/mutations/userMutations'
 
 type SettingPageProps = {
     onClose?: () => void
@@ -32,10 +32,11 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const [imageChanged, setImageChanged] = useState(false)
 
     const { mutate: updateAgree } = useUpdateMemberAgree()
+    const { mutate: updateSNS } = useUpdateMemberSNS()
 
     // 임시 사용자 정보 값
-    const memberId = 0
-    const agreeId = 0
+    const memberId = 1
+    const agreeId = 1
 
     const handleCameraClick = () => fileInputRef.current?.click()
 
@@ -82,6 +83,26 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         updateAgree(payload, {
             onSuccess: (data) => console.log('성공입니다', data),
             onError: () => alert('존재하지 않는 회원 동의입니다.'),
+        })
+    }
+
+    const handleSaveSNS = () => {
+        const payload = {
+            instagramLink: formData.instagram,
+            tiktokLink: formData.tiktok,
+            facebookLink: formData.facebook,
+            twitterLink: formData.x,
+        }
+
+        updateSNS(payload, {
+            onSuccess: (data) => {
+                console.log('SNS 정보 저장 성공', data)
+                setModified(false)
+                setEditing(false)
+            },
+            onError: () => {
+                alert('SNS 정보 저장에 실패했습니다.')
+            },
         })
     }
 
@@ -133,6 +154,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 profileImageUrl={profileImageUrl}
                                 onEditToggle={handleEditToggle}
                                 onChange={handleChange}
+                                onSaveSNS={handleSaveSNS}
                                 onFileChange={handleFileChange}
                                 onCameraClick={handleCameraClick}
                                 onWithdraw={() => setShowWithdrawlModal(true)}
