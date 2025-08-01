@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
                 element: <ReportPage />,
             },
             {
-                path: '/my',
+                path: '/my/:channelId',
                 element: <MyPage />,
             },
             {

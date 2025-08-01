@@ -9,7 +9,9 @@ interface ProfileCardProps {
 const ProfileCard = ({ profile }: ProfileCardProps) => {
     return (
         <div className="flex w-full min-w-0 h-[200px] items-center gap-[24px] ">
-            <span className="w-full max-w-[180px] aspect-square rounded-full object-cover bg-pink-400"></span>
+            {/* <span > */}
+            <img className="w-full max-w-[180px] aspect-square rounded-full object-cover" src={`${profile.imageUrl}`} />
+            {/* </span> */}
             <div className="flex flex-col items-start gap-[8px]  ">
                 <div className="flex items-start px-[8px] py-[4px] gap-[8px] whitespace-nowrap bg-[#fa4d56]/50 rounded-[2px] ">
                     <span className="text-gray-900 text-[14px] font-medium leading-[140%] tracking-[-0.35px]">
