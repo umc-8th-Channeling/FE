@@ -24,7 +24,7 @@ export default memo(function IdeapCard({ item, onDelete }: { item: IdeaItem; onD
             )}
 
             <h3 className="text-[20px] font-bold leading-[28px] tracking-[-0.5px] mb-2 flex items-center gap-2">
-                <span>코케트(coquette) 패션 인사</span>
+                <span>{item.title}</span>
             </h3>
 
             <p className="font-normal leading-[27px] tracking-[-0.45px] text-gray-900 mb-4">{item.description}</p>
