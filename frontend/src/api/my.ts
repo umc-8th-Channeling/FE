@@ -1,9 +1,15 @@
-import type { RequestChannelDto, ResponseChannelDto } from '../types/profile'
+import type {
+    RequestChannelDto,
+    ResponseChannelDto,
+    RequestChannelVideoDto,
+    ResponseChannelVideoDto,
+} from '../types/profile'
 import { axiosInstance } from './axios'
 
 export const getChannelDetail = async ({ channelId }: RequestChannelDto): Promise<ResponseChannelDto> => {
     // 1. localStorage에서 정보 꺼내기
     const userJson = localStorage.getItem('loginMember')
+    console.log('userJson 실제 값:', userJson)
     const token = localStorage.getItem('accessToken')
 
     // 2. 예외 처리
@@ -13,7 +19,8 @@ export const getChannelDetail = async ({ channelId }: RequestChannelDto): Promis
     }
 
     // 3. JSON 파싱
-    const loginMember = JSON.parse(userJson)
+    const loginMember = userJson ? JSON.parse(userJson) : null
+    console.log('loginMember 값:', loginMember)
 
     // 4. 쿼리 파라미터 구성
     const params = {
@@ -29,5 +36,22 @@ export const getChannelDetail = async ({ channelId }: RequestChannelDto): Promis
     })
     console.log('📦 채널 상세 응답:', data)
 
+    return data
+}
+
+export const getChannelVideo = async ({
+    channelId,
+    type,
+}: RequestChannelVideoDto): Promise<ResponseChannelVideoDto> => {
+    const token = localStorage.getItem('accessToken')
+    const { data } = await axiosInstance.get(`/channels/${channelId}/videos`, {
+        params: {
+            type: type,
+        },
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+    console.log('📦 채널 상세 응답:', data)
     return data
 }

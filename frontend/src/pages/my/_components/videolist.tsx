@@ -3,16 +3,40 @@ import MyVideoCard from './myVideoCard'
 import MyShortsCard from './myShortsCard'
 import Pagination from '../../../components/Pagination'
 import { shortsData, videosData } from '../dummy'
+import { useGetChannelVideo } from '../../../hooks/queries/useGetChannelVideo'
+import { useParams } from 'react-router-dom'
+import { mapResponseToVideoList } from '../../../mappers/profile.ts/mapResponseToVideo'
 
 export default function Videolist() {
+    const { channelId } = useParams()
+
     const [videoCurrentPage, setVideoCurrentPage] = useState(1)
     const [shortsCurrentPage, setShortsCurrentPage] = useState(1)
-    const itemsPerPage = 12 // 페이지당 보여줄 아이템 개수
-    const videoTotalItems = videosData.length //동영상 총 개수
-    const shortsTotalItems = shortsData.length //숏츠 총 개수
 
     const [activeTab, setActiveTab] = useState<'video' | 'shorts'>('video')
 
+    const {
+        data: videoResponse,
+        isPending: isVideoPending,
+        isError: isVideoError,
+    } = useGetChannelVideo({ channelId: Number(channelId), type: 'LONG' })
+    const {
+        data: shortsResponse,
+        isPending: isShortsPending,
+        isError: isShortsError,
+    } = useGetChannelVideo({ channelId: Number(channelId), type: 'SHORT' })
+
+    if (isVideoPending) return <div>로딩 중</div>
+    if (isShortsPending) return <div>로딩 중</div>
+    if (isVideoError) return <div>에러</div>
+    if (isShortsError) return <div>에러</div>
+
+    const videosData = videoResponse ? mapResponseToVideoList(videoResponse) : []
+    const shortsData = shortsResponse ? mapResponseToVideoList(shortsResponse) : []
+
+    const itemsPerPage = 12 // 페이지당 보여줄 아이템 개수
+    const videoTotalItems = videosData.length //동영상 총 개수
+    const shortsTotalItems = shortsData.length //숏츠 총 개수
     const offset =
         activeTab === 'video' ? (videoCurrentPage - 1) * itemsPerPage : (shortsCurrentPage - 1) * itemsPerPage
 

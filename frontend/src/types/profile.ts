@@ -23,13 +23,13 @@ export interface Video {
     publishedAt: string
 }
 
-export interface Shorts {
-    id: string
-    thumbnailUrl: string
-    title: string
-    viewCount: number
-    publishedAt: string
-}
+// export interface Shorts {
+//     id: string
+//     thumbnailUrl: string
+//     title: string
+//     viewCount: number
+//     publishedAt: string
+// }
 
 export type RequestChannelDto = {
     channelId: number
@@ -55,5 +55,31 @@ export type ResponseChannelDto = {
         image: string
         channelHashTags: string
         channelUpdateAt: Date
+    }
+}
+export type RequestChannelVideoDto = {
+    channelId: number
+    type: 'LONG' | 'SHORT'
+}
+
+export type ResponseChannelVideoDto = {
+    isSuccess: boolean
+    code: string
+    message: string
+    result: {
+        channelId: number
+        page: number
+        size: number
+        hasNextPage: boolean
+        videoList: [
+            {
+                videoId: number
+                videoTitle: string
+                videoThumbnailUrl: string
+                videoCategory: string
+                viewCount: number
+                uploadDate: Date
+            }
+        ]
     }
 }

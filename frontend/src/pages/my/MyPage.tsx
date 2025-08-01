@@ -15,6 +15,7 @@ import { useParams } from 'react-router-dom'
 import { useGetChannel } from '../../hooks/queries/useGetChannel'
 import { mapResponseToProfile } from '../../mappers/profile.ts/mapResponseToProfile'
 import { mapResponseStatCard } from '../../mappers/profile.ts/mapResponsetoStatCard'
+import { useEffect } from 'react'
 import { setMockLogin } from '../../utils/loginMock'
 
 const statsMeta = [
@@ -36,10 +37,14 @@ const statIcons = {
 }
 
 export default function Mypage() {
-    setMockLogin()
     const { channelId } = useParams()
     const { data, isPending: isMePending, isError: isMeError } = useGetChannel({ channelId: Number(channelId) })
 
+    useEffect(() => {
+        localStorage.removeItem('loginMember')
+        localStorage.removeItem('accessToken')
+        setMockLogin()
+    }, [])
     if (isMePending) return <div>로딩 중</div>
     if (isMeError) return <div>에러</div>
 
