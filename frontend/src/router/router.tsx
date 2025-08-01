@@ -29,10 +29,6 @@ export const router = createBrowserRouter([
                 element: <LibraryPage />,
             },
             {
-                path: '/setting',
-                element: <SettingPageRoute />,
-            },
-            {
                 path: '/auth/callback',
                 element: <GoogleLoginRedirectPage />,
             },
