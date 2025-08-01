@@ -4,10 +4,13 @@ import LoadingSpinner from '../../components/LoadingSpinner'
 import ScrollToTop from '../../components/ScrollToTop'
 import { NavbarModalsContainer } from '../auth'
 import { SettingModalContainer } from '../setting/_components/SettingModalContainer'
+import { useReportStore } from '../../stores/reportStore'
 
 export default function RootLayout() {
     const location = useLocation()
     const isMain = location.pathname === '/'
+
+    const isReportGenerating = useReportStore((state) => state.isReportGenerating)
 
     return (
         <>
@@ -42,8 +45,8 @@ export default function RootLayout() {
 
                 <LoadingSpinner
                     title="영상 분석 중..."
-                    description="조금만 기다려 주세요. 곧 결과가 나와요!
-"
+                    description="조금만 기다려 주세요. 곧 결과가 나와요!"
+                    isLoading={isReportGenerating}
                 />
             </main>
         </>

@@ -1,15 +1,13 @@
 import Spinner from '../assets/loading/spinner.svg?react'
-import { useReportStore } from '../stores/reportStore'
 
 interface LoadingSpinnerProps {
     title?: string
     description?: string
+    isLoading: boolean
 }
 
-const LoadingSpinner = ({ title, description }: LoadingSpinnerProps) => {
-    const isReportGenerating = useReportStore((state) => state.isReportGenerating)
-
-    if (!isReportGenerating) return
+const LoadingSpinner = ({ title, description, isLoading }: LoadingSpinnerProps) => {
+    if (!isLoading) return
 
     return (
         <div className="fixed inset-0 h-screen z-50 flex items-center justify-center">
