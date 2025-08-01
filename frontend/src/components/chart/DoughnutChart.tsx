@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2'
 
 import type { TabItem } from '../../types/common'
 import { iconDefaultPlugin, iconActivePlugin } from './iconPlugin'
-import { activeTooltipPlugin, externalTooltipHandler } from './tooltipPlugin'
+import { activeTooltipPlugin, externalTooltipHandler } from './tooltipPlugins'
 import './tooltip.css'
 
 ChartJS.register(ArcElement, Tooltip)
