@@ -1,9 +1,9 @@
 import { memo, useState } from 'react'
 import Bookmark from '../../../assets/icons/bookmark.svg?react'
 import BookmarkActive from '../../../assets/icons/bookmark_active.svg?react'
-import type { ScrapItem } from '../../../types/library'
+import type { IdeaItem } from '../../../types/library'
 
-export default memo(function ScrapCard({ item, onDelete }: { item: ScrapItem; onDelete?: () => void }) {
+export default memo(function IdeapCard({ item, onDelete }: { item: IdeaItem; onDelete?: () => void }) {
     const [isFilled, setIsFilled] = useState(true) // true면 채워짐
 
     const handleToggle = () => {

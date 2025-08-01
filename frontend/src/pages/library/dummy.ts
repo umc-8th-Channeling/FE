@@ -1,4 +1,4 @@
-import type { LibraryItem, ScrapItem } from '../../types/library'
+import type { LibraryItem, IdeaItem } from '../../types/library'
 
 // 리포트 dummy
 export const DUMMY_REPORT: LibraryItem[] = [
@@ -654,7 +654,7 @@ export const DUMMY_REPORT: LibraryItem[] = [
     },
 ]
 
-export const DUMMY_SCRAP: ScrapItem[] = [
+export const DUMMY_IDEA: IdeaItem[] = [
     {
         title: '코케트(coquette) 패션 인사',
         description: '코케트 룩으로 변신 후...',
