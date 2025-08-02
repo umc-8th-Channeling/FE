@@ -1,13 +1,7 @@
 import Modal from '../../../components/Modal'
 import GoogleIcon from '../../../assets/icons/google.svg?react'
 
-export const LoginModal = ({
-    onClose,
-    onLoginSuccess, // ✅ 새로운 prop 추가
-}: {
-    onClose: () => void
-    onLoginSuccess: () => void
-}) => {
+export const LoginModal = ({ onClose, onLoginSuccess }: { onClose: () => void; onLoginSuccess: () => void }) => {
     return (
         <Modal
             title="로그인/회원가입"
@@ -24,7 +18,11 @@ export const LoginModal = ({
                 "
                 onClick={() => {
                     // 1) 실제로는 여기서 구글 로그인 처리하고,
+
+                    window.location.href = import.meta.env.VITE_SERVER_API_URL + '/members/login/google'
+
                     // 2) 성공 시 onLoginSuccess() 호출
+
                     onLoginSuccess()
                 }}
             >
