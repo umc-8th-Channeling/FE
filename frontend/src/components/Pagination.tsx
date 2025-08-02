@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import ChevronLeft from '../assets/icons/chevron_left.svg?react'
 import ChevronRight from '../assets/icons/chevron_right.svg?react'
+import { useThrottle } from '../hooks/useThrottle'
 
 interface PagingProps {
     totalItems: number //데이터 총 개수
@@ -22,12 +23,14 @@ const Pagination = ({ totalItems, itemCountPerPage, currentPage, onChangePage }:
         else if (currentPage <= startPage - 1 && !noPrev) setStartPage(currentPage - 4) // 이전 페이지 리스트
     }, [noPrev, noNext, startPage, currentPage])
 
+    const throttledChange = useThrottle(onChangePage, 600) //delay 0.6초
+
     return (
         <div className="flex items-center gap-[16px]">
             <ChevronLeft
                 onClick={() => {
                     if (noPrev) return
-                    onChangePage(startPage - 1)
+                    throttledChange(startPage - 1)
                 }}
                 className={`cursor-pointer ${noPrev ? 'text-gray-600' : 'text-primary-500'}`}
                 aria-disabled={noPrev ? true : false}
@@ -40,7 +43,7 @@ const Pagination = ({ totalItems, itemCountPerPage, currentPage, onChangePage }:
                             page == currentPage ? 'bg-primary-500' : 'bg-transparent  hover:bg-primary-opacity50'
                         }`}
                         onClick={() => {
-                            onChangePage(page)
+                            throttledChange(page)
                         }}
                     >
                         {page}
@@ -50,7 +53,7 @@ const Pagination = ({ totalItems, itemCountPerPage, currentPage, onChangePage }:
             <ChevronRight
                 onClick={() => {
                     if (noNext) return
-                    if (startPage + 5 <= totalPageCount) onChangePage(startPage + 5)
+                    if (startPage + 5 <= totalPageCount) throttledChange(startPage + 5)
                 }}
                 className={`cursor-pointer ${noNext ? 'text-gray-600' : 'text-primary-500'}`}
                 aria-disabled={noNext ? true : false}
