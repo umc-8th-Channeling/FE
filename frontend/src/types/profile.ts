@@ -16,11 +16,11 @@ export interface Stats {
 }
 
 export interface Video {
-    id: string
+    id: number
     thumbnailUrl: string
     title: string
     viewCount: number
-    publishedAt: string
+    publishedAt: Date
 }
 
 export type RequestChannelDto = {
@@ -75,3 +75,5 @@ export type ResponseChannelVideoDto = {
         ]
     }
 }
+
+export type ChannelVideoDto = NonNullable<ResponseChannelVideoDto['result']>['videoList'][number]
