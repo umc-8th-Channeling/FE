@@ -16,6 +16,7 @@ import { mapResponseToProfile } from '../../mappers/profile.ts/mapResponseToProf
 import { mapResponseStatCard } from '../../mappers/profile.ts/mapResponsetoStatCard'
 import { useEffect } from 'react'
 import { setMockLogin } from '../../utils/loginMock'
+import { Skeleton } from './_components/Skeleton'
 
 const statsMeta = [
     { key: 'views', title: '조회수' },
@@ -44,37 +45,44 @@ export default function Mypage() {
         localStorage.removeItem('accessToken')
         setMockLogin()
     }, [])
-    if (isMePending) return <div>로딩 중</div>
-    if (isMeError) return <div>에러</div>
+    if (isMePending)
+        return (
+            <div>
+                <Skeleton />
+            </div>
+        )
+    if (isMeError) return <div></div>
 
     const profile = data ? mapResponseToProfile(data) : null
     const stats = data ? mapResponseStatCard(data) : null
     return (
-        <div className="w-full desktop:px-[76px] px-6 tablet:px-[90px] desktop:pt-[80px] pt-[40px] ">
-            <div className="flex flex-col w-full gap-[40px] items-start ">
-                <div className="flex flex-col desktop:flex-row w-full justify-between items-start space-y-6 ">
-                    <div className="flex w-full items-center">{profile && <ProfileCard profile={profile} />}</div>
-                    {stats && (
-                        <div className="grid grid-cols-3 gap-3 tablet:gap-6 w-full">
-                            {statsMeta.map((meta) => (
-                                <StatsCard
-                                    key={meta.key}
-                                    title={meta.title}
-                                    value={formatKoreanNumber(stats[meta.key])}
-                                    icon={statIcons[meta.key]}
-                                />
-                            ))}
-                        </div>
-                    )}
-                </div>
-                <div className="flex flex-col w-full items-start">
-                    <Targetbox />
-                    <Conceptbox />
-                </div>
-                <div className="flex items-start content-start self-stretch flex-wrap">
-                    <Videolist />
+        <>
+            <div className="w-full desktop:px-[76px] px-6 tablet:px-[90px] desktop:pt-[80px] pt-[40px] ">
+                <div className="flex flex-col w-full gap-[40px] items-start ">
+                    <div className="flex flex-col desktop:flex-row w-full justify-between items-start space-y-6 ">
+                        <div className="flex w-full items-center">{profile && <ProfileCard profile={profile} />}</div>
+                        {stats && (
+                            <div className="grid grid-cols-3 gap-3 tablet:gap-6 w-full">
+                                {statsMeta.map((meta) => (
+                                    <StatsCard
+                                        key={meta.key}
+                                        title={meta.title}
+                                        value={formatKoreanNumber(stats[meta.key])}
+                                        icon={statIcons[meta.key]}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    <div className="flex flex-col w-full items-start">
+                        <Targetbox />
+                        <Conceptbox />
+                    </div>
+                    <div className="flex items-start content-start self-stretch flex-wrap">
+                        <Videolist />
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
