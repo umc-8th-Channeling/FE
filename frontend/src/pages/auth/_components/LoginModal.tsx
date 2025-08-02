@@ -18,7 +18,8 @@ export const LoginModal = ({ onClose, onLoginSuccess }: { onClose: () => void; o
                 "
                 onClick={() => {
                     // 1) 실제로는 여기서 구글 로그인 처리하고,
-                    window.location.href = 'https://api.channeling.it.com/members/login/google'
+
+                    window.location.href = import.meta.env.VITE_SERVER_API_URL + '/members/login/google'
 
                     // 2) 성공 시 onLoginSuccess() 호출
 
