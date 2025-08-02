@@ -6,5 +6,6 @@ export function useGetChannel({ channelId }: RequestChannelDto) {
     return useQuery({
         queryKey: [channelId],
         queryFn: () => getChannelDetail({ channelId }),
+        staleTime: 60 * 60 * 1000,
     })
 }

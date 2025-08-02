@@ -52,6 +52,6 @@ export const getChannelVideo = async ({
             Authorization: `Bearer ${token}`,
         },
     })
-    console.log('📦 채널 상세 응답:', data)
+    console.log('📦 채널 비디오 상세 응답:', data)
     return data
 }

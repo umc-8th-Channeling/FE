@@ -23,14 +23,6 @@ export interface Video {
     publishedAt: string
 }
 
-// export interface Shorts {
-//     id: string
-//     thumbnailUrl: string
-//     title: string
-//     viewCount: number
-//     publishedAt: string
-// }
-
 export type RequestChannelDto = {
     channelId: number
 }
