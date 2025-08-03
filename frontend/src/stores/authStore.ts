@@ -5,10 +5,19 @@ interface User {
     channelId: number
     name?: string
     email?: string
+    nickname?: string
+    googleEmail?: string
+    profileImage?: string | null
+    instagramLink?: string
+    tiktokLink?: string
+    facebookLink?: string
+    googleId?: string
+    createdAt?: string
+    updatedAt?: string
 }
 
 interface AuthActions {
-    setUser: (user: User) => void // 유저 정보 타입을 만들어서 수정 가능성
+    setUser: (user: User | null) => void // 유저 정보 타입을 만들어서 수정 가능성
     setAuthGuest: () => void
     setAuthMember: () => void
 }

@@ -11,6 +11,8 @@ import {
     useUpdateMemberProfileImage,
     useUpdateMemberSNS,
 } from '../../hooks/mutations/userMutations'
+import { useAuthStore } from '../../stores/authStore'
+import { useProfileImageStore } from '../../stores/profileImageStore'
 
 type SettingPageProps = {
     onClose?: () => void
@@ -31,16 +33,16 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const [modified, setModified] = useState(false)
     const [showWithdrawlModal, setShowWithdrawlModal] = useState(false)
 
-    const [profileImageUrl, setProfileImageUrl] = useState('/path-to-image.jpg')
     const fileInputRef = useRef<HTMLInputElement>(null)
 
     const { mutate: updateAgree } = useUpdateMemberAgree()
     const { mutate: updateSNS } = useUpdateMemberSNS()
     const { mutate: updateProfileImage } = useUpdateMemberProfileImage()
 
-    // 임시 사용자 정보 값
-    const memberId = 1
-    const agreeId = 1
+    const { user } = useAuthStore()
+    const memberId = user?.channelId
+
+    const { profileImageUrl, setProfileImageUrl, resetProfileImageUrl } = useProfileImageStore()
 
     const handleCameraClick = () => fileInputRef.current?.click()
 
@@ -83,8 +85,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         if (key === 'dayContentEmailAgree') setDayContentEmailAgree(value)
 
         const payload = {
-            id: agreeId,
-            memberId: memberId,
+            memberId: memberId ?? 0,
             marketingEmailAgree: key === 'marketingEmailAgree' ? value : marketingEmailAgree,
             dayContentEmailAgree: key === 'dayContentEmailAgree' ? value : dayContentEmailAgree,
         }
@@ -113,6 +114,11 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                 alert('SNS 정보 저장에 실패했습니다.')
             },
         })
+    }
+
+    const handleLogout = () => {
+        resetProfileImageUrl()
+        console.log('로그아웃 처리')
     }
 
     return (
@@ -147,7 +153,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 동의
                             </Button>
                         </div>
-                        <Button variant="ghost" className="flex items-center justify-between">
+                        <Button variant="ghost" className="flex items-center justify-between" onClick={handleLogout}>
                             <span>로그아웃</span>
                             <LogoutIcon />
                         </Button>
@@ -160,7 +166,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 formData={formData}
                                 editing={editing}
                                 modified={modified}
-                                profileImageUrl={profileImageUrl}
+                                profileImageUrl={profileImageUrl ?? '/default-profile.png'} // ✅ 기본값 처리
                                 onEditToggle={handleEditToggle}
                                 onChange={handleChange}
                                 onSaveSNS={handleSaveSNS}
