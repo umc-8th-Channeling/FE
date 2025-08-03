@@ -4,7 +4,7 @@ import MyShortsCard from './myShortsCard'
 import Pagination from '../../../components/Pagination'
 import { useGetChannelVideo } from '../../../hooks/my/useGetChannelVideo'
 import { useParams } from 'react-router-dom'
-import { mapResponseToVideoList } from '../../../mappers/profile.ts/mapResponseToVideo'
+import { mapResponseToVideoList } from '../../../lib/mappers/profile/mapResponseToVideo'
 
 export default function Videolist() {
     const { channelId } = useParams()

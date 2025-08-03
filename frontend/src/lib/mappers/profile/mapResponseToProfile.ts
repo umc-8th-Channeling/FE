@@ -1,5 +1,5 @@
-import type { Profile, ResponseChannelDto } from '../../types/profile'
-import { formatKoreanDate } from '../../utils/format'
+import type { Profile, ResponseChannelDto } from '../../../types/profile'
+import { formatKoreanDate } from '../../../utils/format'
 
 export function mapResponseToProfile(dto: ResponseChannelDto): Profile {
     return {

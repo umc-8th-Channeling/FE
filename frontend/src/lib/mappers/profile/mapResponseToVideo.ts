@@ -1,4 +1,4 @@
-import type { ChannelVideoDto, ResponseChannelVideoDto, Video } from '../../types/profile'
+import type { ChannelVideoDto, ResponseChannelVideoDto, Video } from '../../../types/profile'
 
 export function mapResponseToVideoItem(video: ChannelVideoDto): Video {
     return {

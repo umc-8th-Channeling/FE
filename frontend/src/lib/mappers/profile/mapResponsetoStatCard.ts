@@ -1,4 +1,4 @@
-import type { Stats, ResponseChannelDto } from '../../types/profile'
+import type { Stats, ResponseChannelDto } from '../../../types/profile'
 
 export function mapResponseStatCard(dto: ResponseChannelDto): Stats {
     return {
