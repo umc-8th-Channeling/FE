@@ -4,6 +4,7 @@ import Input from './SettingInput'
 import { EditButton } from '../../../components/EditButton'
 import SendIcon from '../../../assets/icons/send.svg?react'
 import CameraIcon from '../../../assets/icons/camera.svg?react'
+import ProfileImage from './ProfileImage'
 
 const labelMap = {
     instagram: '인스타',
@@ -18,7 +19,7 @@ type Props = {
     formData: Record<SNSKey, string>
     editing: boolean
     modified: boolean
-    profileImageUrl: string
+    profileImageUrl: string | null
     onEditToggle: () => void
     onSaveSNS: () => void
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -41,10 +42,8 @@ export default function ProfileTab({
     onWithdraw,
     fileInputRef,
 }: Props) {
-    // 버튼 클릭 시: 수정 → 완료 전환될 때 onSaveSNS 실행
     const handleEditButtonClick = () => {
         if (editing) {
-            // 완료 버튼 클릭 시 저장 호출
             onSaveSNS()
         }
         onEditToggle()
@@ -56,11 +55,8 @@ export default function ProfileTab({
 
             {/* 프로필 이미지 */}
             <div className="flex items-center justify-center w-full">
-                <div className="relative w-[100px] h-[100px]">
-                    <div
-                        className="w-full h-full rounded-full bg-cover bg-no-repeat bg-center bg-[lightgray]"
-                        style={{ backgroundImage: `url(${profileImageUrl})` }}
-                    />
+                <div className="relative">
+                    <ProfileImage imageUrl={profileImageUrl} className="w-[100px] h-[100px]" />
                     <button
                         className="absolute bottom-0 right-0 w-8 h-8 p-1 flex items-center justify-center rounded-full bg-gray-200"
                         onClick={onCameraClick}

@@ -3,8 +3,6 @@ import { devtools } from 'zustand/middleware'
 
 interface User {
     channelId: number
-    name?: string
-    email?: string
     nickname?: string
     googleEmail?: string
     profileImage?: string | null
@@ -17,9 +15,10 @@ interface User {
 }
 
 interface AuthActions {
-    setUser: (user: User | null) => void // 유저 정보 타입을 만들어서 수정 가능성
+    setUser: (user: User | null) => void
     setAuthGuest: () => void
     setAuthMember: () => void
+    setProfileImage: (url: string | null) => void
 }
 
 interface AuthState {
@@ -36,6 +35,8 @@ export const useAuthStore = create<AuthState>()(
             setUser: (user) => set({ user }),
             setAuthGuest: () => set({ isAuth: false }),
             setAuthMember: () => set({ isAuth: true }),
+            setProfileImage: (url) =>
+                set((state) => (state.user ? { user: { ...state.user, profileImage: url } } : state)),
         },
     }))
 )

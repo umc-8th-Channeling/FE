@@ -58,26 +58,30 @@ export default function SettingPage({ onClose }: SettingPageProps) {
             {
                 onSuccess: (data) => {
                     console.log('프로필 이미지 업로드 성공: ', data)
+                    URL.revokeObjectURL(previewUrl)
                 },
                 onError: () => {
                     alert('프로필 이미지 업로드에 실패했습니다.')
+                    URL.revokeObjectURL(previewUrl)
                 },
             }
         )
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
+        const { name, value } = e.target
+        setFormData((prev) => ({ ...prev, [name]: value }))
         setModified(true)
     }
 
     const handleEditToggle = () => {
-        setEditing(!editing)
+        setEditing((prev) => !prev)
         setModified(false)
     }
 
     const handleWithdrawlConfirm = () => {
         setShowWithdrawlModal(false)
+        console.log('회원 탈퇴 처리')
     }
 
     const handleAgreeChange = (key: 'marketingEmailAgree' | 'dayContentEmailAgree', value: boolean) => {
