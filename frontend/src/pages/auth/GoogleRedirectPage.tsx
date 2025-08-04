@@ -32,11 +32,17 @@ const GoogleLoginRedirectPage = () => {
             console.log('로그인 성공 로직 진입')
             setAccessToken(accessToken)
             setAuthMember()
-            if (channelId) setUser({ channelId: Number(channelId) })
-            goToViewerStep()
-            navigate('/')
+            if (channelId) {
+                console.log('기존 가입 유저 로직 진입')
+                setUser({ channelId: Number(channelId) })
+                navigate('/')
+            } else {
+                console.log('최초 로그인 유저 로직 진입')
+                goToViewerStep()
+                navigate('/')
+            }
         } else {
-            console.error('로그인 실패 조건 탐', { message, accessToken })
+            console.log('로그인 실패 로직 진입')
             alert('로그인 실패! 다시 시도해주세요.')
             navigate('/')
         }
