@@ -8,7 +8,10 @@ import type { LibraryItem } from '../../../types/library'
 export default function ReportTab() {
     const [subTab, setSubTab] = useState<'video' | 'shorts'>('video')
     const [videoPage, setVideoPage] = useState(1)
+    const [videoStartPage, setVideoStartPage] = useState(1)
+
     const [shortsPage, setShortsPage] = useState(1)
+    const [ShortsStartPage, setShortsStartPage] = useState(1)
 
     const [reportList, setReportList] = useState<LibraryItem[]>(DUMMY_REPORT)
     const [shortsList, setShortsList] = useState<LibraryItem[]>(DUMMY_SHORTS)
@@ -126,6 +129,8 @@ export default function ReportTab() {
                     totalItems={Math.max(1, data.length)} //최소 1개 보장
                     itemCountPerPage={itemsPerPage}
                     currentPage={currentPage}
+                    startPage={isVideo ? videoStartPage : ShortsStartPage}
+                    setStartPage={isVideo ? setVideoStartPage : setShortsStartPage}
                     onChangePage={isVideo ? setVideoPage : setShortsPage}
                 />
             </div>

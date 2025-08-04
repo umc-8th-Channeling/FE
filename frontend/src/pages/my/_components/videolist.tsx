@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import MyVideoCard from './myVideoCard'
 import MyShortsCard from './myShortsCard'
 import Pagination from '../../../components/Pagination'
@@ -21,16 +21,16 @@ export default function Videolist() {
         activeTab === 'video' ? (videoCurrentPage - 1) * itemsPerPage : (shortsCurrentPage - 1) * itemsPerPage
 
     const data = activeTab === 'video' ? videosData : shortsData
-    const currentPage = activeTab === 'video' ? videoCurrentPage : shortsCurrentPage
+    // const currentPage = activeTab === 'video' ? videoCurrentPage : shortsCurrentPage
     const currentItems = data.slice(offset, offset + itemsPerPage)
 
-    useEffect(() => {
-        const totalPages = Math.ceil(data.length / itemsPerPage)
-        if (currentPage > totalPages && totalPages > 0) {
-            if (activeTab === 'video') setVideoCurrentPage(totalPages)
-            else setShortsCurrentPage(totalPages)
-        }
-    }, [data.length, itemsPerPage, currentPage])
+    // useEffect(() => {
+    //     const totalPages = Math.ceil(data.length / itemsPerPage)
+    //     if (currentPage > totalPages && totalPages > 0) {
+    //         if (activeTab === 'video') setVideoCurrentPage(totalPages)
+    //         else setShortsCurrentPage(totalPages)
+    //     }
+    // }, [data.length, itemsPerPage, currentPage])
 
     return (
         <div className="flex flex-col w-full items-start content-start pb-[80px] gap-[16px]">
