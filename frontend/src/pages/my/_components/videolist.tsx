@@ -20,8 +20,7 @@ export default function Videolist() {
     const currentPage = activeTab === 'video' ? videoCurrentPage : shortsCurrentPage
     const currentItems = data.slice(offset, offset + itemsPerPage)
 
-    const currentLength = currentItems.length
-    const emptyCount = itemsPerPage - currentLength
+    // const currentLength = currentItems.length
 
     useEffect(() => {
         const totalPages = Math.ceil(data.length / itemsPerPage)

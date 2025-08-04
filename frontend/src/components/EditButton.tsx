@@ -9,7 +9,7 @@ interface EditButtonProps {
 export const EditButton = ({ onClick, buttonColor, label }: EditButtonProps) => {
     return (
         <div className="flex items-end gap-[4px] cursor-pointer" onClick={onClick}>
-            <Correction className={`${buttonColor}`} />
+            <Correction className={`text-amber-200 ${buttonColor}`} />
             <div className={`text-[16px] font-medium whitespace-nowrap leading-[150%] tracking-[-2.5%] ${buttonColor}`}>
                 {label}
             </div>
