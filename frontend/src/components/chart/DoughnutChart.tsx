@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2'
 
 import type { TabItem } from '../../types/common'
 import { iconDefaultPlugin, iconActivePlugin } from './iconPlugin'
-import { activeTooltipPlugin, externalTooltipHandler } from './tooltipPlugin'
+import { activeTooltipPlugin, externalTooltipHandler } from './tooltipPlugins'
 import './tooltip.css'
 
 ChartJS.register(ArcElement, Tooltip)
@@ -25,17 +25,15 @@ interface DoughnutChartProps {
 
 export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: DoughnutChartProps) => {
     const chartRef = useRef<ChartJS<'doughnut', number[], unknown> | null>(null)
+    const labels = tabs.map((tab) => tab.label)
 
-    const labels = tabs.map((tab) => tab.label) // tabs에서 label 데이터 추출
-
-    // 비활성화 segment
     const defaultData = {
         labels,
         datasets: [
             {
                 data,
                 backgroundColor: (ctx: ScriptableContext<'doughnut'>) =>
-                    ctx.dataIndex === activeIndex ? '#ff000000' : '#fa4d5680', // 활성화 segment는 투명
+                    ctx.dataIndex === activeIndex ? '#ff000000' : '#fa4d5680',
                 hoverBackgroundColor: (ctx: ScriptableContext<'doughnut'>, _options: AnyObject) =>
                     typeof ctx.dataset.backgroundColor === 'function'
                         ? (ctx.dataset.backgroundColor(ctx, _options) as Color)
@@ -49,13 +47,12 @@ export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: Dough
         ],
     }
 
-    // 활성화 segment
     const activeData = {
         ...defaultData,
         datasets: defaultData.datasets.map((dataset) => ({
             ...dataset,
             backgroundColor: (ctx: ScriptableContext<'doughnut'>) =>
-                (ctx.dataIndex === activeIndex ? '#fa4d56' : '#ff000000') as Color, // 비활성화 segment는 투명
+                (ctx.dataIndex === activeIndex ? '#fa4d56' : '#ff000000') as Color,
             radius: '100%',
         })),
     }
@@ -86,7 +83,7 @@ export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: Dough
     }
 
     return (
-        <div className="relative size-full cursor-pointer">
+        <div className="chartjs-tooltip-container relative size-full cursor-pointer">
             <Doughnut ref={chartRef} data={defaultData} options={options} plugins={[iconDefaultPlugin]} />
             <div className="absolute inset-0">
                 <Doughnut

@@ -17,7 +17,9 @@ export const VideoSummary = memo(({ video }: { video: ReportVideoSummary }) => {
             <div className="space-y-2">
                 <Tag text={video.tag} />
                 <div>
-                    <h3 className="text-[24px] font-bold leading-[140%] tracking-[-0.6px]">{video.title}</h3>
+                    <h3 className="max-h-[68px] line-clamp-2 text-[24px] font-bold leading-[140%] tracking-[-0.6px]">
+                        {video.title}
+                    </h3>
                     <p className="text-[14px] tablet:text-[16px] font-medium leading-[150%] tracking-[-0.4px]">
                         업데이트: {formatKoreanDate(video.report.updatedAt)}
                     </p>
