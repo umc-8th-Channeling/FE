@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import ChevronLeft from '../assets/icons/chevron_left.svg?react'
 import ChevronRight from '../assets/icons/chevron_right.svg?react'
 
@@ -6,12 +6,19 @@ interface PagingProps {
     totalItems: number //데이터 총 개수
     itemCountPerPage: number //페이지당 보여줄 아이템 개수
     currentPage: number //현재 페이지
+    startPage: number // 가장 앞 페이지
+    setStartPage: (page: number) => void
     onChangePage: (page: number) => void
 }
 
-const Pagination = ({ totalItems, itemCountPerPage, currentPage, onChangePage }: PagingProps) => {
-    const [startPage, setStartPage] = useState(1) // 페이지 번호 시작하는 값
-
+const Pagination = ({
+    totalItems,
+    itemCountPerPage,
+    currentPage,
+    startPage,
+    setStartPage,
+    onChangePage,
+}: PagingProps) => {
     const totalPageCount = Math.ceil(totalItems / itemCountPerPage) // 총 페이지 수 계산
     const visiblePages = Array.from({ length: Math.min(5, totalPageCount - startPage + 1) }, (_, i) => startPage + i) // 하단에 보이는 페이지
     const noNext = startPage + 5 > totalPageCount

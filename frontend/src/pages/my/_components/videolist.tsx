@@ -5,8 +5,12 @@ import Pagination from '../../../components/Pagination'
 import { shortsData, videosData } from '../dummy'
 
 export default function Videolist() {
-    const [videoCurrentPage, setVideoCurrentPage] = useState(1)
+    const [videoCurrentPage, setVideoCurrentPage] = useState(1) //현재 페이지 값
     const [shortsCurrentPage, setShortsCurrentPage] = useState(1)
+
+    const [videoStartPage, setVideoStartPage] = useState(1) //가장 앞 페이지 값
+    const [ShortsStartPage, setShortsStartPage] = useState(1)
+
     const itemsPerPage = 12 // 페이지당 보여줄 아이템 개수
     const videoTotalItems = videosData.length //동영상 총 개수
     const shortsTotalItems = shortsData.length //숏츠 총 개수
@@ -19,8 +23,6 @@ export default function Videolist() {
     const data = activeTab === 'video' ? videosData : shortsData
     const currentPage = activeTab === 'video' ? videoCurrentPage : shortsCurrentPage
     const currentItems = data.slice(offset, offset + itemsPerPage)
-
-    // const currentLength = currentItems.length
 
     useEffect(() => {
         const totalPages = Math.ceil(data.length / itemsPerPage)
@@ -75,6 +77,8 @@ export default function Videolist() {
                     totalItems={activeTab === 'video' ? videoTotalItems : shortsTotalItems}
                     itemCountPerPage={itemsPerPage}
                     currentPage={activeTab === 'video' ? videoCurrentPage : shortsCurrentPage}
+                    startPage={activeTab === 'video' ? videoStartPage : ShortsStartPage}
+                    setStartPage={activeTab === 'video' ? setVideoStartPage : setShortsStartPage}
                     onChangePage={activeTab === 'video' ? setVideoCurrentPage : setShortsCurrentPage}
                 />
             </div>
