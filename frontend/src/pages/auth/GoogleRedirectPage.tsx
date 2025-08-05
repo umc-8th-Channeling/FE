@@ -23,25 +23,28 @@ const GoogleLoginRedirectPage = () => {
         const accessToken = urlParams.get('token')
         const message = urlParams.get('message')
         const channelId = urlParams.get('channelId')
+        const isNew = urlParams.get('isNew') === 'true'
 
         console.log('✅ message:', message)
         console.log('✅ accessToken:', accessToken)
         console.log('✅ channelId:', channelId)
-        const previousChannelId = localStorage.getItem('channelId')
+        console.log('✅ isNew:', isNew)
 
-        if (message === 'Success' && accessToken) {
+        if (message === 'Success' && accessToken && channelId) {
             console.log('로그인 성공 로직 진입')
             setAccessToken(accessToken)
+            // 채널 ID는 localStorage에 항상 저장
+            localStorage.setItem('channelId', channelId)
+
+            // Zustand에 저장
+            setUser({ channelId: Number(channelId) })
             setAuthMember()
-            if (!previousChannelId && channelId) {
+
+            if (isNew) {
                 console.log('최초 로그인 유저 로직 진입')
-                localStorage.setItem('channelId', channelId) // 저장
-                setUser({ channelId: Number(channelId) })
                 goToViewerStep()
-                navigate('/')
             } else {
                 console.log('기존 가입 유저 로직 진입')
-                setUser({ channelId: Number(channelId) })
                 navigate('/')
             }
         } else {
@@ -50,6 +53,7 @@ const GoogleLoginRedirectPage = () => {
             navigate('/')
         }
     }, [navigate, setAccessToken, setAuthMember, setUser, goToViewerStep])
+
     return <div>구글 로그인 리다이렉트 화면</div>
 }
 
