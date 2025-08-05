@@ -9,14 +9,10 @@ const Comments = ({ comments }: { comments: string[] }) => {
     return (
         <div className="flex flex-col gap-4">
             {comments.map((comment, index) => (
-                <div
-                    key={index}
-                    className="
-                        px-4 py-2 rounded-lg bg-surface-elevate-l2 text-[14px] leading-[150%] tracking-[-0.35px] 
-                        tablet:text-[16px] tablet:tracking-[-0.4px]
-                    "
-                >
-                    {comment}
+                <div key={index} className="px-4 py-2 rounded-lg bg-surface-elevate-l2">
+                    <span className="max-h-12 line-clamp-2 text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]">
+                        {comment}
+                    </span>
                 </div>
             ))}
         </div>

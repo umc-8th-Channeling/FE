@@ -24,9 +24,6 @@ export default function ReportTab() {
     const offset = (currentPage - 1) * itemsPerPage
     const currentItems = data.slice(offset, offset + itemsPerPage)
 
-    const currentLength = currentItems.length
-    const emptyCount = itemsPerPage - currentLength
-
     // 삭제 핸들러
     const handleDeleteReport = (id: number) => {
         setReportList((prev) => prev.filter((item) => item.id !== id))
@@ -89,36 +86,6 @@ export default function ReportTab() {
                             item={item}
                             onDelete={() => handleDeleteShorts(item.id)}
                         />
-                    )
-                )}
-
-                {Array.from({ length: emptyCount }).map((_, i) =>
-                    isVideo ? (
-                        <div
-                            key={`empty-video-${i}`}
-                            className="flex flex-col h-fit items-center gap-[8px] w-full"
-                            aria-hidden // 접근성: 스크린리더 무시
-                        >
-                            <div className="w-full aspect-[141/79] shrink-0 rounded-[8px] bg-transparent" />
-                            <div className="w-full flex flex-col h-[78px] items-start gap-[4px]">
-                                <div className="self-stretch text-transparent text-[16px] tablet:text-[18px] font-bold leading-[140%] tracking-[-0.45px]"></div>
-                                <div className="self-stretch text-transparent text-[12px] tablet:text-[14px] font-normal leading-[140%] tracking-[-0.35px]">
-                                    -
-                                </div>
-                            </div>
-                        </div>
-                    ) : (
-                        <div
-                            key={`empty-shorts-${i}`}
-                            className="flex flex-col h-fit items-center tablet:gap-x-[9px] desktop:gap-[8px] shrink-0"
-                            aria-hidden
-                        >
-                            <div className="w-full aspect-[192/289] rounded-[8px]"></div>
-                            <div className="w-full gap-1 mt-[8px] h-[74px] items-start">
-                                <div className=" text-transparent text-[16px] tablet:text-[18px] font-bold leading-[140%] tracking-[-0.45px] "></div>
-                                <div className=" text-transparent text-[12px] tablet:text-[14px] font-normal leading-[140%] tracking-[-0.35px]"></div>
-                            </div>
-                        </div>
                     )
                 )}
             </div>

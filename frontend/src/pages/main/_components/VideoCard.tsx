@@ -26,7 +26,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
 
                 {/* 영상 메타 데이터 */}
                 <div className="space-y-1">
-                    <h3 className="text-[16px] leading-[140%] font-bold tracking-[-0.4px] tablet:text-[18px] tablet:tracking-[-0.45px]">
+                    <h3 className="max-h-[50px] line-clamp-2 text-[16px] leading-[140%] font-bold tracking-[-0.4px] tablet:text-[18px] tablet:tracking-[-0.45px]">
                         {video.title}
                     </h3>
                     <div className="flex flex-row gap-1 whitespace-nowrap text-[12px] leading-[140%] tracking-[-0.3px] tablet:text-[14px] tablet:tracking-[-0.35px] text-gray-600">
