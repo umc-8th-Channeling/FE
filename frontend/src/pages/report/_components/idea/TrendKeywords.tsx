@@ -36,9 +36,13 @@ const KeywordBox = ({ label, items }: { label: string; items: typeof IDEA_TREND 
                 {items.map((item, index) => (
                     <div
                         key={index}
-                        className="overflow-hidden grid grid-cols-6 tablet:grid-cols-8 items-center py-4 rounded-lg bg-surface-elevate-l2"
+                        className="grid grid-cols-6 tablet:grid-cols-8 items-center py-4 rounded-lg bg-surface-elevate-l2"
                     >
-                        <p className={`col-span-3 tablet:col-span-5 ml-4 ${title18b}`}>{item.keyword}</p>
+                        <p
+                            className={`h-6 overflow-hidden text-ellipsis col-span-3 tablet:col-span-5 mx-4 ${title18b}`}
+                        >
+                            {item.keyword}
+                        </p>
                         <p className={`text-gray-600 ${body16r}`}>{formatRelativeTime(item.updatedAt)}</p>
                         <p
                             className={`col-span-2 flex flex-row items-center justify-end pr-2 text-primary-500 ${body16r}`}

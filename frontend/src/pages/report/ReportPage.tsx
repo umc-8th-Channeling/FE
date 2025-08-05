@@ -43,15 +43,13 @@ export default function ReportPage() {
             <div className="px-6 tablet:px-[76px] py-10 desktop:py-20 space-y-10">
                 <VideoSummary video={video} />
                 <Tabs tabs={TABS} activeTab={activeTab} onChangeTab={setActiveTab} />
-
-                {/* 리포트 업데이트 모달 */}
-                {isOpenUpdateModal && (
-                    <UpdateModal handleModalClick={handleUpdateModalClick} handleResetTab={handleResetTab} />
-                )}
             </div>
 
-            {/* 데모 데이터 기반 레포트 알림 모달 */}
             {isOpenGuestModal && <GuestModal onClose={handleGuestModalClick} />}
+
+            {isOpenUpdateModal && (
+                <UpdateModal handleModalClick={handleUpdateModalClick} handleResetTab={handleResetTab} />
+            )}
 
             {/* 리포트 업데이트 버튼 */}
             <button

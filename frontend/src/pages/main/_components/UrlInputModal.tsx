@@ -100,7 +100,7 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
                         onBlur={() => setIsFocused(false)}
                         placeholder="유튜브 영상 URL을 입력하세요."
                         className="
-                            flex-1 outline-none placeholder-gray-600 focus:placeholder-transparent
+                            flex-1 outline-none pr-2 placeholder-gray-600 focus:placeholder-transparent
                             text-[16px] leading-[150%] tracking-[-0.4px]
                         "
                     />
