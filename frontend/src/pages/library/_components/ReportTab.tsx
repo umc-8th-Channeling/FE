@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import RecentReportCard from './RecentReportCard'
 import RecentReportShortsCard from './RecentReportShortsCard'
 import Pagination from '../../../components/Pagination'
@@ -31,14 +31,6 @@ export default function ReportTab() {
     const handleDeleteShorts = (id: number) => {
         setShortsList((prev) => prev.filter((item) => item.id !== id))
     }
-
-    useEffect(() => {
-        const totalPages = Math.ceil(data.length / itemsPerPage)
-        if (currentPage > totalPages && totalPages > 0) {
-            if (isVideo) setVideoPage(totalPages)
-            else setShortsPage(totalPages)
-        }
-    }, [data.length, itemsPerPage, currentPage, isVideo])
 
     return (
         <>

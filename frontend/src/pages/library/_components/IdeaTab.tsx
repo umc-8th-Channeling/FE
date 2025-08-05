@@ -17,13 +17,6 @@ export default function IdeaTab() {
         setIdeaList((prev) => prev.filter((item) => item.title !== title))
     }
 
-    // useEffect(() => {
-    //     const totalPages = Math.ceil(ideaList.length / itemsPerPage)
-    //     if (ideaPage > totalPages && totalPages > 0) {
-    //         setIdeaPage(totalPages)
-    //     }
-    // }, [ideaList.length, itemsPerPage, ideaPage])
-
     return (
         <>
             <div className="flex">
