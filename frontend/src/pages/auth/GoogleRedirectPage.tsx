@@ -27,18 +27,21 @@ const GoogleLoginRedirectPage = () => {
         console.log('✅ message:', message)
         console.log('✅ accessToken:', accessToken)
         console.log('✅ channelId:', channelId)
+        const previousChannelId = localStorage.getItem('channelId')
 
         if (message === 'Success' && accessToken) {
             console.log('로그인 성공 로직 진입')
             setAccessToken(accessToken)
             setAuthMember()
-            if (channelId) {
-                console.log('기존 가입 유저 로직 진입')
+            if (!previousChannelId && channelId) {
+                console.log('최초 로그인 유저 로직 진입')
+                localStorage.setItem('channelId', channelId) // 저장
                 setUser({ channelId: Number(channelId) })
+                goToViewerStep()
                 navigate('/')
             } else {
-                console.log('최초 로그인 유저 로직 진입')
-                goToViewerStep()
+                console.log('기존 가입 유저 로직 진입')
+                setUser({ channelId: Number(channelId) })
                 navigate('/')
             }
         } else {

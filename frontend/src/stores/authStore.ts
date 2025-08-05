@@ -3,8 +3,6 @@ import { devtools } from 'zustand/middleware'
 
 interface User {
     channelId: number
-    name?: string
-    email?: string
 }
 
 interface AuthActions {
