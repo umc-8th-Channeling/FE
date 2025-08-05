@@ -5,6 +5,7 @@ import LibraryPage from '../pages/library/LibraryPage'
 import ReportPage from '../pages/report/ReportPage'
 import MyPage from '../pages/my/MyPage'
 import GoogleLoginRedirectPage from '../pages/auth/GoogleRedirectPage'
+import NotFoundPage from '../pages/NotFound'
 
 export const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
             {
                 path: '/auth/callback',
                 element: <GoogleLoginRedirectPage />,
+            },
+            {
+                path: '/*',
+                element: <NotFoundPage />,
             },
         ],
     },
