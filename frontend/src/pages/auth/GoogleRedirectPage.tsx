@@ -43,6 +43,7 @@ const GoogleLoginRedirectPage = () => {
             if (isNew) {
                 console.log('최초 로그인 유저 로직 진입')
                 goToViewerStep()
+                navigate('/')
             } else {
                 console.log('기존 가입 유저 로직 진입')
                 navigate('/')
