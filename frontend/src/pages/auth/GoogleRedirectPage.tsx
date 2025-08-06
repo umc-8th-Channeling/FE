@@ -4,6 +4,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
 import { useLoginStore } from '../../stores/LoginStore'
+import { getMyProfile } from '../../api/channel'
 
 const GoogleLoginRedirectPage = () => {
     const hasRun = useRef(false) // 실행 여부 플래그
@@ -13,6 +14,7 @@ const GoogleLoginRedirectPage = () => {
 
     const { setItem: setAccessToken } = useLocalStorage(LOCAL_STORAGE_KEY.accessToken)
     const setAuthMember = useAuthStore((state) => state.actions.setAuthMember)
+    const setChannelId = useAuthStore((state) => state.actions.setChannelId)
     const setUser = useAuthStore((state) => state.actions.setUser)
 
     useEffect(() => {
@@ -37,23 +39,33 @@ const GoogleLoginRedirectPage = () => {
             localStorage.setItem('channelId', channelId)
 
             // Zustand에 저장
-            setUser({ channelId: Number(channelId) })
-            setAuthMember()
+            setChannelId(Number(channelId))
+            getMyProfile()
+                .then((res) => {
+                    setUser(res.result) // 상태 저장
+                    setAuthMember()
+                    console.log('[setUser에 들어가는 값]', res.result)
 
-            if (isNew) {
-                console.log('최초 로그인 유저 로직 진입')
-                goToViewerStep()
-                navigate('/')
-            } else {
-                console.log('기존 가입 유저 로직 진입')
-                navigate('/')
-            }
+                    if (isNew) {
+                        console.log('최초 로그인 유저 로직 진입')
+                        goToViewerStep()
+                        navigate('/')
+                    } else {
+                        console.log('기존 가입 유저 로직 진입')
+                        navigate('/')
+                    }
+                })
+                .catch((err) => {
+                    console.error('❌ 회원 정보 조회 실패:', err)
+                    alert('회원 정보 조회 실패')
+                    navigate('/')
+                })
         } else {
             console.log('로그인 실패 로직 진입')
             alert('로그인 실패! 다시 시도해주세요.')
             navigate('/')
         }
-    }, [navigate, setAccessToken, setAuthMember, setUser, goToViewerStep])
+    }, [navigate, setAccessToken, setAuthMember, setChannelId, setUser, goToViewerStep])
 
     return <div>구글 로그인 리다이렉트 화면</div>
 }

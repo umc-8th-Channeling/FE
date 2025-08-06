@@ -15,7 +15,7 @@ export const NavbarModalsContainer = () => {
     const [viewerValue, setViewerValue] = useState('')
     const [channelConceptValue, setChannelConceptValue] = useState('')
 
-    const channelId = useAuthStore((state) => state.user?.channelId)
+    const channelId = useAuthStore((state) => state.channelId)
 
     const finishLoginAndAuthenticate = () => {
         setAuthMember()
