@@ -44,8 +44,7 @@ const GoogleLoginRedirectPage = () => {
                 .then((res) => {
                     setUser(res.result) // 상태 저장
                     setAuthMember()
-                    console.log('[setUser에 들어가는 값]', res.result)
-
+                    console.log('user:', useAuthStore.getState().user)
                     if (isNew) {
                         console.log('최초 로그인 유저 로직 진입')
                         goToViewerStep()
