@@ -1,19 +1,9 @@
 import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
-
-interface User {
-    memberId: number
-    nickname: string
-    googleEmail: string
-    profileImage: string
-    instagramLink: string | null
-    tiktokLink: string | null
-    facebookLink: string | null
-    twitterLink: string | null
-}
+import { devtools, persist } from 'zustand/middleware'
+import type { User } from '../types/auth'
 
 interface AuthActions {
-    setUser: (user: User) => void // 유저 정보 타입을 만들어서 수정 가능성
+    setUser: (user: User) => void
     setAuthGuest: () => void
     setAuthMember: () => void
     setChannelId: (channelId: number) => void
@@ -27,15 +17,27 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>()(
-    devtools((set) => ({
-        channelId: null,
-        user: null,
-        isAuth: false,
-        actions: {
-            setChannelId: (channelId) => set({ channelId }),
-            setUser: (user) => set({ user }),
-            setAuthGuest: () => set({ isAuth: false }),
-            setAuthMember: () => set({ isAuth: true }),
-        },
-    }))
+    devtools(
+        persist(
+            (set) => ({
+                channelId: null,
+                user: null,
+                isAuth: false,
+                actions: {
+                    setChannelId: (channelId) => set({ channelId }),
+                    setUser: (user) => set({ user }),
+                    setAuthGuest: () => set({ isAuth: false }),
+                    setAuthMember: () => set({ isAuth: true }),
+                },
+            }),
+            {
+                name: 'auth-storage',
+                partialize: (state) => ({
+                    user: state.user,
+                    isAuth: state.isAuth,
+                    channelId: state.channelId,
+                }),
+            }
+        )
+    )
 )

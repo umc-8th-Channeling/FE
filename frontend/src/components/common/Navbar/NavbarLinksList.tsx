@@ -2,7 +2,6 @@ import { NavbarLink, NavbarModalButton } from './NavbarLink'
 import { LOGIN_LINK, NAVIGATE_LINKS, PLUS_LINK } from './navbarLinks'
 import { NavbarUserInfo } from './NavbarUserInfo'
 import { useAuthStore } from '../../../stores/authStore'
-import { DUMMY_USER } from './dummy'
 import useIsMobile from '../../../hooks/main/useIsMobile'
 import { useNavigate } from 'react-router-dom'
 
@@ -20,7 +19,7 @@ export const NavbarLinksList = ({
     handleUserClick,
 }: NavbarLinksListProps) => {
     const isAuth = useAuthStore((state) => state.isAuth)
-    const user = DUMMY_USER
+    const user = useAuthStore((state) => state.user)
     const isMobile = useIsMobile()
     const navigate = useNavigate()
 
