@@ -6,9 +6,11 @@ interface AuthActions {
     setUser: (user: User) => void
     setAuthGuest: () => void
     setAuthMember: () => void
+    setChannelId: (channelId: number) => void
 }
 
 interface AuthState {
+    channelId: number | null
     user: User | null
     isAuth: boolean
     actions: AuthActions
@@ -25,6 +27,7 @@ export const useAuthStore = create<AuthState>()(
                     setUser: (user) => set({ user }),
                     setAuthGuest: () => set({ isAuth: false }),
                     setAuthMember: () => set({ isAuth: true }),
+                    setChannelId: (channelId) => set({ channelId }),
                 },
             }),
             {
