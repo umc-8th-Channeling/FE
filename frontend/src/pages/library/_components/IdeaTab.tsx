@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Pagination from '../../../components/Pagination'
 import IdeaCard from './IdeaCard'
 import type { IdeaItem } from '../../../types/library'
@@ -7,6 +7,7 @@ import { DUMMY_IDEA } from '../dummy'
 export default function IdeaTab() {
     const [ideaList, setIdeaList] = useState<IdeaItem[]>(DUMMY_IDEA)
     const [ideaPage, setIdeaPage] = useState(1)
+    const [ideaStartPage, setIdeaStartPage] = useState(1)
 
     const itemsPerPage = 6
     const offset = (ideaPage - 1) * itemsPerPage
@@ -15,13 +16,6 @@ export default function IdeaTab() {
     const handleDeleteIdea = (title: string) => {
         setIdeaList((prev) => prev.filter((item) => item.title !== title))
     }
-
-    useEffect(() => {
-        const totalPages = Math.ceil(ideaList.length / itemsPerPage)
-        if (ideaPage > totalPages && totalPages > 0) {
-            setIdeaPage(totalPages)
-        }
-    }, [ideaList.length, itemsPerPage, ideaPage])
 
     return (
         <>
@@ -43,6 +37,8 @@ export default function IdeaTab() {
                     totalItems={Math.max(1, ideaList.length)} //최소 1개 보장
                     itemCountPerPage={itemsPerPage}
                     currentPage={ideaPage}
+                    startPage={ideaStartPage}
+                    setStartPage={setIdeaStartPage}
                     onChangePage={setIdeaPage}
                 />
             </div>
