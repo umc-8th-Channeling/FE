@@ -10,3 +10,8 @@ export const updateChannelConcept = async ({ channelId, concept }: ChannelConcep
     const res = await axiosInstance.patch(`/channels/${channelId}/concept`, { concept })
     return res.data
 }
+
+export const getMyProfile = async () => {
+    const res = await axiosInstance.get('/members')
+    return res.data
+}
