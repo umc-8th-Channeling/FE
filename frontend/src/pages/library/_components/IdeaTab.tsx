@@ -1,17 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Pagination from '../../../components/Pagination'
 import IdeaCard from './IdeaCard'
-import type { IdeaItem } from '../../../types/library'
-import { DUMMY_IDEA } from '../dummy'
+import type { BookmarkedIdea } from '../../../types/idea'
+import { useBookmarkedIdeas } from '../../../hooks/library/idea/useBookmarkedIdeas'
 
 export default function IdeaTab() {
-    const [ideaList, setIdeaList] = useState<IdeaItem[]>(DUMMY_IDEA)
+    const [ideaList, setIdeaList] = useState<BookmarkedIdea[]>([])
     const [ideaPage, setIdeaPage] = useState(1)
     const [ideaStartPage, setIdeaStartPage] = useState(1)
 
     const itemsPerPage = 6
     const offset = (ideaPage - 1) * itemsPerPage
     const currentItems = ideaList.slice(offset, offset + itemsPerPage)
+
+    const { data, isLoading } = useBookmarkedIdeas(ideaPage, itemsPerPage)
+
+    useEffect(() => {
+        if (data?.result?.bookmarkedIdeaList) {
+            setIdeaList(data.result.bookmarkedIdeaList)
+        }
+    }, [data])
 
     const handleDeleteIdea = (title: string) => {
         setIdeaList((prev) => prev.filter((item) => item.title !== title))
@@ -26,9 +34,13 @@ export default function IdeaTab() {
             </div>
 
             <div className="grid grid-cols-1 desktop:grid-cols-1 gap-6">
-                {currentItems.map((item) => (
-                    <IdeaCard key={item.title} item={item} onDelete={() => handleDeleteIdea(item.title)} />
-                ))}
+                {isLoading ? (
+                    <p>로딩 중...</p>
+                ) : (
+                    currentItems.map((item) => (
+                        <IdeaCard key={item.ideaId} item={item} onDelete={() => handleDeleteIdea(item.title)} />
+                    ))
+                )}
             </div>
 
             <div className="flex flex-col pt-[40px] justify-center items-center gap-[8px] self-stretch">
