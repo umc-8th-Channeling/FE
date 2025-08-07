@@ -1,3 +1,4 @@
+import type { ResponseMyProfile } from '../types/auth'
 import type { ChannelTargetDto, ChannelConceptDto } from '../types/channel'
 import { axiosInstance } from './axios'
 
@@ -11,7 +12,7 @@ export const updateChannelConcept = async ({ channelId, concept }: ChannelConcep
     return res.data
 }
 
-export const getMyProfile = async () => {
+export const getMyProfile = async (): Promise<ResponseMyProfile> => {
     const res = await axiosInstance.get('/members')
     return res.data
 }

@@ -1,3 +1,5 @@
+import type { CommonResponse } from './common'
+
 export interface User {
     memberId: number
     nickname: string
@@ -8,3 +10,5 @@ export interface User {
     facebookLink: string | null
     twitterLink: string | null
 }
+
+export type ResponseMyProfile = CommonResponse<User>
