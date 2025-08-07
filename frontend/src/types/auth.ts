@@ -2,6 +2,7 @@ import type { CommonResponse } from './common'
 
 export interface User {
     memberId: number
+    channelId?: number
     nickname: string
     googleEmail: string
     profileImage: string
