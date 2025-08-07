@@ -5,12 +5,31 @@ import ScrollToTop from '../../components/ScrollToTop'
 import { NavbarModalsContainer } from '../auth'
 import { SettingModalContainer } from '../setting/_components/SettingModalContainer'
 import { useReportStore } from '../../stores/reportStore'
+import { useEffect } from 'react'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { LOCAL_STORAGE_KEY } from '../../constants/key'
+import { useFetchAndSetUser } from '../../hooks/channel/useFetchAndSetUser'
 
 export default function RootLayout() {
     const location = useLocation()
     const isMain = location.pathname === '/'
 
     const isReportGenerating = useReportStore((state) => state.isReportGenerating)
+
+    const { getItem: getChannelId, removeItem: removeChannelId } = useLocalStorage(LOCAL_STORAGE_KEY.channelId)
+    const { getItem: getIsNew, removeItem: removeIsNew } = useLocalStorage(LOCAL_STORAGE_KEY.isNew)
+    const { fetchAndSetUser } = useFetchAndSetUser()
+
+    useEffect(() => {
+        const channelId = getChannelId()
+        const isNew = getIsNew() === 'true'
+
+        if (channelId && isNew !== null) {
+            fetchAndSetUser(Number(channelId), isNew)
+            removeChannelId()
+            removeIsNew()
+        }
+    }, [fetchAndSetUser, getChannelId, getIsNew, removeChannelId, removeIsNew])
 
     return (
         <>
