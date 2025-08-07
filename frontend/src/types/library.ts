@@ -7,8 +7,3 @@ export interface LibraryItem {
     views: number
     daysAgo: number
 }
-export interface IdeaItem {
-    title: string
-    description: string
-    hashtags: string[]
-}
