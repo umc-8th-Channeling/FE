@@ -3,13 +3,10 @@ import MyVideoCard from './myVideoCard'
 import MyShortsCard from './myShortsCard'
 import Pagination from '../../../components/Pagination'
 import { useGetChannelVideo } from '../../../hooks/my/useGetChannelVideo'
-
 import { mapResponseToVideoList } from '../../../lib/mappers/profile/mapResponseToVideo'
 import { useAuthStore } from '../../../stores/authStore'
 
 export default function Videolist() {
-    const user = useAuthStore((state) => state.user)
-
     const [videoCurrentPage, setVideoCurrentPage] = useState(1) //현재 페이지 값
     const [shortsCurrentPage, setShortsCurrentPage] = useState(1)
 
@@ -18,27 +15,29 @@ export default function Videolist() {
 
     const [activeTab, setActiveTab] = useState<'video' | 'shorts'>('video')
 
+    const user = useAuthStore((state) => state.user)
+
     const {
         data: videoResponse,
         isPending: isVideoPending,
         isError: isVideoError,
-    } = useGetChannelVideo({ channelId: user?.channelId, type: 'LONG' })
+    } = useGetChannelVideo({ channelId: Number(user?.channelId), type: 'LONG' })
     const {
         data: shortsResponse,
         isPending: isShortsPending,
         isError: isShortsError,
-    } = useGetChannelVideo({ channelId: user?.channelId, type: 'SHORT' })
+    } = useGetChannelVideo({ channelId: Number(user?.channelId), type: 'SHORT' })
 
     const videosData = videoResponse ? mapResponseToVideoList(videoResponse) : []
     const shortsData = shortsResponse ? mapResponseToVideoList(shortsResponse) : []
-
+    //비디오 - 숏츠 탭
+    const data = activeTab === 'video' ? videosData : shortsData
+    //페이지네이션
     const itemsPerPage = 12 // 페이지당 보여줄 아이템 개수
     const videoTotalItems = videosData.length //동영상 총 개수
     const shortsTotalItems = shortsData.length //숏츠 총 개수
     const offset =
         activeTab === 'video' ? (videoCurrentPage - 1) * itemsPerPage : (shortsCurrentPage - 1) * itemsPerPage
-
-    const data = activeTab === 'video' ? videosData : shortsData
 
     const currentItems = data.slice(offset, offset + itemsPerPage)
 
@@ -47,6 +46,10 @@ export default function Videolist() {
     if (isVideoError) return <div>에러</div>
     if (isShortsError) return <div>에러</div>
 
+    if (isVideoPending) return <div>로딩 중</div>
+    if (isShortsPending) return <div>로딩 중</div>
+    if (isVideoError) return <div>에러</div>
+    if (isShortsError) return <div>에러</div>
     return (
         <div className="flex flex-col w-full items-start content-start pb-[80px] gap-[16px]">
             <div className="self-stretch text-[#fff] text-[20px] font-bold leading-[140%] tracking-[-0.5px]">

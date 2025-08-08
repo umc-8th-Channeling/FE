@@ -10,13 +10,11 @@ import Share from '../../assets/icons/share.svg?react'
 import Videos from '../../assets/icons/videos.svg?react'
 import Comment from '../../assets/icons/comment.svg?react'
 import { formatKoreanNumber } from '../../utils/format'
-import { useParams } from 'react-router-dom'
 import { useGetChannel } from '../../hooks/my/useGetChannel'
 import { mapResponseToProfile } from '../../lib/mappers/profile/mapResponseToProfile'
 import { mapResponseStatCard } from '../../lib/mappers/profile/mapResponsetoStatCard'
-import { useEffect } from 'react'
-import { setMockLogin } from '../../utils/loginMock'
 import { Skeleton } from './_components/Skeleton'
+import { useAuthStore } from '../../stores/authStore'
 
 const statsMeta = [
     { key: 'views', title: '조회수' },
@@ -37,14 +35,12 @@ const statIcons = {
 }
 
 export default function Mypage() {
-    const { channelId } = useParams()
-    const { data, isPending: isMePending, isError: isMeError } = useGetChannel({ channelId: Number(channelId) })
+    const user = useAuthStore((state) => state.user)
+    const { data, isPending: isMePending, isError: isMeError } = useGetChannel({ channelId: Number(user?.channelId) })
 
-    useEffect(() => {
-        localStorage.removeItem('loginMember')
-        localStorage.removeItem('accessToken')
-        setMockLogin()
-    }, [])
+    const profile = data ? mapResponseToProfile(data) : null
+    const stats = data ? mapResponseStatCard(data) : null
+
     if (isMePending)
         return (
             <div>
@@ -53,8 +49,6 @@ export default function Mypage() {
         )
     if (isMeError) return <div></div>
 
-    const profile = data ? mapResponseToProfile(data) : null
-    const stats = data ? mapResponseStatCard(data) : null
     return (
         <>
             <div className="w-full desktop:px-[76px] px-6 tablet:px-[90px] desktop:pt-[80px] pt-[40px] ">

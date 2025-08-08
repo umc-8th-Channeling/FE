@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
                 element: <ReportPage />,
             },
             {
-                path: '/my/:channelId',
+                path: '/my',
                 element: <MyPage />,
             },
             {
