@@ -18,7 +18,7 @@ export const VideoRecommendation = ({ label, videos }: VideoRecommendationProps)
                 </h2>
             </div>
 
-            <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6 place-items-start">
                 {videos.map((video) => (
                     <VideoCard key={video.id} video={video} />
                 ))}

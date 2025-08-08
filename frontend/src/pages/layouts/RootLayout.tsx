@@ -1,23 +1,39 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { NavbarWrapper } from '../../components/common/Navbar/NavbarWrapper'
-import ReportLoadingSpinner from '../../components/ReportLoadingSpinner'
-import { useLoginStore } from '../../stores/LoginStore'
-
+import LoadingSpinner from '../../components/LoadingSpinner'
 import ScrollToTop from '../../components/ScrollToTop'
 import { NavbarModalsContainer } from '../auth'
 import { SettingModalContainer } from '../setting/_components/SettingModalContainer'
+import { useReportStore } from '../../stores/reportStore'
+import { useEffect } from 'react'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { LOCAL_STORAGE_KEY } from '../../constants/key'
+import { useFetchAndSetUser } from '../../hooks/channel/useFetchAndSetUser'
 
 export default function RootLayout() {
     const location = useLocation()
     const isMain = location.pathname === '/'
 
-    const isLoginFlowOpen = useLoginStore((state) => state.isLoginFlowOpen)
+    const isReportGenerating = useReportStore((state) => state.isReportGenerating)
+
+    const { getItem: getChannelId, removeItem: removeChannelId } = useLocalStorage(LOCAL_STORAGE_KEY.channelId)
+    const { getItem: getIsNew, removeItem: removeIsNew } = useLocalStorage(LOCAL_STORAGE_KEY.isNew)
+    const { fetchAndSetUser } = useFetchAndSetUser()
+
+    useEffect(() => {
+        const channelId = getChannelId()
+        const isNew = getIsNew() === 'true'
+
+        if (channelId && isNew !== null) {
+            fetchAndSetUser(Number(channelId), isNew)
+            removeChannelId()
+            removeIsNew()
+        }
+    }, [fetchAndSetUser, getChannelId, getIsNew, removeChannelId, removeIsNew])
 
     return (
         <>
             <NavbarWrapper />
-
-            <SettingModalContainer />
 
             <main
                 className={`
@@ -43,9 +59,14 @@ export default function RootLayout() {
                     </div>
                 </div>
 
-                <ReportLoadingSpinner />
+                <NavbarModalsContainer />
+                <SettingModalContainer />
 
-                {isLoginFlowOpen && <NavbarModalsContainer />}
+                <LoadingSpinner
+                    title="영상 분석 중..."
+                    description="조금만 기다려 주세요. 곧 결과가 나와요!"
+                    isLoading={isReportGenerating}
+                />
             </main>
         </>
     )

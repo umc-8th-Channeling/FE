@@ -9,13 +9,13 @@ export const NavbarModalsContainer = () => {
     const { mutate: updateConcept } = useUpdateChannelConcept()
 
     const { isLoginFlowOpen, step } = useLoginStore()
-    const { closeLoginFlow, goToViewerStep, goToConceptStep } = useLoginStore().actions
+    const { closeLoginFlow, goToConceptStep } = useLoginStore().actions
     const setAuthMember = useAuthStore((state) => state.actions.setAuthMember)
 
     const [viewerValue, setViewerValue] = useState('')
     const [channelConceptValue, setChannelConceptValue] = useState('')
 
-    const channelId = useAuthStore((state) => state.user?.channelId)
+    const channelId = useAuthStore((state) => state.channelId)
 
     const finishLoginAndAuthenticate = () => {
         setAuthMember()
@@ -26,15 +26,7 @@ export const NavbarModalsContainer = () => {
         <>
             {isLoginFlowOpen && (
                 <>
-                    {step === 'login' && (
-                        <LoginModal
-                            onClose={closeLoginFlow}
-                            onLoginSuccess={() => {
-                                setViewerValue('')
-                                goToViewerStep()
-                            }}
-                        />
-                    )}
+                    {step === 'login' && <LoginModal onClose={closeLoginFlow} />}
 
                     {step === 'viewer' && (
                         <ViewerModal

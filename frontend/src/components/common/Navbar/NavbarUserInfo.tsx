@@ -1,7 +1,9 @@
 import ProfileImage from '../../../pages/setting/_components/ProfileImage'
 import { useAuthStore } from '../../../stores/authStore'
+import type { User } from '../../../types/channel'
 
 interface NavbarUserInfoProps {
+    user: User
     onUserClick: () => void
 }
 
