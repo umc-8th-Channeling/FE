@@ -1,17 +1,10 @@
 import type { MemberAgreeDto, MemberProfileImageDto, MemberSNSDto } from '../types/user'
 import { axiosInstance } from './axios'
 
-export const updateMemberAgree = async ({
-    marketingEmailAgree,
-    dayContentEmailAgree,
-    id,
-    memberId,
-}: MemberAgreeDto) => {
+export const updateMemberAgree = async ({ marketingEmailAgree, dayContentEmailAgree }: MemberAgreeDto) => {
     const { data } = await axiosInstance.patch('/member-agree', {
         marketingEmailAgree,
         dayContentEmailAgree,
-        id,
-        memberId,
     })
     return data
 }
