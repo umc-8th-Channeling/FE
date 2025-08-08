@@ -20,6 +20,8 @@ type Props = {
     editing: boolean
     modified: boolean
     profileImageUrl: string | null
+    nickname: string
+    googleEmail: string
     onEditToggle: () => void
     onSaveSNS: () => void
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -34,6 +36,8 @@ export default function ProfileTab({
     editing,
     modified,
     profileImageUrl,
+    nickname,
+    googleEmail,
     onEditToggle,
     onSaveSNS,
     onChange,
@@ -70,11 +74,11 @@ export default function ProfileTab({
             <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
                     <Label className="font-body-bold text-gray-600">닉네임</Label>
-                    <div className="font-title">찰스엔터</div>
+                    <div className="font-title">{nickname}</div>
                 </div>
                 <div className="flex flex-col gap-2">
                     <Label className="font-body-bold text-gray-600">이메일</Label>
-                    <div className="font-title">kjh213513@gmail.com</div>
+                    <div className="font-title">{googleEmail}</div>
                 </div>
             </div>
 

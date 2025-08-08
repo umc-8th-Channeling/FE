@@ -170,7 +170,9 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 formData={formData}
                                 editing={editing}
                                 modified={modified}
-                                profileImageUrl={profileImageUrl ?? '/default-profile.png'} // ✅ 기본값 처리
+                                profileImageUrl={profileImageUrl ?? '/default-profile.png'} // 기본값 처리
+                                nickname={user?.nickname ?? ''}
+                                googleEmail={user?.googleEmail ?? ''}
                                 onEditToggle={handleEditToggle}
                                 onChange={handleChange}
                                 onSaveSNS={handleSaveSNS}
