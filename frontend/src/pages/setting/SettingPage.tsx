@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from './_components/SettingButton'
 import '../../styles/scrollbar.css'
 import CloseIcon from '../../assets/icons/delete_normal.svg?react'
@@ -13,18 +13,14 @@ import {
 } from '../../hooks/mutations/userMutations'
 import { useAuthStore } from '../../stores/authStore'
 import { useProfileImageStore } from '../../stores/profileImageStore'
+import { useSNSFormStore, type SNSKey } from '../../stores/snsFormStore'
 
 type SettingPageProps = {
     onClose?: () => void
 }
 
 export default function SettingPage({ onClose }: SettingPageProps) {
-    const [formData, setFormData] = useState({
-        instagram: '',
-        tiktok: '',
-        facebook: '',
-        x: '',
-    })
+    const { formData, updateFormValue, setFormData } = useSNSFormStore()
 
     const [activeTab, setActiveTab] = useState<'profile' | 'consent'>('profile')
     const [marketingEmailAgree, setMarketingEmailAgree] = useState(false)
@@ -40,9 +36,20 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const { mutate: updateProfileImage } = useUpdateMemberProfileImage()
 
     const { user } = useAuthStore()
-    const memberId = user?.channelId
 
-    const { profileImageUrl, setProfileImageUrl, resetProfileImageUrl } = useProfileImageStore()
+    const { profileImageUrl, setProfileImageUrl } = useProfileImageStore()
+
+    useEffect(() => {
+        if (!user) return
+        const hasAny = formData.instagram || formData.tiktok || formData.facebook || formData.x
+        if (hasAny) return
+        setFormData({
+            instagram: user.instagramLink ?? '',
+            tiktok: user.tiktokLink ?? '',
+            facebook: user.facebookLink ?? '',
+            x: user.twitterLink ?? '',
+        })
+    }, [user, formData.instagram, formData.tiktok, formData.facebook, formData.x, setFormData])
 
     const handleCameraClick = () => fileInputRef.current?.click()
 
@@ -70,7 +77,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
-        setFormData((prev) => ({ ...prev, [name]: value }))
+        updateFormValue(name as SNSKey, value)
         setModified(true)
     }
 
@@ -89,7 +96,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         if (key === 'dayContentEmailAgree') setDayContentEmailAgree(value)
 
         const payload = {
-            memberId: memberId ?? 0,
             marketingEmailAgree: key === 'marketingEmailAgree' ? value : marketingEmailAgree,
             dayContentEmailAgree: key === 'dayContentEmailAgree' ? value : dayContentEmailAgree,
         }
@@ -121,7 +127,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     }
 
     const handleLogout = () => {
-        resetProfileImageUrl()
         console.log('로그아웃 처리')
     }
 
