@@ -14,6 +14,7 @@ import {
 import { useAuthStore } from '../../stores/authStore'
 import { useProfileImageStore } from '../../stores/profileImageStore'
 import { useSNSFormStore, type SNSKey } from '../../stores/snsFormStore'
+import { useConsentStore } from '../../stores/consentStore'
 
 type SettingPageProps = {
     onClose?: () => void
@@ -23,8 +24,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const { formData, updateFormValue, setFormData } = useSNSFormStore()
 
     const [activeTab, setActiveTab] = useState<'profile' | 'consent'>('profile')
-    const [marketingEmailAgree, setMarketingEmailAgree] = useState(false)
-    const [dayContentEmailAgree, setDayContentEmailAgree] = useState(true)
     const [editing, setEditing] = useState(false)
     const [modified, setModified] = useState(false)
     const [showWithdrawlModal, setShowWithdrawlModal] = useState(false)
@@ -38,6 +37,9 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const { user } = useAuthStore()
 
     const { profileImageUrl, setProfileImageUrl } = useProfileImageStore()
+
+    const { marketingEmailAgree, dayContentEmailAgree, setMarketingEmailAgree, setDayContentEmailAgree } =
+        useConsentStore()
 
     useEffect(() => {
         if (!user) return
