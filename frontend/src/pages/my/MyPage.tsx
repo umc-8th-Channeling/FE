@@ -36,7 +36,8 @@ const statIcons = {
 
 export default function Mypage() {
     const user = useAuthStore((state) => state.user)
-    const { data, isPending: isMePending, isError: isMeError } = useGetChannel({ channelId: Number(user?.channelId) })
+    const channelId = user?.channelId ?? null
+    const { data, isPending: isMePending, isError: isMeError } = useGetChannel({ channelId: channelId as number })
 
     const profile = data ? mapResponseToProfile(data) : null
     const stats = data ? mapResponseStatCard(data) : null
