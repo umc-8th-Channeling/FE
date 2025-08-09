@@ -10,13 +10,10 @@ export const useLocalStorage = (key: string) => {
     const getItem = () => {
         try {
             const item = window.localStorage.getItem(key)
-            if (!item) return null
-            if (item === '') return null
-            if (key === 'loginMember') return JSON.parse(item)
-            return item
+
+            return item ? JSON.parse(item) : null
         } catch (e) {
             console.log(e)
-            return null
         }
     }
 
