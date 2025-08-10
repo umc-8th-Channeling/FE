@@ -11,8 +11,8 @@ export const VideoSkeleton = () => {
 
             <div className="grid grid-cols-2 desktop:grid-cols-4 w-full desktop:min-h-[744px] min-h-[1560px] self-stretch gap-4 tablet:gap-6 cursor-pointer">
                 {Array.from({ length: 12 }).map((_, i) => (
-                    <div className="flex flex-col gap-y-2">
-                        <BaseSkeleton key={i} sizeConfig="max-w-[282px] h-[158px]" />
+                    <div key={i} className="flex flex-col gap-y-2">
+                        <BaseSkeleton sizeConfig="max-w-[282px] h-[158px]" />
                         <TitledSkeleton titleSizeConfig="h-[25px] max-w-[282px]" />
                     </div>
                 ))}
