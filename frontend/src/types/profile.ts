@@ -17,6 +17,10 @@ export interface Stats {
     comments: number
 }
 
+export interface Target {
+    target: string
+}
+
 export interface Video {
     id: number
     thumbnailUrl: string

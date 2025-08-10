@@ -1,12 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Textarea from '../../../components/Textarea'
 import { EditButton } from '../../../components/EditButton'
 
 type Mode = 'VIEW' | 'EDIT' | 'ACTIVE_COMPLETE'
 
-const Conceptbox = () => {
+interface ConceptboxProps {
+    conceptValue: string
+    setConceptValue: (val: string) => void
+}
+
+const Conceptbox = ({ conceptValue, setConceptValue }: ConceptboxProps) => {
     const [mode, setMode] = useState<Mode>('VIEW')
-    const [value, setValue] = useState('')
+
+    useEffect(() => {
+        if (mode == 'VIEW') {
+        }
+    }, [conceptValue, mode])
 
     const actionMap = {
         ['VIEW']: {
@@ -42,10 +51,10 @@ const Conceptbox = () => {
             <div className="mt-[16px]">
                 <Textarea
                     id=""
-                    value={value}
+                    value={conceptValue}
                     disabled={isDisabled}
                     onChange={(newVal) => {
-                        setValue(newVal)
+                        setConceptValue(newVal)
                         setMode('ACTIVE_COMPLETE')
                     }}
                     placeholder="유튜버님의 채널 컨셉에 대한 설명을 입력해주세요."

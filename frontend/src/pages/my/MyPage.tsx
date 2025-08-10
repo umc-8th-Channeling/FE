@@ -15,6 +15,9 @@ import { mapResponseToProfile } from '../../lib/mappers/profile/mapResponseToPro
 import { mapResponseStatCard } from '../../lib/mappers/profile/mapResponsetoStatCard'
 import { Skeleton } from './_components/Skeleton'
 import { useAuthStore } from '../../stores/authStore'
+import { mapResponseToTarget } from '../../lib/mappers/profile/mapResponseToTargetbox'
+import { useEffect, useState } from 'react'
+import { mapResponseToConcept } from '../../lib/mappers/profile/mapResponseToConcept'
 
 const statsMeta = [
     { key: 'views', title: '조회수' },
@@ -41,6 +44,19 @@ export default function Mypage() {
 
     const profile = data ? mapResponseToProfile(data) : null
     const stats = data ? mapResponseStatCard(data) : null
+    const target = data ? mapResponseToTarget(data) : ''
+    const concept = data ? mapResponseToConcept(data) : ''
+
+    const [targetData, setTargetData] = useState('')
+    const [conceptData, setConceptData] = useState('')
+
+    useEffect(() => {
+        setTargetData(target)
+    }, [target])
+
+    useEffect(() => {
+        setConceptData(concept)
+    }, [concept])
 
     if (isMePending)
         return (
@@ -70,8 +86,8 @@ export default function Mypage() {
                         )}
                     </div>
                     <div className="flex flex-col w-full items-start">
-                        <Targetbox />
-                        <Conceptbox />
+                        <Targetbox targetValue={targetData} setTargetValue={(newData) => setTargetData(newData)} />
+                        <Conceptbox conceptValue={conceptData} setConceptValue={(newData) => setConceptData(newData)} />
                     </div>
                     <div className="flex items-start content-start self-stretch flex-wrap">
                         <Videolist />
