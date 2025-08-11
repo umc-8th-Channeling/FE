@@ -16,10 +16,14 @@ export const getChannelDetail = async ({ channelId }: RequestChannelDto): Promis
 export const getChannelVideo = async ({
     channelId,
     type,
+    page,
+    size,
 }: RequestChannelVideoDto): Promise<ResponseChannelVideoDto> => {
     const { data } = await axiosInstance.get(`/channels/${channelId}/videos`, {
         params: {
             type: type,
+            ...(page !== undefined && { page }),
+            ...(size !== undefined && { size }),
         },
     })
     console.log('📦 채널 비디오 상세 응답:', data)

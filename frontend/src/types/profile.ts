@@ -54,7 +54,9 @@ export type ChannelDto = {
 }
 export type RequestChannelVideoDto = {
     channelId: number
-    type: 'LONG' | 'SHORT'
+    type: ' FILM_AND_ANIMATION' | 'SHORT'
+    page?: number
+    size?: number
 }
 
 export type ResponseChannelVideoDto = CommonResponse<ChannelVideoListDto>
@@ -64,6 +66,8 @@ export type ChannelVideoListDto = {
     page: number
     size: number
     hasNextPage: boolean
+    totalElements: number
+    totalPages: number
     videoList: [
         {
             videoId: number

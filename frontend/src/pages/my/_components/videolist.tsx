@@ -12,44 +12,38 @@ export default function Videolist() {
 
     const [videoStartPage, setVideoStartPage] = useState(1) //가장 앞 페이지 값
     const [ShortsStartPage, setShortsStartPage] = useState(1)
-
+    const itemsPerPage = 12 // 페이지당 보여줄 아이템 개수
     const [activeTab, setActiveTab] = useState<'video' | 'shorts'>('video')
 
     const user = useAuthStore((state) => state.user)
+    const channelId = Number(user?.channelId)
 
     const {
         data: videoResponse,
         isPending: isVideoPending,
         isError: isVideoError,
-    } = useGetChannelVideo({ channelId: Number(user?.channelId), type: 'LONG' })
+    } = useGetChannelVideo({
+        channelId: channelId,
+        type: ' FILM_AND_ANIMATION',
+        page: videoCurrentPage,
+        size: itemsPerPage,
+    })
     const {
         data: shortsResponse,
         isPending: isShortsPending,
         isError: isShortsError,
-    } = useGetChannelVideo({ channelId: Number(user?.channelId), type: 'SHORT' })
+    } = useGetChannelVideo({ channelId: channelId, type: 'SHORT', page: shortsCurrentPage, size: itemsPerPage })
 
     const videosData = videoResponse ? mapResponseToVideoList(videoResponse) : []
+    const videoTotalItems = videoResponse?.result.totalElements ?? 0
     const shortsData = shortsResponse ? mapResponseToVideoList(shortsResponse) : []
+    const shortsTotalItems = shortsResponse?.result.totalElements ?? 0
     //비디오 - 숏츠 탭
     const data = activeTab === 'video' ? videosData : shortsData
-    //페이지네이션
-    const itemsPerPage = 12 // 페이지당 보여줄 아이템 개수
-    const videoTotalItems = videosData.length //동영상 총 개수
-    const shortsTotalItems = shortsData.length //숏츠 총 개수
-    const offset =
-        activeTab === 'video' ? (videoCurrentPage - 1) * itemsPerPage : (shortsCurrentPage - 1) * itemsPerPage
 
-    const currentItems = data.slice(offset, offset + itemsPerPage)
+    if (isVideoPending || isShortsPending) return <div>로딩 중</div>
+    if (isVideoError || isShortsError) return <div>에러</div>
 
-    if (isVideoPending) return <div>로딩 중</div>
-    if (isShortsPending) return <div>로딩 중</div>
-    if (isVideoError) return <div>에러</div>
-    if (isShortsError) return <div>에러</div>
-
-    if (isVideoPending) return <div>로딩 중</div>
-    if (isShortsPending) return <div>로딩 중</div>
-    if (isVideoError) return <div>에러</div>
-    if (isShortsError) return <div>에러</div>
     return (
         <div className="flex flex-col w-full items-start content-start pb-[80px] gap-[16px]">
             <div className="self-stretch text-[#fff] text-[20px] font-bold leading-[140%] tracking-[-0.5px]">
@@ -77,14 +71,14 @@ export default function Videolist() {
             </div>
             {activeTab === 'video' && (
                 <div className="grid grid-cols-2 desktop:grid-cols-4 w-full self-stretch gap-4 tablet:gap-6 cursor-pointer">
-                    {currentItems.map((video) => (
+                    {data.map((video) => (
                         <MyVideoCard video={video} key={video.id} />
                     ))}
                 </div>
             )}
             {activeTab === 'shorts' && (
                 <div className="grid grid-cols-3 desktop:grid-cols-6 w-full  self-stretch desktop:gap-x-4 gap-x-[9px] gap-y-6 cursor-pointer">
-                    {currentItems.map((short) => (
+                    {data.map((short) => (
                         <MyShortsCard shorts={short} key={short.id} />
                     ))}
                 </div>
