@@ -11,13 +11,13 @@ import Videos from '../../assets/icons/videos.svg?react'
 import Comment from '../../assets/icons/comment.svg?react'
 import { formatKoreanNumber } from '../../utils/format'
 import { useGetChannel } from '../../hooks/my/useGetChannel'
-import { mapResponseToProfile } from '../../lib/mappers/profile/mapResponseToProfile'
-import { mapResponseStatCard } from '../../lib/mappers/profile/mapResponseToStatCard'
 import { Skeleton } from './_components/Skeleton'
 import { useAuthStore } from '../../stores/authStore'
 import { mapResponseToTarget } from '../../lib/mappers/profile/mapResponseToTargetbox'
 import { useEffect, useState } from 'react'
+import { mapResponseToProfile } from '../../lib/mappers/profile/mapResponseToProfile'
 import { mapResponseToConcept } from '../../lib/mappers/profile/mapResponseToConcept'
+import { mapResponseToStatCard } from '../../lib/mappers/profile/mapResponsetoStatCard'
 
 const statsMeta = [
     { key: 'views', title: '조회수' },
@@ -43,7 +43,7 @@ export default function Mypage() {
     const { data, isPending: isMePending, isError: isMeError } = useGetChannel({ channelId: channelId as number })
 
     const profile = data ? mapResponseToProfile(data) : null
-    const stats = data ? mapResponseStatCard(data) : null
+    const stats = data ? mapResponseToStatCard(data) : null
     const target = data ? mapResponseToTarget(data) : ''
     const concept = data ? mapResponseToConcept(data) : ''
 

@@ -1,6 +1,6 @@
 import type { Stats, ResponseChannelDto } from '../../../types/profile'
 
-export function mapResponseStatCard(dto: ResponseChannelDto): Stats {
+export function mapResponseToStatCard(dto: ResponseChannelDto): Stats {
     return {
         views: dto.result.view,
         likes: dto.result.likeCount,
