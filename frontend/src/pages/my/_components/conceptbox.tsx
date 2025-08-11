@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import Textarea from '../../../components/Textarea'
 import { EditButton } from '../../../components/EditButton'
+import { useUpdateChannelConcept } from '../../../hooks/channel/useUpdateIdentity'
+import { useAuthStore } from '../../../stores/authStore'
 
 type Mode = 'VIEW' | 'EDIT' | 'ACTIVE_COMPLETE'
 
@@ -11,6 +13,11 @@ interface ConceptboxProps {
 
 const Conceptbox = ({ conceptValue, setConceptValue }: ConceptboxProps) => {
     const [mode, setMode] = useState<Mode>('VIEW')
+
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
+
+    const { mutate: updateConcept } = useUpdateChannelConcept()
 
     useEffect(() => {
         if (mode == 'VIEW') {
@@ -33,7 +40,22 @@ const Conceptbox = ({ conceptValue, setConceptValue }: ConceptboxProps) => {
         ['ACTIVE_COMPLETE']: {
             buttonColor: 'text-primary-500',
             label: '완료',
-            onClick: () => setMode('VIEW'),
+            onClick: () => {
+                setMode('VIEW')
+                if (!channelId) return
+                updateConcept(
+                    { channelId, concept: conceptValue },
+                    {
+                        onSuccess: (res) => {
+                            console.log('updateChannelConcept 응답 :', res)
+                            setConceptValue(res.updatedConcept)
+                        },
+                        onError: () => {
+                            alert(' 콘셉트 저장 실패 ')
+                        },
+                    }
+                )
+            },
             isDisabled: false,
         },
     }

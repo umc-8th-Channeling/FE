@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { EditButton } from '../../../components/EditButton'
+import { useUpdateChannelTarget } from '../../../hooks/channel/useUpdateIdentity'
+import { useAuthStore } from '../../../stores/authStore'
 
 type Mode = 'VIEW' | 'EDIT' | 'ACTIVE_COMPLETE'
 
@@ -10,6 +12,11 @@ interface TargetboxProps {
 
 const Targetbox = ({ targetValue, setTargetValue }: TargetboxProps) => {
     const [mode, setMode] = useState<Mode>('VIEW')
+
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
+
+    const { mutate: updateTarget } = useUpdateChannelTarget()
 
     useEffect(() => {
         if (mode == 'VIEW') {
@@ -30,7 +37,22 @@ const Targetbox = ({ targetValue, setTargetValue }: TargetboxProps) => {
         ['ACTIVE_COMPLETE']: {
             label: '완료',
             buttonColor: 'text-primary-500',
-            onClick: () => setMode('VIEW'),
+            onClick: () => {
+                setMode('VIEW')
+                if (!channelId) return
+                updateTarget(
+                    { channelId, target: targetValue },
+                    {
+                        onSuccess: (res) => {
+                            console.log('updateChannelTarget 응답 :', res)
+                            setTargetValue(res.updatedTarget)
+                        },
+                        onError: () => {
+                            alert(' 타겟 저장 실패 ')
+                        },
+                    }
+                )
+            },
         },
     }
 
