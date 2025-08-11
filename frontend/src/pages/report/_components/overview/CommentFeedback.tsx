@@ -1,17 +1,19 @@
 import { useState } from 'react'
-import type { TabItem } from '../../../../types/common'
-import Tabs from '../../../../components/Tabs'
 import { TitledSection } from '../TitledSection'
-import { OVERVIEW_COMMENTS as COMMENTS } from '../../dummy'
-import { DoughnutChart } from '../../../../components/chart'
+// import { DoughnutChart } from '../../../../components/chart'
+import useGetReportComments from '../../../../hooks/report/useGetReportComments'
+import { COMMENT_TYPE, type Comment, type CommentType } from '../../../../types/report/comment'
+import { useParams } from 'react-router-dom'
 
-const Comments = ({ comments }: { comments: string[] }) => {
+const Comments = ({ comments }: { comments: Comment[] | undefined }) => {
+    if (!comments || comments.length === 0) return <div />
+
     return (
         <div className="flex flex-col gap-4">
-            {comments.map((comment, index) => (
-                <div key={index} className="px-4 py-2 rounded-lg bg-surface-elevate-l2">
+            {comments?.map((comment) => (
+                <div key={comment.commentId} className="px-4 py-2 rounded-lg bg-surface-elevate-l2">
                     <span className="max-h-12 line-clamp-2 text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]">
-                        {comment}
+                        {comment.content}
                     </span>
                 </div>
             ))}
@@ -19,17 +21,13 @@ const Comments = ({ comments }: { comments: string[] }) => {
     )
 }
 
-const data = COMMENTS.map((item) => Math.round(item.value * 100))
-const TABS = COMMENTS.map(({ label, comments }, index) => ({
-    index,
-    label,
-    component: <Comments comments={comments} />,
-}))
-
 export const CommentFeedback = () => {
-    const [activeTab, setActiveTab] = useState(TABS[0])
+    const { reportId } = useParams()
+    const [activeTab, setActiveTab] = useState<CommentType>('POSITIVE')
 
-    const handleChartLabelChange = (tab: TabItem) => setActiveTab(tab)
+    const { data, isLoading } = useGetReportComments({ reportId: Number(reportId), type: activeTab })
+
+    const handleTabChange = (tab: CommentType) => setActiveTab(tab)
 
     return (
         <TitledSection title="댓글 반응">
@@ -41,23 +39,31 @@ export const CommentFeedback = () => {
                 "
             >
                 <div className="w-full min-w-[280px] max-w-[448px] aspect-square">
-                    <DoughnutChart
+                    {/* <DoughnutChart
                         tabs={TABS}
                         data={data}
                         activeIndex={activeTab.index}
-                        onClickSegment={handleChartLabelChange} // 도넛 그래프의 segment 클릭하면 활성화 탭 변경
-                    />
+                        onClickSegment={handleTabChange} // 도넛 그래프의 segment 클릭하면 활성화 탭 변경
+                    /> */}
                 </div>
 
-                <div className="desktop:min-w-[672px]">
-                    <Tabs
-                        tabs={TABS}
-                        activeTab={activeTab}
-                        onChangeTab={handleChartLabelChange}
-                        textStyle="text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]"
-                        bgColor="bg-surface-elevate-l2"
-                        spaceY="space-y-4"
-                    />
+                <div className="flex flex-col w-full space-y-4 desktop:min-w-[672px]">
+                    <div className="flex flex-row justify-between p-1 gap-2 rounded-lg bg-surface-elevate-l2">
+                        {(Object.entries(COMMENT_TYPE) as [CommentType, string][]).map(([key, label]) => (
+                            <button
+                                key={key}
+                                onClick={() => handleTabChange(key)}
+                                className={`
+                                    cursor-pointer w-full py-2 rounded-sm transition-colors duration-300 
+                                    text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
+                                    ${key === activeTab ? 'bg-gray-50 font-bold' : 'bg-transparent font-medium'}
+                                `}
+                            >
+                                {label}
+                            </button>
+                        ))}
+                    </div>
+                    {isLoading ? <div /> : <Comments comments={data!.commnetList} />}
                 </div>
             </div>
         </TitledSection>
