@@ -17,7 +17,7 @@
     .font-body-24m {
         @apply text-[16px] leading-[150%] tracking-[-0.6px] font-medium; /* Mobile */
         @apply tablet:text-[24px]; /* Tablet */
-        @apply desktop:text-[16px] desktop:trakcing-[-0.4px]; /* Desktop */
+        @apply desktop:text-[16px] desktop:tracking-[-0.4px]; /* Desktop */
     }
 
     // 정님 기존 타이포

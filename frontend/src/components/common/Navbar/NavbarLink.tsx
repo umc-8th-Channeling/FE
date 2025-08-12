@@ -25,9 +25,7 @@ export const NavbarLink = (props: NavbarLinkProps) => {
                         isActive={isActive}
                         size={size}
                     />
-                    <span className="text-[16px] tablet:text-[24px] leading-[150%] font-medium tracking-[-0.6px] desktop:text-[16px] desktop:trakcing-[-0.4px] text-gray-900 whitespace-nowrap">
-                        {label}
-                    </span>
+                    <span className="font-body-24m text-gray-900 whitespace-nowrap">{label}</span>
                 </div>
             )}
         </NavLink>
@@ -50,9 +48,7 @@ export const NavbarModalButton = (props: NavbarLinkProps) => {
                     isActive={false}
                     size={size}
                 />
-                <span className="text-[16px] tablet:text-[24px] leading-[150%] font-medium tracking-[-0.6px] desktop:text-[16px] desktop:trakcing-[-0.4px] text-gray-900 whitespace-nowrap">
-                    {label}
-                </span>
+                <span className="font-body-24m text-gray-900 whitespace-nowrap">{label}</span>
             </div>
         </button>
     )
