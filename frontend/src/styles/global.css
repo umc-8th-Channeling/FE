@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './scrollbar.css';
+@import './typo.css';
 
 @font-face {
     font-family: 'Pretendard';
@@ -104,48 +105,6 @@
 
     body {
         @apply bg-surface text-gray-900 font-pretendard font-normal min-w-[360px] overflow-x-hidden;
-    }
-}
-
-@layer components {
-    .font-title-alt {
-        @apply text-[16px] leading-[140%] font-normal md:text-[24px] md:leading-[140%] md:font-bold;
-    }
-
-    .font-title {
-        @apply text-[16px] leading-[140%] font-normal tracking-[-0.5px] md:text-[20px] md:leading-[140%] md:font-bold;
-    }
-
-    .font-title-medium {
-        @apply text-[16px] leading-[140%] font-normal md:text-[20px] md:leading-[140%] md:font-medium;
-    }
-
-    .font-title-bold {
-        @apply text-[16px] leading-[140%] font-normal tracking-[-0.45px] md:text-[18px] md:leading-[140%] md:font-bold;
-    }
-
-    .font-body {
-        @apply text-[14px] leading-[150%] font-bold md:text-[16px] md:leading-[150%] md:font-normal;
-    }
-
-    .font-body-medium {
-        @apply text-[16px] leading-[150%] font-medium tracking-[-0.4px] md:text-[16px] md:leading-[150%] md:font-medium;
-    }
-
-    .font-body-regular {
-        @apply text-[14px] leading-[150%] font-normal tracking-[-0.4px] md:text-[16px] md:leading-[150%] md:font-normal;
-    }
-
-    .font-body-bold {
-        @apply text-[16px] leading-[150%] font-bold tracking-[-0.4px] md:text-[16px] md:leading-[150%] md:font-bold;
-    }
-
-    .font-caption {
-        @apply text-[12px] leading-[140%] font-normal tracking-[-0.35px] md:text-[14px] md:leading-[140%] md:font-normal;
-    }
-
-    .font-caption-medium {
-        @apply text-[12px] leading-[140%] font-normal tracking-[-0.35px] md:text-[14px] md:leading-[140%] md:font-medium;
     }
 }
 
