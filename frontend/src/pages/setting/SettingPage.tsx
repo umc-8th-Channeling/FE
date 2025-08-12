@@ -15,6 +15,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { useProfileImageStore } from '../../stores/profileImageStore'
 import { useSNSFormStore, type SNSKey } from '../../stores/snsFormStore'
 import { useConsentStore } from '../../stores/consentStore'
+import { fetchMyProfile } from '../../api/user'
 
 type SettingPageProps = {
     onClose?: () => void
@@ -55,7 +56,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
     const handleCameraClick = () => fileInputRef.current?.click()
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (!file) return
 
@@ -65,9 +66,16 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         updateProfileImage(
             { updateProfileImageReq: { image: file } },
             {
-                onSuccess: (data) => {
-                    console.log('프로필 이미지 업로드 성공: ', data)
-                    URL.revokeObjectURL(previewUrl)
+                onSuccess: async (data) => {
+                    try {
+                        console.log('프로필 이미지 업로드 성공: ', data)
+                        const user = await fetchMyProfile()
+                        useAuthStore.getState().actions.setUser(user)
+                    } catch {
+                        alert('프로필 이미지 갱신에 실패했습니다.')
+                    } finally {
+                        URL.revokeObjectURL(previewUrl)
+                    }
                 },
                 onError: () => {
                     alert('프로필 이미지 업로드에 실패했습니다.')

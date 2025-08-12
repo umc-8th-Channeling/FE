@@ -28,3 +28,8 @@ export const updateMemberProfileImage = async ({ updateProfileImageReq }: Member
     const { data } = await axiosInstance.patch('/members/profile-image', formData)
     return data
 }
+
+export const fetchMyProfile = async () => {
+    const { data } = await axiosInstance.get('/members')
+    return data
+}
