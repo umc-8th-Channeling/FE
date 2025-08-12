@@ -2,7 +2,6 @@ import ProfileCard from './_components/profileCard'
 import StatsCard from './_components/statsCard'
 import Targetbox from './_components/targetbox'
 import Conceptbox from './_components/conceptbox'
-import Videolist from './_components/videolist'
 import View from '../../assets/icons/view.svg?react'
 import Like from '../../assets/icons/like.svg?react'
 import People from '../../assets/icons/people.svg?react'
@@ -17,7 +16,7 @@ import { mapResponseToTarget } from '../../lib/mappers/profile/mapResponseToTarg
 import { useEffect, useState } from 'react'
 import { mapResponseToProfile } from '../../lib/mappers/profile/mapResponseToProfile'
 import { mapResponseToConcept } from '../../lib/mappers/profile/mapResponseToConcept'
-import { mapResponseToStatCard } from '../../lib/mappers/profile/mapResponsetoStatCard'
+import { mapResponseToStatCard } from '../../lib/mappers/profile/mapResponseToStatCard'
 
 const statsMeta = [
     { key: 'views', title: '조회수' },
@@ -88,9 +87,6 @@ export default function Mypage() {
                     <div className="flex flex-col w-full items-start">
                         <Targetbox targetValue={targetData} setTargetValue={(newData) => setTargetData(newData)} />
                         <Conceptbox conceptValue={conceptData} setConceptValue={(newData) => setConceptData(newData)} />
-                    </div>
-                    <div className="flex items-start content-start self-stretch flex-wrap">
-                        <Videolist />
                     </div>
                 </div>
             </div>

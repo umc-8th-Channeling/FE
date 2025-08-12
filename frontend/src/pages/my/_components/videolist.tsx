@@ -5,6 +5,7 @@ import Pagination from '../../../components/Pagination'
 import { useGetChannelVideo } from '../../../hooks/my/useGetChannelVideo'
 import { mapResponseToVideoList } from '../../../lib/mappers/profile/mapResponseToVideo'
 import { useAuthStore } from '../../../stores/authStore'
+import { VideoSkeleton } from './Skeleton/VideoSkeleton'
 
 export default function Videolist() {
     const [videoCurrentPage, setVideoCurrentPage] = useState(1) //현재 페이지 값
@@ -41,7 +42,12 @@ export default function Videolist() {
     //비디오 - 숏츠 탭
     const data = activeTab === 'video' ? videosData : shortsData
 
-    if (isVideoPending || isShortsPending) return <div>로딩 중</div>
+    if (isVideoPending || isShortsPending)
+        return (
+            <div className="flex items-start content-start self-stretch flex-wrap">
+                <VideoSkeleton />
+            </div>
+        )
     if (isVideoError || isShortsError) return <div>에러</div>
 
     return (
