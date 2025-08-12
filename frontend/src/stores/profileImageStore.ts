@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 type ProfileImageState = {
     profileImageUrl: string | null
@@ -6,8 +7,15 @@ type ProfileImageState = {
     resetProfileImageUrl: () => void
 }
 
-export const useProfileImageStore = create<ProfileImageState>((set) => ({
-    profileImageUrl: null,
-    setProfileImageUrl: (url) => set({ profileImageUrl: url }),
-    resetProfileImageUrl: () => set({ profileImageUrl: null }),
-}))
+export const useProfileImageStore = create(
+    persist<ProfileImageState>(
+        (set) => ({
+            profileImageUrl: null,
+            setProfileImageUrl: (url) => set({ profileImageUrl: url }),
+            resetProfileImageUrl: () => set({ profileImageUrl: null }),
+        }),
+        {
+            name: 'profile-image-storage',
+        }
+    )
+)
