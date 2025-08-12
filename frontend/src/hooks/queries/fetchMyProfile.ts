@@ -4,7 +4,7 @@ import type { ResponseMyProfile } from '../../types/channel'
 
 export const fetchMyProfile = async (): Promise<ResponseMyProfile> => {
     const { data } = await axiosInstance.get('/members')
-    return data
+    return data.result
 }
 
 export const useFetchMyProfile = () => {

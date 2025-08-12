@@ -69,8 +69,8 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                 onSuccess: async (data) => {
                     try {
                         console.log('프로필 이미지 업로드 성공: ', data)
-                        const user = await fetchMyProfile()
-                        useAuthStore.getState().actions.setUser(user)
+                        const response = await fetchMyProfile()
+                        useAuthStore.getState().actions.setUser(response.result)
                     } catch {
                         alert('프로필 이미지 갱신에 실패했습니다.')
                     } finally {
