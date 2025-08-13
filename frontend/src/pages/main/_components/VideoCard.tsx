@@ -1,40 +1,45 @@
-import type { DUMMY_MY } from '../dummy'
 import { formatRelativeTime, formatKoreanNumber } from '../../../utils/format'
 import { Link } from 'react-router-dom'
 import { useAuthStore } from '../../../stores/authStore'
+import type { BriefVideo } from '../../../types/main'
 
 interface VideoCardProps {
-    video: (typeof DUMMY_MY)[0] // 임시
+    video: BriefVideo
 }
 
 export const VideoCard = ({ video }: VideoCardProps) => {
     const isAuth = useAuthStore((state) => state.isAuth)
-    const linkTo = isAuth ? `/report/${video.id}` : '/report'
+    const user = useAuthStore((state) => state.user)
+
+    const linkTo = isAuth ? `/report/${video.videoId}` : '/report'
 
     return (
         <Link to={linkTo} className="flex flex-col items-center justify-center gap-2 w-[288px] tablet:w-[282px]">
             {/* 영상 썸네일 이미지 */}
             <div className="w-[288px] aspect-[16/9] tablet:w-[282px] tablet:aspect-[141/79] rounded-lg overflow-hidden">
-                <img src={video.thumbnail} className="w-full h-full object-cover" />
+                <img src={video.videoThumbnailUrl} className="w-full h-full object-cover" />
             </div>
 
             <div className="flex flex-row w-full gap-2">
                 {/* 채널 프로필 이미지 */}
                 <div className="w-10 h-10 rounded-full overflow-hidden shrink-0">
-                    <img src={video.channelProfile} className="w-full h-full object-cover" />
+                    <img
+                        src={video.channelProfileImageUrl || user?.profileImage}
+                        className="w-full h-full object-cover"
+                    />
                 </div>
 
                 {/* 영상 메타 데이터 */}
                 <div className="space-y-1">
                     <h3 className="max-h-[50px] line-clamp-2 text-[16px] leading-[140%] font-bold tracking-[-0.4px] tablet:text-[18px] tablet:tracking-[-0.45px]">
-                        {video.title}
+                        {video.videoTitle}
                     </h3>
                     <div className="flex flex-row gap-1 whitespace-nowrap text-[12px] leading-[140%] tracking-[-0.3px] tablet:text-[14px] tablet:tracking-[-0.35px] text-gray-600">
-                        <p>{video.channelTitle}</p>
+                        <p>{video.channelName || user?.nickname}</p>
                         <span>·</span>
                         <p>조회수 {formatKoreanNumber(video.viewCount, '회')}</p>
                         <span>·</span>
-                        <p>{formatRelativeTime(video.publishedAt)}</p>
+                        <p>{formatRelativeTime(video.uploadDate)}</p>
                     </div>
                 </div>
             </div>
