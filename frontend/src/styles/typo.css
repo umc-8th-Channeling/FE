@@ -6,12 +6,12 @@
 
     .font-title-20b {
         @apply text-[16px] leading-[140%] tracking-[-0.4px] font-bold; /* Mobile */
-        @apply tablet:text-[20px] tablet:tracking-[-0.45px] /* Tablet -> Desktop */;
+        @apply tablet:text-[20px] tablet:tracking-[-0.45px]; /* Tablet -> Desktop */
     }
 
     .font-title-18b {
         @apply text-[16px] leading-[140%] tracking-[-0.4px] font-bold; /* Mobile */
-        @apply tablet:text-[18px] tablet:tracking-[-0.45px] /* Tablet -> Desktop */;
+        @apply tablet:text-[18px] tablet:tracking-[-0.45px]; /* Tablet -> Desktop */
     }
 
     .font-body-24m {
@@ -20,44 +20,26 @@
         @apply desktop:text-[16px] desktop:tracking-[-0.4px]; /* Desktop */
     }
 
-    // 정님 기존 타이포
-    .font-title-alt {
-        @apply text-[16px] leading-[140%] font-normal md:text-[24px] md:leading-[140%] md:font-bold;
+    .font-body-16b {
+        @apply text-[16px] leading-[150%] tracking-[-0.4px] font-bold; /* Mobile -> Desktop */
     }
 
-    .font-title {
-        @apply text-[16px] leading-[140%] font-normal tracking-[-0.5px] md:text-[20px] md:leading-[140%] md:font-bold;
+    .font-body-16m {
+        @apply text-[16px] leading-[150%] tracking-[-0.4px] font-medium; /* Mobile -> Desktop */
     }
 
-    .font-title-medium {
-        @apply text-[16px] leading-[140%] font-normal md:text-[20px] md:leading-[140%] md:font-medium;
+    .font-body-16r {
+        @apply text-[14px] leading-[150%] tracking-[-0.35px] font-normal; /* Mobile */
+        @apply tablet:text-[16px]; /* Tablet -> Desktop */
     }
 
-    .font-title-bold {
-        @apply text-[16px] leading-[140%] font-normal tracking-[-0.45px] md:text-[18px] md:leading-[140%] md:font-bold;
+    .font-caption-14m {
+        @apply text-[12px] leading-[140%] tracking-[-0.3px] font-medium; /* Mobile */
+        @apply tablet:text-[14px] tablet:tracking-[-0.35px]; /* Tablet -> Desktop */
     }
 
-    .font-body {
-        @apply text-[14px] leading-[150%] font-bold md:text-[16px] md:leading-[150%] md:font-normal;
-    }
-
-    .font-body-medium {
-        @apply text-[16px] leading-[150%] font-medium tracking-[-0.4px] md:text-[16px] md:leading-[150%] md:font-medium;
-    }
-
-    .font-body-regular {
-        @apply text-[14px] leading-[150%] font-normal tracking-[-0.4px] md:text-[16px] md:leading-[150%] md:font-normal;
-    }
-
-    .font-body-bold {
-        @apply text-[16px] leading-[150%] font-bold tracking-[-0.4px] md:text-[16px] md:leading-[150%] md:font-bold;
-    }
-
-    .font-caption {
-        @apply text-[12px] leading-[140%] font-normal tracking-[-0.35px] md:text-[14px] md:leading-[140%] md:font-normal;
-    }
-
-    .font-caption-medium {
-        @apply text-[12px] leading-[140%] font-normal tracking-[-0.35px] md:text-[14px] md:leading-[140%] md:font-medium;
+    .font-caption-14r {
+        @apply text-[12px] leading-[140%] tracking-[-0.3px] font-normal; /* Mobile */
+        @apply tablet:text-[14px] tablet:tracking-[-0.35px]; /* Tablet -> Desktop */
     }
 }

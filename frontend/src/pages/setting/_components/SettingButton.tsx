@@ -11,9 +11,9 @@ export function Button({ children, variant = 'default', className = '', ...props
 
     const variants = {
         default: 'text-gray-900',
-        secondary: 'bg-gray-100 font-body-medium',
-        ghost: 'bg-transparent font-body-medium',
-        danger: 'bg-primary-500 font-body',
+        secondary: 'bg-gray-100 font-body-16m',
+        ghost: 'bg-transparent font-body-16m',
+        danger: 'bg-primary-500 font-body-16r',
     }
 
     return (

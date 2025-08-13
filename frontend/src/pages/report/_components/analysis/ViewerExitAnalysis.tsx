@@ -11,16 +11,16 @@ export const ViewerExitAnalysis = () => {
                 className="w-full rounded-lg border border-gray-200
             bg-surface-elevate-l1 p-6 overflow-y-auto overflow-hidden"
             >
-                <div className="flex flex-col space-y-4 font-body-regular">
-                    <p className="text-primary-600 font-body-medium">{EXIT_ANALYSIS_HIGHLIGHT}</p>
+                <div className="flex flex-col space-y-4 font-body-16r">
+                    <p className="text-primary-600 font-body-16m">{EXIT_ANALYSIS_HIGHLIGHT}</p>
                     <Markdown
                         remarkPlugins={[remarkGfm]}
                         rehypePlugins={[rehypeRaw]}
                         components={{
-                            h3: ({ children }) => <h3 className="mt-4 mb-2 font-body-bold">{children}</h3>,
-                            p: ({ children }) => <p className="pl-1 font-body-regular">{children}</p>,
-                            ul: ({ children }) => <ul className="pl-1 font-body-regular">{children}</ul>,
-                            li: ({ children }) => <li className="pl-1 font-body-regular">{children}</li>,
+                            h3: ({ children }) => <h3 className="mt-4 mb-2 font-body-16b">{children}</h3>,
+                            p: ({ children }) => <p className="pl-1 font-body-16r">{children}</p>,
+                            ul: ({ children }) => <ul className="pl-1 font-body-16r">{children}</ul>,
+                            li: ({ children }) => <li className="pl-1 font-body-16r">{children}</li>,
                         }}
                     >
                         {EXIT_ANALYSIS}

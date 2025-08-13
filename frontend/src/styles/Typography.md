@@ -14,17 +14,17 @@
 
 타이포그래피 클래스는 **모바일(기본)**, `tablet:`(768px 이상), `desktop:`(1440px 이상) 접두사를 통해 **태블릿**과 **데스크탑** 스타일을 모두 포함하도록 재구성되었습니다.
 
-| 클래스명               | 설명    | Mobile (≥360px)           | Tablet (≥768px)           | Desktop (≥1440px) |
-| :--------------------- | :------ | :------------------------ | :------------------------ | :---------------- |
-| **`font-title-24b`**   | Title   | 20px / 140% / Bold        | **24px / 140% / Bold**    | (동일)            |
-| **`font-title-20b`**   | Title   | 16px / 140% / Bold        | **20px / 140% / Bold**    | (동일)            |
-| **`font-title-18b`**   | Title   | 16px / 140% / Bold        | **18px / 140% / Bold**    | (동일)            |
-| **`font-body-24m`**    | Body    | 14px / 150% / Bold        | **24px / 150% / Medium**  | (동일)            |
-| **`font-body-16b`**    | Body    | **16px / 150% / Bold**    | (동일)                    | (동일)            |
-| **`font-body-16m`**    | Body    | **16px / 150% / Medium**  | (동일)                    | (동일)            |
-| **`font-body-14r`**    | Body    | **14px / 150% / Regular** | (동일)                    | (동일)            |
-| **`font-caption-14r`** | Caption | 12px / 140% / Regular     | **14px / 140% / Regular** | (동일)            |
-| **`font-caption-12r`** | Caption | **12px / 140% / Regular** | (동일)                    | (동일)            |
+| 클래스명               | 설명    | Mobile (≥360px)          | Tablet (≥768px)           | Desktop (≥1440px)    |
+| :--------------------- | :------ | :----------------------- | :------------------------ | :------------------- |
+| **`font-title-24b`**   | Title   | 20px / 140% / Bold       | **24px / 140% / Bold**    | (동일)               |
+| **`font-title-20b`**   | Title   | 16px / 140% / Bold       | **20px / 140% / Bold**    | (동일)               |
+| **`font-title-18b`**   | Title   | 16px / 140% / Bold       | **18px / 140% / Bold**    | (동일)               |
+| **`font-body-24m`**    | Body    | 16px / 150% / Medium     | **24px / 150% / Medium**  | 16px / 150% / Medium |
+| **`font-body-16b`**    | Body    | **16px / 150% / Bold**   | (동일)                    | (동일)               |
+| **`font-body-16m`**    | Body    | **16px / 150% / Medium** | (동일)                    | (동일)               |
+| **`font-body-16r`**    | Body    | 14px / 150% / Regular    | **16px / 150% / Regular** | (동일)               |
+| **`font-caption-14m`** | Caption | 12px / 140% / Medium     | **14px / 140% / Medium**  | (동일)               |
+| **`font-caption-14r`** | Caption | 12px / 140% / Regular    | **14px / 140% / Regular** | (동일)               |
 
 -   **클래스명 규칙**: `font-{역할}-{스타일}` 규칙에 따라 `{데스크탑/태블릿에서의 폰트 크기}{폰트 굵기 이니셜}` 조합으로 클래스명을 정했습니다. (예: `20b` -> 20px Bold)
 -   **기본 스타일**: 모든 클래스는 모바일 스타일을 기본으로 가집니다.
