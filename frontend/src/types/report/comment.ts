@@ -22,7 +22,7 @@ export type Comment = {
 
 export type ReportComments = {
     commentType: CommentType
-    commnetList: Comment[]
+    commentList: Comment[]
 }
 
 export type ResponseReportComments = CommonResponse<ReportComments>

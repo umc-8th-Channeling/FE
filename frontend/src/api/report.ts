@@ -27,6 +27,6 @@ export const getReportComments = async ({ reportId, type }: ReportCommentsDto): 
 
 // 리포트 분석 상태 조회
 export const getReportStatus = async ({ reportId }: ReportStatusDto) => {
-    const { data } = await axiosInstance.get(`/reports/status/${reportId}`)
+    const { data } = await axiosInstance.get(`/reports/${reportId}/status`)
     return data
 }
