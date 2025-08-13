@@ -54,7 +54,7 @@ export type ChannelDto = {
 }
 export type RequestChannelVideoDto = {
     channelId: number
-    type: ' FILM_AND_ANIMATION' | 'SHORT'
+    type: 'PEOPLE_AND_BLOGS' | 'FILM_AND_ANIMATION'
     page?: number
     size?: number
 }
