@@ -26,7 +26,7 @@ export interface Video {
     thumbnailUrl: string
     title: string
     viewCount: number
-    publishedAt: Date
+    publishedAt: string
 }
 
 export type RequestChannelDto = {
@@ -54,12 +54,21 @@ export type ChannelDto = {
 }
 export type RequestChannelVideoDto = {
     channelId: number
-    type: ' FILM_AND_ANIMATION' | 'SHORT'
+    type: 'PEOPLE_AND_BLOGS' | 'FILM_AND_ANIMATION'
     page?: number
     size?: number
 }
 
 export type ResponseChannelVideoDto = CommonResponse<ChannelVideoListDto>
+
+export type VideoItemDto = {
+    videoId: number
+    videoTitle: string
+    videoThumbnailUrl: string
+    videoCategory: string
+    viewCount: number
+    uploadDate: string
+}
 
 export type ChannelVideoListDto = {
     channelId: number
@@ -68,16 +77,7 @@ export type ChannelVideoListDto = {
     hasNextPage: boolean
     totalElements: number
     totalPages: number
-    videoList: [
-        {
-            videoId: number
-            videoTitle: string
-            videoThumbnailUrl: string
-            videoCategory: string
-            viewCount: number
-            uploadDate: Date
-        }
-    ]
+    videoList: VideoItemDto[]
 }
 
 export type ChannelVideoDto = NonNullable<ResponseChannelVideoDto['result']>['videoList'][number]

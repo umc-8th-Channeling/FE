@@ -25,7 +25,7 @@ export default function Videolist() {
         isError: isVideoError,
     } = useGetChannelVideo({
         channelId: channelId,
-        type: ' FILM_AND_ANIMATION',
+        type: 'PEOPLE_AND_BLOGS',
         page: videoCurrentPage,
         size: itemsPerPage,
     })
@@ -33,7 +33,12 @@ export default function Videolist() {
         data: shortsResponse,
         isPending: isShortsPending,
         isError: isShortsError,
-    } = useGetChannelVideo({ channelId: channelId, type: 'SHORT', page: shortsCurrentPage, size: itemsPerPage })
+    } = useGetChannelVideo({
+        channelId: channelId,
+        type: 'FILM_AND_ANIMATION',
+        page: shortsCurrentPage,
+        size: itemsPerPage,
+    })
 
     const videosData = videoResponse ? mapResponseToVideoList(videoResponse) : []
     const videoTotalItems = videoResponse?.result.totalElements ?? 0
@@ -42,12 +47,7 @@ export default function Videolist() {
     //비디오 - 숏츠 탭
     const data = activeTab === 'video' ? videosData : shortsData
 
-    if (isVideoPending || isShortsPending)
-        return (
-            <div className="flex items-start content-start self-stretch flex-wrap">
-                <VideoSkeleton />
-            </div>
-        )
+    if (isVideoPending || isShortsPending) return <VideoSkeleton />
     if (isVideoError || isShortsError) return <div>에러</div>
 
     return (

@@ -19,11 +19,6 @@ const Conceptbox = ({ conceptValue, setConceptValue }: ConceptboxProps) => {
 
     const { mutate: updateConcept } = useUpdateChannelConcept()
 
-    useEffect(() => {
-        if (mode == 'VIEW') {
-        }
-    }, [conceptValue, mode])
-
     const actionMap = {
         ['VIEW']: {
             buttonColor: 'text-gray-900',
