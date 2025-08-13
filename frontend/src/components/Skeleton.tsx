@@ -39,3 +39,22 @@ export const TitledSkeleton = ({
         </div>
     )
 }
+
+/**
+ * 애니메이션이 적용된 원형 스켈레톤 컴포넌트
+ *
+ * @param {object} props - 컴포넌트 props
+ * @param {string} props.circleSizeConfig - TailwindCSS 클래스 문자열로, 박스의 너비와 높이 등의 크기를 지정
+ *
+ * @returns {JSX.Element} 크기와 애니메이션이 적용된 스켈레톤 박스
+ */
+export const CircleSkeleton = ({ circleSizeConfig }: { circleSizeConfig: string }) => {
+    return (
+        <div
+            className={`
+                ${circleSizeConfig} rounded-full bg-[length:200%_100%]
+                bg-gradient-to-r from-neutral-white-opacity5 via-neutral-white-opacity10 to-neutral-white-opacity5 motion-safe:animate-[var(--animate-wave)]
+            `}
+        />
+    )
+}

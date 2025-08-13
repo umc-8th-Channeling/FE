@@ -1,12 +1,23 @@
 import { useState } from 'react'
 import Textarea from '../../../components/Textarea'
 import { EditButton } from '../../../components/EditButton'
+import { useUpdateChannelConcept } from '../../../hooks/channel/useUpdateIdentity'
+import { useAuthStore } from '../../../stores/authStore'
 
 type Mode = 'VIEW' | 'EDIT' | 'ACTIVE_COMPLETE'
 
-const Conceptbox = () => {
+interface ConceptboxProps {
+    conceptValue: string
+    setConceptValue: (val: string) => void
+}
+
+const Conceptbox = ({ conceptValue, setConceptValue }: ConceptboxProps) => {
     const [mode, setMode] = useState<Mode>('VIEW')
-    const [value, setValue] = useState('')
+
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
+
+    const { mutate: updateConcept } = useUpdateChannelConcept()
 
     const actionMap = {
         ['VIEW']: {
@@ -24,7 +35,22 @@ const Conceptbox = () => {
         ['ACTIVE_COMPLETE']: {
             buttonColor: 'text-primary-500',
             label: '완료',
-            onClick: () => setMode('VIEW'),
+            onClick: () => {
+                setMode('VIEW')
+                if (!channelId) return
+                updateConcept(
+                    { channelId, concept: conceptValue },
+                    {
+                        onSuccess: (res) => {
+                            console.log('updateChannelConcept 응답 :', res)
+                            setConceptValue(res.updatedConcept)
+                        },
+                        onError: () => {
+                            alert(' 콘셉트 저장 실패 ')
+                        },
+                    }
+                )
+            },
             isDisabled: false,
         },
     }
@@ -42,10 +68,10 @@ const Conceptbox = () => {
             <div className="mt-[16px]">
                 <Textarea
                     id=""
-                    value={value}
+                    value={conceptValue}
                     disabled={isDisabled}
                     onChange={(newVal) => {
-                        setValue(newVal)
+                        setConceptValue(newVal)
                         setMode('ACTIVE_COMPLETE')
                     }}
                     placeholder="유튜버님의 채널 컨셉에 대한 설명을 입력해주세요."
