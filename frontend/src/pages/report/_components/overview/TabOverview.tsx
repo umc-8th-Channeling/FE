@@ -1,8 +1,9 @@
-import { memo } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { CommentFeedback } from './CommentFeedback'
 import { Evaluation } from './Evaluation'
 import { Summary } from './Summary'
 import { Skeleton } from './Skeleton'
+import { usePoolReportStatus } from '../../../../hooks/report/usePollReportStatus'
 
 const EvaluationAndSummary = memo(() => {
     return (
@@ -13,8 +14,21 @@ const EvaluationAndSummary = memo(() => {
     )
 })
 
-export const TabOverview = () => {
-    const isLoading = false // ✅ 임시
+export const TabOverview = ({ reportId }: { reportId: number }) => {
+    const [isLoading, setIsLoading] = useState(true)
+    const { data: statusData } = usePoolReportStatus(reportId ?? undefined)
+
+    useEffect(() => {
+        const reportStatus = statusData?.result
+
+        if (reportStatus) {
+            if (reportStatus.overviewStatus === 'COMPLETED') {
+                setIsLoading(false)
+            } else {
+                setIsLoading(true)
+            }
+        }
+    }, [statusData])
 
     if (isLoading) return <Skeleton />
 

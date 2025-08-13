@@ -1,9 +1,24 @@
+import { useEffect, useState } from 'react'
 import { TrendKeywords } from './TrendKeywords'
 import { ContentsIdea } from './ContentsIdea'
 import { Skeleton } from './Skeleton'
+import { usePoolReportStatus } from '../../../../hooks/report/usePollReportStatus'
 
-export const TabIdea = () => {
-    const isLoading = false // ✅ 임시
+export const TabIdea = ({ reportId }: { reportId: number }) => {
+    const [isLoading, setIsLoading] = useState(true)
+    const { data: statusData } = usePoolReportStatus(reportId ?? undefined)
+
+    useEffect(() => {
+        const reportStatus = statusData?.result
+
+        if (reportStatus) {
+            if (reportStatus.ideaStatus === 'COMPLETED') {
+                setIsLoading(false)
+            } else {
+                setIsLoading(true)
+            }
+        }
+    }, [statusData])
 
     if (isLoading) return <Skeleton />
 

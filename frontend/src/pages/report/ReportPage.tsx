@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
 import type { ReportVideoSummary } from '../../types/report'
@@ -9,16 +9,19 @@ import { TabOverview, TabAnalysis, TabIdea, VideoSummary, GuestModal, UpdateModa
 import { AUTH_VIDEO, GUEST_VIDEO } from './dummy'
 // import useGetReportAll from '../../hooks/report/useGetReportAll'
 
-const TABS = [
-    { index: 0, label: '개요', component: <TabOverview /> },
-    { index: 1, label: '분석', component: <TabAnalysis /> },
-    { index: 2, label: '아이디어', component: <TabIdea /> },
-]
-
 export default function ReportPage() {
     const { reportId: reportIdParam } = useParams()
     const reportId = Number(reportIdParam)
     const isAuth = useAuthStore((state) => state.isAuth)
+
+    const TABS = useMemo(
+        () => [
+            { index: 0, label: '개요', component: <TabOverview reportId={reportId} /> },
+            { index: 1, label: '분석', component: <TabAnalysis reportId={reportId} /> },
+            { index: 2, label: '아이디어', component: <TabIdea reportId={reportId} /> },
+        ],
+        [reportId]
+    )
 
     const [activeTab, setActiveTab] = useState(TABS[0])
     const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false)

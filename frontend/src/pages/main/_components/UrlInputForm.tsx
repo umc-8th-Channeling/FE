@@ -1,17 +1,37 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import ErrorIcon from '../../../assets/icons/error.svg?react'
 import { useUrlInput } from '../../../hooks/main/useUrlInput'
 import ArrowButton from '../../../components/ArrowButton'
 import { ErrorToast } from './ErrorToast'
+import { usePoolReportStatus } from '../../../hooks/report/usePollReportStatus'
+import { useReportStore } from '../../../stores/reportStore'
 
 export const UrlInputForm = () => {
+    const navigate = useNavigate()
     const [reportId, setReportId] = useState<number | null>(null)
     const [isFocused, setIsFocused] = useState(false)
 
+    const endGenerating = useReportStore((state) => state.actions.endGenerating)
+
     const { register, handleSubmit, isActive, error } = useUrlInput(setReportId)
 
-    console.log(reportId)
+    const { data: statusData } = usePoolReportStatus(reportId ?? undefined)
+
+    useEffect(() => {
+        const reportStatus = statusData?.result
+
+        if (reportStatus) {
+            if (reportStatus.overviewStatus === 'PENDING') {
+                endGenerating()
+                navigate(`/report/${reportId}`)
+            } else {
+                // FAILED 상태에 대한 에러 처리 (모달)
+                console.error('리포트 생성 실패', reportStatus)
+            }
+        }
+    }, [statusData, reportId, navigate, endGenerating])
 
     return (
         <>
