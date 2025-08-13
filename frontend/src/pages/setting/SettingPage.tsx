@@ -6,12 +6,12 @@ import LogoutIcon from '../../assets/icons/logout.svg?react'
 import WithdrawlModal from './_components/WithdrawlModal'
 import ProfileTab from './_components/ProfileTab'
 import ConsentTab from './_components/ConsentTab'
+import { useLogout } from '../../hooks/useLogout'
 import {
     useUpdateMemberAgree,
     useUpdateMemberProfileImage,
     useUpdateMemberSNS,
 } from '../../hooks/mutations/userMutations'
-import { useLogout } from '../../hooks/useLogout'
 import { useAuthStore } from '../../stores/authStore'
 import { useSNSFormStore, type SNSKey } from '../../stores/snsFormStore'
 import { useConsentStore } from '../../stores/consentStore'
@@ -143,9 +143,9 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         <div className="fixed inset-0 z-50 bg-neutral-black-opacity50 flex justify-center items-center tablet:py-10">
             <div
                 className="
-          flex flex-col w-full h-full bg-gray-100 overflow-hidden
-          tablet:rounded-3xl tablet:max-w-[588px] tablet:max-h-[841px] desktop:max-w-[792px] desktop:max-h-[600px]
-        "
+                    flex flex-col w-full h-full bg-gray-100 overflow-hidden
+                    tablet:rounded-3xl tablet:max-w-[588px] tablet:max-h-[841px] desktop:max-w-[792px] desktop:max-h-[600px]
+                "
             >
                 <div className="flex shrink-0 justify-between items-center w-full p-6 bg-gray-100">
                     <h2 className="font-title">설정</h2>

@@ -111,7 +111,10 @@ export default function ProfileTab({
             </div>
 
             <div className="desktop:pb-6">
-                <button className="w-full font-title-bold flex items-center justify-between" onClick={onWithdraw}>
+                <button
+                    className="w-full font-title-bold flex items-center justify-between cursor-pointer"
+                    onClick={onWithdraw}
+                >
                     <span>탈퇴하기</span>
                     <SendIcon />
                 </button>
