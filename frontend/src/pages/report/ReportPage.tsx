@@ -7,6 +7,7 @@ import Refresh from '../../assets/icons/refresh_2.svg?react'
 import Tabs from '../../components/Tabs'
 import { TabOverview, TabAnalysis, TabIdea, VideoSummary, GuestModal, UpdateModal } from './_components'
 import { AUTH_VIDEO, GUEST_VIDEO } from './dummy'
+// import useGetReportAll from '../../hooks/report/useGetReportAll'
 
 const TABS = [
     { index: 0, label: '개요', component: <TabOverview /> },
@@ -15,7 +16,8 @@ const TABS = [
 ]
 
 export default function ReportPage() {
-    const { reportId } = useParams()
+    const { reportId: reportIdParam } = useParams()
+    const reportId = Number(reportIdParam)
     const isAuth = useAuthStore((state) => state.isAuth)
 
     const [activeTab, setActiveTab] = useState(TABS[0])
@@ -29,6 +31,8 @@ export default function ReportPage() {
     } else {
         video = GUEST_VIDEO
     }
+
+    // const { data } = useGetReportAll({ reportId })
 
     useEffect(() => {
         setIsOpenGuestModal(!isAuth)

@@ -3,7 +3,7 @@ import { TitledSection } from '../TitledSection'
 // import { DoughnutChart } from '../../../../components/chart'
 import useGetReportComments from '../../../../hooks/report/useGetReportComments'
 import { COMMENT_TYPE, type Comment, type CommentType } from '../../../../types/report/comment'
-import { useParams } from 'react-router-dom'
+// import { useParams } from 'react-router-dom'
 
 const Comments = ({ comments }: { comments: Comment[] | undefined }) => {
     if (!comments || comments.length === 0) return <div />
@@ -22,10 +22,11 @@ const Comments = ({ comments }: { comments: Comment[] | undefined }) => {
 }
 
 export const CommentFeedback = () => {
-    const { reportId } = useParams()
+    // const { reportId } = useParams()
     const [activeTab, setActiveTab] = useState<CommentType>('POSITIVE')
 
-    const { data, isLoading } = useGetReportComments({ reportId: Number(reportId), type: activeTab })
+    // const { data, isLoading } = useGetReportComments({ reportId: Number(reportId), type: activeTab })
+    const { data, isLoading } = useGetReportComments({ reportId: 7, type: activeTab })
 
     const handleTabChange = (tab: CommentType) => setActiveTab(tab)
 

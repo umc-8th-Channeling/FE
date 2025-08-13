@@ -1,6 +1,6 @@
 export const DUMMY_MY = [
     {
-        id: 1,
+        id: 7,
         title: '저 드디어 독립했어요!',
         description: '',
         channelId: 2,
