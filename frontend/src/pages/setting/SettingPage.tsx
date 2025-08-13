@@ -25,8 +25,6 @@ type SettingPageProps = {
 export default function SettingPage({ onClose }: SettingPageProps) {
     const queryClient = useQueryClient()
 
-    const { data: myProfile } = useFetchMyProfile()
-
     const { formData, updateFormValue, setFormData } = useSNSFormStore()
 
     const [activeTab, setActiveTab] = useState<'profile' | 'consent'>('profile')
@@ -41,6 +39,11 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const { mutate: updateProfileImage } = useUpdateMemberProfileImage()
 
     const { user } = useAuthStore()
+
+    const logout = useLogout()
+    const [loggingOut, setLoggingOut] = useState(false)
+
+    const { data: myProfile } = useFetchMyProfile(!loggingOut)
 
     const { marketingEmailAgree, dayContentEmailAgree, setMarketingEmailAgree, setDayContentEmailAgree } =
         useConsentStore()
@@ -87,9 +90,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         setEditing((prev) => !prev)
         setModified(false)
     }
-
-    const logout = useLogout()
-    const [loggingOut, setLoggingOut] = useState(false)
 
     const handleClickLogout = async () => {
         if (loggingOut) return
