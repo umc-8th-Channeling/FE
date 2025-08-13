@@ -1,11 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { EditButton } from '../../../components/EditButton'
+import { useUpdateChannelTarget } from '../../../hooks/channel/useUpdateIdentity'
+import { useAuthStore } from '../../../stores/authStore'
 
 type Mode = 'VIEW' | 'EDIT' | 'ACTIVE_COMPLETE'
 
-const Targetbox = () => {
+interface TargetboxProps {
+    targetValue: string
+    setTargetValue: (val: string) => void
+}
+
+const Targetbox = ({ targetValue, setTargetValue }: TargetboxProps) => {
     const [mode, setMode] = useState<Mode>('VIEW')
-    const [value, setValue] = useState('')
+
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
+
+    const { mutate: updateTarget } = useUpdateChannelTarget()
+
+    useEffect(() => {
+        if (mode == 'VIEW') {
+        }
+    }, [targetValue, mode])
 
     const actionMap = {
         ['VIEW']: {
@@ -21,7 +37,22 @@ const Targetbox = () => {
         ['ACTIVE_COMPLETE']: {
             label: '완료',
             buttonColor: 'text-primary-500',
-            onClick: () => setMode('VIEW'),
+            onClick: () => {
+                setMode('VIEW')
+                if (!channelId) return
+                updateTarget(
+                    { channelId, target: targetValue },
+                    {
+                        onSuccess: (res) => {
+                            console.log('updateChannelTarget 응답 :', res)
+                            setTargetValue(res.updatedTarget)
+                        },
+                        onError: () => {
+                            alert(' 타겟 저장 실패 ')
+                        },
+                    }
+                )
+            },
         },
     }
 
@@ -39,10 +70,10 @@ const Targetbox = () => {
                 className={`mt-[16px] w-full p-[16px] rounded-[16px] text-[16px] placeholder-gray-600 bg-neutral-white-opacity10 border-[1px] border-transparent focus-within:border-gray-400`}
             >
                 <input
-                    value={value}
+                    value={targetValue}
                     disabled={mode === 'VIEW'}
                     onChange={(e) => {
-                        setValue(e.target.value)
+                        setTargetValue(e.target.value)
                         setMode('ACTIVE_COMPLETE')
                     }}
                     className="

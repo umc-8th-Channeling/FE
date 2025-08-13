@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import Modal from '../../../components/Modal'
+import usePostVideoReport from '../../../hooks/my/usePostVideoReport'
+import { useAuthStore } from '../../../stores/authStore'
 
 interface MyReportModalProps {
     title: string
@@ -7,8 +9,12 @@ interface MyReportModalProps {
 }
 
 export const MyReportModal = ({ title, setOpen }: MyReportModalProps) => {
+    const videoId = useAuthStore((state)=>state.)
+
+    const {mutate, isPending} = usePostVideoReport()
     const navigate = useNavigate()
     const getReport = () => {
+        mutate()
         setOpen(false)
         navigate('/report')
     }
