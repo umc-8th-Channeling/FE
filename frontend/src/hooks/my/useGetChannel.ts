@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 
 export function useGetChannel({ channelId }: RequestChannelDto) {
     return useQuery({
-        queryKey: [channelId],
+        queryKey: ['channel', channelId],
         queryFn: () => getChannelDetail({ channelId }),
         enabled: typeof channelId === 'number' && Number.isFinite(channelId) && channelId > 0,
         // 채널 아이디가 없으면 호출 막힘
