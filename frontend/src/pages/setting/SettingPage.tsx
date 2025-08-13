@@ -7,12 +7,12 @@ import WithdrawlModal from './_components/WithdrawlModal'
 import ProfileTab from './_components/ProfileTab'
 import ConsentTab from './_components/ConsentTab'
 
+import { useLogout } from '../../hooks/useLogout'
 import {
     useUpdateMemberAgree,
     useUpdateMemberProfileImage,
     useUpdateMemberSNS,
 } from '../../hooks/mutations/userMutations'
-import { useLogout } from '../../hooks/useLogout'
 import { useAuthStore } from '../../stores/authStore'
 import { useProfileImageStore } from '../../stores/profileImageStore'
 import { useSNSFormStore, type SNSKey } from '../../stores/snsFormStore'
@@ -30,17 +30,17 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const [editing, setEditing] = useState(false)
     const [modified, setModified] = useState(false)
     const [showWithdrawlModal, setShowWithdrawlModal] = useState(false)
-    const [loggingOut, setLoggingOut] = useState(false)
-    
+
     const fileInputRef = useRef<HTMLInputElement>(null)
 
     const { mutate: updateAgree } = useUpdateMemberAgree()
     const { mutate: updateSNS } = useUpdateMemberSNS()
     const { mutate: updateProfileImage } = useUpdateMemberProfileImage()
-    const logout = useLogout()
 
     const { user } = useAuthStore()
+
     const { profileImageUrl, setProfileImageUrl } = useProfileImageStore()
+
     const { marketingEmailAgree, dayContentEmailAgree, setMarketingEmailAgree, setDayContentEmailAgree } =
         useConsentStore()
 
@@ -64,17 +64,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
         const previewUrl = URL.createObjectURL(file)
         setProfileImageUrl(previewUrl)
-      
-        setImageChanged(true)
-    }
-
-    const handleClickLogout = async () => {
-        if (loggingOut) return
-        setLoggingOut(true)
-
-        await logout()
-        onClose?.()
-    }
 
         updateProfileImage(
             { updateProfileImageReq: { image: file } },
@@ -101,6 +90,17 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                 },
             }
         )
+    }
+
+    const logout = useLogout()
+    const [loggingOut, setLoggingOut] = useState(false)
+
+    const handleClickLogout = async () => {
+        if (loggingOut) return
+        setLoggingOut(true)
+
+        await logout()
+        onClose?.()
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -158,9 +158,9 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         <div className="fixed inset-0 z-50 bg-neutral-black-opacity50 flex justify-center items-center tablet:py-10">
             <div
                 className="
-          flex flex-col w-full h-full bg-gray-100 overflow-hidden
-          tablet:rounded-3xl tablet:max-w-[588px] tablet:max-h-[841px] desktop:max-w-[792px] desktop:max-h-[600px]
-        "
+                    flex flex-col w-full h-full bg-gray-100 overflow-hidden
+                    tablet:rounded-3xl tablet:max-w-[588px] tablet:max-h-[841px] desktop:max-w-[792px] desktop:max-h-[600px]
+                "
             >
                 <div className="flex shrink-0 justify-between items-center w-full p-6 bg-gray-100">
                     <h2 className="font-title">설정</h2>
@@ -186,7 +186,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 동의
                             </Button>
                         </div>
-                      
                         <Button
                             variant="ghost"
                             className="flex items-center justify-between"
