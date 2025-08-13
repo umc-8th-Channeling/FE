@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Textarea from '../../../components/Textarea'
 import { EditButton } from '../../../components/EditButton'
 import { useUpdateChannelConcept } from '../../../hooks/channel/useUpdateIdentity'
@@ -18,11 +18,6 @@ const Conceptbox = ({ conceptValue, setConceptValue }: ConceptboxProps) => {
     const channelId = user?.channelId
 
     const { mutate: updateConcept } = useUpdateChannelConcept()
-
-    useEffect(() => {
-        if (mode == 'VIEW') {
-        }
-    }, [conceptValue, mode])
 
     const actionMap = {
         ['VIEW']: {

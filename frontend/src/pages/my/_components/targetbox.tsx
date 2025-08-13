@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { EditButton } from '../../../components/EditButton'
 import { useUpdateChannelTarget } from '../../../hooks/channel/useUpdateIdentity'
 import { useAuthStore } from '../../../stores/authStore'
@@ -17,11 +17,6 @@ const Targetbox = ({ targetValue, setTargetValue }: TargetboxProps) => {
     const channelId = user?.channelId
 
     const { mutate: updateTarget } = useUpdateChannelTarget()
-
-    useEffect(() => {
-        if (mode == 'VIEW') {
-        }
-    }, [targetValue, mode])
 
     const actionMap = {
         ['VIEW']: {
