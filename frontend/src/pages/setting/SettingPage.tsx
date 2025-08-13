@@ -6,6 +6,7 @@ import LogoutIcon from '../../assets/icons/logout.svg?react'
 import WithdrawlModal from './_components/WithdrawlModal'
 import ProfileTab from './_components/ProfileTab'
 import ConsentTab from './_components/ConsentTab'
+import { useLogout } from '../../hooks/useLogout'
 
 type SettingPageProps = {
     onClose?: () => void
@@ -38,6 +39,16 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         const previewUrl = URL.createObjectURL(file)
         setProfileImageUrl(previewUrl)
         setImageChanged(true)
+    }
+    const logout = useLogout()
+    const [loggingOut, setLoggingOut] = useState(false)
+
+    const handleClickLogout = async () => {
+        if (loggingOut) return
+        setLoggingOut(true)
+
+        await logout()
+        onClose?.()
     }
 
     useEffect(() => {
@@ -93,7 +104,12 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 동의
                             </Button>
                         </div>
-                        <Button variant="ghost" className="flex items-center justify-between">
+                        <Button
+                            variant="ghost"
+                            className="flex items-center justify-between"
+                            onClick={handleClickLogout}
+                            disabled={loggingOut}
+                        >
                             <span>로그아웃</span>
                             <LogoutIcon />
                         </Button>
