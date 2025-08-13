@@ -11,7 +11,5 @@ export type MemberSNSDto = {
 }
 
 export type MemberProfileImageDto = {
-    updateProfileImageReq: {
-        image?: string | File
-    }
+    image?: string | File
 }

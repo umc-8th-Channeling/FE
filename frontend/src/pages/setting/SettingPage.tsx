@@ -6,7 +6,6 @@ import LogoutIcon from '../../assets/icons/logout.svg?react'
 import WithdrawlModal from './_components/WithdrawlModal'
 import ProfileTab from './_components/ProfileTab'
 import ConsentTab from './_components/ConsentTab'
-
 import {
     useUpdateMemberAgree,
     useUpdateMemberProfileImage,
@@ -14,33 +13,35 @@ import {
 } from '../../hooks/mutations/userMutations'
 import { useLogout } from '../../hooks/useLogout'
 import { useAuthStore } from '../../stores/authStore'
-import { useProfileImageStore } from '../../stores/profileImageStore'
 import { useSNSFormStore, type SNSKey } from '../../stores/snsFormStore'
 import { useConsentStore } from '../../stores/consentStore'
-import { fetchMyProfile } from '../../api/user'
+import { useQueryClient } from '@tanstack/react-query'
+import { useFetchMyProfile } from '../../hooks/queries/fetchMyProfile'
 
 type SettingPageProps = {
     onClose?: () => void
 }
 
 export default function SettingPage({ onClose }: SettingPageProps) {
+    const queryClient = useQueryClient()
+
+    const { data: myProfile } = useFetchMyProfile()
+
     const { formData, updateFormValue, setFormData } = useSNSFormStore()
 
     const [activeTab, setActiveTab] = useState<'profile' | 'consent'>('profile')
     const [editing, setEditing] = useState(false)
     const [modified, setModified] = useState(false)
     const [showWithdrawlModal, setShowWithdrawlModal] = useState(false)
-    const [loggingOut, setLoggingOut] = useState(false)
-    
+
     const fileInputRef = useRef<HTMLInputElement>(null)
 
     const { mutate: updateAgree } = useUpdateMemberAgree()
     const { mutate: updateSNS } = useUpdateMemberSNS()
     const { mutate: updateProfileImage } = useUpdateMemberProfileImage()
-    const logout = useLogout()
 
     const { user } = useAuthStore()
-    const { profileImageUrl, setProfileImageUrl } = useProfileImageStore()
+
     const { marketingEmailAgree, dayContentEmailAgree, setMarketingEmailAgree, setDayContentEmailAgree } =
         useConsentStore()
 
@@ -62,42 +63,15 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         const file = e.target.files?.[0]
         if (!file) return
 
-        const previewUrl = URL.createObjectURL(file)
-        setProfileImageUrl(previewUrl)
-      
-        setImageChanged(true)
-    }
-
-    const handleClickLogout = async () => {
-        if (loggingOut) return
-        setLoggingOut(true)
-
-        await logout()
-        onClose?.()
-    }
-
         updateProfileImage(
-            { updateProfileImageReq: { image: file } },
+            { image: file },
             {
-                onSuccess: async (data) => {
-                    try {
-                        console.log('프로필 이미지 업로드 성공: ', data)
-                        const response = await fetchMyProfile()
-                        useAuthStore.getState().actions.setUser(response.result)
-
-                        const imageUrl = response.result.profileImage
-                        if (imageUrl) {
-                            setProfileImageUrl(imageUrl) // persist 가능한 실제 URL
-                        }
-                    } catch {
-                        alert('프로필 이미지 갱신에 실패했습니다.')
-                    } finally {
-                        URL.revokeObjectURL(previewUrl)
-                    }
+                onSuccess: (data) => {
+                    console.log('프로필 이미지 업로드 성공: ', data)
+                    queryClient.invalidateQueries({ queryKey: ['my-profile'] })
                 },
                 onError: () => {
                     alert('프로필 이미지 업로드에 실패했습니다.')
-                    URL.revokeObjectURL(previewUrl)
                 },
             }
         )
@@ -112,6 +86,17 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const handleEditToggle = () => {
         setEditing((prev) => !prev)
         setModified(false)
+    }
+
+    const logout = useLogout()
+    const [loggingOut, setLoggingOut] = useState(false)
+
+    const handleClickLogout = async () => {
+        if (loggingOut) return
+        setLoggingOut(true)
+
+        await logout()
+        onClose?.()
     }
 
     const handleWithdrawlConfirm = () => {
@@ -186,7 +171,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 동의
                             </Button>
                         </div>
-                      
                         <Button
                             variant="ghost"
                             className="flex items-center justify-between"
@@ -205,7 +189,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 formData={formData}
                                 editing={editing}
                                 modified={modified}
-                                profileImageUrl={profileImageUrl ?? '/default-profile.png'} // 기본값 처리
+                                profileImageUrl={myProfile?.profileImage ?? '/default-profile.png'} // 기본값 처리
                                 nickname={user?.nickname ?? ''}
                                 googleEmail={user?.googleEmail ?? ''}
                                 onEditToggle={handleEditToggle}

@@ -1,16 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
-import { axiosInstance } from '../../api/axios'
-import type { ResponseMyProfile } from '../../types/channel'
-
-export const fetchMyProfile = async (): Promise<ResponseMyProfile> => {
-    const { data } = await axiosInstance.get('/members')
-    return data.result
-}
+import type { User } from '../../types/channel'
+import { fetchMyProfile as fetchMyProfileAPI } from '../../api/user'
 
 export const useFetchMyProfile = () => {
     return useQuery({
         queryKey: ['my-profile'],
-        queryFn: fetchMyProfile,
+        // import한 API 함수 사용
+        queryFn: async (): Promise<User> => {
+            const data = await fetchMyProfileAPI()
+            return data.result
+        },
         staleTime: Infinity,
     })
 }

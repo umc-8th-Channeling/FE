@@ -19,13 +19,13 @@ export const updateMemberSNS = async ({ instagramLink, tiktokLink, facebookLink,
     return data
 }
 
-export const updateMemberProfileImage = async ({ updateProfileImageReq }: MemberProfileImageDto) => {
+export const updateMemberProfileImage = async ({ image }: MemberProfileImageDto) => {
     const formData = new FormData()
-    if (updateProfileImageReq?.image) {
-        formData.append('image', updateProfileImageReq.image)
+    if (image) {
+        formData.append('image', image)
     }
 
-    const { data } = await axiosInstance.patch('/members/profile-image', formData)
+    const { data } = await axiosInstance.patch('/members/profile-images', formData)
     return data
 }
 
