@@ -1,6 +1,8 @@
 import { useFetchMyProfile } from '../../../hooks/queries/fetchMyProfile'
+import type { User } from '../../../types/channel'
 
 interface NavbarUserInfoProps {
+    user: User
     onUserClick: () => void
 }
 
