@@ -6,11 +6,13 @@ import LogoutIcon from '../../assets/icons/logout.svg?react'
 import WithdrawlModal from './_components/WithdrawlModal'
 import ProfileTab from './_components/ProfileTab'
 import ConsentTab from './_components/ConsentTab'
+
 import {
     useUpdateMemberAgree,
     useUpdateMemberProfileImage,
     useUpdateMemberSNS,
 } from '../../hooks/mutations/userMutations'
+import { useLogout } from '../../hooks/useLogout'
 import { useAuthStore } from '../../stores/authStore'
 import { useProfileImageStore } from '../../stores/profileImageStore'
 import { useSNSFormStore, type SNSKey } from '../../stores/snsFormStore'
@@ -28,17 +30,17 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const [editing, setEditing] = useState(false)
     const [modified, setModified] = useState(false)
     const [showWithdrawlModal, setShowWithdrawlModal] = useState(false)
-
+    const [loggingOut, setLoggingOut] = useState(false)
+    
     const fileInputRef = useRef<HTMLInputElement>(null)
 
     const { mutate: updateAgree } = useUpdateMemberAgree()
     const { mutate: updateSNS } = useUpdateMemberSNS()
     const { mutate: updateProfileImage } = useUpdateMemberProfileImage()
+    const logout = useLogout()
 
     const { user } = useAuthStore()
-
     const { profileImageUrl, setProfileImageUrl } = useProfileImageStore()
-
     const { marketingEmailAgree, dayContentEmailAgree, setMarketingEmailAgree, setDayContentEmailAgree } =
         useConsentStore()
 
@@ -62,6 +64,17 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
         const previewUrl = URL.createObjectURL(file)
         setProfileImageUrl(previewUrl)
+      
+        setImageChanged(true)
+    }
+
+    const handleClickLogout = async () => {
+        if (loggingOut) return
+        setLoggingOut(true)
+
+        await logout()
+        onClose?.()
+    }
 
         updateProfileImage(
             { updateProfileImageReq: { image: file } },
@@ -141,10 +154,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         })
     }
 
-    const handleLogout = () => {
-        console.log('로그아웃 처리')
-    }
-
     return (
         <div className="fixed inset-0 z-50 bg-neutral-black-opacity50 flex justify-center items-center tablet:py-10">
             <div
@@ -177,7 +186,13 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 동의
                             </Button>
                         </div>
-                        <Button variant="ghost" className="flex items-center justify-between" onClick={handleLogout}>
+                      
+                        <Button
+                            variant="ghost"
+                            className="flex items-center justify-between"
+                            onClick={handleClickLogout}
+                            disabled={loggingOut}
+                        >
                             <span>로그아웃</span>
                             <LogoutIcon />
                         </Button>
