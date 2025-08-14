@@ -55,7 +55,9 @@ export default function RootLayout() {
                         `}
                     >
                         <ScrollToTop />
-                        <Outlet />
+                        <div key={location.pathname} className="page-transition">
+                            <Outlet />
+                        </div>
                     </div>
                 </div>
 

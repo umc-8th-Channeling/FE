@@ -4,6 +4,7 @@ import Input from './SettingInput'
 import { EditButton } from '../../../components/EditButton'
 import SendIcon from '../../../assets/icons/send.svg?react'
 import CameraIcon from '../../../assets/icons/camera.svg?react'
+import ProfileImage from './ProfileImage'
 
 const labelMap = {
     instagram: '인스타',
@@ -18,8 +19,11 @@ type Props = {
     formData: Record<SNSKey, string>
     editing: boolean
     modified: boolean
-    profileImageUrl: string
+    profileImageUrl: string | null
+    nickname: string
+    googleEmail: string
     onEditToggle: () => void
+    onSaveSNS: () => void
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     onCameraClick: () => void
@@ -32,24 +36,31 @@ export default function ProfileTab({
     editing,
     modified,
     profileImageUrl,
+    nickname,
+    googleEmail,
     onEditToggle,
+    onSaveSNS,
     onChange,
     onFileChange,
     onCameraClick,
     onWithdraw,
     fileInputRef,
 }: Props) {
+    const handleEditButtonClick = () => {
+        if (editing) {
+            onSaveSNS()
+        }
+        onEditToggle()
+    }
+
     return (
         <div className="flex flex-col gap-10 w-full">
             <input type="file" accept="image/*" ref={fileInputRef} className="hidden" onChange={onFileChange} />
 
             {/* 프로필 이미지 */}
             <div className="flex items-center justify-center w-full">
-                <div className="relative w-[100px] h-[100px]">
-                    <div
-                        className="w-full h-full rounded-full bg-cover bg-no-repeat bg-center bg-[lightgray]"
-                        style={{ backgroundImage: `url(${profileImageUrl})` }}
-                    />
+                <div className="relative">
+                    <ProfileImage imageUrl={profileImageUrl} className="w-[100px] h-[100px]" />
                     <button
                         className="absolute bottom-0 right-0 w-8 h-8 p-1 flex items-center justify-center rounded-full bg-gray-200"
                         onClick={onCameraClick}
@@ -63,11 +74,11 @@ export default function ProfileTab({
             <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
                     <Label className="font-body-bold text-gray-600">닉네임</Label>
-                    <div className="font-title">찰스엔터</div>
+                    <div className="font-title">{nickname}</div>
                 </div>
                 <div className="flex flex-col gap-2">
                     <Label className="font-body-bold text-gray-600">이메일</Label>
-                    <div className="font-title">kjh213513@gmail.com</div>
+                    <div className="font-title">{googleEmail}</div>
                 </div>
             </div>
 
@@ -76,7 +87,7 @@ export default function ProfileTab({
                 <div className="flex justify-between items-center">
                     <Label className="font-body-bold">SNS 링크 추가</Label>
                     <EditButton
-                        onClick={onEditToggle}
+                        onClick={handleEditButtonClick}
                         label={editing ? '완료' : '수정'}
                         buttonColor={editing ? (modified ? 'text-primary-500' : 'text-gray-600') : 'text-gray-900'}
                     />
@@ -100,7 +111,10 @@ export default function ProfileTab({
             </div>
 
             <div className="desktop:pb-6">
-                <button className="w-full font-title-bold flex items-center justify-between" onClick={onWithdraw}>
+                <button
+                    className="w-full font-title-bold flex items-center justify-between cursor-pointer"
+                    onClick={onWithdraw}
+                >
                     <span>탈퇴하기</span>
                     <SendIcon />
                 </button>

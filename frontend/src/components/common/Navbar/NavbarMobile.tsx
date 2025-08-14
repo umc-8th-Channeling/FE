@@ -38,7 +38,7 @@ export const NavbarMobile = () => {
                 >
                     <MenuIcon />
                 </button>
-                <Channeling aria-label="Channeling 글자 로고" />
+                <Channeling className="text-primary-500" aria-label="Channeling 글자 로고" />
             </div>
 
             {/* 슬라이드형 사이드 바 */}

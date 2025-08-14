@@ -12,13 +12,11 @@ export const LoginModal = ({ onClose }: { onClose: () => void }) => {
                 type="button"
                 className="
                     flex items-center py-4 px-6
-                    gap-4 rounded-xl
+                    gap-4 rounded-xl cursor-pointer
                     bg-gray-300 hover:bg-neutral-white-opacity20
                     text-gray-900 font-bold text-base leading-6 tracking-[-0.4px] text-center
                 "
                 onClick={() => {
-                    // 1) 실제로는 여기서 구글 로그인 처리하고,
-
                     window.location.href = import.meta.env.VITE_SERVER_API_URL + '/members/login/google'
                 }}
             >

@@ -57,7 +57,7 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
                 onClick={(e) => e.stopPropagation()}
                 className={clsx(
                     'relative w-[328px] tablet:w-[588px] px-4 py-2 tablet:px-6 tablet:py-4 gap-x-2 rounded-full',
-                    'bg-surface-elevate-l3 border transition-colors duration-300',
+                    'bg-surface-elevate-l3 border transition-colors duration-300 modal-animation',
                     {
                         'border-2 border-error': error,
                         'border-gray-400': !error && isFocused,
