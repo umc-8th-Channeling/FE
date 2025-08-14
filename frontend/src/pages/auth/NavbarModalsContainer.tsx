@@ -15,7 +15,7 @@ export const NavbarModalsContainer = () => {
     const [viewerValue, setViewerValue] = useState('')
     const [channelConceptValue, setChannelConceptValue] = useState('')
 
-    const channelId = useAuthStore((state) => state.channelId)
+    const channelId = useAuthStore((state) => state.user?.channelId)
 
     const finishLoginAndAuthenticate = () => {
         setAuthMember()
@@ -74,7 +74,8 @@ export const NavbarModalsContainer = () => {
                                             setChannelConceptValue('') // 입력 초기화
                                             finishLoginAndAuthenticate()
                                         },
-                                        onError: () => {
+                                        onError: (err) => {
+                                            console.error('채널 콘셉트 실패:', err)
                                             alert('채널 콘셉트 저장 실패')
                                         },
                                     }
