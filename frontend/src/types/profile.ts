@@ -54,7 +54,7 @@ export type ChannelDto = {
 }
 export type RequestChannelVideoDto = {
     channelId: number
-    type: 'PEOPLE_AND_BLOGS' | 'FILM_AND_ANIMATION'
+    type: 'LONG' | 'SHORTS'
     page?: number
     size?: number
 }
@@ -81,3 +81,9 @@ export type ChannelVideoListDto = {
 }
 
 export type ChannelVideoDto = NonNullable<ResponseChannelVideoDto['result']>['videoList'][number]
+
+export type MyVideoReportDto = {
+    videoId: number
+}
+
+export type ResponseMyVideoReportDto = CommonResponse<MyVideoReportDto>

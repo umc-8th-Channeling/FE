@@ -26,7 +26,7 @@ export default function MyVideoCard({ video }: MyVideoCardProps) {
                     </div>
                 </div>
             </div>
-            {open && <MyReportModal title={video.title} setOpen={setOpen} />}
+            {open && <MyReportModal videoId={video.id} title={video.title} setOpen={setOpen} />}
         </>
     )
 }
