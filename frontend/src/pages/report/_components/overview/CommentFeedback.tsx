@@ -5,6 +5,7 @@ import useGetReportComments from '../../../../hooks/report/useGetReportComments'
 import { COMMENT_TYPE, type Comment, type CommentType } from '../../../../types/report/comment'
 import { useParams } from 'react-router-dom'
 import type { OverviewDataProps } from '../../../../types/report/all'
+import { CommentSkeleton } from './CommentSkeleton'
 
 const Comments = ({ comments }: { comments: Comment[] | undefined }) => {
     if (!comments || comments.length === 0) return <div />
@@ -75,7 +76,7 @@ export const CommentFeedback = ({ data }: OverviewDataProps) => {
                             </button>
                         ))}
                     </div>
-                    {isLoading ? <div /> : <Comments comments={commentsData!.commentList} />}
+                    {isLoading ? <CommentSkeleton /> : <Comments comments={commentsData!.commentList} />}
                 </div>
             </div>
         </TitledSection>
