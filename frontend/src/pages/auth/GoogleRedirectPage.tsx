@@ -23,8 +23,10 @@ const GoogleLoginRedirectPage = () => {
 
         if (message === 'Success' && accessToken && channelId) {
             setAccessToken(accessToken)
+
             setChannelId(channelId)
             setIsNew(isNew.toString())
+
             navigate('/')
         } else {
             alert('로그인 실패! 다시 시도해주세요.')

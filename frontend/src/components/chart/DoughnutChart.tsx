@@ -2,10 +2,10 @@ import { useRef } from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, type ScriptableContext, type ChartEvent } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 
-import type { TabItem } from '../../types/common'
 import { iconDefaultPlugin, iconActivePlugin } from './iconPlugin'
 import { activeTooltipPlugin, externalTooltipHandler } from './tooltipPlugins'
 import './tooltip.css'
+import type { CommentTypeValue } from '../../types/report/comment'
 
 ChartJS.register(ArcElement, Tooltip)
 
@@ -18,14 +18,13 @@ export interface CustomPluginsOptions {
 
 interface DoughnutChartProps {
     data: number[]
-    tabs: TabItem[]
+    labels: CommentTypeValue[]
     activeIndex: number
-    onClickSegment?: (tab: TabItem) => void
+    onClickSegment?: (index: number) => void
 }
 
-export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: DoughnutChartProps) => {
+export const DoughnutChart = ({ data, labels, activeIndex, onClickSegment }: DoughnutChartProps) => {
     const chartRef = useRef<ChartJS<'doughnut', number[], unknown> | null>(null)
-    const labels = tabs.map((tab) => tab.label)
 
     const defaultData = {
         labels,
@@ -67,7 +66,7 @@ export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: Dough
             customPlugin: { activeIndex },
         },
         onClick: (evt: ChartEvent) => {
-            if (!chartRef.current) return
+            if (!chartRef.current || !onClickSegment) return
             const points = chartRef.current.getElementsAtEventForMode(
                 evt as unknown as Event,
                 'nearest',
@@ -77,7 +76,7 @@ export const DoughnutChart = ({ data, tabs, activeIndex, onClickSegment }: Dough
 
             if (points.length) {
                 const index = points[0].index
-                if (onClickSegment) onClickSegment(tabs[index])
+                if (onClickSegment) onClickSegment(index)
             }
         },
     }

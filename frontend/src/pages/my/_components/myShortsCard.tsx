@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import type { Shorts } from '../../../types/profile'
+import type { Video } from '../../../types/profile'
 import { formatKoreanNumber, formatRelativeTime } from '../../../utils/format'
 import { MyReportModal } from './myReportModal'
 
 interface MyShortsCardProps {
-    shorts: Shorts
+    shorts: Video
 }
 
 export default function MyShortsCard({ shorts }: MyShortsCardProps) {
@@ -28,7 +28,7 @@ export default function MyShortsCard({ shorts }: MyShortsCardProps) {
                     </div>
                 </div>
             </div>
-            {open && <MyReportModal title={shorts.title} setOpen={setOpen} />}
+            {open && <MyReportModal videoId={shorts.id} title={shorts.title} setOpen={setOpen} />}
         </>
     )
 }

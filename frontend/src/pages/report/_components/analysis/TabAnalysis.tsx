@@ -1,16 +1,27 @@
 import { AlgorithmOptimization } from './AlgorithmOptimization'
 import { ViewerExitAnalysis } from './ViewerExitAnalysis'
 import { Skeleton } from './Skeleton'
+import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatus'
+import useGetReportAnalysis from '../../../../hooks/report/useGetReportAnalysis'
 
-export const TabAnalysis = () => {
-    const isLoading = false // ✅ 임시
+export const TabAnalysis = ({ reportId }: { reportId: number }) => {
+    const { data: statusData } = usePollReportStatus(reportId ?? undefined)
+
+    const isCompleted = statusData?.result?.analysisStatus === 'COMPLETED'
+
+    const { data: analysisData, isLoading: isAnalysisLoading } = useGetReportAnalysis({
+        reportId,
+        enabled: isCompleted,
+    })
+
+    const isLoading = !isCompleted || isAnalysisLoading || !analysisData
 
     if (isLoading) return <Skeleton />
 
     return (
         <div className="space-y-16">
-            <ViewerExitAnalysis />
-            <AlgorithmOptimization />
+            <ViewerExitAnalysis data={analysisData} />
+            <AlgorithmOptimization data={analysisData} />
         </div>
     )
 }

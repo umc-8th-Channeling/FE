@@ -2,12 +2,12 @@ import type { ChannelTargetDto, ChannelConceptDto, ResponseMyProfile } from '../
 import { axiosInstance } from './axios'
 
 export const updateChannelTarget = async ({ channelId, target }: ChannelTargetDto) => {
-    const res = await axiosInstance.patch(`/channels/${channelId}/target`, { target })
+    const res = await axiosInstance.patch(`/channels/${channelId}/targets`, { target })
     return res.data
 }
 
 export const updateChannelConcept = async ({ channelId, concept }: ChannelConceptDto) => {
-    const res = await axiosInstance.patch(`/channels/${channelId}/concept`, { concept })
+    const res = await axiosInstance.patch(`/channels/${channelId}/concepts`, { concept })
     return res.data
 }
 

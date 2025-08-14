@@ -28,6 +28,7 @@ export const ViewerModal = ({ onClose, value, onChange, handleButtonClick }: Vie
                 handleButtonClick={handleButtonClick}
                 placeholder="정확한 분석을 위해 유튜버님의 시청자 타겟에 대한 설명을 입력해주세요. (예: 20대, 여성)"
                 isActive={isActive}
+                maxLength={100}
                 initialRows={getInitialRows()}
             />
         </Modal>

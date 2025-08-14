@@ -1,7 +1,7 @@
 import { TitledSection } from '../TitledSection'
-import { OVERVIEW_SUMMARY } from '../../dummy'
+import type { OverviewDataProps } from '../../../../types/report/all'
 
-export const Summary = () => {
+export const Summary = ({ data }: OverviewDataProps) => {
     return (
         <TitledSection title="영상 요약">
             <div className="p-6 border border-gray-200 rounded-lg bg-surface-elevate-l1 overflow-y-auto">
@@ -11,7 +11,7 @@ export const Summary = () => {
                         tablet:text-[16px] tablet:tracking-[-0.4px]
                     "
                 >
-                    {OVERVIEW_SUMMARY}
+                    {data.summary}
                 </p>
             </div>
         </TitledSection>

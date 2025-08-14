@@ -1,14 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
-import { useReportStore } from '../../../stores/reportStore'
-import { useAuthStore } from '../../../stores/authStore'
-import { useLoginStore } from '../../../stores/LoginStore'
-
 import ArrowButton from '../../../components/ArrowButton'
 import ErrorIcon from '../../../assets/icons/error.svg?react'
 import { useUrlInput } from '../../../hooks/main/useUrlInput'
 import { ErrorToast } from './ErrorToast'
+import useGetVideoData from '../../../hooks/report/useGetVideoData'
 
 interface UrlInputModalProps {
     onClose: () => void
@@ -16,29 +13,24 @@ interface UrlInputModalProps {
 
 export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
     const navigate = useNavigate()
+    const [reportId, setReportId] = useState<number | null>(null)
+    const [videoId, setVideoId] = useState<number | null>(null)
     const [isFocused, setIsFocused] = useState(false)
     const modalRef = useRef<HTMLDivElement>(null)
 
-    const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
-    const startGenerating = useReportStore((state) => state.actions.startGenerating)
-    const endGenerating = useReportStore((state) => state.actions.endGenerating)
-
-    const isAuth = useAuthStore((state) => state.isAuth)
-
-    const { register, handleSubmit, isActive, error, setError } = useUrlInput((url) => {
-        console.log('모달에서 받은 URL:', url)
-
-        if (isAuth) {
-            startGenerating()
-            setTimeout(() => {
-                endGenerating()
-                onClose()
-                navigate('/report/1') // ✅ 임시 네비게이션: API 연결시 응답 영상 id로 수정 필요
-            }, 5000)
-        } else {
-            openLoginFlow()
-        }
+    const { register, handleSubmit, isActive, error } = useUrlInput((newReportId, newVideoId) => {
+        setReportId(newReportId)
+        setVideoId(newVideoId)
     })
+
+    const { data: videoData, isPending } = useGetVideoData(videoId ?? undefined)
+
+    useEffect(() => {
+        if (!isPending && videoData && reportId && videoId) {
+            onClose()
+            navigate(`/report/${reportId}?video=${videoId}`)
+        }
+    }, [isPending, videoData, navigate, reportId, videoId, onClose])
 
     // ESC 키로 모달 창 닫기
     useEffect(() => {
@@ -61,8 +53,6 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
             <button
                 onClick={(e) => {
                     e.stopPropagation()
-                    if (error) setError(null)
-                    else if (!error) setError('유효하지 않은 링크입니다.')
                 }}
                 className="absolute top-6 right-4 cursor-pointer z-10 px-6 py-3 rounded-full bg-primary-400"
             >
@@ -78,7 +68,7 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
                 onClick={(e) => e.stopPropagation()}
                 className={clsx(
                     'relative w-[328px] tablet:w-[588px] px-4 py-2 tablet:px-6 tablet:py-4 gap-x-2 rounded-full',
-                    'bg-surface-elevate-l3 border transition-colors duration-300',
+                    'bg-surface-elevate-l3 border transition-colors duration-300 modal-animation',
                     {
                         'border-2 border-error': error,
                         'border-gray-400': !error && isFocused,

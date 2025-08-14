@@ -1,24 +1,44 @@
+import { memo, useMemo } from 'react'
 import { TitledSection } from '../TitledSection'
-import { IDEA_NEXT_CONTENTS } from '../../dummy'
 import BookmarkInactive from '../../../../assets/icons/bookmark.svg?react'
 import BookmarkActive from '../../../../assets/icons/bookmark_active.svg?react'
+import type { Idea, IdeaDataProps } from '../../../../types/report/all'
+import usePatchReportIdeaBookmark from '../../../../hooks/report/usePatchReportIdeaBookmark'
 
-export const ContentsIdea = () => {
+export const ContentsIdea = ({ data }: IdeaDataProps) => {
+    const { idea: ideas } = data
+
     return (
         <TitledSection title="다음 콘텐츠 아이디어">
-            <div className="space-y-6">
-                {IDEA_NEXT_CONTENTS.map((idea, index) => (
-                    <IdeaBox key={index} idea={idea} />
-                ))}
-            </div>
+            {!ideas || ideas.length === 0 ? (
+                <p className="text-gray-500 text-center py-4">콘텐츠 아이디어가 없습니다.</p>
+            ) : (
+                <div className="space-y-6">
+                    {ideas.map((idea, index) => (
+                        <IdeaBox key={index} idea={idea} />
+                    ))}
+                </div>
+            )}
         </TitledSection>
     )
 }
 
-const IdeaBox = ({ idea }: { idea: (typeof IDEA_NEXT_CONTENTS)[0] }) => {
+const IdeaBox = memo(({ idea }: { idea: Idea }) => {
+    const { mutate: updateBookmark } = usePatchReportIdeaBookmark()
+
     const handleBookmarkClick = () => {
-        console.log('Idea Tab of Report Page: bookmarked #', idea.id)
+        updateBookmark({ ideaId: idea.ideaId })
     }
+
+    const parsedHashTags: string[] = useMemo(() => {
+        try {
+            // hashTag가 문자열로 오는 경우 배열로 파싱
+            return Array.isArray(idea.hashTag) ? idea.hashTag : JSON.parse(idea.hashTag)
+        } catch (e) {
+            console.error('해시태그 파싱 실패:', e)
+            return []
+        }
+    }, [idea.hashTag])
 
     return (
         <div className="relative p-6 space-y-4 rounded-lg border border-gray-200 bg-surface-elevate-l1">
@@ -29,14 +49,14 @@ const IdeaBox = ({ idea }: { idea: (typeof IDEA_NEXT_CONTENTS)[0] }) => {
 
                 {/* 북마크 버튼 */}
                 <button onClick={handleBookmarkClick} className="cursor-pointer">
-                    {idea.hasBookmark ? <BookmarkActive /> : <BookmarkInactive />}
+                    {idea.isBookMarked ? <BookmarkActive /> : <BookmarkInactive />}
                 </button>
             </div>
             <p className="min-h-[calc(1em*1.5*2)] line-clamp-2 text-[14px] tablet:text-[18px] leading-[150%] tracking-[-0.45px] text-gray-600">
-                {idea.description}
+                {idea.content}
             </p>
             <div className="flex flex-row flex-wrap gap-2">
-                {idea.tags.map((tag, index) => (
+                {Object.values(parsedHashTags).map((tag, index) => (
                     <p
                         key={index}
                         className="px-2 py-1 rounded-xs bg-primary-opacity50 text-[14px] tablet:text-[16px] font-medium leading-[150%] tracking-[-0.4px]"
@@ -47,4 +67,4 @@ const IdeaBox = ({ idea }: { idea: (typeof IDEA_NEXT_CONTENTS)[0] }) => {
             </div>
         </div>
     )
-}
+})

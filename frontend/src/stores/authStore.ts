@@ -7,6 +7,8 @@ interface AuthActions {
     setAuthGuest: () => void
     setAuthMember: () => void
     setChannelId: (channelId: number) => void
+    setProfileImage: (url: string | null) => void
+    clearAuth: () => void
 }
 
 interface AuthState {
@@ -28,6 +30,18 @@ export const useAuthStore = create<AuthState>()(
                     setAuthGuest: () => set({ isAuth: false }),
                     setAuthMember: () => set({ isAuth: true }),
                     setChannelId: (channelId) => set({ channelId }),
+                    setProfileImage: (url) =>
+                        set(
+                            (state): Partial<AuthState> => ({
+                                user: state.user ? { ...state.user, profileImage: url } : null,
+                            })
+                        ),
+                    clearAuth: () =>
+                        set({
+                            channelId: null,
+                            user: null,
+                            isAuth: false,
+                        }),
                 },
             }),
             {

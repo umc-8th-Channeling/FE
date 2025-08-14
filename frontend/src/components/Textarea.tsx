@@ -8,6 +8,7 @@ interface TextareaProps {
     initialRows?: number // row 개수로 textarea 박스의 초기 높이를 지정할 수 있습니다. 디폴트는 1
     disabled?: boolean
     className?: string
+    maxLength?: number
 }
 
 const Textarea = ({
@@ -18,6 +19,7 @@ const Textarea = ({
     initialRows = 1,
     children,
     disabled = false,
+    maxLength,
     className,
 }: PropsWithChildren<TextareaProps>) => {
     const [isFocused, setIsFocused] = useState(false)
@@ -61,6 +63,7 @@ const Textarea = ({
                 onBlur={() => setIsFocused(false)}
                 rows={initialRows}
                 placeholder={placeholder}
+                maxLength={maxLength}
                 className="
                     w-full h-fit max-h-[120px] px-2 outline-none resize-none focus:placeholder-transparent
                     text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]

@@ -6,68 +6,146 @@ import LogoutIcon from '../../assets/icons/logout.svg?react'
 import WithdrawlModal from './_components/WithdrawlModal'
 import ProfileTab from './_components/ProfileTab'
 import ConsentTab from './_components/ConsentTab'
+import { useLogout } from '../../hooks/useLogout'
+import {
+    useUpdateMemberAgree,
+    useUpdateMemberProfileImage,
+    useUpdateMemberSNS,
+} from '../../hooks/mutations/userMutations'
+import { useAuthStore } from '../../stores/authStore'
+import { useSNSFormStore, type SNSKey } from '../../stores/snsFormStore'
+import { useConsentStore } from '../../stores/consentStore'
+import { useQueryClient } from '@tanstack/react-query'
+import { useFetchMyProfile } from '../../hooks/queries/fetchMyProfile'
 
 type SettingPageProps = {
     onClose?: () => void
 }
 
 export default function SettingPage({ onClose }: SettingPageProps) {
-    const [formData, setFormData] = useState({
-        instagram: '',
-        tiktok: '',
-        facebook: '',
-        x: '',
-    })
+    const queryClient = useQueryClient()
+
+    const { formData, updateFormValue, setFormData } = useSNSFormStore()
 
     const [activeTab, setActiveTab] = useState<'profile' | 'consent'>('profile')
-    const [marketingEmail, setMarketingEmail] = useState(false)
-    const [dailyContentEmail, setDailyContentEmail] = useState(true)
     const [editing, setEditing] = useState(false)
     const [modified, setModified] = useState(false)
     const [showWithdrawlModal, setShowWithdrawlModal] = useState(false)
 
-    const [profileImageUrl, setProfileImageUrl] = useState('/path-to-image.jpg')
     const fileInputRef = useRef<HTMLInputElement>(null)
-    const [imageChanged, setImageChanged] = useState(false)
+
+    const { mutate: updateAgree } = useUpdateMemberAgree()
+    const { mutate: updateSNS } = useUpdateMemberSNS()
+    const { mutate: updateProfileImage } = useUpdateMemberProfileImage()
+
+    const { user } = useAuthStore()
+
+    const logout = useLogout()
+    const [loggingOut, setLoggingOut] = useState(false)
+
+    const { data: myProfile } = useFetchMyProfile(!loggingOut)
+
+    const { marketingEmailAgree, dayContentEmailAgree, setMarketingEmailAgree, setDayContentEmailAgree } =
+        useConsentStore()
+
+    useEffect(() => {
+        if (!user) return
+        const hasAny = formData.instagram || formData.tiktok || formData.facebook || formData.x
+        if (hasAny) return
+        setFormData({
+            instagram: user.instagramLink ?? '',
+            tiktok: user.tiktokLink ?? '',
+            facebook: user.facebookLink ?? '',
+            x: user.twitterLink ?? '',
+        })
+    }, [user, formData.instagram, formData.tiktok, formData.facebook, formData.x, setFormData])
 
     const handleCameraClick = () => fileInputRef.current?.click()
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
         if (!file) return
-        const previewUrl = URL.createObjectURL(file)
-        setProfileImageUrl(previewUrl)
-        setImageChanged(true)
+
+        updateProfileImage(
+            { image: file },
+            {
+                onSuccess: (data) => {
+                    console.log('프로필 이미지 업로드 성공: ', data)
+                    queryClient.invalidateQueries({ queryKey: ['my-profile'] })
+                },
+                onError: () => {
+                    alert('프로필 이미지 업로드에 실패했습니다.')
+                },
+            }
+        )
     }
 
-    useEffect(() => {
-        if (imageChanged) {
-            console.log('이미지 저장됨:', profileImageUrl)
-            setImageChanged(false)
-        }
-    }, [profileImageUrl, imageChanged])
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
+        const { name, value } = e.target
+        updateFormValue(name as SNSKey, value)
         setModified(true)
     }
 
     const handleEditToggle = () => {
-        setEditing(!editing)
+        setEditing((prev) => !prev)
         setModified(false)
+    }
+
+    const handleClickLogout = async () => {
+        if (loggingOut) return
+        setLoggingOut(true)
+
+        await logout()
+        onClose?.()
     }
 
     const handleWithdrawlConfirm = () => {
         setShowWithdrawlModal(false)
+        console.log('회원 탈퇴 처리')
+    }
+
+    const handleAgreeChange = (key: 'marketingEmailAgree' | 'dayContentEmailAgree', value: boolean) => {
+        if (key === 'marketingEmailAgree') setMarketingEmailAgree(value)
+        if (key === 'dayContentEmailAgree') setDayContentEmailAgree(value)
+
+        const payload = {
+            marketingEmailAgree: key === 'marketingEmailAgree' ? value : marketingEmailAgree,
+            dayContentEmailAgree: key === 'dayContentEmailAgree' ? value : dayContentEmailAgree,
+        }
+
+        updateAgree(payload, {
+            onSuccess: (data) => console.log('성공입니다', data),
+            onError: () => alert('존재하지 않는 회원 동의입니다.'),
+        })
+    }
+
+    const handleSaveSNS = () => {
+        const payload = {
+            instagramLink: formData.instagram,
+            tiktokLink: formData.tiktok,
+            facebookLink: formData.facebook,
+            twitterLink: formData.x,
+        }
+
+        updateSNS(payload, {
+            onSuccess: (data) => {
+                console.log('SNS 정보 저장 성공', data)
+                setModified(false)
+                setEditing(false)
+            },
+            onError: () => {
+                alert('SNS 정보 저장에 실패했습니다.')
+            },
+        })
     }
 
     return (
         <div className="fixed inset-0 z-50 bg-neutral-black-opacity50 flex justify-center items-center tablet:py-10">
             <div
                 className="
-          flex flex-col w-full h-full bg-gray-100 overflow-hidden
-          tablet:rounded-3xl tablet:max-w-[588px] tablet:max-h-[841px] desktop:max-w-[792px] desktop:max-h-[600px]
-        "
+                    flex flex-col w-full h-full bg-gray-100 overflow-hidden
+                    tablet:rounded-3xl tablet:max-w-[588px] tablet:max-h-[841px] desktop:max-w-[792px] desktop:max-h-[600px]
+                "
             >
                 <div className="flex shrink-0 justify-between items-center w-full p-6 bg-gray-100">
                     <h2 className="font-title">설정</h2>
@@ -93,7 +171,12 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 동의
                             </Button>
                         </div>
-                        <Button variant="ghost" className="flex items-center justify-between">
+                        <Button
+                            variant="ghost"
+                            className="flex items-center justify-between"
+                            onClick={handleClickLogout}
+                            disabled={loggingOut}
+                        >
                             <span>로그아웃</span>
                             <LogoutIcon />
                         </Button>
@@ -106,9 +189,12 @@ export default function SettingPage({ onClose }: SettingPageProps) {
                                 formData={formData}
                                 editing={editing}
                                 modified={modified}
-                                profileImageUrl={profileImageUrl}
+                                profileImageUrl={myProfile?.profileImage ?? '/default-profile.png'} // 기본값 처리
+                                nickname={user?.nickname ?? ''}
+                                googleEmail={user?.googleEmail ?? ''}
                                 onEditToggle={handleEditToggle}
                                 onChange={handleChange}
+                                onSaveSNS={handleSaveSNS}
                                 onFileChange={handleFileChange}
                                 onCameraClick={handleCameraClick}
                                 onWithdraw={() => setShowWithdrawlModal(true)}
@@ -118,10 +204,10 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
                         {activeTab === 'consent' && (
                             <ConsentTab
-                                marketingEmail={marketingEmail}
-                                dailyContentEmail={dailyContentEmail}
-                                onMarketingChange={setMarketingEmail}
-                                onDailyContentChange={setDailyContentEmail}
+                                marketingEmail={marketingEmailAgree}
+                                dailyContentEmail={dayContentEmailAgree}
+                                onMarketingChange={(value) => handleAgreeChange('marketingEmailAgree', value)}
+                                onDailyContentChange={(value) => handleAgreeChange('dayContentEmailAgree', value)}
                             />
                         )}
                     </div>

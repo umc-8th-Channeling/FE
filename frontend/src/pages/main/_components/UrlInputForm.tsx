@@ -1,53 +1,33 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import ErrorIcon from '../../../assets/icons/error.svg?react'
 import { useUrlInput } from '../../../hooks/main/useUrlInput'
-import { useAuthStore } from '../../../stores/authStore'
-import { useLoginStore } from '../../../stores/LoginStore'
-import { useReportStore } from '../../../stores/reportStore'
-
 import ArrowButton from '../../../components/ArrowButton'
 import { ErrorToast } from './ErrorToast'
+import useGetVideoData from '../../../hooks/report/useGetVideoData'
 
 export const UrlInputForm = () => {
     const navigate = useNavigate()
+    const [reportId, setReportId] = useState<number | null>(null)
+    const [videoId, setVideoId] = useState<number | null>(null)
     const [isFocused, setIsFocused] = useState(false)
 
-    const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
-    const startGenerating = useReportStore((state) => state.actions.startGenerating)
-    const endGenerating = useReportStore((state) => state.actions.endGenerating)
-
-    const isAuth = useAuthStore((state) => state.isAuth)
-
-    const { register, handleSubmit, isActive, error, setError } = useUrlInput((url) => {
-        console.log('메인 페이지에서 받은 URL:', url)
-
-        if (isAuth) {
-            startGenerating()
-            setTimeout(() => {
-                endGenerating()
-                navigate('/report/1') // ✅ 임시 네비게이션: API 연결시 응답 영상 id로 수정 필요
-            }, 5000)
-        } else {
-            openLoginFlow()
-        }
+    const { register, handleSubmit, isActive, error } = useUrlInput((newReportId, newVideoId) => {
+        setReportId(newReportId)
+        setVideoId(newVideoId)
     })
+
+    const { data: videoData, isPending } = useGetVideoData(videoId ?? undefined)
+
+    useEffect(() => {
+        if (!isPending && videoData && reportId && videoId) {
+            navigate(`/report/${reportId}?video=${videoId}`)
+        }
+    }, [isPending, videoData, navigate, reportId, videoId])
 
     return (
         <>
-            {/* 확인 용 임시 버튼 */}
-            <button
-                onClick={() => {
-                    if (error) setError(null)
-                    else if (!error) setError('유효하지 않은 링크입니다.')
-                }}
-                className="absolute top-4 right-4 cursor-pointer px-6 py-3 rounded-full bg-primary-400"
-            >
-                에러 확인 용 버튼
-            </button>
-            {/* 확인 용 임시 버튼 끝 */}
-
             <div className="relative mb-[100px] tablet:mb-20 desktop:mb-[100px]">
                 <form
                     onSubmit={handleSubmit}

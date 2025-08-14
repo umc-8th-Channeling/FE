@@ -14,7 +14,7 @@ export interface User {
     channelId?: number
     nickname: string
     googleEmail: string
-    profileImage: string
+    profileImage: string | null
     instagramLink: string | null
     tiktokLink: string | null
     facebookLink: string | null
@@ -22,3 +22,10 @@ export interface User {
 }
 
 export type ResponseMyProfile = CommonResponse<User>
+
+export type VideoReportDto = {
+    taskId: number
+    videoId: number
+}
+
+export type ResponseVideoReportDto = CommonResponse<VideoReportDto>

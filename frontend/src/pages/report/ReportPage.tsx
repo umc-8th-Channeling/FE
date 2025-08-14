@@ -1,34 +1,42 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
-import type { ReportVideoSummary } from '../../types/report'
 
 import Refresh from '../../assets/icons/refresh_2.svg?react'
 import Tabs from '../../components/Tabs'
-import { TabOverview, TabAnalysis, TabIdea, VideoSummary, GuestModal, UpdateModal } from './_components'
-import { AUTH_VIDEO, GUEST_VIDEO } from './dummy'
-
-const TABS = [
-    { index: 0, label: '개요', component: <TabOverview /> },
-    { index: 1, label: '분석', component: <TabAnalysis /> },
-    { index: 2, label: '아이디어', component: <TabIdea /> },
-]
+import { TabOverview, TabAnalysis, TabIdea, GuestModal, UpdateModal, VideoSummary } from './_components'
+import useGetVideoData from '../../hooks/report/useGetVideoData'
+import { useReportStore } from '../../stores/reportStore'
 
 export default function ReportPage() {
-    const { reportId } = useParams()
+    const { reportId: reportIdParam } = useParams()
+    const [searchParams] = useSearchParams()
+    const videoIdParam = searchParams.get('video')
+
+    const reportId = Number(reportIdParam)
+    const videoId = Number(videoIdParam)
     const isAuth = useAuthStore((state) => state.isAuth)
+    const endGenerating = useReportStore((state) => state.actions.endGenerating)
+
+    const TABS = useMemo(
+        () => [
+            { index: 0, label: '개요', component: <TabOverview reportId={reportId} /> },
+            { index: 1, label: '분석', component: <TabAnalysis reportId={reportId} /> },
+            { index: 2, label: '아이디어', component: <TabIdea reportId={reportId} /> },
+        ],
+        [reportId]
+    )
 
     const [activeTab, setActiveTab] = useState(TABS[0])
     const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false)
     const [isOpenGuestModal, setIsOpenGuestModal] = useState(false) // 전역 상태 전환 필요
 
-    // ✅ 임시 비디오 데이터 (API 연결시 수정)
-    let video: ReportVideoSummary
-    if (reportId) {
-        video = AUTH_VIDEO
-    } else {
-        video = GUEST_VIDEO
-    }
+    const { data: videoData, isPending } = useGetVideoData(videoId)
+
+    // 영상 정보 조회가 성공하면 로딩 스피너를 종료
+    useEffect(() => {
+        if (!isPending) endGenerating()
+    }, [isPending, endGenerating])
 
     useEffect(() => {
         setIsOpenGuestModal(!isAuth)
@@ -41,7 +49,7 @@ export default function ReportPage() {
     return (
         <>
             <div className="px-6 tablet:px-[76px] py-10 desktop:py-20 space-y-10">
-                <VideoSummary video={video} />
+                <VideoSummary data={videoData} />
                 <Tabs tabs={TABS} activeTab={activeTab} onChangeTab={setActiveTab} />
             </div>
 
