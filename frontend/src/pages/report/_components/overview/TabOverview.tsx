@@ -3,7 +3,7 @@ import { CommentFeedback } from './CommentFeedback'
 import { Evaluation } from './Evaluation'
 import { Summary } from './Summary'
 import { Skeleton } from './Skeleton'
-import { usePoolReportStatus } from '../../../../hooks/report/usePollReportStatus'
+import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatus'
 import useGetReportOverview from '../../../../hooks/report/useGetReportOverview'
 import type { OverviewDataProps } from '../../../../types/report/all'
 
@@ -17,7 +17,7 @@ const EvaluationAndSummary = memo(({ data }: OverviewDataProps) => {
 })
 
 export const TabOverview = ({ reportId }: { reportId: number }) => {
-    const { data: statusData } = usePoolReportStatus(reportId ?? undefined)
+    const { data: statusData } = usePollReportStatus(reportId ?? undefined)
 
     const isCompleted = statusData?.result?.overviewStatus === 'COMPLETED'
 

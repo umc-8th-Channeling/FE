@@ -1,11 +1,11 @@
 import { TrendKeywords } from './TrendKeywords'
 import { ContentsIdea } from './ContentsIdea'
 import { Skeleton } from './Skeleton'
-import { usePoolReportStatus } from '../../../../hooks/report/usePollReportStatus'
+import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatus'
 import useGetReportIdea from '../../../../hooks/report/useGetReportIdea'
 
 export const TabIdea = ({ reportId }: { reportId: number }) => {
-    const { data: statusData } = usePoolReportStatus(reportId ?? undefined)
+    const { data: statusData } = usePollReportStatus(reportId ?? undefined)
 
     const isCompleted = statusData?.result?.ideaStatus === 'COMPLETED'
 

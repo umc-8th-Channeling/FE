@@ -28,7 +28,7 @@ export const areAllTasksTerminal = (status: ReportStatus): boolean => {
  * @param reportId - 조회할 리포트의 ID (number 타입)
  * @param options - 폴링 간격 등 추가 옵션
  */
-export const usePoolReportStatus = (reportId: number | undefined, options: UseReportStatusOptions = {}) => {
+export const usePollReportStatus = (reportId: number | undefined, options: UseReportStatusOptions = {}) => {
     const { intervalMs = 3000 } = options // 기본 폴링 간격 3초
 
     return useQuery<ResponseReportStatus, Error>({

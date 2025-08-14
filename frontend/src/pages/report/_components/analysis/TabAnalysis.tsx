@@ -1,11 +1,11 @@
 import { AlgorithmOptimization } from './AlgorithmOptimization'
 import { ViewerExitAnalysis } from './ViewerExitAnalysis'
 import { Skeleton } from './Skeleton'
-import { usePoolReportStatus } from '../../../../hooks/report/usePollReportStatus'
+import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatus'
 import useGetReportAnalysis from '../../../../hooks/report/useGetReportAnalysis'
 
 export const TabAnalysis = ({ reportId }: { reportId: number }) => {
-    const { data: statusData } = usePoolReportStatus(reportId ?? undefined)
+    const { data: statusData } = usePollReportStatus(reportId ?? undefined)
 
     const isCompleted = statusData?.result?.analysisStatus === 'COMPLETED'
 
