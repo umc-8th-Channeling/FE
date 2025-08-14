@@ -1,0 +1,71 @@
+import { useEffect } from 'react'
+import ChevronLeft from '../assets/icons/chevron_left.svg?react'
+import ChevronRight from '../assets/icons/chevron_right.svg?react'
+import { useThrottle } from '../hooks/useThrottle'
+
+interface PagingProps {
+    totalItems: number //데이터 총 개수
+    itemCountPerPage: number //페이지당 보여줄 아이템 개수
+    currentPage: number //현재 페이지
+    startPage: number // 가장 앞 페이지
+    setStartPage: (page: number) => void
+    onChangePage: (page: number) => void
+}
+
+const Pagination = ({
+    totalItems,
+    itemCountPerPage,
+    currentPage,
+    startPage,
+    setStartPage,
+    onChangePage,
+}: PagingProps) => {
+    const totalPageCount = Math.ceil(totalItems / itemCountPerPage) // 총 페이지 수 계산
+    const visiblePages = Array.from({ length: Math.min(5, totalPageCount - startPage + 1) }, (_, i) => startPage + i) // 하단에 보이는 페이지
+    const noNext = startPage + 5 > totalPageCount
+    const noPrev = startPage == 1
+
+    useEffect(() => {
+        if (currentPage >= startPage + 5 && !noNext) setStartPage(currentPage) // 다음 페이지 리스트
+        else if (currentPage <= startPage - 1 && !noPrev) setStartPage(currentPage - 4) // 이전 페이지 리스트
+    }, [noPrev, noNext, startPage, currentPage, setStartPage])
+
+    const throttledChange = useThrottle(onChangePage, 600) //delay 0.6초
+
+    return (
+        <div className="flex items-center gap-[16px]">
+            <ChevronLeft
+                onClick={() => {
+                    if (noPrev) return
+                    throttledChange(startPage - 1)
+                }}
+                className={`cursor-pointer ${noPrev ? 'text-gray-600' : 'text-primary-500'}`}
+                aria-disabled={noPrev ? true : false}
+            />
+            <div className="flex items-start content-start gap-x-[8px] flex-wrap">
+                {visiblePages.map((page) => (
+                    <button
+                        key={page}
+                        className={`flex flex-col w-[36px] h-[36px] justify-center items-center gap-[8px] rounded-[12px] text-gray-900 font-medium text-[16px] cursor-pointer ${
+                            page == currentPage ? 'bg-primary-500' : 'bg-transparent  hover:bg-primary-opacity50'
+                        }`}
+                        onClick={() => {
+                            throttledChange(page)
+                        }}
+                    >
+                        {page}
+                    </button>
+                ))}
+            </div>
+            <ChevronRight
+                onClick={() => {
+                    if (noNext) return
+                    if (startPage + 5 <= totalPageCount) throttledChange(startPage + 5)
+                }}
+                className={`cursor-pointer ${noNext ? 'text-gray-600' : 'text-primary-500'}`}
+                aria-disabled={noNext ? true : false}
+            />
+        </div>
+    )
+}
+export default Pagination

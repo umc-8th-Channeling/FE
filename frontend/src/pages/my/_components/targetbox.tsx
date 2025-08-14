@@ -1,0 +1,85 @@
+import { useState } from 'react'
+import { EditButton } from '../../../components/EditButton'
+import { useUpdateChannelTarget } from '../../../hooks/channel/useUpdateIdentity'
+import { useAuthStore } from '../../../stores/authStore'
+
+type Mode = 'VIEW' | 'EDIT' | 'ACTIVE_COMPLETE'
+
+interface TargetboxProps {
+    targetValue: string
+    setTargetValue: (val: string) => void
+}
+
+const Targetbox = ({ targetValue, setTargetValue }: TargetboxProps) => {
+    const [mode, setMode] = useState<Mode>('VIEW')
+
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
+
+    const { mutate: updateTarget } = useUpdateChannelTarget()
+
+    const actionMap = {
+        ['VIEW']: {
+            label: '수정',
+            buttonColor: 'text-gray-900',
+            onClick: () => setMode('EDIT'),
+        },
+        ['EDIT']: {
+            label: '완료',
+            buttonColor: 'text-gray-600',
+            onClick: () => setMode('EDIT'),
+        },
+        ['ACTIVE_COMPLETE']: {
+            label: '완료',
+            buttonColor: 'text-primary-500',
+            onClick: () => {
+                setMode('VIEW')
+                if (!channelId) return
+                updateTarget(
+                    { channelId, target: targetValue },
+                    {
+                        onSuccess: (res) => {
+                            console.log('updateChannelTarget 응답 :', res)
+                            setTargetValue(res.updatedTarget)
+                        },
+                        onError: () => {
+                            alert(' 타겟 저장 실패 ')
+                        },
+                    }
+                )
+            },
+        },
+    }
+
+    const { label, buttonColor, onClick } = actionMap[mode]
+
+    return (
+        <div className="w-full">
+            <div className="flex flex-row justify-between h-[28px]">
+                <div className=" text-gray-900 font-bold text-[20px] whitespace-nowrap leading-[140%] tracking-[-0.5px]">
+                    시청자 타겟
+                </div>
+                <EditButton onClick={onClick} buttonColor={buttonColor} label={label} />
+            </div>
+            <div
+                className={`mt-[16px] w-full p-[16px] rounded-[16px] text-[16px] placeholder-gray-600 bg-neutral-white-opacity10 border-[1px] border-transparent focus-within:border-gray-400`}
+            >
+                <input
+                    value={targetValue}
+                    disabled={mode === 'VIEW'}
+                    onChange={(e) => {
+                        setTargetValue(e.target.value)
+                        setMode('ACTIVE_COMPLETE')
+                    }}
+                    className="
+                        flex px-2 w-full h-fit outline-none resize-none 
+                        text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
+                    "
+                    placeholder="유튜버님의 시청자 타겟에 대한 설명을 입력해주세요."
+                />
+            </div>
+        </div>
+    )
+}
+
+export default Targetbox

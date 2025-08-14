@@ -1,64 +1,45 @@
-import { useEffect, useRef, useState } from 'react';
-import Arrow from '../assets/icons/arrow.svg?react';
+import ArrowButton from './ArrowButton'
+import type { ButtonType } from '../types/common'
+import Textarea from './Textarea'
 
 interface TextareaWithArrowProps {
-    value: string;
-    onChange: (value: string) => void;
-    placeholder?: string;
-    isActive?: boolean;
+    id: string // textarea 요소의 고유 id
+    value: string // textarea의 현재 값
+    onChange: (value: string) => void // 사용자가 입력한 텍스트가 변경될 때 호출되는 함수
+    placeholder?: string
+    initialRows?: number // row 개수로 textarea 박스의 초기 높이를 지정할 수 있습니다. 디폴트는 1
+
+    isActive?: boolean // 화살표 버튼의 활성화 여부
+    handleButtonClick?: () => void // 화살표 버튼을 클릭했을 때 실행할 함수를 전달합니다.
+    buttonType?: ButtonType // button 태그의 타입을 지정합니다. 디폴트는 button
+    maxLength?: number // 설정 안 하면 무제한 (글자 제한)
 }
 
-const TextareaWithArrow = ({ value, onChange, placeholder, isActive = true }: TextareaWithArrowProps) => {
-    const [isFocused, setIsFocused] = useState(false);
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-    // Desktop, Tablet: 5줄까지 textarea가 늘어납니다. 6줄 부터는 스크롤해서 확인합니다.
-    // Mobile: 3줄까지 textarea가 늘어납니다. 4줄 부터는 스크롤해서 확인합니다.
-    useEffect(() => {
-        const textarea = textareaRef.current;
-        if (!textarea) return;
-
-        textarea.style.height = 'auto';
-
-        const isMobile = window.innerWidth <= 768;
-
-        const maxLines = isMobile ? 3 : 5;
-        const maxHeight = 32 * maxLines;
-        textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + 'px';
-    }, [value]);
-
+const TextareaWithArrow = ({
+    id,
+    value,
+    onChange,
+    placeholder,
+    initialRows = 1,
+    isActive = true,
+    handleButtonClick,
+    maxLength,
+    buttonType = 'button',
+}: TextareaWithArrowProps) => {
     return (
-        <div
-            className={`
-                flex flex-col w-[240px] tablet:w-[540px] desktop:w-[744px] p-4 space-y-6
-                border font-body-16-r placeholder-gray-600 bg-neutral-white-opacity10 rounded-2xl
-                transition duration-300 ${isFocused ? 'border-gray-400' : 'border-transparent'}    
-            `}
+        <Textarea
+            id={id}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            initialRows={initialRows}
+            maxLength={maxLength}
         >
-            <textarea
-                ref={textareaRef}
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-                rows={1}
-                placeholder={placeholder}
-                className="w-full h-fit max-h-[120px] px-2 outline-none resize-none focus:placeholder-transparent"
-            />
-
             <div className="flex justify-end">
-                <button
-                    type="button"
-                    className={`
-                        cursor-pointer right-0 flex justify-center items-center w-10 h-10 rounded-full
-                        transition-colors duration-300 ${isActive ? 'bg-primary-500' : 'bg-neutral-white-opacity10'}
-                    `}
-                >
-                    <Arrow className={`transition-opacity duration-300 ${!isActive ? 'opacity-20' : 'opacity-100'}`} />
-                </button>
+                <ArrowButton type={buttonType} onClick={handleButtonClick} isActive={isActive} className="w-10 h-10" />
             </div>
-        </div>
-    );
-};
+        </Textarea>
+    )
+}
 
-export default TextareaWithArrow;
+export default TextareaWithArrow

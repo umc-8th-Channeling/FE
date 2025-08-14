@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 @import './styles/scrollbar.css';
-@import './styles/typo.css';
 
 @font-face {
     font-family: 'Pretendard';
@@ -26,17 +25,6 @@
 @theme {
     --font-pretendard: 'Pretendard';
 
-    --color-primary-50: #2d0709;
-    --color-primary-100: #520408;
-    --color-primary-200: #750e13;
-    --color-primary-300: #a2191f;
-    --color-primary-400: #da1e28;
-    --color-primary-500: #fa4d56;
-    --color-primary-600: #ff8389;
-    --color-primary-700: #ffb3b8;
-    --color-primary-800: #ffd7d9;
-    --color-primary-900: #fff1f1;
-
     --color-gray-50: #161616;
     --color-gray-100: #262626;
     --color-gray-200: #393939;
@@ -48,26 +36,61 @@
     --color-gray-800: #e0e0e0;
     --color-gray-900: #f4f4f4;
 
+    --color-primary-50: #2d0709;
+    --color-primary-100: #520408;
+    --color-primary-200: #750e13;
+    --color-primary-300: #a2191f;
+    --color-primary-400: #da1e28;
+    --color-primary-500: #fa4d56;
+    --color-primary-600: #ff8389;
+    --color-primary-700: #ffb3b8;
+    --color-primary-800: #ffd7d9;
+    --color-primary-900: #fff1f1;
+    --color-primary-opacity50: #fa4d5680;
+
     --color-surface: var(--color-gray-100);
     --color-surface-elevate-l1: var(--color-gray-100);
     --color-surface-elevate-l2: var(--color-gray-200);
     --color-surface-elevate-l3: var(--color-gray-300);
 
-
     --color-neutral-white: #ffffff;
+    --color-neutral-white-opacity5: #ffffff0d;
     --color-neutral-white-opacity10: #ffffff1a;
     --color-neutral-white-opacity20: #ffffff33;
 
-    --color-neutral--black: #121212;
+    --color-neutral-black: #121212;
     --color-neutral-black-opacity50: #12121280;
 
-    --color-error: #ef4444
+    --color-error: #ef4444;
 
     --breakpoint-desktop: 1440px;
     --breakpoint-tablet: 768px;
-    --breakpoint-mobile: 320px;
+    --breakpoint-mobile: 360px;
 }
 
+@theme {
+    --animate-sway: sway 1s ease-in-out infinite;
+    --animate-wave: wave 2s linear infinite;
+
+    @keyframes sway {
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+        50% {
+            transform: translateX(10px);
+        }
+    }
+
+    @keyframes wave {
+        0% {
+            background-position: 200% 0;
+        }
+        100% {
+            background-position: -200% 0;
+        }
+    }
+}
 
 @layer base {
     * {
@@ -80,6 +103,95 @@
     }
 
     body {
-        @apply bg-surface text-gray-900 font-pretendard font-normal min-w-[320px] overflow-x-hidden overflow-y-scroll;
+        @apply bg-surface text-gray-900 font-pretendard font-normal min-w-[360px] overflow-x-hidden;
+    }
+}
+
+@layer components {
+    .font-title-alt {
+        @apply text-[16px] leading-[140%] font-normal md:text-[24px] md:leading-[140%] md:font-bold;
+    }
+
+    .font-title {
+        @apply text-[16px] leading-[140%] font-normal tracking-[-0.5px] md:text-[20px] md:leading-[140%] md:font-bold;
+    }
+
+    .font-title-medium {
+        @apply text-[16px] leading-[140%] font-normal md:text-[20px] md:leading-[140%] md:font-medium;
+    }
+
+    .font-title-bold {
+        @apply text-[16px] leading-[140%] font-normal tracking-[-0.45px] md:text-[18px] md:leading-[140%] md:font-bold;
+    }
+
+    .font-body {
+        @apply text-[14px] leading-[150%] font-bold md:text-[16px] md:leading-[150%] md:font-normal;
+    }
+
+    .font-body-medium {
+        @apply text-[16px] leading-[150%] font-medium tracking-[-0.4px] md:text-[16px] md:leading-[150%] md:font-medium;
+    }
+
+    .font-body-regular {
+        @apply text-[14px] leading-[150%] font-normal tracking-[-0.4px] md:text-[16px] md:leading-[150%] md:font-normal;
+    }
+
+    .font-body-bold {
+        @apply text-[16px] leading-[150%] font-bold tracking-[-0.4px] md:text-[16px] md:leading-[150%] md:font-bold;
+    }
+
+    .font-caption {
+        @apply text-[12px] leading-[140%] font-normal tracking-[-0.35px] md:text-[14px] md:leading-[140%] md:font-normal;
+    }
+
+    .font-caption-medium {
+        @apply text-[12px] leading-[140%] font-normal tracking-[-0.35px] md:text-[14px] md:leading-[140%] md:font-medium;
+    }
+}
+
+@layer components {
+    .font-label-fixed {
+        @apply text-[16px] leading-[150%] font-normal;
+    }
+
+    .font-footer-fixed {
+        @apply text-[14px] leading-[140%] font-normal tracking-[-0.35px];
+    }
+}
+
+@layer utilities {
+    .multi-line-ellipsis {
+        @apply overflow-hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+
+    .page-transition {
+        animation: fadeIn 0.1s ease-in;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .modal-animation {
+        animation: fadeInScaleUp 0.3s ease-in-out;
+    }
+
+    @keyframes fadeInScaleUp {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 }

@@ -1,0 +1,55 @@
+import { useMemo, useState } from 'react'
+import type { TabItem } from '../types/common'
+
+interface TabsProps {
+    tabs: TabItem[]
+    activeTab?: TabItem // 외부에서 선택된 탭 제어
+    onChangeTab?: (tab: TabItem) => void // 탭 변경 이벤트 콜백 함수
+    textStyle?: string // 텍스트 스타일
+    bgColor?: string // 탭 배경 색상
+    spaceY?: string // tab과 아래 컴포넌트 사이의 간격 (y)
+}
+
+const Tabs = ({
+    tabs,
+    activeTab: controlledActiveTab,
+    onChangeTab,
+    textStyle = 'text-[16px] leading-[140%] tracking-[-0.4px] tablet:text-[18px] tablet:tracking-[-0.45px]',
+    bgColor = 'bg-surface-elevate-l1',
+    spaceY = 'space-y-10',
+}: TabsProps) => {
+    const [internalActiveTab, setInternalActiveTab] = useState(tabs[0])
+    const isControlled = controlledActiveTab !== undefined
+    const activeTab = isControlled ? controlledActiveTab : internalActiveTab
+
+    const handleTabClick = (tab: TabItem) => {
+        if (isControlled && onChangeTab) onChangeTab(tab)
+        else setInternalActiveTab(tab)
+    }
+
+    // 활성화 탭 컴포넌트 메모이제이션
+    const ActiveTabComponent = useMemo(() => {
+        return tabs.find((tab) => tab.index === activeTab.index)?.component
+    }, [activeTab.index, tabs])
+
+    return (
+        <div className={`flex flex-col w-full ${spaceY}`}>
+            <div className={`flex flex-row justify-between p-1 gap-2 rounded-lg ${bgColor}`}>
+                {tabs.map((tab) => (
+                    <button
+                        key={tab.label}
+                        onClick={() => handleTabClick(tab)}
+                        className={`cursor-pointer w-full py-2 rounded-sm transition-colors duration-300 ${textStyle}
+                            ${activeTab.label === tab.label ? 'bg-gray-50 font-bold' : 'bg-transparent font-medium'}
+                        `}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
+            </div>
+            <div>{ActiveTabComponent}</div>
+        </div>
+    )
+}
+
+export default Tabs
