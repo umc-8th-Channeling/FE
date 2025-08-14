@@ -1,48 +1,205 @@
-import type { ReportVideoSummary } from '../../types/report'
+import type { ReportAll } from '../../types/report/all'
+import type { CommentType, ReportComments } from '../../types/report/comment'
 
-export const AUTH_VIDEO: ReportVideoSummary = {
-    id: 1,
-    title: '저 드디어 독립했어요!',
-    videoId: 'GHR8R9i0t4A',
-    // videoId: 'na3kswvVbq8',
-    thumbnail:
-        'https://spangled-bridge-914.notion.site/image/attachment%3A77a4c727-0e03-4344-bab2-477fc4fc8dab%3Aimage.png?table=block&id=22a08691-8f43-8057-9906-f248115469bf&spaceId=719616fc-abf0-4573-86e5-37abb50a4cfb&width=1950&userId=&cache=v2',
-    tag: 'Long-form',
-    channel: {
-        id: 2,
-        title: '찰스엔터',
-        profileImage:
-            'https://spangled-bridge-914.notion.site/image/attachment%3A7eb67923-ecc1-4552-87dc-5353e0029be5%3Aimage.png?table=block&id=22608691-8f43-804d-a067-cb0a9b30207b&spaceId=719616fc-abf0-4573-86e5-37abb50a4cfb&width=2000&userId=&cache=v2',
+export const GUEST_VIDEO: ReportAll = {
+    video: {
+        videoId: 1,
+        title: '저 드디어 독립했어요!',
+        category: 'PEOPLE_AND_BLOGS',
+        uploadDate: new Date('2025-07-16T15:43:34'),
     },
-    viewCount: 170_000,
-    likeCount: 1_300,
-    publishedAt: '2022-11-05T12:00:00+09:00',
     report: {
-        createdAt: '2022-11-05T12:00:00+09:00',
-        updatedAt: '2025-06-21T03:39:00+09:00',
+        reportId: 13,
+        view: 158,
+        viewTopicAvg: 300,
+        viewChannelAvg: 300,
+        likeCount: 2,
+        likeTopicAvg: 300,
+        likeChannelAvg: 300,
+        comment: 14,
+        commentTopicAvg: 300,
+        commentChannelAvg: 300,
+        concept: 25,
+        seo: 75,
+        revisit: 17,
+        summary:
+            'I. 채널 소개 (0:00 - 0:18)  \n화자가 채널링 팀원들에게 인사한다.  \n영상 제작에 대한 고민을 이야기하며 설정을 설명한다.  \n이 영상을 개발을 위한 테스트용이라고 언급한다.\n\nII. 영상 제작 계획 (0:18 - 0:31)  \n화자는 롱폼 테스트용 영상을 제작할 계획을 밝혀낸다.  \n데모데이에서 보여줄 수 없는 콘텐츠에 대해 언급한다.  \n제대로 된 영상 제작의 필요성을 강조한다.',
+        neutralComment: 4,
+        adviceComment: 5,
+        positiveComment: 5,
+        negativeComment: 5,
+        leaveAnalyze:
+            '00:00–00:08 구간 이탈 요약 및 개선안입니다.\n\n1. 이탈 원인\n- 진행 느림: 영상의 진행 속도가 느리고 혼란스러운 주제가 드러나 시청자들이 다음 내용을 기대하지 못하게 됩니다.\n- 주제 불확실성: 영상 시작 부분에서 막연한 고민이 현저히 드러나면서 시청자에게 불확실한 정보가 전달되어 흥미를 잃게 만들 수 있습니다.\n- 감정적 공감 부족: 제작 방향에 대한 고민을 공유하지만, 시청자들이 공감할 수 있는 구체적인 해결책이나 제안이 부족하여 이탈이 발생할 수 있습니다.\n\n2. 개선 방안\n- 명확한 방향성 제시: 영상 시작 부분에서 주제를 명확히 하고, 어떤 내용을 다룰 것인지 확실히 알려 시청자의 관심을 끌어야 합니다.\n- 흥미로운 질문 활용: "오늘은 특정 주제를 깊게 파고들어 보겠습니다."와 같은 도입 문구를 활용하여 시청자의 기대감을 증대시킬 수 있습니다.\n- 구체적인 해결책 제안: 각 고민이나 주제를 설명하는 것 외에도 이를 해결하기 위한 구체적인 방안을 제시함으로써 시청자의 참여와 흥미를 유도해야 합니다.\n\n3. 예상 편집 흐름\n00:00–00:05: 영상 인트로 및 주제 소개 (주요 컨셉과 방향성 설명)\n00:05–00:08: 중요한 질문 제시 및 시청자가 예상할 내용을 암시하여 흥미 유도\n00:08 이후: 본격적인 내용 전개 및 구체적인 해결책 제시',
+        optimization:
+            '## 제목 (3/10)\n**문제:** 현재 제목 "매미"는 키워드가 부족하고 검색 최적화가 이루어지지 않아 노출 가능성이 낮습니다.  \n**개선:** 앞쪽에 핵심 키워드를 배치하고, 내용을 설명할 수 있는 보다 구체적인 제목으로 변경.  \n**예:** "여름의 소리, 매미의 노래 - 자연의 TTS 읽기"\n\n---\n\n## 설명란 (4/10)\n**문제:** 설명란이 너무 간단하여 내용에 대한 충분한 정보를 제공하지 못하고, 유도 문구 등의 요소가 결여되어 있습니다.  \n**개선:** 1~2줄 요약과 함께 영상의 주요 포인트를 설명하는 내용을 추가하고, 타임스탬프, 관련 링크, 콜투액션 등을 포함해야 합니다.  \n**예:** "이 영상은 매미의 소리를 TTS로 재현합니다.  \n* 타임스탬프: 00:00 매미 소리 시작  \n관련 링크: [채널 링크], [SNS 링크]  \n좋아요와 구독 부탁드립니다!"\n\n---\n\n## 해시태그 (2/10)\n**문제:** 현재 해시태그가 전혀 사용되지 않고 있어 검색에서의 가시성이 매우 낮습니다.  \n**개선:** 관련된 해시태그를 추가하여 검색 최적화를 강화.  \n**예:** #여름소리 #매미 #TTS #자연소리 #음악 #ASMR #음향\n\n---\n\n## 썸네일 (5/10)\n**문제:** 현재 썸네일은 매미와 관련된 텍스트나 시각적 요소가 부족하여 사용자의 클릭을 유도하기 어렵습니다.  \n**개선:** 매미의 이미지와 함께 눈에 띄는 텍스트를 추가하여 주목성을 높이고, 색상 대비를 활용하여 시각적으로 매력적인 썸네일 제작.  \n**예:** "여름의 소리!" 또는 "TTS로 듣는 매미!"\n\n---\n\n## 추가 제안\n- **영상 길이:** 현재 32초는 매우 짧아 인지도 확장이 어려운 길이입니다. 1-3분 내외의 길이로 연장하여 내용 추가 및 다양한 요소를 포함시킬 것을 권장합니다.\n  \n- **업로드 시간:** 수요일 오후 6시나 주말 오전 10시 등 일반적으로 사용자의 접속이 높은 시간을 고려하여 업로드 시간을 조정할 필요가 있습니다.\n  \n- **참여율 개선:** 구독자 대비 조회수가 저조합니다. 댓글에 대한 응답을 활발히 하여 꾸준한 소통을 할 필요가 있습니다. 또한, 좋아요를 눌러줄 것을 유도하는 멘트를 영상 중간이나 끝에 삽입하는 것이 좋습니다.\n  \n- **재생목록 활용, 카드/엔드스크린, 커뮤니티 탭 활용:** 재생목록을 생성하여 관련된 콘텐츠를 연결하고, 영상 마지막에 다른 비디오로의 링크를 걸어 시청자에게 다음 비디오로 유도하는 것이 좋습니다. 커뮤니티 탭을 활용해 구독자와의 소통을 강화하면 좋습니다.',
     },
+    idea: [
+        {
+            ideaId: 31,
+            title: '롤드컵의 숨겨진 이야기: 선수들의 비하인드 스토리',
+            content:
+                'DRX, KT, HLE 등 유명 팀의 선수들이 롤드컵에서 겪었던 감동적인 비하인드 스토리를 TTS 기술로 전달합니다. 일상에서의 고통, 성취감, 그리고 팀원들과의 유대를 다룬 영상으로, 팬들에게 더 깊은 감정을 전달할 것입니다.',
+            hashTag: '["롤드컵", "DRX", "KT", "HLE", "비하인드 스토리", "TTS", "감동"]',
+            isBookMarked: false,
+        },
+        {
+            ideaId: 32,
+            title: 'LCK 썸머 시즌 최고의 순간 TOP 10',
+            content:
+                'LCK 썸머 시즌 동안의 최고의 순간들을 TTS를 통해 재조명하는 영상입니다. 각 경기의 하이라이트와 함께 재미있고 흥미로운 해설을 제공하여 시청자들에게 새로운 재미를 선사합니다.',
+            hashTag: '["LCK", "썸머", "하이라이트", "TOP10", "게임", "TTS"]',
+            isBookMarked: false,
+        },
+        {
+            ideaId: 33,
+            title: 'MSI를 통한 글로벌 수익 모델 분석',
+            content:
+                'MSI를 통해 다양한 팀들과 선수들이 어떻게 글로벌 수익을 창출하는지를 분석합니다. 전략, 팬베이스, 스폰서십을 TTS로 정리하여 흥미로운 통계와 사례를 공유합니다.',
+            hashTag: '["MSI", "글로벌 수익", "팀 전략", "팬베이스", "TTS", "스폰서십"]',
+            isBookMarked: false,
+        },
+    ],
+    trend: [
+        {
+            trendKeywordId: 66,
+            keywordType: 'CHANNEL',
+            keyword: '대학생의 일상 관리 비법',
+            score: 90,
+            createdAt: new Date('2025-08-13T15:29:03.824975'),
+        },
+        {
+            trendKeywordId: 67,
+            keywordType: 'CHANNEL',
+            keyword: '2025 대학생의 금융 교육',
+            score: 85,
+            createdAt: new Date('2025-08-13T15:29:03.825127'),
+        },
+        {
+            trendKeywordId: 68,
+            keywordType: 'CHANNEL',
+            keyword: '대학생을 위한 건강한 식사법',
+            score: 88,
+            createdAt: new Date('2025-08-13T15:29:03.825485'),
+        },
+        {
+            trendKeywordId: 69,
+            keywordType: 'CHANNEL',
+            keyword: '20대 대세 취미 생활',
+            score: 84,
+            createdAt: new Date('2025-08-13T15:29:03.825586'),
+        },
+        {
+            trendKeywordId: 70,
+            keywordType: 'CHANNEL',
+            keyword: 'SNS 시대의 자기 표현 팁',
+            score: 80,
+            createdAt: new Date('2025-08-13T15:29:03.826002'),
+        },
+        {
+            trendKeywordId: 71,
+            keywordType: 'CHANNEL',
+            keyword: '2025년 대학생의 여행 트렌드',
+            score: 82,
+            createdAt: new Date('2025-08-13T15:29:03.826086'),
+        },
+    ],
 }
 
-export const GUEST_VIDEO: ReportVideoSummary = {
-    id: 2,
-    title: `
-"수능 잘 보고 고려대에서 만나요" 헬스터디 학생들의 5월 학력평가 성적을 공개합니다 | 헬스터디3 EP.11`,
-    videoId: 'S_H2Re2li0A',
-    thumbnail:
-        'https://spangled-bridge-914.notion.site/image/attachment%3A98b7d8c1-b4cb-4d5d-b986-fafde4f6df5d%3Aimage.png?table=block&id=22608691-8f43-80b6-8012-f1c90b3b4ce2&spaceId=719616fc-abf0-4573-86e5-37abb50a4cfb&width=1130&userId=&cache=v2',
-    tag: 'Long-form',
-    channel: {
-        id: 1,
-        title: '미미미누',
-        profileImage:
-            'https://spangled-bridge-914.notion.site/image/attachment%3A7eb67923-ecc1-4552-87dc-5353e0029be5%3Aimage.png?table=block&id=22608691-8f43-804d-a067-cb0a9b30207b&spaceId=719616fc-abf0-4573-86e5-37abb50a4cfb&width=2000&userId=&cache=v2',
+export const DUMMY_COMMENTS: Record<CommentType, ReportComments> = {
+    POSITIVE: {
+        commentType: 'POSITIVE',
+        commentList: [
+            {
+                commentId: 215,
+                content: '많은 댓글이 긍정적인 에너지를 전달하며 유쾌한 반응을 보였습니다.',
+                commentType: 'POSITIVE',
+            },
+            {
+                commentId: 216,
+                content: '유저들은 콘텐츠에 대한 기대감을 표현하며 즐거움을 나타냈습니다.',
+                commentType: 'POSITIVE',
+            },
+            {
+                commentId: 217,
+                content: '특히 캥거루와 관련된 귀여운 요소에 대한 호감도가 높았습니다.',
+                commentType: 'POSITIVE',
+            },
+            {
+                commentId: 218,
+                content: '댓글에 웃음을 만들어내는 다양한 반응이 이어지기도 했습니다.',
+                commentType: 'POSITIVE',
+            },
+            {
+                commentId: 219,
+                content: '전반적으로 긍정적이고 유머러스한 분위기가 형성되었습니다.',
+                commentType: 'POSITIVE',
+            },
+        ],
     },
-    viewCount: 230_000,
-    likeCount: 3_600,
-    publishedAt: '2025-05-20T12:00:00+09:00',
-    report: {
-        createdAt: '2022-11-05T12:00:00+09:00',
-        updatedAt: '2025-06-21T03:39:00+09:00',
+    NEGATIVE: {
+        commentType: 'NEGATIVE',
+        commentList: [
+            { commentId: 220, content: '많은 댓글에서 매미에 대한 두려움을 표현했습니다.', commentType: 'NEGATIVE' },
+            { commentId: 221, content: "특히 '매미가 너무 무섭다'는 의견이 많았습니다.", commentType: 'NEGATIVE' },
+            {
+                commentId: 222,
+                content: '댓글들은 매미에 대한 부정적인 감정을 주로 담고 있었습니다.',
+                commentType: 'NEGATIVE',
+            },
+            {
+                commentId: 223,
+                content: '사용자들은 매미 소리에 불안감을 느낀다고 언급했습니다.',
+                commentType: 'NEGATIVE',
+            },
+            {
+                commentId: 224,
+                content: '전반적으로 매미를 무서워하는 댓글이 주를 이루었습니다.',
+                commentType: 'NEGATIVE',
+            },
+        ],
+    },
+    NEUTRAL: {
+        commentType: 'NEUTRAL',
+        commentList: [
+            { commentId: 225, content: '댓글에서 매미 소리에 대한 언급이 있었습니다.', commentType: 'NEUTRAL' },
+            { commentId: 226, content: '저녁 메뉴로 삼겹살을 선택한 사용자들이 있었습니다.', commentType: 'NEUTRAL' },
+            { commentId: 227, content: '댓글 가져오는 것에 대한 질문이 있었습니다.', commentType: 'NEUTRAL' },
+            {
+                commentId: 228,
+                content: '다양한 주제로 댓글이 달렸지만 주요 테마는 여름과 음식이었습니다.',
+                commentType: 'NEUTRAL',
+            },
+        ],
+    },
+    ADVICE_OPINION: {
+        commentType: 'ADVICE_OPINION',
+        commentList: [
+            {
+                commentId: 210,
+                content: '댓글들은 매미소리 사용에 대한 흥미로운 반응을 보였습니다.',
+                commentType: 'ADVICE_OPINION',
+            },
+            {
+                commentId: 211,
+                content: '탈모약에 대한 추천 댓글이 여러 번 등장했습니다.',
+                commentType: 'ADVICE_OPINION',
+            },
+            {
+                commentId: 212,
+                content: '머리 빠지는 것에 대한 걱정과 함께 응원의 메시지가 있었습니다.',
+                commentType: 'ADVICE_OPINION',
+            },
+            {
+                commentId: 213,
+                content: '여러 사용자들이 캥거루에 대한 요청을 남겼습니다.',
+                commentType: 'ADVICE_OPINION',
+            },
+            {
+                commentId: 214,
+                content: '탈모와 관련된 걱정이 주를 이루는 댓글들이 많았습니다.',
+                commentType: 'ADVICE_OPINION',
+            },
+        ],
     },
 }
 

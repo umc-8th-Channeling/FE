@@ -1,9 +1,9 @@
 import { memo } from 'react'
 import { formatKoreanDate, formatRelativeTime } from '../../../utils/format'
 import { Tag } from './Tag'
-import type { ReportVideoSummary } from '../../../types/report'
+import type { ReportVideoBasic } from '../../../types/report/all'
 
-export const VideoSummary = memo(({ video }: { video: ReportVideoSummary }) => {
+export const VideoSummary = memo(({ video }: { video: ReportVideoBasic }) => {
     return (
         <div className="flex flex-col tablet:flex-row gap-6">
             <iframe
@@ -15,18 +15,18 @@ export const VideoSummary = memo(({ video }: { video: ReportVideoSummary }) => {
             />
 
             <div className="space-y-2">
-                <Tag text={video.tag} />
+                <Tag text={video.category} />
                 <div>
                     <h3 className="max-h-[68px] line-clamp-2 text-[24px] font-bold leading-[140%] tracking-[-0.6px]">
                         {video.title}
                     </h3>
                     <p className="text-[14px] tablet:text-[16px] font-medium leading-[150%] tracking-[-0.4px]">
-                        업데이트: {formatKoreanDate(video.report.updatedAt)}
+                        업데이트: {formatKoreanDate(video.uploadDate)}
                     </p>
                     <div className="flex flex-row gap-1 whitespace-nowrap text-[14px] tablet:text-[16px] leading-[150%] tracking-[-0.4px] text-gray-600">
-                        <p>{video.channel.title}</p>
+                        <p>{video.title}</p>
                         <span>·</span>
-                        <p>{formatRelativeTime(video.publishedAt)}</p>
+                        <p>{formatRelativeTime(video.uploadDate)}</p>
                     </div>
                 </div>
             </div>

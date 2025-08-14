@@ -1,4 +1,6 @@
-export const DUMMY_POPULAR = {
+import type { RecommededVideos } from '../../types/main'
+
+export const DUMMY_POPULAR: RecommededVideos = {
     list: [
         {
             videoId: 2,
@@ -8,6 +10,7 @@ export const DUMMY_POPULAR = {
             videoCategory: 'PEOPLE_AND_BLOGS',
             viewCount: 3_200,
             uploadDate: new Date('2025-04-01T15:31:35'),
+            isDummy: true,
         },
         {
             videoId: 3,
@@ -17,6 +20,7 @@ export const DUMMY_POPULAR = {
             videoCategory: 'PEOPLE_AND_BLOGS',
             viewCount: 21_300,
             uploadDate: new Date('2024-07-16T15:31:35'),
+            isDummy: true,
         },
     ],
     listSize: 2,

@@ -8,10 +8,9 @@ interface VideoCardProps {
 }
 
 export const VideoCard = ({ video }: VideoCardProps) => {
-    const isAuth = useAuthStore((state) => state.isAuth)
     const user = useAuthStore((state) => state.user)
 
-    const linkTo = isAuth ? `/report/${video.videoId}` : '/report'
+    const linkTo = video.isDummy ? `/report/dummy/${video.videoId}` : `/report/${video.videoId}`
 
     return (
         <Link to={linkTo} className="flex flex-col items-center justify-center gap-2 w-[288px] tablet:w-[282px]">
