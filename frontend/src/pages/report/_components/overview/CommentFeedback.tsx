@@ -8,7 +8,8 @@ import type { OverviewDataProps } from '../../../../types/report/all'
 import { CommentSkeleton } from './CommentSkeleton'
 
 const Comments = ({ comments }: { comments: Comment[] | undefined }) => {
-    if (!comments || comments.length === 0) return <div />
+    if (!comments || comments.length === 0)
+        return <p className="text-gray-600 text-center py-4">해당하는 댓글이 없습니다.</p>
 
     return (
         <div className="flex flex-col gap-4">
@@ -32,10 +33,21 @@ export const CommentFeedback = ({ data }: OverviewDataProps) => {
 
     const { data: commentsData, isLoading } = useGetReportComments({ reportId: Number(reportId), type: activeTab })
 
-    const chartData = useMemo(
-        () => [data.positiveComment, data.negativeComment, data.neutralComment, data.adviceComment],
-        [data]
-    )
+    const chartData = useMemo(() => {
+        if (!data) return [0, 0, 0, 0]
+
+        const values = [
+            data.positiveComment ?? 0,
+            data.negativeComment ?? 0,
+            data.neutralComment ?? 0,
+            data.adviceComment ?? 0,
+        ]
+
+        // 모든 값이 0이면 최소값 1로 세팅해서 차트가 보이도록
+        if (values.every((v) => v === 0)) return [1, 1, 1, 1]
+
+        return values
+    }, [data])
 
     const activeIndex = useMemo(() => commentTypes.indexOf(activeTab), [activeTab, commentTypes])
 
