@@ -5,7 +5,12 @@ export type PostReportByUrlDto = {
     url: string
 }
 
-export type ResponseReportByUrl = CommonResponse<{ reportId: number }>
+export type ResultReportByUrl = {
+    reportId: number
+    videoId: number
+}
+
+export type ResponseReportByUrl = CommonResponse<ResultReportByUrl>
 
 // 리포트 분석 상태 조회
 export type ReportStatusDto = {

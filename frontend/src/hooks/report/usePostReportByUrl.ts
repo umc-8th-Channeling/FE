@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query'
 import { postReportByUrl } from '../../api/report'
 import { useReportStore } from '../../stores/reportStore'
-import type { ResponseReportByUrl } from '../../types/report/new'
+import type { ResponseReportByUrl, ResultReportByUrl } from '../../types/report/new'
 import type { AxiosError } from 'axios'
 
 interface ReportByUrlCallbacks {
-    onSuccess: (reportId: number) => void
+    onSuccess: (data: ResultReportByUrl) => void
     onError: (errorData: { code: string; message: string }) => void
 }
 
@@ -20,9 +20,9 @@ export default function usePostReportByUrl({ onSuccess, onError }: ReportByUrlCa
     return useMutation({
         mutationFn: postReportByUrl,
         onSuccess: (data: ResponseReportByUrl) => {
-            if (data.isSuccess && data.result.reportId) {
+            if (data.isSuccess && data.result) {
                 startGenerating()
-                onSuccess(data.result.reportId) // 성공 콜백 호출
+                onSuccess(data.result) // 성공 콜백 호출
             } else {
                 endGenerating()
                 onError({ code: data.code, message: data.message })

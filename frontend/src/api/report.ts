@@ -1,4 +1,11 @@
-import type { GetReportAllDto, ResponseReportAll } from '../types/report/all'
+import type {
+    GetReportDto,
+    ResponseReportAnalysis,
+    ResponseReportIdea,
+    ResponseReportOverview,
+    ResponseVideoData,
+    VideoDataDto,
+} from '../types/report/all'
 import type { ReportCommentsDto, ResponseReportComments } from '../types/report/comment'
 import type { PostReportByUrlDto, ReportStatusDto, ResponseReportByUrl } from '../types/report/new'
 import { axiosInstance } from './axios'
@@ -11,9 +18,27 @@ export const postReportByUrl = async ({ url }: PostReportByUrlDto): Promise<Resp
     return data
 }
 
-// 리포트 전체 조회
-export const getReportAll = async ({ reportId }: GetReportAllDto): Promise<ResponseReportAll> => {
-    const { data } = await axiosInstance.get(`/reports/${reportId}`)
+// 영상 정보 조회
+export const getVideoData = async ({ videoId }: VideoDataDto): Promise<ResponseVideoData> => {
+    const { data } = await axiosInstance.get(`/videos/${videoId}`)
+    return data
+}
+
+// 리포트 개요 페이지 조회
+export const getReportOverview = async ({ reportId }: GetReportDto): Promise<ResponseReportOverview> => {
+    const { data } = await axiosInstance.get(`/reports/${reportId}/overviews`)
+    return data
+}
+
+// 리포트 분석 페이지 조회
+export const getReportAnalysis = async ({ reportId }: GetReportDto): Promise<ResponseReportAnalysis> => {
+    const { data } = await axiosInstance.get(`/reports/${reportId}/analyses`)
+    return data
+}
+
+// 리포트 아이디어 페이지 조회
+export const getReportIdea = async ({ reportId }: GetReportDto): Promise<ResponseReportIdea> => {
+    const { data } = await axiosInstance.get(`/reports/${reportId}/ideas`)
     return data
 }
 

@@ -6,7 +6,7 @@ import { useAuthStore } from '../../stores/authStore'
 import { useLoginStore } from '../../stores/LoginStore'
 import usePostReportByUrl from '../report/usePostReportByUrl'
 
-export const useUrlInput = (onRequestUrlSuccess?: (reportId: number) => void) => {
+export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: number) => void) => {
     const [isActive, setIsActive] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
@@ -14,8 +14,8 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number) => void) =>
     const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
 
     const { mutate: requestNewReport } = usePostReportByUrl({
-        onSuccess: (reportId) => {
-            onRequestUrlSuccess?.(reportId)
+        onSuccess: ({ reportId, videoId }) => {
+            onRequestUrlSuccess?.(reportId, videoId)
             setError(null)
         },
         onError: ({ code, message }) => {
