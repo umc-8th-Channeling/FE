@@ -1,12 +1,12 @@
-import { DUMMY_MY } from '../dummy'
+import type { RecommededVideos } from '../../../types/main'
 import { VideoCard } from './VideoCard'
 
 interface VideoRecommendationProps {
     label: string
-    videos: typeof DUMMY_MY
+    videoData: RecommededVideos
 }
 
-export const VideoRecommendation = ({ label, videos }: VideoRecommendationProps) => {
+export const VideoRecommendation = ({ label, videoData }: VideoRecommendationProps) => {
     return (
         <div className="space-y-4">
             <div className="flex flex-row items-center gap-2">
@@ -19,8 +19,8 @@ export const VideoRecommendation = ({ label, videos }: VideoRecommendationProps)
             </div>
 
             <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6 place-items-start">
-                {videos.map((video) => (
-                    <VideoCard key={video.id} video={video} />
+                {videoData.list.map((video) => (
+                    <VideoCard key={video.videoId} video={video} />
                 ))}
             </div>
         </div>

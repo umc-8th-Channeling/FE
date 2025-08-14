@@ -1,10 +1,15 @@
 import Markdown from 'react-markdown'
 import { TitledSection } from '../TitledSection'
-import { EXIT_ANALYSIS, EXIT_ANALYSIS_HIGHLIGHT } from '../../dummy'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
+import type { AnalysisDataProps } from '../../../../types/report/all'
 
-export const ViewerExitAnalysis = () => {
+export const ViewerExitAnalysis = ({ data }: AnalysisDataProps) => {
+    const markdownText = data.leaveAnalyze.replace(/\\n/g, '\n')
+
+    const [firstLine, ...restLines] = markdownText.split('\n\n')
+    const restText = restLines.join('\n\n')
+
     return (
         <TitledSection title="시청자 이탈 분석">
             <div
@@ -12,18 +17,32 @@ export const ViewerExitAnalysis = () => {
             bg-surface-elevate-l1 p-6 overflow-y-auto overflow-hidden"
             >
                 <div className="flex flex-col space-y-4 font-body-regular">
-                    <p className="text-primary-600 font-body-medium">{EXIT_ANALYSIS_HIGHLIGHT}</p>
+                    <p className="text-primary-600 font-body-medium">{firstLine}</p>
                     <Markdown
                         remarkPlugins={[remarkGfm]}
                         rehypePlugins={[rehypeRaw]}
                         components={{
-                            h3: ({ children }) => <h3 className="mt-4 mb-2 font-body-bold">{children}</h3>,
-                            p: ({ children }) => <p className="pl-1 font-body-regular">{children}</p>,
-                            ul: ({ children }) => <ul className="pl-1 font-body-regular">{children}</ul>,
-                            li: ({ children }) => <li className="pl-1 font-body-regular">{children}</li>,
+                            h1: ({ children }) => (
+                                <h1 className="first:mt-0 mt-4 mb-2 text-[18px] leading-[150%] font-bold tracking-[-0.4px] tablet:text-[20px]">
+                                    {children}
+                                </h1>
+                            ),
+                            h2: ({ children }) => (
+                                <h2 className="first:mt-0 mt-4 mb-2 text-[16px] leading-[150%] font-bold tracking-[-0.4px] tablet:text-[18px]">
+                                    {children}
+                                </h2>
+                            ),
+                            h3: ({ children }) => (
+                                <h3 className="first:mt-0 mt-4 mb-2 text-[16px] leading-[150%] font-bold tracking-[-0.4px]">
+                                    {children}
+                                </h3>
+                            ),
+                            p: ({ children }) => <p className="font-body-regular">{children}</p>,
+                            ul: ({ children }) => <ul className="font-body-regular">{children}</ul>,
+                            li: ({ children }) => <li className="font-body-regular">{children}</li>,
                         }}
                     >
-                        {EXIT_ANALYSIS}
+                        {restText}
                     </Markdown>
                 </div>
             </div>
