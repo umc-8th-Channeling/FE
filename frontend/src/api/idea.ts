@@ -9,6 +9,6 @@ export const getBookmarkedIdeas = async (page: number, size: number): Promise<Re
 }
 
 export const toggleBookmarkIdea = async (ideaId: number) => {
-    const response = await axiosInstance.patch(`/ideas/bookmarks/${ideaId}`)
+    const response = await axiosInstance.patch(`/ideas/${ideaId}/bookmarks`)
     return response.data
 }
