@@ -15,7 +15,7 @@ export interface User {
     channelId?: number
     nickname: string
     googleEmail: string
-    profileImage: string
+    profileImage: string | null
     instagramLink: string | null
     tiktokLink: string | null
     facebookLink: string | null
