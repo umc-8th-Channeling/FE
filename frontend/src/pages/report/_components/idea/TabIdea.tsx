@@ -20,8 +20,8 @@ export const TabIdea = ({ reportId }: { reportId: number }) => {
 
     return (
         <div className="space-y-16">
-            <TrendKeywords />
-            <ContentsIdea />
+            <TrendKeywords data={ideaData} />
+            <ContentsIdea data={ideaData} />
         </div>
     )
 }

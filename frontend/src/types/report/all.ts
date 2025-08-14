@@ -1,6 +1,6 @@
 import type { CommonResponse } from '../common'
 
-// 영상 정보 조회 요청 타입
+// ✅ 영상 정보 조회 요청 타입
 export type VideoDataDto = {
     videoId: number | undefined
 }
@@ -82,38 +82,18 @@ export type ResponseReportOverview = CommonResponse<ReportOverview>
 export type ResponseReportAnalysis = CommonResponse<ReportAnalysis>
 export type ResponseReportIdea = CommonResponse<ReportIdea>
 
-// ⭐️ 리포트 컴포넌트 분리 타입
-// export type OverviewEvaluation = {
-//     reportId: number
-//     view: number
-//     viewTopicAvg: number
-//     viewChannelAvg: number
-//     likeCount: number
-//     likeTopicAvg: number
-//     likeChannelAvg: number
-//     comment: number
-//     commentTopicAvg: number
-//     commentChannelAvg: number
-//     concept: number
-//     seo: number
-//     revisit: number
-// }
-
-// export type OverviewSummary = {
-//     reportId: number
-//     summary: string
-// }
-
-// export type OverviewEvalAndSummary = OverviewEvaluation & OverviewSummary
-
-// export type OverviewCommentFeedback = {
-//     reportId: number
-//     neutralComment: number
-//     adviceComment: number
-//     positiveComment: number
-//     negativeComment: number
-// }
-
+// ⭐️ 리포트 컴포넌트 분리 데이터 props 타입
 export type OverviewDataProps = { data: ReportOverview }
 export type AnalysisDataProps = { data: ReportAnalysis }
 export type IdeaDataProps = { data: ReportIdea }
+
+// ✅ 아이디어 북마크 추가/제거 요청 타입
+export type ReportIdeaBookmarkDto = {
+    ideaId: number
+}
+
+// 아이디어 북마크 추가/제거 응답 타입
+export type ResponseReportIdeaBookmark = CommonResponse<{
+    ideaId: number
+    isBookMarked: boolean
+}>
