@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom'
 
 // import Refresh from '../../assets/icons/refresh_2.svg?react'
 import Tabs from '../../components/Tabs'
-import { TabOverview, TabAnalysis, TabIdea, VideoSummary, GuestModal } from './_components'
-import { GUEST_VIDEO } from './dummy'
+import { TabOverview, TabAnalysis, TabIdea, GuestModal } from './_components'
+// import { GUEST_VIDEO } from './dummy'
 
 export default function DummyReportPage() {
     const { reportId: reportIdParam } = useParams()
     const reportId = Number(reportIdParam)
-    const video = GUEST_VIDEO
+    // const video = GUEST_VIDEO
 
     const TABS = useMemo(
         () => [
@@ -31,7 +31,7 @@ export default function DummyReportPage() {
     return (
         <>
             <div className="px-6 tablet:px-[76px] py-10 desktop:py-20 space-y-10">
-                <VideoSummary video={video!.video} />
+                {/* <VideoSummary video={video!.video} /> */}
                 <Tabs tabs={TABS} activeTab={activeTab} onChangeTab={setActiveTab} />
             </div>
 
