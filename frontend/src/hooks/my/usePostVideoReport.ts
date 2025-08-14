@@ -1,9 +1,13 @@
-import { useMutation } from '@tanstack/react-query'
-import { postVideoReport } from '../../api/my'
-import { ResponseVideoReportDto } from '../../types/channel'
+import { useMutation, type UseMutationOptions } from '@tanstack/react-query'
+import { postMyVideoReport } from '../../api/my'
+import type { MyVideoReportDto, ResponseMyVideoReportDto } from '../../types/profile'
+import type { AxiosError } from 'axios'
 
-export default function usePostVideoReport() {
-    return useMutation<ResponseVideoReportDto, Error, number>({
-        mutationFn: (videoId: number) => postVideoReport(videoId),
+export default function usePostVideoReport(
+    options?: UseMutationOptions<ResponseMyVideoReportDto, AxiosError, MyVideoReportDto>
+) {
+    return useMutation<ResponseMyVideoReportDto, AxiosError, MyVideoReportDto>({
+        mutationFn: (videoId: MyVideoReportDto) => postMyVideoReport(videoId),
+        ...options,
     })
 }

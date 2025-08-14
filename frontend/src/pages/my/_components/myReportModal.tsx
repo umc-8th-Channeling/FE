@@ -1,22 +1,31 @@
 import { useNavigate } from 'react-router-dom'
 import Modal from '../../../components/Modal'
 import usePostVideoReport from '../../../hooks/my/usePostVideoReport'
-import { useAuthStore } from '../../../stores/authStore'
 
 interface MyReportModalProps {
     title: string
     setOpen: (open: boolean) => void
+    videoId: number
 }
 
-export const MyReportModal = ({ title, setOpen }: MyReportModalProps) => {
-    const videoId = useAuthStore((state)=>state.)
-
-    const {mutate, isPending} = usePostVideoReport()
+export const MyReportModal = ({ title, setOpen, videoId }: MyReportModalProps) => {
     const navigate = useNavigate()
+
+    const { mutate, isPending } = usePostVideoReport({
+        onSuccess: (data, videoId) => {
+            console.log('리포트 요청 성공:', data, 'videoId:', videoId)
+            alert('리포트 요청이 접수되었습니다.')
+            setOpen(false)
+            navigate('/report')
+        },
+        onError: (err) => {
+            console.error(err)
+            alert('리포트 요청 실패')
+        },
+    })
+
     const getReport = () => {
-        mutate()
-        setOpen(false)
-        navigate('/report')
+        mutate({ videoId })
     }
 
     return (
@@ -37,6 +46,7 @@ export const MyReportModal = ({ title, setOpen }: MyReportModalProps) => {
                     <button
                         className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer"
                         onClick={getReport}
+                        disabled={isPending}
                     >
                         리포트 받기
                     </button>

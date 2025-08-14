@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Textarea from '../../../components/Textarea'
 import { EditButton } from '../../../components/EditButton'
 import { useUpdateChannelConcept } from '../../../hooks/channel/useUpdateIdentity'
