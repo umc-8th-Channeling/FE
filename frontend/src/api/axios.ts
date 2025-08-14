@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { LOCAL_STORAGE_KEY } from '../constants/key'
-import { useLocalStorage } from '../hooks/useLocalStorage'
 
 export const axiosInstance = axios.create({
     // withCredentials: true,
@@ -10,11 +9,11 @@ export const axiosInstance = axios.create({
 
 // 요청 인터셉터
 axiosInstance.interceptors.request.use((config) => {
-    const { getItem } = useLocalStorage(LOCAL_STORAGE_KEY.accessToken)
-    const token = getItem()
+    const token = window.localStorage.getItem(LOCAL_STORAGE_KEY.accessToken)
+    const parsedToken = token ? JSON.parse(token) : null
 
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`
+    if (parsedToken) {
+        config.headers.Authorization = `Bearer ${parsedToken}`
     }
 
     return config
