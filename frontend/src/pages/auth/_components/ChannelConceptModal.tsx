@@ -28,6 +28,7 @@ export const ChannelConceptModal = ({ onClose, handleButtonClick, value, onChang
                 handleButtonClick={handleButtonClick}
                 placeholder="정확한 분석을 위해 유튜버님의 채널 컨셉에 대한 설명을 입력해주세요. (예: 브이로그, 게임, 숏츠 위주)"
                 isActive={isActive}
+                maxLength={500}
                 initialRows={getInitialRows()}
             />
         </Modal>
