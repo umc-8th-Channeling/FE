@@ -38,24 +38,28 @@ const KeywordBox = ({ label, items }: { label: string; items: Trend[] }) => {
 
             {/* keyword items */}
             <div className="space-y-2">
-                {items.map((item, index) => (
-                    <div
-                        key={index}
-                        className="grid grid-cols-6 tablet:grid-cols-8 items-center py-4 rounded-lg bg-surface-elevate-l2"
-                    >
-                        <p
-                            className={`h-6 overflow-hidden text-ellipsis col-span-3 tablet:col-span-5 mx-4 ${title18b}`}
+                {!items || items.length === 0 ? (
+                    <p className="w-full p-10 text-center text-gray-600">키워드 데이터가 없습니다</p>
+                ) : (
+                    items.map((item, index) => (
+                        <div
+                            key={index}
+                            className="grid grid-cols-6 tablet:grid-cols-8 items-center py-4 rounded-lg bg-surface-elevate-l2"
                         >
-                            {item.keyword}
-                        </p>
-                        <p className={`text-gray-600 ${body16r}`}>{formatRelativeTime(item.createdAt)}</p>
-                        <p
-                            className={`col-span-2 flex flex-row items-center justify-end pr-2 text-primary-500 ${body16r}`}
-                        >
-                            +{item.score.toLocaleString()}% <ScoreUp />
-                        </p>
-                    </div>
-                ))}
+                            <p
+                                className={`h-6 overflow-hidden text-ellipsis col-span-3 tablet:col-span-5 mx-4 ${title18b}`}
+                            >
+                                {item.keyword}
+                            </p>
+                            <p className={`text-gray-600 ${body16r}`}>{formatRelativeTime(item.createdAt)}</p>
+                            <p
+                                className={`col-span-2 flex flex-row items-center justify-end pr-2 text-primary-500 ${body16r}`}
+                            >
+                                +{item.score.toLocaleString()}% <ScoreUp />
+                            </p>
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     )

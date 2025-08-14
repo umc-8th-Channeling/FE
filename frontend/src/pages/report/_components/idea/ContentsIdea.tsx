@@ -10,11 +10,15 @@ export const ContentsIdea = ({ data }: IdeaDataProps) => {
 
     return (
         <TitledSection title="다음 콘텐츠 아이디어">
-            <div className="space-y-6">
-                {ideas.map((idea, index) => (
-                    <IdeaBox key={index} idea={idea} />
-                ))}
-            </div>
+            {!ideas || ideas.length === 0 ? (
+                <p className="text-gray-500 text-center py-4">콘텐츠 아이디어가 없습니다.</p>
+            ) : (
+                <div className="space-y-6">
+                    {ideas.map((idea, index) => (
+                        <IdeaBox key={index} idea={idea} />
+                    ))}
+                </div>
+            )}
         </TitledSection>
     )
 }
