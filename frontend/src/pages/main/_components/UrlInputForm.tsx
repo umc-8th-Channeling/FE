@@ -5,7 +5,6 @@ import ErrorIcon from '../../../assets/icons/error.svg?react'
 import { useUrlInput } from '../../../hooks/main/useUrlInput'
 import ArrowButton from '../../../components/ArrowButton'
 import { ErrorToast } from './ErrorToast'
-// import { usePoolReportStatus } from '../../../hooks/report/usePollReportStatus'
 import useGetVideoData from '../../../hooks/report/useGetVideoData'
 
 export const UrlInputForm = () => {
@@ -19,7 +18,6 @@ export const UrlInputForm = () => {
         setVideoId(newVideoId)
     })
 
-    // const { data: statusData } = usePoolReportStatus(reportId ?? undefined)
     const { data: videoData, isPending } = useGetVideoData(videoId ?? undefined)
 
     useEffect(() => {
@@ -27,21 +25,6 @@ export const UrlInputForm = () => {
             navigate(`/report/${reportId}?video=${videoId}`)
         }
     }, [isPending, videoData, navigate, reportId, videoId])
-
-    // useEffect(() => {
-    //     const reportStatus = statusData?.result
-
-    //     if (reportStatus) {
-    //         if (reportStatus.overviewStatus === 'PENDING') {
-    //             console.log('pending...')
-    //             // endGenerating()
-    //             // navigate(`/report/${reportId}`)
-    //         } else {
-    //             // FAILED 상태에 대한 에러 처리 (모달)
-    //             console.error('리포트 생성 실패', reportStatus)
-    //         }
-    //     }
-    // }, [statusData, reportId, navigate, endGenerating])
 
     return (
         <>

@@ -1,25 +1,36 @@
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 import ArrowButton from '../../../components/ArrowButton'
 import ErrorIcon from '../../../assets/icons/error.svg?react'
 import { useUrlInput } from '../../../hooks/main/useUrlInput'
 import { ErrorToast } from './ErrorToast'
+import useGetVideoData from '../../../hooks/report/useGetVideoData'
 
 interface UrlInputModalProps {
     onClose: () => void
 }
 
 export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
+    const navigate = useNavigate()
     const [reportId, setReportId] = useState<number | null>(null)
+    const [videoId, setVideoId] = useState<number | null>(null)
     const [isFocused, setIsFocused] = useState(false)
     const modalRef = useRef<HTMLDivElement>(null)
 
-    const { register, handleSubmit, isActive, error } = useUrlInput(setReportId)
+    const { register, handleSubmit, isActive, error } = useUrlInput((newReportId, newVideoId) => {
+        setReportId(newReportId)
+        setVideoId(newVideoId)
+    })
 
-    // 리포트 생성 요청 성공 시 모달 창 닫기
+    const { data: videoData, isPending } = useGetVideoData(videoId ?? undefined)
+
     useEffect(() => {
-        if (reportId !== null) onClose()
-    }, [reportId, onClose])
+        if (!isPending && videoData && reportId && videoId) {
+            onClose()
+            navigate(`/report/${reportId}?video=${videoId}`)
+        }
+    }, [isPending, videoData, navigate, reportId, videoId, onClose])
 
     // ESC 키로 모달 창 닫기
     useEffect(() => {
