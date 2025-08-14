@@ -25,6 +25,7 @@ export const NavbarDesktop = () => {
         const updateTooltipPosition = () => {
             if (!isAuth && loginButtonRef.current) {
                 const rect = loginButtonRef.current.getBoundingClientRect()
+                console.log('Tooltip Position: ', rect)
                 setTooltipPos({
                     top: rect.top + window.scrollY,
                     left: rect.right + window.scrollX + 32,
@@ -58,7 +59,7 @@ export const NavbarDesktop = () => {
             </div>
 
             {!isAuth && tooltipPos && (
-                <div style={{ position: 'absolute', top: tooltipPos.top, left: tooltipPos.left }}>
+                <div style={{ position: 'absolute', top: tooltipPos.top, left: tooltipPos.left, zIndex: 9999 }}>
                     <ToolTipBubble />
                 </div>
             )}
