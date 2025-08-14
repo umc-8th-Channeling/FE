@@ -4,7 +4,7 @@ import type { RecommendedVideosDto } from '../../types/main'
 
 export default function useGetRecommendedVideo({ channelId }: RecommendedVideosDto) {
     return useQuery({
-        queryKey: ['recommendedVideos'],
+        queryKey: ['recommendedVideos', channelId],
         queryFn: () => getRecommededVideos({ channelId }),
         enabled: !!channelId,
         staleTime: 1000 * 60 * 5, // 5 minutes
