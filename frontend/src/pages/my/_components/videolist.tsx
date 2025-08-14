@@ -25,7 +25,7 @@ export default function Videolist() {
         isError: isVideoError,
     } = useGetChannelVideo({
         channelId: channelId,
-        type: 'PEOPLE_AND_BLOGS',
+        type: 'LONG',
         page: videoCurrentPage,
         size: itemsPerPage,
     })
@@ -35,7 +35,7 @@ export default function Videolist() {
         isError: isShortsError,
     } = useGetChannelVideo({
         channelId: channelId,
-        type: 'FILM_AND_ANIMATION',
+        type: 'SHORTS',
         page: shortsCurrentPage,
         size: itemsPerPage,
     })

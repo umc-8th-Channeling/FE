@@ -24,7 +24,7 @@ export function useFetchAndSetUser() {
         } catch (err) {
             console.error('❌ 회원 정보 조회 실패:', err)
             alert('회원 정보 조회 실패')
-            navigate('/')
+            navigate('/', { replace: true })
         }
     }
 

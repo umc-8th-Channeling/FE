@@ -28,7 +28,7 @@ export default function MyShortsCard({ shorts }: MyShortsCardProps) {
                     </div>
                 </div>
             </div>
-            {open && <MyReportModal title={shorts.title} setOpen={setOpen} />}
+            {open && <MyReportModal videoId={shorts.id} title={shorts.title} setOpen={setOpen} />}
         </>
     )
 }
