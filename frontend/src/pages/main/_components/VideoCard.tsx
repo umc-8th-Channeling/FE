@@ -23,7 +23,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
                 {/* 채널 프로필 이미지 */}
                 <div className="w-10 h-10 rounded-full overflow-hidden shrink-0">
                     <img
-                        src={video.channelProfileImageUrl || user?.profileImage}
+                        src={video.channelProfileImageUrl || user?.profileImage || ''}
                         className="w-full h-full object-cover"
                     />
                 </div>

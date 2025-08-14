@@ -1,7 +1,6 @@
-import type { ReportAll } from '../../types/report/all'
 import type { CommentType, ReportComments } from '../../types/report/comment'
 
-export const GUEST_VIDEO: ReportAll = {
+export const GUEST_VIDEO = {
     video: {
         videoId: 1,
         title: '저 드디어 독립했어요!',
