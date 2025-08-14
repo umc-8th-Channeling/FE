@@ -1,24 +1,20 @@
-import { useEffect, useState } from 'react'
 import { TrendKeywords } from './TrendKeywords'
 import { ContentsIdea } from './ContentsIdea'
 import { Skeleton } from './Skeleton'
 import { usePoolReportStatus } from '../../../../hooks/report/usePollReportStatus'
+import useGetReportIdea from '../../../../hooks/report/useGetReportIdea'
 
 export const TabIdea = ({ reportId }: { reportId: number }) => {
-    const [isLoading, setIsLoading] = useState(true)
     const { data: statusData } = usePoolReportStatus(reportId ?? undefined)
 
-    useEffect(() => {
-        const reportStatus = statusData?.result
+    const isCompleted = statusData?.result?.ideaStatus === 'COMPLETED'
 
-        if (reportStatus) {
-            if (reportStatus.ideaStatus === 'COMPLETED') {
-                setIsLoading(false)
-            } else {
-                setIsLoading(true)
-            }
-        }
-    }, [statusData])
+    const { data: ideaData, isLoading: isIdeaLoading } = useGetReportIdea({
+        reportId,
+        enabled: isCompleted,
+    })
+
+    const isLoading = !isCompleted || isIdeaLoading || !ideaData
 
     if (isLoading) return <Skeleton />
 
