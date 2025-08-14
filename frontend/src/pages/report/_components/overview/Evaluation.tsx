@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react'
-import { formatPercentString, formatKoreanNumber } from '../../../../utils/format'
-import { OVERVIEW_EVALUATION as EVALUATION } from '../../dummy'
+import { formatKoreanNumber } from '../../../../utils/format'
 import { TitledSection } from '../TitledSection'
+import type { OverviewDataProps } from '../../../../types/report/all'
 
 type EvaluationItem = {
     label: string
@@ -12,37 +12,28 @@ type EvaluationItem = {
     }
 }
 
-const evaluationItems: EvaluationItem[] = [
-    { label: '콘텐츠 \n컨셉 일관성', score: () => `${formatPercentString(EVALUATION.consistencyScore)}%` },
-    { label: 'SEO 구성', score: () => `${formatPercentString(EVALUATION.seoScore)}%` },
-    { label: '재방문률', score: () => `${formatPercentString(EVALUATION.retentionRate)}%` },
-    {
-        label: '조회수',
-        score: () => formatKoreanNumber(EVALUATION.viewCount.current),
-        avg: {
-            topic: EVALUATION.viewCount.topicAvgScore,
-            channel: EVALUATION.viewCount.channelAvgScore,
+export const Evaluation = ({ data }: OverviewDataProps) => {
+    const evaluationItems: EvaluationItem[] = [
+        { label: '콘텐츠 \n컨셉 일관성', score: () => `${data.concept}%` },
+        { label: 'SEO 구성', score: () => `${data.seo}%` },
+        { label: '재방문률', score: () => `${data.revisit}%` },
+        {
+            label: '조회수',
+            score: () => formatKoreanNumber(data.view),
+            avg: { topic: data.viewTopicAvg, channel: data.viewChannelAvg },
         },
-    },
-    {
-        label: '좋아요',
-        score: () => formatKoreanNumber(EVALUATION.likeCount.current),
-        avg: {
-            topic: EVALUATION.likeCount.topicAvgScore,
-            channel: EVALUATION.likeCount.channelAvgScore,
+        {
+            label: '좋아요',
+            score: () => formatKoreanNumber(data.likeCount),
+            avg: { topic: data.likeTopicAvg, channel: data.likeChannelAvg },
         },
-    },
-    {
-        label: '댓글',
-        score: () => formatKoreanNumber(EVALUATION.commentCount.current),
-        avg: {
-            topic: EVALUATION.commentCount.topicAvgScore,
-            channel: EVALUATION.commentCount.channelAvgScore,
+        {
+            label: '댓글',
+            score: () => formatKoreanNumber(data.comment),
+            avg: { topic: data.commentTopicAvg, channel: data.commentChannelAvg },
         },
-    },
-]
+    ]
 
-export const Evaluation = () => {
     return (
         <TitledSection title="영상 평가">
             <div className="grid grid-cols-3 gap-3">
@@ -83,7 +74,7 @@ const AverageScore = ({ topicAvg, channelAvg }: { topicAvg: number; channelAvg: 
         <div>
             <h5 className="text-[12px] tablet:text-[14px] leading-[140%] tracking-[-0.35px] text-gray-500">{label}</h5>
             <p className="text-[12px] tablet:text-[14px] leading-[140%] tracking-[-0.35px] text-primary-500">
-                {formatPercentString(value, 2)}%
+                {value.toFixed(2)}%
             </p>
         </div>
     )

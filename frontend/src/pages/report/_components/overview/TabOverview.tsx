@@ -1,41 +1,39 @@
-import { memo, useEffect, useState } from 'react'
+import { memo } from 'react'
 import { CommentFeedback } from './CommentFeedback'
 import { Evaluation } from './Evaluation'
 import { Summary } from './Summary'
 import { Skeleton } from './Skeleton'
 import { usePoolReportStatus } from '../../../../hooks/report/usePollReportStatus'
+import useGetReportOverview from '../../../../hooks/report/useGetReportOverview'
+import type { OverviewDataProps } from '../../../../types/report/all'
 
-const EvaluationAndSummary = memo(() => {
+const EvaluationAndSummary = memo(({ data }: OverviewDataProps) => {
     return (
         <div className="grid grid-cols-1 desktop:grid-cols-2 gap-16 desktop:gap-6">
-            <Evaluation />
-            <Summary />
+            <Evaluation data={data} />
+            <Summary data={data} />
         </div>
     )
 })
 
 export const TabOverview = ({ reportId }: { reportId: number }) => {
-    const [isLoading, setIsLoading] = useState(true)
     const { data: statusData } = usePoolReportStatus(reportId ?? undefined)
 
-    useEffect(() => {
-        const reportStatus = statusData?.result
+    const isCompleted = statusData?.result?.overviewStatus === 'COMPLETED'
 
-        if (reportStatus) {
-            if (reportStatus.overviewStatus === 'COMPLETED') {
-                setIsLoading(false)
-            } else {
-                setIsLoading(true)
-            }
-        }
-    }, [statusData])
+    const { data: overviewData, isLoading: isOverviewLoading } = useGetReportOverview({
+        reportId,
+        enabled: isCompleted,
+    })
+
+    const isLoading = !isCompleted || isOverviewLoading || !overviewData
 
     if (isLoading) return <Skeleton />
 
     return (
         <div className="space-y-16">
-            <EvaluationAndSummary />
-            <CommentFeedback />
+            <EvaluationAndSummary data={overviewData} />
+            <CommentFeedback data={overviewData} />
         </div>
     )
 }

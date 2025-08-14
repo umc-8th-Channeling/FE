@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { TitledSection } from '../TitledSection'
-// import { DoughnutChart } from '../../../../components/chart'
+import { DoughnutChart } from '../../../../components/chart'
 import useGetReportComments from '../../../../hooks/report/useGetReportComments'
 import { COMMENT_TYPE, type Comment, type CommentType } from '../../../../types/report/comment'
 import { useParams } from 'react-router-dom'
+import type { OverviewDataProps } from '../../../../types/report/all'
 
 const Comments = ({ comments }: { comments: Comment[] | undefined }) => {
     if (!comments || comments.length === 0) return <div />
@@ -21,13 +22,24 @@ const Comments = ({ comments }: { comments: Comment[] | undefined }) => {
     )
 }
 
-export const CommentFeedback = () => {
+export const CommentFeedback = ({ data }: OverviewDataProps) => {
     const { reportId } = useParams()
+
+    const commentTypes = useMemo(() => Object.keys(COMMENT_TYPE), [])
+    const commentLabels = useMemo(() => Object.values(COMMENT_TYPE), [])
     const [activeTab, setActiveTab] = useState<CommentType>('POSITIVE')
 
-    const { data, isLoading } = useGetReportComments({ reportId: Number(reportId), type: activeTab })
+    const { data: commentsData, isLoading } = useGetReportComments({ reportId: Number(reportId), type: activeTab })
 
-    const handleTabChange = (tab: CommentType) => setActiveTab(tab)
+    const chartData = useMemo(
+        () => [data.positiveComment, data.negativeComment, data.neutralComment, data.adviceComment],
+        [data]
+    )
+
+    const activeIndex = useMemo(() => commentTypes.indexOf(activeTab), [activeTab, commentTypes])
+
+    const handleTabChange = (tabKey: CommentType) => setActiveTab(tabKey)
+    const handleChartSegmentClick = (index: number) => setActiveTab(commentTypes[index] as CommentType)
 
     return (
         <TitledSection title="댓글 반응">
@@ -39,12 +51,12 @@ export const CommentFeedback = () => {
                 "
             >
                 <div className="w-full min-w-[280px] max-w-[448px] aspect-square">
-                    {/* <DoughnutChart
-                        tabs={TABS}
-                        data={data}
-                        activeIndex={activeTab.index}
-                        onClickSegment={handleTabChange} // 도넛 그래프의 segment 클릭하면 활성화 탭 변경
-                    /> */}
+                    <DoughnutChart
+                        data={chartData}
+                        labels={commentLabels}
+                        activeIndex={activeIndex}
+                        onClickSegment={handleChartSegmentClick}
+                    />
                 </div>
 
                 <div className="flex flex-col w-full space-y-4 desktop:min-w-[672px]">
@@ -63,7 +75,7 @@ export const CommentFeedback = () => {
                             </button>
                         ))}
                     </div>
-                    {isLoading ? <div /> : <Comments comments={data!.commentList} />}
+                    {isLoading ? <div /> : <Comments comments={commentsData!.commentList} />}
                 </div>
             </div>
         </TitledSection>

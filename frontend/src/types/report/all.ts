@@ -41,7 +41,7 @@ export type Trend = {
     createdAt: Date
 }
 
-// 리포트 개요 데이터 타입
+// ✅ 리포트 개요 데이터 타입
 export type ReportOverview = {
     reportId: number
     view: number
@@ -63,14 +63,14 @@ export type ReportOverview = {
     negativeComment: number
 }
 
-// 리포트 분석 데이터 타입
+// ✅ 리포트 분석 데이터 타입
 export type ReportAnalysis = {
     reportId: number
     leaveAnalyze: string
     optimization: string
 }
 
-// 리포트 아이디어 데이터 타입
+// ✅ 리포트 아이디어 데이터 타입
 export type ReportIdea = {
     reportId: number
     idea: Idea[]
@@ -81,3 +81,39 @@ export type ReportIdea = {
 export type ResponseReportOverview = CommonResponse<ReportOverview>
 export type ResponseReportAnalysis = CommonResponse<ReportAnalysis>
 export type ResponseReportIdea = CommonResponse<ReportIdea>
+
+// ⭐️ 리포트 컴포넌트 분리 타입
+// export type OverviewEvaluation = {
+//     reportId: number
+//     view: number
+//     viewTopicAvg: number
+//     viewChannelAvg: number
+//     likeCount: number
+//     likeTopicAvg: number
+//     likeChannelAvg: number
+//     comment: number
+//     commentTopicAvg: number
+//     commentChannelAvg: number
+//     concept: number
+//     seo: number
+//     revisit: number
+// }
+
+// export type OverviewSummary = {
+//     reportId: number
+//     summary: string
+// }
+
+// export type OverviewEvalAndSummary = OverviewEvaluation & OverviewSummary
+
+// export type OverviewCommentFeedback = {
+//     reportId: number
+//     neutralComment: number
+//     adviceComment: number
+//     positiveComment: number
+//     negativeComment: number
+// }
+
+export type OverviewDataProps = { data: ReportOverview }
+export type AnalysisDataProps = { data: ReportAnalysis }
+export type IdeaDataProps = { data: ReportIdea }
