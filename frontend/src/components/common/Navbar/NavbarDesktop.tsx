@@ -21,6 +21,11 @@ export const NavbarDesktop = () => {
 
     const handleUserClick = useOpenSetting()
 
+    const handleLoginClick = () => {
+        setTooltipPos(null)
+        openLoginFlow()
+    }
+
     useEffect(() => {
         const updateTooltipPosition = () => {
             if (!isAuth && loginButtonRef.current) {
@@ -53,7 +58,7 @@ export const NavbarDesktop = () => {
                 <NavbarLinksList
                     loginButtonRef={loginButtonRef}
                     handlePlusClick={handlePlusClick}
-                    handleLoginClick={openLoginFlow}
+                    handleLoginClick={handleLoginClick}
                     handleUserClick={handleUserClick}
                 />
             </div>
