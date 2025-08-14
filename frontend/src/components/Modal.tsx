@@ -61,7 +61,7 @@ const Modal = ({ title, description, onClose, className = '', children }: PropsW
                 className={`
                     relative flex flex-col min-w-[288px] tablet:min-w-[384px] desktop:min-w-[486px]
                     space-y-4 tablet:space-y-6 bg-surface-elevate-l2 p-6 rounded-3xl
-                    ${className}
+                    modal-animation ${className}
                 `}
                 style={marginTop !== null ? { marginTop } : undefined}
             >
