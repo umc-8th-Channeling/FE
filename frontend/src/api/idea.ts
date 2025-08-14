@@ -1,14 +1,21 @@
-import type { ResponseBookmarkedIdeas } from '../types/idea'
+import type {
+    BookmarkedIdeasDto,
+    PatchIdeaBookmarkDto,
+    ResponseBookmarkedIdeas,
+    ResponsePatchIdeaBookmark,
+} from '../types/idea'
 import { axiosInstance } from './axios'
 
-export const getBookmarkedIdeas = async (page: number, size: number): Promise<ResponseBookmarkedIdeas> => {
+// 아이디어 북마크 조회
+export const getBookmarkedIdeas = async ({ page, size }: BookmarkedIdeasDto): Promise<ResponseBookmarkedIdeas> => {
     const res = await axiosInstance.get('/ideas/bookmarks', {
         params: { page, size },
     })
     return res.data
 }
 
-export const toggleBookmarkIdea = async (ideaId: number) => {
-    const response = await axiosInstance.patch(`/ideas/${ideaId}/bookmarks`)
-    return response.data
+// 아이디어 북마크 추가/제거
+export const patchReportIdeaBookmark = async ({ ideaId }: PatchIdeaBookmarkDto): Promise<ResponsePatchIdeaBookmark> => {
+    const { data } = await axiosInstance.patch(`ideas/${ideaId}/bookmarks`)
+    return data
 }
