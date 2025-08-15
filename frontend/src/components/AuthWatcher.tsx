@@ -11,7 +11,7 @@ export default function AuthWatcher() {
 
     useEffect(() => {
         if (!user) {
-            const isPublic = PUBLIC_PATH.some((p) => location.pathname.startsWith(p))
+            const isPublic = PUBLIC_PATH.includes(location.pathname)
             if (!isPublic) navigate('/', { replace: true })
             //로그아웃되었을 때 보호 페이지에 있다면 '/'로 이동
         }
