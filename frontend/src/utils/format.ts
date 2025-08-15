@@ -75,3 +75,31 @@ export const formatPercentString = (value: number, fractionDigits = 0): string =
     if (isNaN(value)) return '0'
     return (value * 100).toFixed(fractionDigits)
 }
+
+/**
+ * 날짜를 'YY.MM.DD 오전/오후 h:mm' 형식의 문자열로 변환합니다.
+ * @param {Date | string | number} dateInput - 변환할 Date 객체, 날짜 문자열, 또는 타임스탬프
+ * @returns {string} 포맷팅된 날짜 문자열 (예: '25.06.29 오전 1:53')
+ */
+export const formatSimpleDate = (dateInput: Date | string | number) => {
+    const date = new Date(dateInput)
+    const KST_OFFSET_MS = 9 * 60 * 60 * 1000
+    const kstTimestamp = date.getTime() + KST_OFFSET_MS
+    const kstDate = new Date(kstTimestamp)
+
+    const year = kstDate.getUTCFullYear().toString().slice(-2)
+    const month = (kstDate.getUTCMonth() + 1).toString().padStart(2, '0')
+    const day = kstDate.getUTCDate().toString().padStart(2, '0')
+    const minutes = kstDate.getUTCMinutes().toString().padStart(2, '0')
+
+    let hours = kstDate.getUTCHours() // 0-23
+    const ampm = hours >= 12 ? '오후' : '오전'
+
+    hours %= 12
+    if (hours === 0) {
+        // 자정(0시)을 12시로 표시
+        hours = 12
+    }
+
+    return `${year}.${month}.${day} ${ampm} ${hours}:${minutes}`
+}

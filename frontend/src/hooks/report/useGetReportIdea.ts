@@ -4,7 +4,7 @@ import { getReportIdea } from '../../api/report'
 
 export default function useGetReportIdea({ reportId, enabled }: GetReportDto & { enabled: boolean }) {
     return useQuery({
-        queryKey: ['reports', 'idea', reportId],
+        queryKey: ['idea', 'reports', reportId],
         queryFn: () => getReportIdea({ reportId }),
         enabled: !!reportId && enabled,
         staleTime: 1000 * 60 * 5,

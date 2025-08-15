@@ -1,22 +1,36 @@
+import { axiosInstance } from './axios'
 import type {
+    DeleteMyReport,
     GetReportDto,
+    MyReportsDto,
+    ResponseDeleteMyReport,
+    ResponseMyReports,
     ResponseReportAnalysis,
     ResponseReportIdea,
     ResponseReportOverview,
     ResponseVideoData,
     VideoDataDto,
-    ReportIdeaBookmarkDto,
-    ResponseReportIdeaBookmark,
 } from '../types/report/all'
 import type { ReportCommentsDto, ResponseReportComments } from '../types/report/comment'
-import type { PostReportByUrlDto, ReportStatusDto, ResponseReportByUrl } from '../types/report/new'
-import { axiosInstance } from './axios'
+import type {
+    PostReportByIdDto,
+    PostReportByUrlDto,
+    ReportStatusDto,
+    ResponseReportById,
+    ResponseReportByUrl,
+} from '../types/report/new'
 
 // URL로 리포트 분석 요청
 export const postReportByUrl = async ({ url }: PostReportByUrlDto): Promise<ResponseReportByUrl> => {
     const { data } = await axiosInstance.post(`/reports`, {
         url,
     })
+    return data
+}
+
+// videoId로 리포트 분석 요청
+export const postReportById = async ({ videoId }: PostReportByIdDto): Promise<ResponseReportById> => {
+    const { data } = await axiosInstance.post(`/reports/${videoId}`)
     return data
 }
 
@@ -58,10 +72,16 @@ export const getReportStatus = async ({ reportId }: ReportStatusDto) => {
     return data
 }
 
-// 아이디어 북마크 추가/제거
-export const patchReportIdeaBookmark = async ({
-    ideaId,
-}: ReportIdeaBookmarkDto): Promise<ResponseReportIdeaBookmark> => {
-    const { data } = await axiosInstance.patch(`ideas/${ideaId}/bookmarks`)
+// 내 채널의 리포트 조회
+export const getMyReports = async ({ channelId, type, page, size }: MyReportsDto): Promise<ResponseMyReports> => {
+    const { data } = await axiosInstance.get(`channels/${channelId}/reports`, {
+        params: { type, page, size },
+    })
+    return data
+}
+
+// 리포트 삭제
+export const deleteMyReport = async ({ reportId }: DeleteMyReport): Promise<ResponseDeleteMyReport> => {
+    const { data } = await axiosInstance.delete(`/reports/${reportId}`)
     return data
 }

@@ -29,6 +29,7 @@ export default function Videolist() {
         page: videoCurrentPage,
         size: itemsPerPage,
     })
+
     const {
         data: shortsResponse,
         isPending: isShortsPending,
@@ -44,8 +45,6 @@ export default function Videolist() {
     const videoTotalItems = videoResponse?.result.totalElements ?? 0
     const shortsData = shortsResponse ? mapResponseToVideoList(shortsResponse) : []
     const shortsTotalItems = shortsResponse?.result.totalElements ?? 0
-    //비디오 - 숏츠 탭
-    const data = activeTab === 'video' ? videosData : shortsData
 
     if (isVideoPending || isShortsPending) return <VideoSkeleton />
     if (isVideoError || isShortsError) return <div>에러</div>
@@ -75,31 +74,41 @@ export default function Videolist() {
                     Shorts
                 </button>
             </div>
-            {activeTab === 'video' && (
-                <div className="grid grid-cols-2 desktop:grid-cols-4 w-full self-stretch gap-4 tablet:gap-6 cursor-pointer">
-                    {data.map((video) => (
-                        <MyVideoCard video={video} key={video.id} />
-                    ))}
-                </div>
-            )}
-            {activeTab === 'shorts' && (
+
+            {activeTab === 'video' ? (
+                // Video 탭이 활성화된 경우
+                videoTotalItems === 0 ? (
+                    <p className="w-full mt-10 text-center text-gray-600">업로드된 동영상이 없습니다.</p>
+                ) : (
+                    <div className="grid grid-cols-2 desktop:grid-cols-4 w-full self-stretch gap-4 tablet:gap-6 cursor-pointer">
+                        {videosData.map((video) => (
+                            <MyVideoCard video={video} key={video.id} />
+                        ))}
+                    </div>
+                )
+            ) : // Shorts 탭이 활성화된 경우
+            shortsTotalItems === 0 ? (
+                <p className="w-full mt-10 text-center text-gray-600">업로드된 Shorts가 없습니다.</p>
+            ) : (
                 <div className="grid grid-cols-3 desktop:grid-cols-6 w-full  self-stretch desktop:gap-x-4 gap-x-[9px] gap-y-6 cursor-pointer">
-                    {data.map((short) => (
+                    {shortsData.map((short) => (
                         <MyShortsCard shorts={short} key={short.id} />
                     ))}
                 </div>
             )}
 
-            <div className="flex flex-col pt-[40px] justify-center items-center gap-[8px] self-stretch">
-                <Pagination
-                    totalItems={activeTab === 'video' ? videoTotalItems : shortsTotalItems}
-                    itemCountPerPage={itemsPerPage}
-                    currentPage={activeTab === 'video' ? videoCurrentPage : shortsCurrentPage}
-                    startPage={activeTab === 'video' ? videoStartPage : ShortsStartPage}
-                    setStartPage={activeTab === 'video' ? setVideoStartPage : setShortsStartPage}
-                    onChangePage={activeTab === 'video' ? setVideoCurrentPage : setShortsCurrentPage}
-                />
-            </div>
+            {(activeTab === 'video' ? videoTotalItems : shortsTotalItems) > 0 && (
+                <div className="flex flex-col pt-[40px] justify-center items-center gap-[8px] self-stretch">
+                    <Pagination
+                        totalItems={activeTab === 'video' ? videoTotalItems : shortsTotalItems}
+                        itemCountPerPage={itemsPerPage}
+                        currentPage={activeTab === 'video' ? videoCurrentPage : shortsCurrentPage}
+                        startPage={activeTab === 'video' ? videoStartPage : ShortsStartPage}
+                        setStartPage={activeTab === 'video' ? setVideoStartPage : setShortsStartPage}
+                        onChangePage={activeTab === 'video' ? setVideoCurrentPage : setShortsCurrentPage}
+                    />
+                </div>
+            )}
         </div>
     )
 }
