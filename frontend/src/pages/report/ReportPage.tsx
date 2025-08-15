@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
 
 import Refresh from '../../assets/icons/refresh_2.svg?react'
@@ -7,24 +7,27 @@ import Tabs from '../../components/Tabs'
 import { TabOverview, TabAnalysis, TabIdea, GuestModal, UpdateModal, VideoSummary } from './_components'
 import useGetVideoData from '../../hooks/report/useGetVideoData'
 import { useReportStore } from '../../stores/reportStore'
+import { VideoSummarySkeleton } from './_components/VideoSummarySkeleton'
 
 export default function ReportPage() {
     const { reportId: reportIdParam } = useParams()
     const [searchParams] = useSearchParams()
     const videoIdParam = searchParams.get('video')
+    const location = useLocation()
 
     const reportId = Number(reportIdParam)
     const videoId = Number(videoIdParam)
     const isAuth = useAuthStore((state) => state.isAuth)
     const endGenerating = useReportStore((state) => state.actions.endGenerating)
+    const isFromLibrary = location.state?.from === 'library'
 
     const TABS = useMemo(
         () => [
-            { index: 0, label: '개요', component: <TabOverview reportId={reportId} /> },
-            { index: 1, label: '분석', component: <TabAnalysis reportId={reportId} /> },
-            { index: 2, label: '아이디어', component: <TabIdea reportId={reportId} /> },
+            { index: 0, label: '개요', component: <TabOverview reportId={reportId} isFromLibrary={isFromLibrary} /> },
+            { index: 1, label: '분석', component: <TabAnalysis reportId={reportId} isFromLibrary={isFromLibrary} /> },
+            { index: 2, label: '아이디어', component: <TabIdea reportId={reportId} isFromLibrary={isFromLibrary} /> },
         ],
-        [reportId]
+        [reportId, isFromLibrary]
     )
 
     const [activeTab, setActiveTab] = useState(TABS[0])
@@ -49,14 +52,18 @@ export default function ReportPage() {
     return (
         <>
             <div className="px-6 tablet:px-[76px] py-10 desktop:py-20 space-y-10">
-                <VideoSummary data={videoData} />
+                {isPending ? <VideoSummarySkeleton /> : <VideoSummary data={videoData} />}
                 <Tabs tabs={TABS} activeTab={activeTab} onChangeTab={setActiveTab} />
             </div>
 
             {isOpenGuestModal && <GuestModal onClose={handleGuestModalClick} />}
 
             {isOpenUpdateModal && (
-                <UpdateModal handleModalClick={handleUpdateModalClick} handleResetTab={handleResetTab} />
+                <UpdateModal
+                    videoId={videoId}
+                    handleModalClick={handleUpdateModalClick}
+                    handleResetTab={handleResetTab}
+                />
             )}
 
             {/* 리포트 업데이트 버튼 */}

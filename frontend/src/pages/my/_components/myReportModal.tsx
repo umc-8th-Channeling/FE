@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import Modal from '../../../components/Modal'
-import usePostVideoReport from '../../../hooks/my/usePostVideoReport'
+import usePostReportById from '../../../hooks/report/usePostReportById'
+import { getJosa } from '../../../utils/format'
 
 interface MyReportModalProps {
     title: string
@@ -11,27 +12,24 @@ interface MyReportModalProps {
 export const MyReportModal = ({ title, setOpen, videoId }: MyReportModalProps) => {
     const navigate = useNavigate()
 
-    const { mutate, isPending } = usePostVideoReport({
-        onSuccess: (data, videoId) => {
-            console.log('리포트 요청 성공:', data, 'videoId:', videoId)
-            alert('리포트 요청이 접수되었습니다.')
+    const { mutate: requestNewReport, isPending } = usePostReportById({
+        onSuccess: ({ reportId }) => {
             setOpen(false)
-            navigate('/report')
+            navigate(`/report/${reportId}?video=${videoId}`)
         },
         onError: (err) => {
-            console.error(err)
-            alert('리포트 요청 실패')
+            console.error('내 영상으로 리포트 생성 요청 중 오류 발생:', err)
         },
     })
 
     const getReport = () => {
-        mutate({ videoId })
+        requestNewReport({ videoId })
     }
 
     return (
         <Modal
             title="해당 영상에 대한 리포트를 받아 보시겠어요?"
-            description={`‘${title}’을 유튜버님의 타겟과 컨셉을 고려하여 분석해요.`}
+            description={`‘${title}’${getJosa(title, '을/를')} 유튜버님의 타겟과 컨셉을 고려하여 분석해요.`}
             onClose={() => setOpen(false)}
             className="w-[486px]"
         >

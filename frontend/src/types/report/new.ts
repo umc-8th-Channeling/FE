@@ -12,6 +12,18 @@ export type ResultReportByUrl = {
 
 export type ResponseReportByUrl = CommonResponse<ResultReportByUrl>
 
+// videoId로 리포트 분석 요청
+export type PostReportByIdDto = {
+    videoId: number
+}
+
+export type ResultReportById = {
+    reportId: number
+    videoId: number
+}
+
+export type ResponseReportById = CommonResponse<ResultReportById>
+
 // 리포트 분석 상태 조회
 export type ReportStatusDto = {
     reportId: number

@@ -3,7 +3,8 @@ import type { ReportStatus, ResponseReportStatus, Status } from '../../types/rep
 import { getReportStatus } from '../../api/report'
 
 interface UseReportStatusOptions {
-    intervalMs?: number // 폴링 간격 (밀리초)
+    intervalMs?: number
+    enabled?: boolean
 }
 
 // 폴링을 중단할 최종 상태 목록
@@ -29,7 +30,7 @@ export const areAllTasksTerminal = (status: ReportStatus): boolean => {
  * @param options - 폴링 간격 등 추가 옵션
  */
 export const usePollReportStatus = (reportId: number | undefined, options: UseReportStatusOptions = {}) => {
-    const { intervalMs = 3000 } = options // 기본 폴링 간격 3초
+    const { intervalMs = 3000, enabled = true } = options
 
     return useQuery<ResponseReportStatus, Error>({
         queryKey: ['reportStatus', reportId],
@@ -54,7 +55,9 @@ export const usePollReportStatus = (reportId: number | undefined, options: UseRe
         },
 
         // reportId가 유효한 숫자일 때만 훅을 활성화
-        enabled: typeof reportId === 'number',
+        enabled: typeof reportId === 'number' && enabled,
+
+        retry: 0,
 
         refetchOnWindowFocus: false,
     })

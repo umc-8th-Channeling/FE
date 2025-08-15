@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useLoginStore } from '../../../stores/LoginStore'
 import Channeling from '../../../assets/icons/channeling.svg?react'
@@ -17,7 +17,7 @@ export const NavbarTablet = () => {
     const handleUserClick = useOpenSetting()
 
     const toggleMenu = () => setIsOpen(!isOpen)
-    const handlePlusClick = () => setShowUrlModal(!showUrlModal)
+    const handlePlusClick = useCallback(() => setShowUrlModal((prev) => !prev), [])
 
     useEffect(() => setIsOpen(false), [location])
 

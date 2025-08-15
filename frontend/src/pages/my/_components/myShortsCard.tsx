@@ -16,7 +16,7 @@ export default function MyShortsCard({ shorts }: MyShortsCardProps) {
                 className="flex flex-col h-fit items-center tablet:gap-x-[9px] desktop:gap-[8px] shrink-0"
                 onClick={() => setOpen(true)}
             >
-                <div className="w-full aspect-[192/289] rounded-[8px]">
+                <div className="w-full aspect-[192/289] rounded-[8px] overflow-hidden">
                     <img src={shorts.thumbnailUrl} alt={shorts.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="w-full gap-1 h-[74px] mt-[8px] items-start">

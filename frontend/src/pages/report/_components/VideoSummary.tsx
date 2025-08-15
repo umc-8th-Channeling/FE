@@ -10,12 +10,12 @@ export const VideoSummary = memo(({ data }: { data: VideoData | undefined }) => 
                 id="ytplayer"
                 width="480"
                 height="270"
-                src={`https://www.youtube.com/embed/${data?.youtubeVideoId}?controls=0&rel=0&origin=http://localhost:5173`}
+                src={`https://www.youtube.com/embed/${data?.youtubeVideoId}?controls=0&rel=0&origin=http://channeling.it.com`}
                 className="w-[282px] h-full aspect-[141/79] rounded-lg"
             />
 
             <div className="space-y-2">
-                <Tag text={data?.videoCategory || 'NONE'} />
+                <Tag text={data?.videoCategory || 'LOADING...'} />
                 <div>
                     <h3 className="max-h-[68px] line-clamp-2 text-[24px] font-bold leading-[140%] tracking-[-0.6px]">
                         {data?.videoTitle || '제목 불러오는 중...'}

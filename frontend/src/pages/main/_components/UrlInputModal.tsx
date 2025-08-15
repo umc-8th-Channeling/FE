@@ -49,17 +49,6 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
             aria-label="유튜브 영상 URL을 입력하세요."
             className="fixed inset-0 z-50 flex items-center justify-center"
         >
-            {/* 확인 용 임시 버튼 */}
-            <button
-                onClick={(e) => {
-                    e.stopPropagation()
-                }}
-                className="absolute top-6 right-4 cursor-pointer z-10 px-6 py-3 rounded-full bg-primary-400"
-            >
-                모달 에러 확인 용 버튼
-            </button>
-            {/* 확인 용 임시 버튼 끝 */}
-
             <div className="absolute inset-0 bg-neutral-black-opacity50" />
 
             {/* 모달 창 */}

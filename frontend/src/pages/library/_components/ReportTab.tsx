@@ -1,36 +1,50 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import RecentReportCard from './RecentReportCard'
 import RecentReportShortsCard from './RecentReportShortsCard'
 import Pagination from '../../../components/Pagination'
-import { DUMMY_REPORT, DUMMY_SHORTS } from '../dummy'
-import type { LibraryItem } from '../../../types/library'
+import { useGetMyReports } from '../../../hooks/report/useGetMyReport'
+import { useAuthStore } from '../../../stores/authStore'
+import type { BriefReport, VideoType } from '../../../types/report/all'
+import { useDeleteMyReport } from '../../../hooks/report/useDeleteMyReport'
+import { ReportSkeleton } from './ReportSkeleton'
 
 export default function ReportTab() {
-    const [subTab, setSubTab] = useState<'video' | 'shorts'>('video')
-    const [videoPage, setVideoPage] = useState(1)
-    const [videoStartPage, setVideoStartPage] = useState(1)
-
-    const [shortsPage, setShortsPage] = useState(1)
-    const [ShortsStartPage, setShortsStartPage] = useState(1)
-
-    const [reportList, setReportList] = useState<LibraryItem[]>(DUMMY_REPORT)
-    const [shortsList, setShortsList] = useState<LibraryItem[]>(DUMMY_SHORTS)
+    const navigate = useNavigate()
+    const [subTab, setSubTab] = useState<VideoType>('LONG')
+    const [page, setPage] = useState(1)
+    const [startPage, setStartPage] = useState(1)
 
     const itemsPerPage = 12
-    const isVideo = subTab === 'video'
+    const isVideo = subTab === 'LONG'
 
-    const data = isVideo ? reportList : shortsList
-    const currentPage = isVideo ? videoPage : shortsPage
-    const offset = (currentPage - 1) * itemsPerPage
-    const currentItems = data.slice(offset, offset + itemsPerPage)
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
 
-    // 삭제 핸들러
-    const handleDeleteReport = (id: number) => {
-        setReportList((prev) => prev.filter((item) => item.id !== id))
+    const { data: reportData, isPending } = useGetMyReports({
+        channelId,
+        type: subTab,
+        page,
+        size: itemsPerPage,
+    })
+
+    const { mutate: deleteReport } = useDeleteMyReport({ channelId })
+
+    const handleClick = (reportId: number, videoId: number) => {
+        navigate(`/report/${reportId}?video=${videoId}`, { state: { from: 'library' } })
     }
-    const handleDeleteShorts = (id: number) => {
-        setShortsList((prev) => prev.filter((item) => item.id !== id))
+
+    const handleDelete = (reportId: number) => {
+        deleteReport({ reportId })
     }
+
+    useEffect(() => {
+        setPage(1)
+        setStartPage(1)
+    }, [subTab])
+
+    if (isPending || !channelId) return <ReportSkeleton />
+    if (!reportData) return <ReportSkeleton />
 
     return (
         <>
@@ -41,7 +55,7 @@ export default function ReportTab() {
                             tracking-[-0.4px] transition-all duration-300 ${
                                 isVideo ? 'bg-primary-500 ' : 'bg-gray-100 '
                             }`}
-                        onClick={() => setSubTab('video')}
+                        onClick={() => setSubTab('LONG')}
                     >
                         동영상
                     </button>
@@ -50,47 +64,57 @@ export default function ReportTab() {
                             tracking-[-0.4px] transition-all duration-300 ${
                                 !isVideo ? 'bg-primary-500' : 'bg-gray-100'
                             }`}
-                        onClick={() => setSubTab('shorts')}
+                        onClick={() => setSubTab('SHORTS')}
                     >
                         Shorts
                     </button>
                 </div>
 
                 <div className="text-base font-medium leading-[24px] tracking-[-0.4px]">
-                    {data.length}개의 영상 리포트
+                    {reportData.totalElements}개의 영상 리포트
                 </div>
             </div>
 
             {/* 카드 리스트 */}
-            <div
-                className={
-                    isVideo
-                        ? 'grid grid-cols-2 desktop:grid-cols-4 gap-6'
-                        : 'grid grid-cols-3 desktop:grid-cols-6 gap-3'
-                }
-            >
-                {currentItems.map((item) =>
-                    isVideo ? (
-                        <RecentReportCard key={item.id} item={item} onDelete={() => handleDeleteReport(item.id)} />
-                    ) : (
-                        <RecentReportShortsCard
-                            key={item.id}
-                            item={item}
-                            onDelete={() => handleDeleteShorts(item.id)}
-                        />
-                    )
-                )}
-            </div>
+            {reportData.totalElements === 0 ? (
+                <p className="w-full mt-10 text-center text-gray-600">등록된 영상 리포트가 없습니다.</p>
+            ) : (
+                <div
+                    className={
+                        isVideo
+                            ? 'grid grid-cols-2 desktop:grid-cols-4 gap-6'
+                            : 'grid grid-cols-3 desktop:grid-cols-6 gap-3'
+                    }
+                >
+                    {reportData.reportList.map((item: BriefReport) =>
+                        isVideo ? (
+                            <RecentReportCard
+                                key={item.reportId}
+                                item={item}
+                                onDelete={() => handleDelete(item.reportId)}
+                                handleClick={() => handleClick(item.reportId, item.videoId)}
+                            />
+                        ) : (
+                            <RecentReportShortsCard
+                                key={item.reportId}
+                                item={item}
+                                onDelete={() => handleDelete(item.reportId)}
+                                handleClick={() => handleClick(item.reportId, item.videoId)}
+                            />
+                        )
+                    )}
+                </div>
+            )}
 
             <div className="flex flex-col pt-[40px] justify-center items-center gap-[8px] self-stretch">
                 <Pagination
                     key={`pagination-${subTab}`}
-                    totalItems={Math.max(1, data.length)} //최소 1개 보장
+                    totalItems={Math.max(1, reportData.totalElements)} // 최소 1개 보장
                     itemCountPerPage={itemsPerPage}
-                    currentPage={currentPage}
-                    startPage={isVideo ? videoStartPage : ShortsStartPage}
-                    setStartPage={isVideo ? setVideoStartPage : setShortsStartPage}
-                    onChangePage={isVideo ? setVideoPage : setShortsPage}
+                    currentPage={page}
+                    startPage={startPage}
+                    setStartPage={setStartPage}
+                    onChangePage={setPage}
                 />
             </div>
         </>

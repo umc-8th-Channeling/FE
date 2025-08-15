@@ -14,7 +14,7 @@ export default function MyVideoCard({ video }: MyVideoCardProps) {
     return (
         <>
             <div className="flex flex-col h-full items-center gap-[8px] " onClick={() => setOpen(true)}>
-                <div className="w-full aspect-[141/79] shrink-0 rounded-[8px] ">
+                <div className="w-full aspect-[141/79] shrink-0 rounded-[8px] overflow-hidden">
                     <img src={video.thumbnailUrl} alt={video.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="w-full flex flex-col h-[74px] items-start gap-[4px] ">

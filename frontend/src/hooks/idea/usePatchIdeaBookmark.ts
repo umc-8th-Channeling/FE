@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import type { Idea, ReportIdeaBookmarkDto, ResponseReportIdeaBookmark } from '../../types/report/all'
-import { patchReportIdeaBookmark } from '../../api/report'
+import { patchReportIdeaBookmark } from '../../api/idea'
+import type { Idea, PatchIdeaBookmarkDto, ResponsePatchIdeaBookmark } from '../../types/idea'
 
 interface OptimisticUpdateContext {
     previousIdeasResponse?: { ideas: Idea[] }
 }
 
-export default function usePatchReportIdeaBookmark() {
+export default function usePatchIdeaBookmark() {
     const queryClient = useQueryClient()
 
-    const queryKey = ['reports', 'idea']
+    const queryKey = ['idea']
 
-    return useMutation<ResponseReportIdeaBookmark, Error, ReportIdeaBookmarkDto, OptimisticUpdateContext>({
+    return useMutation<ResponsePatchIdeaBookmark, Error, PatchIdeaBookmarkDto, OptimisticUpdateContext>({
         mutationFn: patchReportIdeaBookmark,
         // 낙관적 업데이트 설정
         onMutate: async (variables) => {
