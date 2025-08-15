@@ -19,9 +19,10 @@ export default function ReportTab() {
     const isVideo = subTab === 'LONG'
 
     const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
 
     const { data: reportData, isPending } = useGetMyReports({
-        channelId: user?.channelId ?? 1,
+        channelId,
         type: subTab,
         page,
         size: itemsPerPage,
@@ -42,7 +43,8 @@ export default function ReportTab() {
         setStartPage(1)
     }, [subTab])
 
-    if (isPending || !reportData) return <Skeleton />
+    if (isPending || !channelId) return <Skeleton />
+    if (!reportData) return <Skeleton />
 
     return (
         <>
