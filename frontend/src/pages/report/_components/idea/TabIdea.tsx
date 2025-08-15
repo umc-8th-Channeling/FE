@@ -1,18 +1,14 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import { TrendKeywords } from './TrendKeywords'
 import { ContentsIdea } from './ContentsIdea'
 import { Skeleton } from './Skeleton'
 import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatus'
 import useGetReportIdea from '../../../../hooks/report/useGetReportIdea'
-import { GenerateErrorModal } from '../GenerateErrorModal'
 import { useAuthStore } from '../../../../stores/authStore'
 import { useDeleteMyReport } from '../../../../hooks/report/useDeleteMyReport'
+import { useReportStore } from '../../../../stores/reportStore'
 
 export const TabIdea = ({ reportId, isFromLibrary = false }: { reportId: number; isFromLibrary?: boolean }) => {
-    const navigate = useNavigate()
-
-    const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
     const { data: statusData } = usePollReportStatus(reportId ?? undefined, {
         enabled: !isFromLibrary,
     })
@@ -31,27 +27,18 @@ export const TabIdea = ({ reportId, isFromLibrary = false }: { reportId: number;
 
     const { mutate: deleteReport } = useDeleteMyReport({ channelId })
 
+    const setIsErrorTrue = useReportStore((state) => state.actions.setIsErrorTrue)
+
     useEffect(() => {
         if (isFailed) {
-            setIsErrorModalOpen(true)
+            setIsErrorTrue()
             deleteReport({ reportId })
         }
-    }, [isFailed, reportId, deleteReport])
-
-    const handleCloseErrorModal = () => {
-        setIsErrorModalOpen(false)
-        navigate('/')
-    }
+    }, [isFailed, setIsErrorTrue, reportId, deleteReport])
 
     const isLoading = !isCompleted || isIdeaLoading || !ideaData
 
-    if (isLoading)
-        return (
-            <>
-                <Skeleton />
-                {isErrorModalOpen && <GenerateErrorModal onClose={handleCloseErrorModal} />}
-            </>
-        )
+    if (isLoading) return <Skeleton />
 
     return (
         <div className="space-y-16">

@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react'
+import { memo, useEffect } from 'react'
 import { CommentFeedback } from './CommentFeedback'
 import { Evaluation } from './Evaluation'
 import { Summary } from './Summary'
@@ -6,10 +6,9 @@ import { Skeleton } from './Skeleton'
 import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatus'
 import useGetReportOverview from '../../../../hooks/report/useGetReportOverview'
 import type { OverviewDataProps } from '../../../../types/report/all'
-import { GenerateErrorModal } from '../GenerateErrorModal'
-import { useNavigate } from 'react-router-dom'
 import { useDeleteMyReport } from '../../../../hooks/report/useDeleteMyReport'
 import { useAuthStore } from '../../../../stores/authStore'
+import { useReportStore } from '../../../../stores/reportStore'
 
 const EvaluationAndSummary = memo(({ data }: OverviewDataProps) => {
     return (
@@ -21,9 +20,6 @@ const EvaluationAndSummary = memo(({ data }: OverviewDataProps) => {
 })
 
 export const TabOverview = ({ reportId, isFromLibrary = false }: { reportId: number; isFromLibrary?: boolean }) => {
-    const navigate = useNavigate()
-
-    const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
     const { data: statusData } = usePollReportStatus(reportId ?? undefined, {
         enabled: !isFromLibrary,
     })
@@ -42,27 +38,18 @@ export const TabOverview = ({ reportId, isFromLibrary = false }: { reportId: num
 
     const { mutate: deleteReport } = useDeleteMyReport({ channelId })
 
+    const setIsErrorTrue = useReportStore((state) => state.actions.setIsErrorTrue)
+
     useEffect(() => {
         if (isFailed) {
-            setIsErrorModalOpen(true)
+            setIsErrorTrue()
             deleteReport({ reportId })
         }
-    }, [isFailed, reportId, deleteReport])
-
-    const handleCloseErrorModal = () => {
-        setIsErrorModalOpen(false)
-        navigate('/')
-    }
+    }, [isFailed, setIsErrorTrue, reportId, deleteReport])
 
     const isLoading = !isCompleted || isOverviewLoading || !overviewData
 
-    if (isLoading)
-        return (
-            <>
-                <Skeleton />
-                {isErrorModalOpen && <GenerateErrorModal onClose={handleCloseErrorModal} />}
-            </>
-        )
+    if (isLoading) return <Skeleton />
 
     return (
         <div className="space-y-16">

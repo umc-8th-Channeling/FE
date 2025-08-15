@@ -57,6 +57,8 @@ export const usePollReportStatus = (reportId: number | undefined, options: UseRe
         // reportId가 유효한 숫자일 때만 훅을 활성화
         enabled: typeof reportId === 'number' && enabled,
 
+        retry: 0,
+
         refetchOnWindowFocus: false,
     })
 }

@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { NavbarWrapper } from './_components/navbar/NavbarWrapper'
 import LoadingSpinner from '../components/LoadingSpinner'
 import ScrollToTop from '../components/ScrollToTop'
@@ -9,8 +9,10 @@ import { LOCAL_STORAGE_KEY } from '../constants/key'
 import { useFetchAndSetUser } from '../hooks/channel/useFetchAndSetUser'
 import { NavbarModalsContainer } from '../pages/auth'
 import { SettingModalContainer } from '../pages/setting/_components/SettingModalContainer'
+import { GenerateErrorModal } from '../pages/report/_components'
 
 export default function RootLayout() {
+    const navigate = useNavigate()
     const location = useLocation()
     const isMain = location.pathname === '/'
 
@@ -30,6 +32,15 @@ export default function RootLayout() {
             removeIsNew()
         }
     }, [fetchAndSetUser, getChannelId, getIsNew, removeChannelId, removeIsNew])
+
+    // 리포트 생성 중 오류 있을 때 모달
+    const isError = useReportStore((state) => state.isError)
+    const setIsErrorFalse = useReportStore((state) => state.actions.setIsErrorFalse)
+
+    const handleCloseErrorModal = () => {
+        setIsErrorFalse()
+        navigate('/')
+    }
 
     return (
         <>
@@ -69,6 +80,8 @@ export default function RootLayout() {
                     description="조금만 기다려 주세요. 곧 결과가 나와요!"
                     isLoading={isReportGenerating}
                 />
+
+                {isError && <GenerateErrorModal onClose={handleCloseErrorModal} />}
             </main>
         </>
     )
