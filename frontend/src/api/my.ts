@@ -10,8 +10,6 @@ import { axiosInstance } from './axios'
 
 export const getChannelDetail = async ({ channelId }: RequestChannelDto): Promise<ResponseChannelDto> => {
     const { data } = await axiosInstance.get(`/channels/${channelId}`)
-    console.log('📦 채널 상세 응답:', data)
-
     return data
 }
 
@@ -28,12 +26,10 @@ export const getChannelVideo = async ({
             ...(size !== undefined && { size }),
         },
     })
-    console.log('📦 채널 비디오 상세 응답:', data)
     return data
 }
 
 export const postMyVideoReport = async ({ videoId }: MyVideoReportDto): Promise<ResponseMyVideoReportDto> => {
     const { data } = await axiosInstance.post<ResponseMyVideoReportDto>(`/reports/${videoId}`)
-    console.log('📦 채널 비디오 상세 응답   :', data)
     return data
 }
