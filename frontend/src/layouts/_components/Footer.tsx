@@ -22,8 +22,12 @@ export const Footer = () => {
                     >
                         개인정보 처리방침
                     </a>
-                    <div>문의하기</div>
-                    <div>Contact Us</div>
+                    <a href="https://open.kakao.com/o/sTPlNEvh" target="_blank" rel="noopener noreferrer">
+                        문의하기
+                    </a>
+                    <a href="https://m.site.naver.com/1O9pR" target="_blank" rel="noopener noreferrer">
+                        Contact Us
+                    </a>
                 </div>
             </footer>
         </div>

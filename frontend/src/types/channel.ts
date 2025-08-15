@@ -19,6 +19,8 @@ export interface User {
     tiktokLink: string | null
     facebookLink: string | null
     twitterLink: string | null
+    marketingEmailAgree: boolean
+    dayContentEmailAgree: boolean
 }
 
 export type ResponseMyProfile = CommonResponse<User>
