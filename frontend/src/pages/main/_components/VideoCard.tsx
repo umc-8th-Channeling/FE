@@ -1,19 +1,22 @@
+import { useState } from 'react'
 import { formatRelativeTime, formatKoreanNumber } from '../../../utils/format'
-import { Link } from 'react-router-dom'
-import { useAuthStore } from '../../../stores/authStore'
 import type { BriefVideo } from '../../../types/main'
+import { MyReportModal } from '../../my/_components/myReportModal'
 
 interface VideoCardProps {
     video: BriefVideo
 }
 
 export const VideoCard = ({ video }: VideoCardProps) => {
-    const user = useAuthStore((state) => state.user)
+    const [open, setOpen] = useState(false)
 
-    const linkTo = video.isDummy ? `/report/dummy/${video.videoId}` : `/report/${video.videoId}`
+    const handleVideoClick = () => setOpen(true)
 
     return (
-        <Link to={linkTo} className="flex flex-col items-center justify-center gap-2 w-[288px] tablet:w-[282px]">
+        <div
+            onClick={handleVideoClick}
+            className="flex flex-col items-center justify-center gap-2 w-[288px] tablet:w-[282px] cursor-pointer"
+        >
             {/* 영상 썸네일 이미지 */}
             <div className="w-[288px] aspect-[16/9] tablet:w-[282px] tablet:aspect-[141/79] rounded-lg overflow-hidden">
                 <img src={video.videoThumbnailUrl} className="w-full h-full object-cover" />
@@ -22,10 +25,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
             <div className="flex flex-row w-full gap-2">
                 {/* 채널 프로필 이미지 */}
                 <div className="w-10 h-10 rounded-full overflow-hidden shrink-0">
-                    <img
-                        src={video.channelProfileImageUrl || user?.profileImage || ''}
-                        className="w-full h-full object-cover"
-                    />
+                    <img src={video.channelImage} className="w-full h-full object-cover" />
                 </div>
 
                 {/* 영상 메타 데이터 */}
@@ -34,7 +34,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
                         {video.videoTitle}
                     </h3>
                     <div className="flex flex-row gap-1 whitespace-nowrap text-[12px] leading-[140%] tracking-[-0.3px] tablet:text-[14px] tablet:tracking-[-0.35px] text-gray-600">
-                        <p>{video.channelName || user?.nickname}</p>
+                        <p>{video.channelName}</p>
                         <span>·</span>
                         <p>조회수 {formatKoreanNumber(video.viewCount, '회')}</p>
                         <span>·</span>
@@ -42,6 +42,8 @@ export const VideoCard = ({ video }: VideoCardProps) => {
                     </div>
                 </div>
             </div>
-        </Link>
+
+            {open && <MyReportModal videoId={video.videoId} title={video.videoTitle} setOpen={setOpen} />}
+        </div>
     )
 }

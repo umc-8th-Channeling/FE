@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, type MouseEvent } from 'react'
 import X from '../../../assets/icons/X.svg?react'
 import { formatRelativeTime, formatSimpleDate } from '../../../utils/format'
 import type { BriefReport } from '../../../types/report/all'
@@ -10,24 +10,26 @@ interface RecentReportShortsCardProps {
 }
 
 export default memo(function RecentReportShortsCard({ item, onDelete, handleClick }: RecentReportShortsCardProps) {
+    const handleDeleteClick = (e: MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation()
+        onDelete?.()
+    }
+
     return (
-        <div
-            onClick={handleClick}
-            className="relative group rounded-lg overflow-hidden bg-transparent space-y-2 cursor-pointer"
-        >
+        <div className="relative rounded-lg overflow-hidden bg-transparent space-y-2 cursor-pointer">
             <div className="flex items-center justify-between">
                 <p className="text-sm font-normal leading-[19.6px] tracking-[-0.35px] text-gray-600">
                     업데이트 : {formatSimpleDate(item.updatedAt + 'Z')}
                 </p>
                 <button
-                    onClick={onDelete}
-                    className="absolute w-6 h-6 -right-[4px] hidden group-hover:block cursor-pointer"
+                    onClick={handleDeleteClick}
+                    className="absolute w-6 h-6 -right-[4px] opacity-0 hover:opacity-100  cursor-pointer"
                 >
                     <X className="w-full h-full fill-gray-900 " />
                 </button>
             </div>
 
-            <div className="w-full aspect-[95/143] rounded-lg overflow-hidden shrink-0">
+            <div onClick={handleClick} className="w-full aspect-[95/143] rounded-lg overflow-hidden shrink-0">
                 <img src={item.videoThumbnailUrl} alt={item.videoTitle} className="w-full h-full object-cover" />
             </div>
 
