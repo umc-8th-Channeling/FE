@@ -60,6 +60,12 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         })
     }, [user, formData.instagram, formData.tiktok, formData.facebook, formData.x, setFormData])
 
+    useEffect(() => {
+        if (!myProfile) return
+        setMarketingEmailAgree(myProfile.marketingEmailAgree)
+        setDayContentEmailAgree(myProfile.dayContentEmailAgree)
+    }, [myProfile, setMarketingEmailAgree, setDayContentEmailAgree])
+
     const handleCameraClick = () => fileInputRef.current?.click()
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
