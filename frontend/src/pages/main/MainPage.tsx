@@ -8,7 +8,10 @@ export default function MainPage() {
     const isAuth = useAuthStore((state) => state.isAuth)
     const user = useAuthStore((state) => state.user)
 
-    const { data: myVideo } = useGetRecommendedVideo({ channelId: user?.channelId })
+    const PAGE = 1
+    const SIZE = 2
+
+    const { data: myVideo } = useGetRecommendedVideo({ channelId: user?.channelId, page: PAGE, size: SIZE })
 
     return (
         <div className="flex flex-col items-center justify-center z-50">
