@@ -28,7 +28,9 @@ export async function logoutCore() {
     // 4) 헤더의 Authorization 삭제
     try {
         delete axiosInstance.defaults.headers.common.Authorization
-    } catch {}
+    } catch (e) {
+        console.error('헤더 authorization 삭제 실패:', e)
+    }
     // 5) 삭제 검증
     const gone = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken) === null
     if (!gone) {

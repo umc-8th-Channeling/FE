@@ -18,5 +18,8 @@ export function scheduleLogoutFromToken(token: string, cb: () => void, aheadMs =
         } else {
             cb()
         }
-    } catch {}
+    } catch (err) {
+        console.warn('토큰 파싱 실패. 자동 로그아웃 예약 안 함:', err)
+        cb() //강제 로그아웃
+    }
 }
