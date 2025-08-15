@@ -14,7 +14,6 @@ import {
 } from '../../hooks/mutations/userMutations'
 import { useAuthStore } from '../../stores/authStore'
 import { useSNSFormStore, type SNSKey } from '../../stores/snsFormStore'
-import { useConsentStore } from '../../stores/consentStore'
 import { useQueryClient } from '@tanstack/react-query'
 import { useFetchMyProfile } from '../../hooks/queries/fetchMyProfile'
 
@@ -39,14 +38,12 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const { mutate: updateProfileImage } = useUpdateMemberProfileImage()
 
     const { user } = useAuthStore()
+    const { setUser } = useAuthStore((state) => state.actions)
 
     const logout = useLogout()
     const [loggingOut, setLoggingOut] = useState(false)
 
     const { data: myProfile } = useFetchMyProfile(!loggingOut)
-
-    const { marketingEmailAgree, dayContentEmailAgree, setMarketingEmailAgree, setDayContentEmailAgree } =
-        useConsentStore()
 
     useEffect(() => {
         if (!user) return
@@ -59,12 +56,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
             x: user.twitterLink ?? '',
         })
     }, [user, formData.instagram, formData.tiktok, formData.facebook, formData.x, setFormData])
-
-    useEffect(() => {
-        if (!myProfile) return
-        setMarketingEmailAgree(myProfile.marketingEmailAgree)
-        setDayContentEmailAgree(myProfile.dayContentEmailAgree)
-    }, [myProfile, setMarketingEmailAgree, setDayContentEmailAgree])
 
     const handleCameraClick = () => fileInputRef.current?.click()
 
@@ -111,16 +102,21 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     }
 
     const handleAgreeChange = (key: 'marketingEmailAgree' | 'dayContentEmailAgree', value: boolean) => {
-        if (key === 'marketingEmailAgree') setMarketingEmailAgree(value)
-        if (key === 'dayContentEmailAgree') setDayContentEmailAgree(value)
-
         const payload = {
-            marketingEmailAgree: key === 'marketingEmailAgree' ? value : marketingEmailAgree,
-            dayContentEmailAgree: key === 'dayContentEmailAgree' ? value : dayContentEmailAgree,
+            marketingEmailAgree: key === 'marketingEmailAgree' ? value : user?.marketingEmailAgree ?? false,
+            dayContentEmailAgree: key === 'dayContentEmailAgree' ? value : user?.dayContentEmailAgree ?? false,
         }
 
         updateAgree(payload, {
-            onSuccess: (data) => console.log('성공입니다', data),
+            onSuccess: (data) => {
+                if (!user) return
+                setUser({
+                    ...user,
+                    marketingEmailAgree: data.result.marketingEmailAgree,
+                    dayContentEmailAgree: data.result.dayContentEmailAgree,
+                })
+                console.log('성공입니다', data)
+            },
             onError: () => alert('존재하지 않는 회원 동의입니다.'),
         })
     }
@@ -210,8 +206,8 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
                         {activeTab === 'consent' && (
                             <ConsentTab
-                                marketingEmail={marketingEmailAgree}
-                                dailyContentEmail={dayContentEmailAgree}
+                                marketingEmail={user?.marketingEmailAgree ?? false}
+                                dailyContentEmail={user?.dayContentEmailAgree ?? false}
                                 onMarketingChange={(value) => handleAgreeChange('marketingEmailAgree', value)}
                                 onDailyContentChange={(value) => handleAgreeChange('dayContentEmailAgree', value)}
                             />
