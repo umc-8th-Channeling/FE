@@ -1,4 +1,4 @@
-import { useFetchMyProfile } from '../../../hooks/queries/fetchMyProfile'
+import { useFetchMyProfile } from '../../../hooks/setting/useFetchMyProfile'
 import type { User } from '../../../types/channel'
 
 interface NavbarUserInfoProps {
