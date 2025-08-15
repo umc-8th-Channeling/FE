@@ -7,6 +7,7 @@ import Tabs from '../../components/Tabs'
 import { TabOverview, TabAnalysis, TabIdea, GuestModal, UpdateModal, VideoSummary } from './_components'
 import useGetVideoData from '../../hooks/report/useGetVideoData'
 import { useReportStore } from '../../stores/reportStore'
+import { VideoSummarySkeleton } from './_components/VideoSummarySkeleton'
 
 export default function ReportPage() {
     const { reportId: reportIdParam } = useParams()
@@ -49,7 +50,7 @@ export default function ReportPage() {
     return (
         <>
             <div className="px-6 tablet:px-[76px] py-10 desktop:py-20 space-y-10">
-                <VideoSummary data={videoData} />
+                {isPending ? <VideoSummarySkeleton /> : <VideoSummary data={videoData} />}
                 <Tabs tabs={TABS} activeTab={activeTab} onChangeTab={setActiveTab} />
             </div>
 

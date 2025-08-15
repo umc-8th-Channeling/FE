@@ -12,13 +12,25 @@ import type {
     VideoDataDto,
 } from '../types/report/all'
 import type { ReportCommentsDto, ResponseReportComments } from '../types/report/comment'
-import type { PostReportByUrlDto, ReportStatusDto, ResponseReportByUrl } from '../types/report/new'
+import type {
+    PostReportByIdDto,
+    PostReportByUrlDto,
+    ReportStatusDto,
+    ResponseReportById,
+    ResponseReportByUrl,
+} from '../types/report/new'
 
 // URL로 리포트 분석 요청
 export const postReportByUrl = async ({ url }: PostReportByUrlDto): Promise<ResponseReportByUrl> => {
     const { data } = await axiosInstance.post(`/reports`, {
         url,
     })
+    return data
+}
+
+// videoId로 리포트 분석 요청
+export const postReportById = async ({ videoId }: PostReportByIdDto): Promise<ResponseReportById> => {
+    const { data } = await axiosInstance.post(`/reports/${videoId}`)
     return data
 }
 
