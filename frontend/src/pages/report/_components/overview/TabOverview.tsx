@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { CommentFeedback } from './CommentFeedback'
 import { Evaluation } from './Evaluation'
 import { Summary } from './Summary'
@@ -6,6 +6,8 @@ import { Skeleton } from './Skeleton'
 import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatus'
 import useGetReportOverview from '../../../../hooks/report/useGetReportOverview'
 import type { OverviewDataProps } from '../../../../types/report/all'
+import { GenerateErrorModal } from '../GenerateErrorModal'
+import { useNavigate } from 'react-router-dom'
 
 const EvaluationAndSummary = memo(({ data }: OverviewDataProps) => {
     return (
@@ -17,14 +19,30 @@ const EvaluationAndSummary = memo(({ data }: OverviewDataProps) => {
 })
 
 export const TabOverview = ({ reportId }: { reportId: number }) => {
+    const navigate = useNavigate()
+
+    const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
     const { data: statusData } = usePollReportStatus(reportId ?? undefined)
 
-    const isCompleted = statusData?.result?.overviewStatus === 'COMPLETED'
+    const status = statusData?.result?.overviewStatus
+    const isCompleted = status === 'COMPLETED'
+    const isFailed = status === 'FAILED'
 
     const { data: overviewData, isLoading: isOverviewLoading } = useGetReportOverview({
         reportId,
         enabled: isCompleted,
     })
+
+    useEffect(() => {
+        if (isFailed) {
+            setIsErrorModalOpen(true)
+        }
+    }, [isFailed])
+
+    const handleCloseErrorModal = () => {
+        setIsErrorModalOpen(false)
+        navigate('/')
+    }
 
     const isLoading = !isCompleted || isOverviewLoading || !overviewData
 
@@ -34,6 +52,8 @@ export const TabOverview = ({ reportId }: { reportId: number }) => {
         <div className="space-y-16">
             <EvaluationAndSummary data={overviewData} />
             <CommentFeedback data={overviewData} />
+
+            {isErrorModalOpen && <GenerateErrorModal onClose={handleCloseErrorModal} />}
         </div>
     )
 }

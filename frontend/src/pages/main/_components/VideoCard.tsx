@@ -7,7 +7,7 @@ interface VideoCardProps {
 }
 
 export const VideoCard = ({ video }: VideoCardProps) => {
-    const linkTo = video.isDummy ? `/report/dummy/${video.videoId}` : `/report/${video.videoId}`
+    const linkTo = video.isDummy ? `/report/dummy/${video.videoId}` : `/report?video=${video.videoId}`
 
     return (
         <Link to={linkTo} className="flex flex-col items-center justify-center gap-2 w-[288px] tablet:w-[282px]">
