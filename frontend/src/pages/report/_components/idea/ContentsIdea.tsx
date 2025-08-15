@@ -2,8 +2,9 @@ import { memo, useMemo } from 'react'
 import { TitledSection } from '../TitledSection'
 import BookmarkInactive from '../../../../assets/icons/bookmark.svg?react'
 import BookmarkActive from '../../../../assets/icons/bookmark_active.svg?react'
-import type { Idea, IdeaDataProps } from '../../../../types/report/all'
-import usePatchReportIdeaBookmark from '../../../../hooks/report/usePatchReportIdeaBookmark'
+import type { IdeaDataProps } from '../../../../types/report/all'
+import type { Idea } from '../../../../types/idea'
+import usePatchIdeaBookmark from '../../../../hooks/idea/usePatchIdeaBookmark'
 
 export const ContentsIdea = ({ data }: IdeaDataProps) => {
     const { idea: ideas } = data
@@ -24,7 +25,7 @@ export const ContentsIdea = ({ data }: IdeaDataProps) => {
 }
 
 const IdeaBox = memo(({ idea }: { idea: Idea }) => {
-    const { mutate: updateBookmark } = usePatchReportIdeaBookmark()
+    const { mutate: updateBookmark } = usePatchIdeaBookmark()
 
     const handleBookmarkClick = () => {
         updateBookmark({ ideaId: idea.ideaId })

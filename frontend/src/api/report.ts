@@ -1,6 +1,10 @@
 import { axiosInstance } from './axios'
 import type {
+    DeleteMyReport,
     GetReportDto,
+    MyReportsDto,
+    ResponseDeleteMyReport,
+    ResponseMyReports,
     ResponseReportAnalysis,
     ResponseReportIdea,
     ResponseReportOverview,
@@ -53,5 +57,17 @@ export const getReportComments = async ({ reportId, type }: ReportCommentsDto): 
 // 리포트 분석 상태 조회
 export const getReportStatus = async ({ reportId }: ReportStatusDto) => {
     const { data } = await axiosInstance.get(`/reports/${reportId}/status`)
+    return data
+}
+
+// 내 채널의 리포트 조회
+export const getMyReports = async ({ channelId }: MyReportsDto): Promise<ResponseMyReports> => {
+    const { data } = await axiosInstance.get(`channels/${channelId}/reports`)
+    return data
+}
+
+// 리포트 삭제
+export const deleteMyReport = async ({ reportId }: DeleteMyReport): Promise<ResponseDeleteMyReport> => {
+    const { data } = await axiosInstance.delete(`/reports/${reportId}`)
     return data
 }

@@ -6,10 +6,10 @@ interface OptimisticUpdateContext {
     previousIdeasResponse?: { ideas: Idea[] }
 }
 
-export default function usePatchReportIdeaBookmark() {
+export default function usePatchIdeaBookmark() {
     const queryClient = useQueryClient()
 
-    const queryKey = ['reports', 'idea']
+    const queryKey = ['idea']
 
     return useMutation<ResponsePatchIdeaBookmark, Error, PatchIdeaBookmarkDto, OptimisticUpdateContext>({
         mutationFn: patchReportIdeaBookmark,

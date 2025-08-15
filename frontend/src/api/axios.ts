@@ -3,7 +3,7 @@ import { LOCAL_STORAGE_KEY } from '../constants/key'
 
 export const axiosInstance = axios.create({
     // withCredentials: true,
-    // baseURL: '/api', //개발 환경에서
+    // baseURL: '/api',
     baseURL: import.meta.env.VITE_SERVER_API_URL,
 })
 

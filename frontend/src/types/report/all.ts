@@ -79,3 +79,39 @@ export type ResponseReportIdea = CommonResponse<ReportIdea>
 export type OverviewDataProps = { data: ReportOverview }
 export type AnalysisDataProps = { data: ReportAnalysis }
 export type IdeaDataProps = { data: ReportIdea }
+
+// ✅ 내 채널 리포트 조회 요청 타입
+export type MyReportsDto = {
+    channelId: number
+}
+
+// 내 채널 리포트 조회 응답 타입
+export type BriefReport = {
+    reportId: number
+    videoTitle: string
+    videoThumbnailUrl: string
+    videoCategory: string
+    viewCount: number
+    uploadDate: Date
+    updatedAt: Date
+}
+
+export type MyReports = {
+    channelId: number
+    page: number
+    size: number
+    hasNextPage: boolean
+    totalElements: number
+    totalPages: number
+    reportList: BriefReport[]
+}
+
+export type ResponseMyReports = CommonResponse<MyReports>
+
+// ✅ 리포트 삭제 요청 타입
+export type DeleteMyReport = {
+    reportId: number
+}
+
+// 리포트 삭제 응답 타입
+export type ResponseDeleteMyReport = CommonResponse<{ reportId: number }>
