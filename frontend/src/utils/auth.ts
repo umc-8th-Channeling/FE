@@ -1,10 +1,8 @@
-import { useQueryClient } from '@tanstack/react-query'
 import { axiosInstance } from '../api/axios'
 import { LOCAL_STORAGE_KEY } from '../constants/key'
 import { useAuthStore } from '../stores/authStore'
 
 export async function logoutCore() {
-    const queryClient = useQueryClient()
     // 1) 토큰 삭제
     try {
         localStorage.removeItem(LOCAL_STORAGE_KEY.accessToken)
@@ -30,10 +28,5 @@ export async function logoutCore() {
     const gone = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken) === null
     if (!gone) {
         alert('로그아웃에 실패했습니다.')
-    }
-    try {
-        queryClient.clear()
-    } catch (e) {
-        console.warn('Query cache clear 실패:', e)
     }
 }
