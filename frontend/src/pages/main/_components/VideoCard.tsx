@@ -1,6 +1,5 @@
 import { formatRelativeTime, formatKoreanNumber } from '../../../utils/format'
 import { Link } from 'react-router-dom'
-import { useAuthStore } from '../../../stores/authStore'
 import type { BriefVideo } from '../../../types/main'
 
 interface VideoCardProps {
@@ -8,8 +7,6 @@ interface VideoCardProps {
 }
 
 export const VideoCard = ({ video }: VideoCardProps) => {
-    const user = useAuthStore((state) => state.user)
-
     const linkTo = video.isDummy ? `/report/dummy/${video.videoId}` : `/report/${video.videoId}`
 
     return (
@@ -22,10 +19,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
             <div className="flex flex-row w-full gap-2">
                 {/* 채널 프로필 이미지 */}
                 <div className="w-10 h-10 rounded-full overflow-hidden shrink-0">
-                    <img
-                        src={video.channelProfileImageUrl || user?.profileImage || ''}
-                        className="w-full h-full object-cover"
-                    />
+                    <img src={video.channelImage} className="w-full h-full object-cover" />
                 </div>
 
                 {/* 영상 메타 데이터 */}
@@ -34,7 +28,7 @@ export const VideoCard = ({ video }: VideoCardProps) => {
                         {video.videoTitle}
                     </h3>
                     <div className="flex flex-row gap-1 whitespace-nowrap text-[12px] leading-[140%] tracking-[-0.3px] tablet:text-[14px] tablet:tracking-[-0.35px] text-gray-600">
-                        <p>{video.channelName || user?.nickname}</p>
+                        <p>{video.channelName}</p>
                         <span>·</span>
                         <p>조회수 {formatKoreanNumber(video.viewCount, '회')}</p>
                         <span>·</span>
