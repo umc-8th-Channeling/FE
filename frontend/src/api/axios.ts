@@ -2,9 +2,9 @@ import axios from 'axios'
 import { LOCAL_STORAGE_KEY } from '../constants/key'
 
 export const axiosInstance = axios.create({
-    withCredentials: true,
-    baseURL: '/api',
-    // baseURL: import.meta.env.VITE_SERVER_API_URL,
+    // withCredentials: true,
+    // baseURL: '/api',
+    baseURL: import.meta.env.VITE_SERVER_API_URL,
 })
 
 // 요청 인터셉터
