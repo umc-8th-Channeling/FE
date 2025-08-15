@@ -3,7 +3,6 @@ import Pagination from '../../../components/Pagination'
 import IdeaCard from './IdeaCard'
 import useGetBookmarkedIdeas from '../../../hooks/idea/useGetBookmarkedIdeas'
 import { IdeaSkeleton } from './IdeaSkeleton'
-// import type { BookmarkedIdeas } from '../../../types/idea'
 
 export default function IdeaTab() {
     const [ideaPage, setIdeaPage] = useState(1)
@@ -20,11 +19,15 @@ export default function IdeaTab() {
                 <p className="mb-6 text-base font-medium leading-[24px] tracking-[-0.4px]">{data.total}개의 스크랩</p>
             </div>
 
-            <div className="grid grid-cols-1 desktop:grid-cols-1 gap-6">
-                {data.bookmarkedIdeaList.map((item) => (
-                    <IdeaCard key={item.ideaId} item={item} />
-                ))}
-            </div>
+            {data.total === 0 ? (
+                <p className="w-full mt-10 text-center text-gray-600">스크랩한 아이디어가 없습니다.</p>
+            ) : (
+                <div className="grid grid-cols-1 desktop:grid-cols-1 gap-6">
+                    {data.bookmarkedIdeaList.map((item) => (
+                        <IdeaCard key={item.ideaId} item={item} />
+                    ))}
+                </div>
+            )}
 
             <div className="flex flex-col pt-[40px] justify-center items-center gap-[8px] self-stretch">
                 <Pagination

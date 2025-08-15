@@ -1,25 +1,41 @@
 import { memo } from 'react'
-import type { LibraryItem } from '../../../types/library'
 import X from '../../../assets/icons/X.svg?react'
+import { formatRelativeTime, formatSimpleDate } from '../../../utils/format'
+import type { BriefReport } from '../../../types/report/all'
 
-export default memo(function RecentReportShortsCard({ item, onDelete }: { item: LibraryItem; onDelete?: () => void }) {
+interface RecentReportShortsCardProps {
+    item: BriefReport
+    onDelete?: () => void
+    handleClick: () => void
+}
+
+export default memo(function RecentReportShortsCard({ item, onDelete, handleClick }: RecentReportShortsCardProps) {
     return (
-        <div className="relative group rounded-lg overflow-hidden bg-transparent">
+        <div
+            onClick={handleClick}
+            className="relative group rounded-lg overflow-hidden bg-transparent space-y-2 cursor-pointer"
+        >
             <div className="flex items-center justify-between">
                 <p className="text-sm font-normal leading-[19.6px] tracking-[-0.35px] text-gray-600">
-                    업데이트 : {item.updatedAt}
+                    업데이트 : {formatSimpleDate(item.updatedAt + 'Z')}
                 </p>
-                <button onClick={onDelete} className="absolute w-6 h-6 -right-[4px] hidden group-hover:block  ">
+                <button
+                    onClick={onDelete}
+                    className="absolute w-6 h-6 -right-[4px] hidden group-hover:block cursor-pointer"
+                >
                     <X className="w-full h-full fill-gray-900 " />
                 </button>
             </div>
 
-            <img src={item.thumbnail} alt={item.title} className="w-full aspect-[192/289] object-cover mt-2 mb-2" />
+            <div className="w-full aspect-[95/143] rounded-lg overflow-hidden shrink-0">
+                <img src={item.videoThumbnailUrl} alt={item.videoTitle} className="w-full h-full object-cover" />
+            </div>
 
             <div>
-                <h3 className="text-[18px] font-bold leading-[25.2px] tracking-[-0.45px]">{item.title}</h3>
+                <h3 className="text-[18px] font-bold leading-[25.2px] tracking-[-0.45px]">{item.videoTitle}</h3>
                 <p className="text-sm font-normal leading-[19.6px] tracking-[-0.35px] text-gray-600">
-                    {item.channel} · 조회수 {item.views.toLocaleString()}회 · {item.daysAgo}년 전
+                    {item.channelName} · 조회수 {item.viewCount.toLocaleString()}회 ·{' '}
+                    {formatRelativeTime(item.uploadDate)}
                 </p>
             </div>
         </div>

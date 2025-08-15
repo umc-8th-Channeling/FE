@@ -61,8 +61,10 @@ export const getReportStatus = async ({ reportId }: ReportStatusDto) => {
 }
 
 // 내 채널의 리포트 조회
-export const getMyReports = async ({ channelId }: MyReportsDto): Promise<ResponseMyReports> => {
-    const { data } = await axiosInstance.get(`channels/${channelId}/reports`)
+export const getMyReports = async ({ channelId, type, page, size }: MyReportsDto): Promise<ResponseMyReports> => {
+    const { data } = await axiosInstance.get(`channels/${channelId}/reports`, {
+        params: { type, page, size },
+    })
     return data
 }
 

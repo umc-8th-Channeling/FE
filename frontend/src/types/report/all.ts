@@ -80,14 +80,21 @@ export type OverviewDataProps = { data: ReportOverview }
 export type AnalysisDataProps = { data: ReportAnalysis }
 export type IdeaDataProps = { data: ReportIdea }
 
+export type VideoType = 'LONG' | 'SHORTS'
+
 // ✅ 내 채널 리포트 조회 요청 타입
 export type MyReportsDto = {
     channelId: number
+    type: VideoType
+    page: number
+    size: number
 }
 
 // 내 채널 리포트 조회 응답 타입
 export type BriefReport = {
+    channelName: string
     reportId: number
+    videoId: number
     videoTitle: string
     videoThumbnailUrl: string
     videoCategory: string
