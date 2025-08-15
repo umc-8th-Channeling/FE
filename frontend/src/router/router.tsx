@@ -6,6 +6,7 @@ import ReportPage from '../pages/report/ReportPage'
 import MyPage from '../pages/my/MyPage'
 import GoogleLoginRedirectPage from '../pages/auth/GoogleRedirectPage'
 import NotFoundPage from '../pages/NotFound'
+import ProtectedRoute from './ProtectedRoute'
 
 export const router = createBrowserRouter([
     {
@@ -22,15 +23,27 @@ export const router = createBrowserRouter([
             // },
             {
                 path: '/report/:reportId',
-                element: <ReportPage />,
+                element: (
+                    <ProtectedRoute>
+                        <ReportPage />
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: '/my',
-                element: <MyPage />,
+                element: (
+                    <ProtectedRoute>
+                        <MyPage />
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: '/library',
-                element: <LibraryPage />,
+                element: (
+                    <ProtectedRoute>
+                        <LibraryPage />
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: '/auth/callback',
