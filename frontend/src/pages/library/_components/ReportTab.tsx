@@ -7,7 +7,7 @@ import { useGetMyReports } from '../../../hooks/report/useGetMyReport'
 import { useAuthStore } from '../../../stores/authStore'
 import type { BriefReport, VideoType } from '../../../types/report/all'
 import { useDeleteMyReport } from '../../../hooks/report/useDeleteMyReport'
-import { Skeleton } from './Skeleton'
+import { ReportSkeleton } from './ReportSkeleton'
 
 export default function ReportTab() {
     const navigate = useNavigate()
@@ -43,8 +43,8 @@ export default function ReportTab() {
         setStartPage(1)
     }, [subTab])
 
-    if (isPending || !channelId) return <Skeleton />
-    if (!reportData) return <Skeleton />
+    if (isPending || !channelId) return <ReportSkeleton />
+    if (!reportData) return <ReportSkeleton />
 
     return (
         <>
