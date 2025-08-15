@@ -30,7 +30,6 @@ export const NavbarDesktop = () => {
         const updateTooltipPosition = () => {
             if (!isAuth && loginButtonRef.current) {
                 const rect = loginButtonRef.current.getBoundingClientRect()
-                console.log('Tooltip Position: ', rect)
                 setTooltipPos({
                     top: rect.top + window.scrollY,
                     left: rect.right + window.scrollX + 32,

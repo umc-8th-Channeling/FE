@@ -1,4 +1,4 @@
-import { Footer } from '../../components/common/Footer'
+import { Footer } from '../../layouts/_components/Footer'
 import useGetRecommendedVideo from '../../hooks/main/useGetRecommendedVideo'
 import { useAuthStore } from '../../stores/authStore'
 import { UrlInputForm, VideoRecommendation } from './_components'

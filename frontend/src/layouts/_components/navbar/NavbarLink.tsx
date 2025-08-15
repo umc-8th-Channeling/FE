@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { IconWrapper } from '../IconWrapper'
+import { IconWrapper } from '../../../components/IconWrapper'
 import type { LinkItem } from './navbarLinks'
 
 // NavbarLinksList의 className을 받도록 재설정

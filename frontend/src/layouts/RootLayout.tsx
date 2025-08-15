@@ -1,14 +1,14 @@
 import { Outlet, useLocation } from 'react-router-dom'
-import { NavbarWrapper } from '../../components/common/Navbar/NavbarWrapper'
-import LoadingSpinner from '../../components/LoadingSpinner'
-import ScrollToTop from '../../components/ScrollToTop'
-import { NavbarModalsContainer } from '../auth'
-import { SettingModalContainer } from '../setting/_components/SettingModalContainer'
-import { useReportStore } from '../../stores/reportStore'
+import { NavbarWrapper } from './_components/navbar/NavbarWrapper'
+import LoadingSpinner from '../components/LoadingSpinner'
+import ScrollToTop from '../components/ScrollToTop'
+import { useReportStore } from '../stores/reportStore'
 import { useEffect } from 'react'
-import { useLocalStorage } from '../../hooks/useLocalStorage'
-import { LOCAL_STORAGE_KEY } from '../../constants/key'
-import { useFetchAndSetUser } from '../../hooks/channel/useFetchAndSetUser'
+import { useLocalStorage } from '../hooks/useLocalStorage'
+import { LOCAL_STORAGE_KEY } from '../constants/key'
+import { useFetchAndSetUser } from '../hooks/channel/useFetchAndSetUser'
+import { NavbarModalsContainer } from '../pages/auth'
+import { SettingModalContainer } from '../pages/setting/_components/SettingModalContainer'
 
 export default function RootLayout() {
     const location = useLocation()
