@@ -8,6 +8,8 @@ import useGetReportOverview from '../../../../hooks/report/useGetReportOverview'
 import type { OverviewDataProps } from '../../../../types/report/all'
 import { GenerateErrorModal } from '../GenerateErrorModal'
 import { useNavigate } from 'react-router-dom'
+import { useDeleteMyReport } from '../../../../hooks/report/useDeleteMyReport'
+import { useAuthStore } from '../../../../stores/authStore'
 
 const EvaluationAndSummary = memo(({ data }: OverviewDataProps) => {
     return (
@@ -35,11 +37,17 @@ export const TabOverview = ({ reportId, isFromLibrary = false }: { reportId: num
         enabled: isCompleted,
     })
 
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
+
+    const { mutate: deleteReport } = useDeleteMyReport({ channelId })
+
     useEffect(() => {
         if (isFailed) {
             setIsErrorModalOpen(true)
+            deleteReport({ reportId })
         }
-    }, [isFailed])
+    }, [isFailed, reportId, deleteReport])
 
     const handleCloseErrorModal = () => {
         setIsErrorModalOpen(false)

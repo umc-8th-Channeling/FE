@@ -6,6 +6,8 @@ import { Skeleton } from './Skeleton'
 import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatus'
 import useGetReportAnalysis from '../../../../hooks/report/useGetReportAnalysis'
 import { GenerateErrorModal } from '../GenerateErrorModal'
+import { useAuthStore } from '../../../../stores/authStore'
+import { useDeleteMyReport } from '../../../../hooks/report/useDeleteMyReport'
 
 export const TabAnalysis = ({ reportId, isFromLibrary = false }: { reportId: number; isFromLibrary?: boolean }) => {
     const navigate = useNavigate()
@@ -24,11 +26,17 @@ export const TabAnalysis = ({ reportId, isFromLibrary = false }: { reportId: num
         enabled: isCompleted,
     })
 
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
+
+    const { mutate: deleteReport } = useDeleteMyReport({ channelId })
+
     useEffect(() => {
         if (isFailed) {
             setIsErrorModalOpen(true)
+            deleteReport({ reportId })
         }
-    }, [isFailed])
+    }, [isFailed, reportId, deleteReport])
 
     const handleCloseErrorModal = () => {
         setIsErrorModalOpen(false)
