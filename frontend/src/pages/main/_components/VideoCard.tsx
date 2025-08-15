@@ -1,16 +1,22 @@
+import { useState } from 'react'
 import { formatRelativeTime, formatKoreanNumber } from '../../../utils/format'
-import { Link } from 'react-router-dom'
 import type { BriefVideo } from '../../../types/main'
+import { MyReportModal } from '../../my/_components/myReportModal'
 
 interface VideoCardProps {
     video: BriefVideo
 }
 
 export const VideoCard = ({ video }: VideoCardProps) => {
-    const linkTo = video.isDummy ? `/report/dummy/${video.videoId}` : `/report?video=${video.videoId}`
+    const [open, setOpen] = useState(false)
+
+    const handleVideoClick = () => setOpen(true)
 
     return (
-        <Link to={linkTo} className="flex flex-col items-center justify-center gap-2 w-[288px] tablet:w-[282px]">
+        <div
+            onClick={handleVideoClick}
+            className="flex flex-col items-center justify-center gap-2 w-[288px] tablet:w-[282px] cursor-pointer"
+        >
             {/* 영상 썸네일 이미지 */}
             <div className="w-[288px] aspect-[16/9] tablet:w-[282px] tablet:aspect-[141/79] rounded-lg overflow-hidden">
                 <img src={video.videoThumbnailUrl} className="w-full h-full object-cover" />
@@ -36,6 +42,8 @@ export const VideoCard = ({ video }: VideoCardProps) => {
                     </div>
                 </div>
             </div>
-        </Link>
+
+            {open && <MyReportModal videoId={video.videoId} title={video.videoTitle} setOpen={setOpen} />}
+        </div>
     )
 }
