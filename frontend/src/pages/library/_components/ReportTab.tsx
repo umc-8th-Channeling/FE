@@ -31,7 +31,7 @@ export default function ReportTab() {
     const { mutate: deleteReport } = useDeleteMyReport({ channelId: user?.channelId ?? 1 })
 
     const handleClick = (reportId: number, videoId: number) => {
-        navigate(`/report/${reportId}?video=${videoId}`)
+        navigate(`/report/${reportId}?video=${videoId}`, { state: { from: 'library' } })
     }
 
     const handleDelete = (reportId: number) => {

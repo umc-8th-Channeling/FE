@@ -18,14 +18,16 @@ const EvaluationAndSummary = memo(({ data }: OverviewDataProps) => {
     )
 })
 
-export const TabOverview = ({ reportId }: { reportId: number }) => {
+export const TabOverview = ({ reportId, isFromLibrary = false }: { reportId: number; isFromLibrary?: boolean }) => {
     const navigate = useNavigate()
 
     const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
-    const { data: statusData } = usePollReportStatus(reportId ?? undefined)
+    const { data: statusData } = usePollReportStatus(reportId ?? undefined, {
+        enabled: !isFromLibrary,
+    })
 
     const status = statusData?.result?.overviewStatus
-    const isCompleted = status === 'COMPLETED'
+    const isCompleted = isFromLibrary || status === 'COMPLETED'
     const isFailed = status === 'FAILED'
 
     const { data: overviewData, isLoading: isOverviewLoading } = useGetReportOverview({
@@ -46,14 +48,18 @@ export const TabOverview = ({ reportId }: { reportId: number }) => {
 
     const isLoading = !isCompleted || isOverviewLoading || !overviewData
 
-    if (isLoading) return <Skeleton />
+    if (isLoading)
+        return (
+            <>
+                <Skeleton />
+                {isErrorModalOpen && <GenerateErrorModal onClose={handleCloseErrorModal} />}
+            </>
+        )
 
     return (
         <div className="space-y-16">
             <EvaluationAndSummary data={overviewData} />
             <CommentFeedback data={overviewData} />
-
-            {isErrorModalOpen && <GenerateErrorModal onClose={handleCloseErrorModal} />}
         </div>
     )
 }

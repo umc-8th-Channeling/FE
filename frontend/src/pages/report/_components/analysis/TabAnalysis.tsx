@@ -7,14 +7,16 @@ import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatu
 import useGetReportAnalysis from '../../../../hooks/report/useGetReportAnalysis'
 import { GenerateErrorModal } from '../GenerateErrorModal'
 
-export const TabAnalysis = ({ reportId }: { reportId: number }) => {
+export const TabAnalysis = ({ reportId, isFromLibrary = false }: { reportId: number; isFromLibrary?: boolean }) => {
     const navigate = useNavigate()
 
     const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
-    const { data: statusData } = usePollReportStatus(reportId ?? undefined)
+    const { data: statusData } = usePollReportStatus(reportId ?? undefined, {
+        enabled: !isFromLibrary,
+    })
 
     const status = statusData?.result?.analysisStatus
-    const isCompleted = status === 'COMPLETED'
+    const isCompleted = isFromLibrary || status === 'COMPLETED'
     const isFailed = status === 'FAILED'
 
     const { data: analysisData, isLoading: isAnalysisLoading } = useGetReportAnalysis({
@@ -35,14 +37,18 @@ export const TabAnalysis = ({ reportId }: { reportId: number }) => {
 
     const isLoading = !isCompleted || isAnalysisLoading || !analysisData
 
-    if (isLoading) return <Skeleton />
+    if (isLoading)
+        return (
+            <>
+                <Skeleton />
+                {isErrorModalOpen && <GenerateErrorModal onClose={handleCloseErrorModal} />}
+            </>
+        )
 
     return (
         <div className="space-y-16">
             <ViewerExitAnalysis data={analysisData} />
             <AlgorithmOptimization data={analysisData} />
-
-            {isErrorModalOpen && <GenerateErrorModal onClose={handleCloseErrorModal} />}
         </div>
     )
 }

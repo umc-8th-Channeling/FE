@@ -7,14 +7,16 @@ import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatu
 import useGetReportIdea from '../../../../hooks/report/useGetReportIdea'
 import { GenerateErrorModal } from '../GenerateErrorModal'
 
-export const TabIdea = ({ reportId }: { reportId: number }) => {
+export const TabIdea = ({ reportId, isFromLibrary = false }: { reportId: number; isFromLibrary?: boolean }) => {
     const navigate = useNavigate()
 
     const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
-    const { data: statusData } = usePollReportStatus(reportId ?? undefined)
+    const { data: statusData } = usePollReportStatus(reportId ?? undefined, {
+        enabled: !isFromLibrary,
+    })
 
     const status = statusData?.result?.ideaStatus
-    const isCompleted = status === 'COMPLETED'
+    const isCompleted = isFromLibrary || status === 'COMPLETED'
     const isFailed = status === 'FAILED'
 
     const { data: ideaData, isLoading: isIdeaLoading } = useGetReportIdea({
@@ -35,14 +37,18 @@ export const TabIdea = ({ reportId }: { reportId: number }) => {
 
     const isLoading = !isCompleted || isIdeaLoading || !ideaData
 
-    if (isLoading) return <Skeleton />
+    if (isLoading)
+        return (
+            <>
+                <Skeleton />
+                {isErrorModalOpen && <GenerateErrorModal onClose={handleCloseErrorModal} />}
+            </>
+        )
 
     return (
         <div className="space-y-16">
             <TrendKeywords data={ideaData} />
             <ContentsIdea data={ideaData} />
-
-            {isErrorModalOpen && <GenerateErrorModal onClose={handleCloseErrorModal} />}
         </div>
     )
 }

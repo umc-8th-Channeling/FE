@@ -7,8 +7,7 @@ export const useDeleteMyReport = ({ channelId }: { channelId: number }) => {
 
     return useMutation<ResponseDeleteMyReport, Error, DeleteMyReport>({
         mutationFn: deleteMyReport,
-        onSuccess: (data) => {
-            console.log('리포트가 성공적으로 삭제되었습니다.', data)
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['my', 'report', channelId] })
         },
         onError: (error) => {
