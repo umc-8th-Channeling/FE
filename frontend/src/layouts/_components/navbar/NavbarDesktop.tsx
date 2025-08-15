@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import ChannelingLogo from '../../../assets/icons/channelingLogo.svg?react'
 import { useAuthStore } from '../../../stores/authStore'
@@ -17,14 +17,14 @@ export const NavbarDesktop = () => {
     const { openLoginFlow } = useLoginStore().actions
     const isAuth = useAuthStore((state) => state.isAuth)
 
-    const handlePlusClick = () => setShowUrlModal(!showUrlModal)
+    const handlePlusClick = useCallback(() => setShowUrlModal((prev) => !prev), [])
 
     const handleUserClick = useOpenSetting()
 
-    const handleLoginClick = () => {
+    const handleLoginClick = useCallback(() => {
         setTooltipPos(null)
         openLoginFlow()
-    }
+    }, [openLoginFlow])
 
     useEffect(() => {
         const updateTooltipPosition = () => {

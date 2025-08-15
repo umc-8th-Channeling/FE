@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { NavbarLink, NavbarModalButton } from './NavbarLink'
 import { LOGIN_LINK, NAVIGATE_LINKS, PLUS_LINK } from './navbarLinks'
 import { NavbarUserInfo } from './NavbarUserInfo'
@@ -10,7 +11,7 @@ interface NavbarLinksListProps {
     handleUserClick: () => void
 }
 
-export const NavbarLinksList = ({
+const NavbarLinksListComponent = ({
     loginButtonRef,
     handlePlusClick,
     handleLoginClick,
@@ -42,3 +43,5 @@ export const NavbarLinksList = ({
         </div>
     )
 }
+
+export const NavbarLinksList = memo(NavbarLinksListComponent)

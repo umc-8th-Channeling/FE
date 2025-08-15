@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 
 interface IconWrapperProps {
     defaultIcon: string
@@ -11,7 +11,7 @@ interface IconWrapperProps {
     size?: 'sm' | 'md' | 'lg'
 }
 
-export const IconWrapper = ({
+const IconWrapperComponent = ({
     defaultIcon,
     hoverIcon,
     activeIcon,
@@ -51,3 +51,5 @@ export const IconWrapper = ({
         </div>
     )
 }
+
+export const IconWrapper = memo(IconWrapperComponent)
