@@ -1,4 +1,4 @@
-# Channeling-frontend-README
+# channeling-frontend
 
 [▶ 채널링 - Channeling](https://github.com/umc-8th-Channeling)
 
@@ -153,13 +153,9 @@ After running this command, you can see the website at localhost:5173.
 ┗ 📜Rules.md                            # 컨벤션 문서
 ```
 
----
-
-## 🐾 프론트 아키텍처 플로우
+## 🐾 프론트엔드 아키텍처 플로우
 
 ![프론트 아키텍처](https://github.com/user-attachments/assets/87ccbc0c-42aa-465a-93a4-26c756d85078)
-
----
 
 ## 🔫 개발 중 겪은 어려움과 해결 과정
 
@@ -346,8 +342,6 @@ After running this command, you can see the website at localhost:5173.
     해당 문제를 해결하기 위해 hooks/queries 에 fetchMyProfile.tsx 파일을 만들어 프로필을 변경하면 invalidateQueries({queryKey: ['my-profile']})을 통해 캐시를 무효화한 후 fetchMyProfile.tsx가 API를 다시 불러와 최신 프로필 데이터를 가져오도록 설정했습니다
 
 </details>
-
----
 
 ## 🤖Gemini AI PR 리뷰 자동화 파이프라인
 
