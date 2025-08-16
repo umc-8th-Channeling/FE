@@ -60,8 +60,7 @@ export default function ProfileSettings({ onOpenWithdraw, fetchEnabled }: Props)
         updateProfileImage(
             { image: file },
             {
-                onSuccess: (data) => {
-                    console.log('프로필 이미지 업로드 성공: ', data)
+                onSuccess: () => {
                     queryClient.invalidateQueries({ queryKey: ['my-profile'] })
                 },
                 onError: () => {

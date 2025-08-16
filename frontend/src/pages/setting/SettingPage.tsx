@@ -36,7 +36,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
     const handleWithdrawlConfirm = () => {
         setShowWithdrawlModal(false)
-        console.log('회원 탈퇴 처리')
     }
 
     return (

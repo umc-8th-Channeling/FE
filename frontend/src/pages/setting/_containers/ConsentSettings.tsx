@@ -21,7 +21,6 @@ export default function ConsentSettings() {
                     marketingEmailAgree: data.result.marketingEmailAgree,
                     dayContentEmailAgree: data.result.dayContentEmailAgree,
                 })
-                console.log('성공입니다', data)
             },
             onError: () => alert('존재하지 않는 회원 동의입니다.'),
         })

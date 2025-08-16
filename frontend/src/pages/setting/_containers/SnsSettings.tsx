@@ -48,8 +48,7 @@ export default function SnsSettings({
         }
 
         updateSNS(payload, {
-            onSuccess: (data) => {
-                console.log('SNS 정보 저장 성공', data)
+            onSuccess: () => {
                 setModified(false)
                 setEditing(false)
             },
