@@ -2,6 +2,8 @@
 
 [▶ 채널링 - Channeling](https://github.com/umc-8th-Channeling)
 
+**Coding conventions are documented in [Rules.md](./Rules.md).**
+
 ## 💡 Project Overview
 
 유튜브 채널 및 개별 영상 데이터를 AI로 분석해, 개선점과 트렌드 기반 콘텐츠 아이디어를 제공하는 솔루션입니다.  
@@ -11,8 +13,6 @@
 
 <img width="1200" alt="채널링 메인 페이지" src="https://github.com/user-attachments/assets/ad801b4f-d1ff-4e59-b72b-3246c8d20f28" />
 
-<br>
-
 ## ⚙️ Getting Started
 
 1. Install Plugin at your IDE
@@ -21,13 +21,19 @@
 -   [prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 -   [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
-2. Install project dependencies
+2. Move to the frontend directory
+
+```bash
+cd frontend
+```
+
+3. Install project dependencies
 
 ```bash
 pnpm install
 ```
 
-3. Run development server
+4. Run development server
 
 ```bash
 pnpm run dev
@@ -40,7 +46,7 @@ After running this command, you can see the website at localhost:5173.
 <div align="center">
 <video src="https://github.com/user-attachments/assets/6c6d543e-2cbe-4914-b918-b4b62ab35e03"
        controls
-       width="900"
+       width="200"
        playsinline
        muted>
 </video>
@@ -53,18 +59,14 @@ After running this command, you can see the website at localhost:5173.
 
 ## 🛠️ Tech Stacks
 
-![테크 스택](https://github.com/user-attachments/assets/10a1710d-35e0-4c48-b010-246867c40203)
-
-### 선정 이유
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" /> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" /> <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" /> <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" /> <img src="https://img.shields.io/badge/zustand-orange?style=for-the-badge&logo=zustand&logoColor=white" /> <img src="https://img.shields.io/badge/Tanstack Query-FF4154?style=for-the-badge&logo=TanstackQuery&logoColor=white"> <img src="https://img.shields.io/badge/chartjs-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white"> <img src="https://img.shields.io/badge/motion-FFF31D?style=for-the-badge&logo=motion&logoColor=white">
 
 -   **React + TypeScript + Vite:** 빠른 개발 사이클(HMR)과 타입 안정성으로 품질·생산성 확보
 -   **TailwindCSS:** 유틸리티 클래스 기반으로 일관된 디자인과 빠른 스타일링
--   **React Query:** 서버 상태 캐시/동기화, `invalidateQueries`로 신선도 제어
+-   **Tanstack Query:** 서버 상태 캐시/동기화, `invalidateQueries`로 신선도 제어
 -   **Zustand:** 로그인 플로우/모달 등 전역 UI 상태를 심플하게 관리
 -   **Vercel:** 간편한 프론트 배포 및 프리뷰 환경
 -   **ESLint/Prettier:** 팀 컨벤션과 자동 포맷팅으로 일관성 유지
-
----
 
 ## 📁 프로젝트 구조 (Route-Driven Feature + Layered Frontend)
 
@@ -80,7 +82,7 @@ After running this command, you can see the website at localhost:5173.
 ┃ ┣ 📁public                             # 정적 자산
 ┃ ┃ ┣ 📁fonts                            # 웹 폰트
 ┃ ┃ ┗ 📁icons                            # 퍼블릭 아이콘/이미지
-┃ ┣ 📁src                                # 소스 코드
+┃ ┣ 📁src
 ┃ ┃ ┣ 📁api                              # API 클라이언트
 ┃ ┃ ┣ 📁assets                           # 내부 에셋
 ┃ ┃ ┃ ┣ 📁ellipses                       # 그래픽
@@ -90,49 +92,43 @@ After running this command, you can see the website at localhost:5173.
 ┃ ┃ ┣ 📁components                       # 재사용 컴포넌트
 ┃ ┃ ┃ ┣ 📁chart                          # 차트 컴포넌트/플러그인
 ┃ ┃ ┃ ┣ 📁common                         # 공통 UI
-┃ ┃ ┃ ┃ ┣ 📁Navbar                       # 모바일/태블릿/데스크톱 Navbar
+┃ ┃ ┃ ┃ ┗ 📁navbar                       # 모바일/태블릿/데스크톱 Navbar
 ┃ ┃ ┣ 📁constants                        # 상수
 ┃ ┃ ┃ ┗ 📜key.ts                         # 키/상수 모음
 ┃ ┃ ┣ 📁hooks                            # 커스텀 훅
 ┃ ┃ ┃ ┣ 📁channel
 ┃ ┃ ┃ ┣ 📁library
-┃ ┃ ┃ ┃ ┗ 📁idea
 ┃ ┃ ┃ ┣ 📁main
-┃ ┃ ┃ ┣ 📁mutations
 ┃ ┃ ┃ ┣ 📁my
-┃ ┃ ┃ ┣ 📁queries                        # Profile fetch 훅
-┃ ┃ ┃ ┣ 📁report
+┃ ┃ ┃ ┗ 📁report
+┃ ┃ ┣ 📁layouts                          # 루트/공통 레이아웃
+┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┣ 📁lib                              # 유틸/매퍼/검증
 ┃ ┃ ┃ ┣ 📁mappers                        # API 매핑
-┃ ┃ ┃ ┃ ┗ 📁profile
 ┃ ┃ ┃ ┗ 📁validation
 ┃ ┃ ┣ 📁pages                            # 라우팅 페이지
 ┃ ┃ ┃ ┣ 📁auth                           # 인증(리다이렉트/모달)
-┃ ┃ ┃ ┃ ┣ 📁_components
-┃ ┃ ┃ ┣ 📁layouts                        # 루트/공통 레이아웃
+┃ ┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┃ ┣ 📁library                        # 라이브러리
-┃ ┃ ┃ ┃ ┣ 📁_components
+┃ ┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┃ ┣ 📁main                           # 메인
-┃ ┃ ┃ ┃ ┣ 📁_components
+┃ ┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┃ ┣ 📁my                             # 마이페이지
-┃ ┃ ┃ ┃ ┣ 📁_components
-┃ ┃ ┃ ┃ ┃ ┣ 📁Skeleton
+┃ ┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┃ ┣ 📁report                         # 리포트 상세 페이지
 ┃ ┃ ┃ ┃ ┣ 📁_components
 ┃ ┃ ┃ ┃ ┃ ┣ 📁analysis
 ┃ ┃ ┃ ┃ ┃ ┣ 📁idea
 ┃ ┃ ┃ ┃ ┃ ┗ 📁overview
 ┃ ┃ ┃ ┣ 📁setting                        # 설정(프로필/동의/탈퇴)
-┃ ┃ ┃ ┃ ┣ 📁_components
+┃ ┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┣ 📁router                           # 라우터 설정
 ┃ ┃ ┣ 📁stores                           # Zustand 전역 상태
 ┃ ┃ ┣ 📁styles                           # 전역/유틸 CSS
 ┃ ┃ ┣ 📁types                            # 타입 선언
-┃ ┃ ┃ ┣ 📁report
 ┃ ┃ ┣ 📁utils                            # 공통 유틸
 ┃ ┃ ┃ ┗ 📜format.ts
 ┃ ┃ ┣ 📜App.tsx
-┃ ┃ ┣ 📜global.css                       # 전역 스타일
 ┃ ┃ ┣ 📜main.tsx
 ┃ ┃ ┗ 📜vite-env.d.ts
 ┃ ┣ 📜.env
@@ -153,7 +149,8 @@ After running this command, you can see the website at localhost:5173.
 ┣ 📜.gitignore
 ┣ 📜.prettierignore
 ┣ 📜.prettierrc
-┗ 📜README.md                           # 루트 README
+┣ 📜README.md                           # 루트 README
+┗ 📜Rules.md                            # 컨벤션 문서
 ```
 
 ---
