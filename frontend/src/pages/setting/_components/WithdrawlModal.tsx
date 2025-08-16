@@ -18,7 +18,7 @@ export default function WithdrawlModal({ onClose, onConfirm }: WithdrawlModalPro
                     variant="ghost"
                     onClick={onClose}
                     className="flex items-center justify-center gap-2 px-4 w-full !max-w-[103px] h-[40px] !rounded-[16px]
-                    font-body-bold border border-gray-300"
+                    font-body-16b border border-gray-300"
                 >
                     취소
                 </Button>
@@ -26,7 +26,7 @@ export default function WithdrawlModal({ onClose, onConfirm }: WithdrawlModalPro
                     variant="danger"
                     onClick={onConfirm}
                     className="flex items-center justify-center gap-2 px-4 w-full !max-w-[87px] h-[40px] !rounded-[16px]
-                    font-body-bold"
+                    font-body-16b"
                 >
                     탈퇴하기
                 </Button>
