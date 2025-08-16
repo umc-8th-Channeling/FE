@@ -68,7 +68,7 @@ After running this command, you can see the website at localhost:5173.
 -   **Vercel:** 간편한 프론트 배포 및 프리뷰 환경
 -   **ESLint/Prettier:** 팀 컨벤션과 자동 포맷팅으로 일관성 유지
 
-## 📁 프로젝트 구조 (Route-Driven Feature + Layered Frontend)
+## 📁 Project Structure
 
 프론트엔드는 **라우트(페이지) 중심의 기능 단위 구조** 위에, 재사용 가능한 **레이어(components · hooks · lib · api · stores)** 를 분리해 구성했습니다.
 
@@ -153,11 +153,16 @@ After running this command, you can see the website at localhost:5173.
 ┗ 📜Rules.md                            # 컨벤션 문서
 ```
 
-## 🐾 프론트엔드 아키텍처 플로우
+## 🐾 Frontend Architecture Flow
 
 ![프론트 아키텍처](https://github.com/user-attachments/assets/87ccbc0c-42aa-465a-93a4-26c756d85078)
 
-## 🔫 개발 중 겪은 어려움과 해결 과정
+## ✍️ Typography System Guide
+
+프로젝트 전역에서 일관된 텍스트 스타일을 적용하기 위해 **타이포그래피 시스템**을 정의했습니다.  
+모든 팀원은 `typo.css`에 정의된 클래스를 사용해야 하며, 상세 규칙과 클래스 레퍼런스는 [Typography.md](./src/styles/Typography.md)에서 확인할 수 있습니다.
+
+## 🔫 Challenges & Solutions
 
 <details>
   <summary>페이지네이션의 숫자가 음수로 나타나는 문제</summary>
@@ -343,9 +348,8 @@ After running this command, you can see the website at localhost:5173.
 
 </details>
 
-## 🤖Gemini AI PR 리뷰 자동화 파이프라인
+## 🤖 Gemini AI PR Review Automation Pipeline
 
 저희 채널링에서는 보다 나은 코드를 위해 **Gemini AI를 PR 리뷰에 자동화**시켜 백엔드, 프론트엔드에서 사용하고 있습니다.
 
 ![프론트 재미나이](https://github.com/user-attachments/assets/99ee7953-1312-4c91-bc7e-67111d137eb5)
-![프론트 재미나이](https://github.com/user-attachments/assets/67c17f35-0dd3-419b-94fb-85ed22e7c54f)
