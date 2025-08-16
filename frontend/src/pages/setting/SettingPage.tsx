@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from './_components/SettingButton'
 import '../../styles/scrollbar.css'
 import CloseIcon from '../../assets/icons/delete_normal.svg?react'
@@ -48,37 +48,35 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const { marketingEmailAgree, dayContentEmailAgree, setMarketingEmailAgree, setDayContentEmailAgree } =
         useConsentStore()
 
+    const userId = user?.memberId ?? null
+    const userLinks = useMemo(
+        () => ({
+            instagram: user?.instagramLink ?? '',
+            tiktok: user?.tiktokLink ?? '',
+            facebook: user?.facebookLink ?? '',
+            x: user?.twitterLink ?? '',
+        }),
+        [user?.instagramLink, user?.tiktokLink, user?.facebookLink, user?.twitterLink]
+    )
+
     useEffect(() => {
-        if (!user) return
+        if (!userId) return
 
         // 사용자 변경시
-        if (ownerId !== user.memberId) {
+        if (ownerId !== userId) {
             // persist 저장소 비우기
             useSNSFormStore.persist?.clearStorage?.()
             // 메모리 초기화
             resetFormData()
-            setOwner(user.memberId)
-
-            setFormData({
-                instagram: user.instagramLink ?? '',
-                tiktok: user.tiktokLink ?? '',
-                facebook: user.facebookLink ?? '',
-                x: user.twitterLink ?? '',
-            })
+            setOwner(userId)
+            setFormData(userLinks)
             return
         }
 
-        // 같은 사용자일 때
-        const hasAny = formData.instagram || formData.tiktok || formData.facebook || formData.x
-        if (!hasAny) {
-            setFormData({
-                instagram: user.instagramLink ?? '',
-                tiktok: user.tiktokLink ?? '',
-                facebook: user.facebookLink ?? '',
-                x: user.twitterLink ?? '',
-            })
+        if (!Object.values(formData).some(Boolean)) {
+            setFormData(userLinks)
         }
-    }, [user?.memberId, ownerId, formData])
+    }, [userId, ownerId, formData, userLinks, resetFormData, setFormData, setOwner])
 
     useEffect(() => {
         if (!myProfile) return
