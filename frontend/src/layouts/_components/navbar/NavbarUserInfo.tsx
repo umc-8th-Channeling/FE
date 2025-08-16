@@ -1,5 +1,5 @@
+import { useFetchMyProfile } from '../../../hooks/setting/useFetchMyProfile'
 import { memo } from 'react'
-import { useFetchMyProfile } from '../../../hooks/queries/fetchMyProfile'
 import type { User } from '../../../types/channel'
 
 interface NavbarUserInfoProps {

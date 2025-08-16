@@ -11,11 +11,11 @@ import {
     useUpdateMemberAgree,
     useUpdateMemberProfileImage,
     useUpdateMemberSNS,
-} from '../../hooks/mutations/userMutations'
+} from '../../hooks/setting/userMutations'
 import { useAuthStore } from '../../stores/authStore'
 import { useSNSFormStore, type SNSKey } from '../../stores/snsFormStore'
 import { useQueryClient } from '@tanstack/react-query'
-import { useFetchMyProfile } from '../../hooks/queries/fetchMyProfile'
+import { useFetchMyProfile } from '../../hooks/setting/useFetchMyProfile'
 
 type SettingPageProps = {
     onClose?: () => void
