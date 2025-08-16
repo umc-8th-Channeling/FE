@@ -14,7 +14,7 @@ export default function Input({ editing, ...props }: InputProps) {
             <input
                 {...props}
                 className="w-full h-full box-border border-none
-                font-caption placeholder-gray-600
+                font-caption-14r placeholder-gray-600
                 focus:outline-none"
             />
         </div>
