@@ -160,7 +160,7 @@ After running this command, you can see the website at localhost:5173.
 ## ✍️ Typography System Guide
 
 프로젝트 전역에서 일관된 텍스트 스타일을 적용하기 위해 **타이포그래피 시스템**을 정의했습니다.  
-모든 팀원은 `typo.css`에 정의된 클래스를 사용해야 하며, 상세 규칙과 클래스 레퍼런스는 [Typography.md](./src/styles/Typography.md)에서 확인할 수 있습니다.
+모든 팀원은 `typo.css`에 정의된 클래스를 사용해야 하며, 상세 규칙과 클래스 레퍼런스는 [Typography.md](./frontend/src/styles/Typography.md)에서 확인할 수 있습니다.
 
 ## 🔫 Challenges & Solutions
 
