@@ -10,7 +10,7 @@ type Props = {
     onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     onCameraClick: () => void
     onWithdraw: () => void
-    fileInputRef: React.RefObject<HTMLInputElement>
+    fileInputRef: React.RefObject<HTMLInputElement | null>
 }
 
 export default function SnsSettings({
