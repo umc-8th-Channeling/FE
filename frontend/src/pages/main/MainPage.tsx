@@ -1,14 +1,17 @@
-import { Footer } from '../../components/common/Footer'
+import { Footer } from '../../layouts/_components/Footer'
 import useGetRecommendedVideo from '../../hooks/main/useGetRecommendedVideo'
 import { useAuthStore } from '../../stores/authStore'
 import { UrlInputForm, VideoRecommendation } from './_components'
-import { DUMMY_POPULAR } from './dummy'
+// import { DUMMY_POPULAR } from './dummy'
 
 export default function MainPage() {
     const isAuth = useAuthStore((state) => state.isAuth)
     const user = useAuthStore((state) => state.user)
 
-    const { data: myVideo } = useGetRecommendedVideo({ channelId: user?.channelId })
+    const PAGE = 1
+    const SIZE = 2
+
+    const { data: myVideo } = useGetRecommendedVideo({ channelId: user?.channelId, page: PAGE, size: SIZE })
 
     return (
         <div className="flex flex-col items-center justify-center z-50">
@@ -34,7 +37,7 @@ export default function MainPage() {
                     {isAuth && myVideo && myVideo.list && myVideo.list.length > 0 && (
                         <VideoRecommendation label="내 영상의 개선점을 알고 싶다면" videoData={myVideo} />
                     )}
-                    <VideoRecommendation label="인기있는 영상의 비결은?" videoData={DUMMY_POPULAR} />
+                    {/* <VideoRecommendation label="인기있는 영상의 비결은?" videoData={DUMMY_POPULAR} /> */}
                 </div>
             </div>
 

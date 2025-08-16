@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { useAuthStore } from '../../stores/authStore'
 
 import Refresh from '../../assets/icons/refresh_2.svg?react'
@@ -13,19 +13,21 @@ export default function ReportPage() {
     const { reportId: reportIdParam } = useParams()
     const [searchParams] = useSearchParams()
     const videoIdParam = searchParams.get('video')
+    const location = useLocation()
 
     const reportId = Number(reportIdParam)
     const videoId = Number(videoIdParam)
     const isAuth = useAuthStore((state) => state.isAuth)
     const endGenerating = useReportStore((state) => state.actions.endGenerating)
+    const isFromLibrary = location.state?.from === 'library'
 
     const TABS = useMemo(
         () => [
-            { index: 0, label: '개요', component: <TabOverview reportId={reportId} /> },
-            { index: 1, label: '분석', component: <TabAnalysis reportId={reportId} /> },
-            { index: 2, label: '아이디어', component: <TabIdea reportId={reportId} /> },
+            { index: 0, label: '개요', component: <TabOverview reportId={reportId} isFromLibrary={isFromLibrary} /> },
+            { index: 1, label: '분석', component: <TabAnalysis reportId={reportId} isFromLibrary={isFromLibrary} /> },
+            { index: 2, label: '아이디어', component: <TabIdea reportId={reportId} isFromLibrary={isFromLibrary} /> },
         ],
-        [reportId]
+        [reportId, isFromLibrary]
     )
 
     const [activeTab, setActiveTab] = useState(TABS[0])
@@ -57,7 +59,11 @@ export default function ReportPage() {
             {isOpenGuestModal && <GuestModal onClose={handleGuestModalClick} />}
 
             {isOpenUpdateModal && (
-                <UpdateModal handleModalClick={handleUpdateModalClick} handleResetTab={handleResetTab} />
+                <UpdateModal
+                    videoId={videoId}
+                    handleModalClick={handleUpdateModalClick}
+                    handleResetTab={handleResetTab}
+                />
             )}
 
             {/* 리포트 업데이트 버튼 */}

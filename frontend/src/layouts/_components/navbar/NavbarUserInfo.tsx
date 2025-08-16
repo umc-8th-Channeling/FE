@@ -1,4 +1,5 @@
 import { useFetchMyProfile } from '../../../hooks/setting/useFetchMyProfile'
+import { memo } from 'react'
 import type { User } from '../../../types/channel'
 
 interface NavbarUserInfoProps {
@@ -6,7 +7,7 @@ interface NavbarUserInfoProps {
     onUserClick: () => void
 }
 
-export const NavbarUserInfo = ({ onUserClick }: NavbarUserInfoProps) => {
+const NavbarUserInfoComponent = ({ onUserClick }: NavbarUserInfoProps) => {
     const { data } = useFetchMyProfile()
 
     if (!data) return null
@@ -22,3 +23,5 @@ export const NavbarUserInfo = ({ onUserClick }: NavbarUserInfoProps) => {
         </>
     )
 }
+
+export const NavbarUserInfo = memo(NavbarUserInfoComponent)

@@ -103,3 +103,31 @@ export const formatSimpleDate = (dateInput: Date | string | number) => {
 
     return `${year}.${month}.${day} ${ampm} ${hours}:${minutes}`
 }
+
+/**
+ * 주어진 단어의 마지막 글자 받침 유무에 따라 올바른 조사를 선택해 **반환**합니다.
+ * @param text 조사 앞에 오는 단어
+ * @param particle 받침이 있을 때와 없을 때의 조사를 '/'로 구분한 문자열 (예: "을/를")
+ * @returns 선택된 조사 문자열 (예: "을" 또는 "를")
+ */
+export const getJosa = (text: string, particle: string): string => {
+    if (typeof text !== 'string' || text.length === 0 || typeof particle !== 'string' || particle.length === 0) {
+        return ''
+    }
+
+    const [particleWithConsonant, particleWithoutConsonant] = particle.split('/')
+
+    if (!particleWithConsonant || !particleWithoutConsonant) {
+        return ''
+    }
+
+    const lastChar = text.charCodeAt(text.length - 1)
+
+    if (lastChar < 0xac00 || lastChar > 0xd7a3) {
+        return particleWithoutConsonant
+    }
+
+    const hasFinalConsonant = (lastChar - 0xac00) % 28 > 0
+
+    return hasFinalConsonant ? particleWithConsonant : particleWithoutConsonant
+}

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import Modal from '../../../components/Modal'
 import usePostReportById from '../../../hooks/report/usePostReportById'
+import { getJosa } from '../../../utils/format'
 
 interface MyReportModalProps {
     title: string
@@ -28,7 +29,7 @@ export const MyReportModal = ({ title, setOpen, videoId }: MyReportModalProps) =
     return (
         <Modal
             title="해당 영상에 대한 리포트를 받아 보시겠어요?"
-            description={`‘${title}’을 유튜버님의 타겟과 컨셉을 고려하여 분석해요.`}
+            description={`‘${title}’${getJosa(title, '을/를')} 유튜버님의 타겟과 컨셉을 고려하여 분석해요.`}
             onClose={() => setOpen(false)}
             className="w-[486px]"
         >

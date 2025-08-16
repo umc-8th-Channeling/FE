@@ -35,7 +35,7 @@ export const useSNSFormStore = create(
                 }),
         }),
         {
-            name: 'sns-form-stoarge',
+            name: 'sns-form-storage',
         }
     )
 )

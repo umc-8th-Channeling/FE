@@ -1,5 +1,6 @@
+import { memo } from 'react'
 import { NavLink } from 'react-router-dom'
-import { IconWrapper } from '../IconWrapper'
+import { IconWrapper } from '../../../components/IconWrapper'
 import type { LinkItem } from './navbarLinks'
 
 // NavbarLinksList의 className을 받도록 재설정
@@ -9,7 +10,7 @@ type NavbarLinkProps = LinkItem & {
 }
 
 // 누르면 경로 이동하는 Link 버튼
-export const NavbarLink = (props: NavbarLinkProps) => {
+const NavbarLinkComponent = (props: NavbarLinkProps) => {
     const { to, label, defaultIcon, hoverIcon, activeIcon, alt, isCircle, size, className } = props
 
     return (
@@ -25,9 +26,7 @@ export const NavbarLink = (props: NavbarLinkProps) => {
                         isActive={isActive}
                         size={size}
                     />
-                    <span className="text-[16px] tablet:text-[24px] leading-[150%] font-medium tracking-[-0.6px] desktop:text-[16px] desktop:trakcing-[-0.4px] text-gray-900 whitespace-nowrap">
-                        {label}
-                    </span>
+                    <span className="font-body-24m text-gray-900 whitespace-nowrap">{label}</span>
                 </div>
             )}
         </NavLink>
@@ -35,7 +34,7 @@ export const NavbarLink = (props: NavbarLinkProps) => {
 }
 
 // 누르면 모달이 열리는 버튼
-export const NavbarModalButton = (props: NavbarLinkProps) => {
+const NavbarModalButtonComponent = (props: NavbarLinkProps) => {
     const { label, defaultIcon, hoverIcon, activeIcon, alt, isCircle, size, className, onClick } = props
 
     return (
@@ -50,10 +49,11 @@ export const NavbarModalButton = (props: NavbarLinkProps) => {
                     isActive={false}
                     size={size}
                 />
-                <span className="text-[16px] tablet:text-[24px] leading-[150%] font-medium tracking-[-0.6px] desktop:text-[16px] desktop:trakcing-[-0.4px] text-gray-900 whitespace-nowrap">
-                    {label}
-                </span>
+                <span className="font-body-24m text-gray-900 whitespace-nowrap">{label}</span>
             </div>
         </button>
     )
 }
+
+export const NavbarLink = memo(NavbarLinkComponent)
+export const NavbarModalButton = memo(NavbarModalButtonComponent)

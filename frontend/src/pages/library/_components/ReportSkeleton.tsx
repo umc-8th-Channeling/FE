@@ -1,10 +1,13 @@
 import { BaseSkeleton } from '../../../components/Skeleton'
 
-export const Skeleton = () => {
+export const ReportSkeleton = () => {
     return (
         <div>
             <div className="flex justify-between items-center mb-6">
-                <BaseSkeleton sizeConfig="w-40 h-10" />
+                <div className="flex flex-row gap-2">
+                    <BaseSkeleton sizeConfig="w-[72px] h-10" />
+                    <BaseSkeleton sizeConfig="w-[72px] h-10" />
+                </div>
                 <BaseSkeleton sizeConfig="w-50 h-10" />
             </div>
 

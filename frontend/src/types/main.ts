@@ -12,8 +12,8 @@ export type BriefVideo = {
     videoThumbnailUrl: string
     videoCategory: string
     viewCount: number
-    channelName?: string
-    channelProfileImageUrl?: string
+    channelName: string
+    channelImage: string
     uploadDate: Date
     isDummy?: boolean
 }
