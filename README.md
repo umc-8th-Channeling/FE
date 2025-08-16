@@ -13,6 +13,25 @@
 
 <img width="1200" alt="채널링 메인 페이지" src="https://github.com/user-attachments/assets/ad801b4f-d1ff-4e59-b72b-3246c8d20f28" />
 
+## 👥 Contributors
+
+|                                                         **곰/김소원**                                                          |                                                         **하치/정윤빈**                                                          |                                                             **띵/장명준**                                                              |                                                              **정/김세정**                                                               |
+| :----------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://avatars.githubusercontent.com/u/102126457?v=4" height=150 width=150> <br/> gomx3](https://github.com/gomx3) | [<img src="https://avatars.githubusercontent.com/u/130227391?v=4" height=150 width=150> <br/> drddyn](https://github.com/drddyn) | [<img src="https://avatars.githubusercontent.com/u/103755402?v=4" height=150 width=150> <br/> komascode](https://github.com/komascode) | [<img src="https://avatars.githubusercontent.com/u/203520708?v=4" height=150 width=150> <br/> sejeong223](https://github.com/sejeong223) |
+
+</div>
+
+## 🛠️ Tech Stacks
+
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" /> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" /> <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" /> <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" /> <img src="https://img.shields.io/badge/zustand-orange?style=for-the-badge&logo=zustand&logoColor=white" /> <img src="https://img.shields.io/badge/Tanstack Query-FF4154?style=for-the-badge&logo=TanstackQuery&logoColor=white"> <img src="https://img.shields.io/badge/chartjs-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white"> <img src="https://img.shields.io/badge/motion-FFF31D?style=for-the-badge&logo=motion&logoColor=white">
+
+-   **React + TypeScript + Vite:** 빠른 개발 사이클(HMR)과 타입 안정성으로 품질·생산성 확보
+-   **TailwindCSS:** 유틸리티 클래스 기반으로 일관된 디자인과 빠른 스타일링
+-   **Tanstack Query:** 서버 상태 캐시/동기화, `invalidateQueries`로 신선도 제어
+-   **Zustand:** 로그인 플로우/모달 등 전역 UI 상태를 심플하게 관리
+-   **Vercel:** 간편한 프론트 배포 및 프리뷰 환경
+-   **ESLint/Prettier:** 팀 컨벤션과 자동 포맷팅으로 일관성 유지
+
 ## ⚙️ Getting Started
 
 1. Install Plugin at your IDE
@@ -40,33 +59,6 @@ pnpm run dev
 ```
 
 After running this command, you can see the website at localhost:5173.
-
-## 👥 Contributors
-
-<div align="center">
-<video src="https://github.com/user-attachments/assets/6c6d543e-2cbe-4914-b918-b4b62ab35e03"
-       controls
-       width="200"
-       playsinline
-       muted>
-</video>
-
-|                                                         **곰/김소원**                                                          |                                                         **하치/정윤빈**                                                          |                                                             **띵/장명준**                                                              |                                                              **정/김세정**                                                               |
-| :----------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://avatars.githubusercontent.com/u/102126457?v=4" height=150 width=150> <br/> gomx3](https://github.com/gomx3) | [<img src="https://avatars.githubusercontent.com/u/130227391?v=4" height=150 width=150> <br/> drddyn](https://github.com/drddyn) | [<img src="https://avatars.githubusercontent.com/u/103755402?v=4" height=150 width=150> <br/> komascode](https://github.com/komascode) | [<img src="https://avatars.githubusercontent.com/u/203520708?v=4" height=150 width=150> <br/> sejeong223](https://github.com/sejeong223) |
-
-</div>
-
-## 🛠️ Tech Stacks
-
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" /> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" /> <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" /> <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" /> <img src="https://img.shields.io/badge/zustand-orange?style=for-the-badge&logo=zustand&logoColor=white" /> <img src="https://img.shields.io/badge/Tanstack Query-FF4154?style=for-the-badge&logo=TanstackQuery&logoColor=white"> <img src="https://img.shields.io/badge/chartjs-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white"> <img src="https://img.shields.io/badge/motion-FFF31D?style=for-the-badge&logo=motion&logoColor=white">
-
--   **React + TypeScript + Vite:** 빠른 개발 사이클(HMR)과 타입 안정성으로 품질·생산성 확보
--   **TailwindCSS:** 유틸리티 클래스 기반으로 일관된 디자인과 빠른 스타일링
--   **Tanstack Query:** 서버 상태 캐시/동기화, `invalidateQueries`로 신선도 제어
--   **Zustand:** 로그인 플로우/모달 등 전역 UI 상태를 심플하게 관리
--   **Vercel:** 간편한 프론트 배포 및 프리뷰 환경
--   **ESLint/Prettier:** 팀 컨벤션과 자동 포맷팅으로 일관성 유지
 
 ## 📁 Project Structure
 
@@ -353,3 +345,11 @@ After running this command, you can see the website at localhost:5173.
 저희 채널링에서는 보다 나은 코드를 위해 **Gemini AI를 PR 리뷰에 자동화**시켜 백엔드, 프론트엔드에서 사용하고 있습니다.
 
 ![프론트 재미나이](https://github.com/user-attachments/assets/99ee7953-1312-4c91-bc7e-67111d137eb5)
+
+<div align="center">
+<video src="https://github.com/user-attachments/assets/6c6d543e-2cbe-4914-b918-b4b62ab35e03"
+       controls
+       width="200"
+       playsinline
+       muted>
+</video>
