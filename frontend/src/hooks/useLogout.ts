@@ -9,6 +9,8 @@ export function useLogout() {
     const queryClient = useQueryClient()
 
     return async () => {
+        localStorage.setItem('isLoggingOut', 'true')
+
         // 1) 토큰 삭제
         try {
             localStorage.removeItem(LOCAL_STORAGE_KEY.accessToken)
@@ -46,5 +48,9 @@ export function useLogout() {
         }
 
         navigate('/', { replace: true })
+
+        setTimeout(() => {
+            localStorage.removeItem('isLoggingOut')
+        }, 100)
     }
 }
