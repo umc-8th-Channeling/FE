@@ -11,8 +11,6 @@
 
 <img width="1200" alt="멋있는 채널링 페이지" src="https://github.com/user-attachments/assets/28e427e5-faba-4273-a3b4-8aa23674cf9e" />
 
-<img width="1200" alt="채널링 메인 페이지" src="https://github.com/user-attachments/assets/ad801b4f-d1ff-4e59-b72b-3246c8d20f28" />
-
 ## 👥 Contributors
 
 |                                                         **곰/김소원**                                                          |                                                         **하치/정윤빈**                                                          |                                                             **띵/장명준**                                                              |                                                              **정/김세정**                                                               |
@@ -345,6 +343,8 @@ After running this command, you can see the website at localhost:5173.
 저희 채널링에서는 보다 나은 코드를 위해 **Gemini AI를 PR 리뷰에 자동화**시켜 백엔드, 프론트엔드에서 사용하고 있습니다.
 
 ![프론트 재미나이](https://github.com/user-attachments/assets/99ee7953-1312-4c91-bc7e-67111d137eb5)
+
+---
 
 <div align="center">
 <video src="https://github.com/user-attachments/assets/6c6d543e-2cbe-4914-b918-b4b62ab35e03"
