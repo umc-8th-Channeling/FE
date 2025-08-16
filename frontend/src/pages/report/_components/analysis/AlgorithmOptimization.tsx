@@ -11,7 +11,7 @@ export const AlgorithmOptimization = ({ data }: AnalysisDataProps) => {
                 className="w-full rounded-lg border border-gray-200
                             bg-surface-elevate-l1 p-6 overflow-y-auto overflow-hidden"
             >
-                <div className="flex flex-col space-y-4 font-body-regular">
+                <div className="flex flex-col space-y-4 font-body-16r">
                     <Markdown
                         remarkPlugins={[remarkGfm]}
                         rehypePlugins={[rehypeRaw]}
@@ -31,10 +31,10 @@ export const AlgorithmOptimization = ({ data }: AnalysisDataProps) => {
                                     {children}
                                 </h3>
                             ),
-                            p: ({ children }) => <p className="font-body-regular">{children}</p>,
-                            ul: ({ children }) => <ul className="font-body-regular">{children}</ul>,
+                            p: ({ children }) => <p className="font-body-16r">{children}</p>,
+                            ul: ({ children }) => <ul className="font-body-16r">{children}</ul>,
                             li: ({ children }) => (
-                                <li className="relative pl-6 before:absolute before:left-2 before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-current before:rounded-full">
+                                <li className="relative pl-6 before:absolute before:left-2 before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-current before:rounded-full font-body-16r">
                                     {children}
                                 </li>
                             ),

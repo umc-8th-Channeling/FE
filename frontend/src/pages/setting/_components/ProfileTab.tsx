@@ -73,19 +73,19 @@ export default function ProfileTab({
             {/* 유저 정보 */}
             <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
-                    <Label className="font-body-bold text-gray-600">닉네임</Label>
-                    <div className="font-title">{nickname}</div>
+                    <Label className="font-body-16b text-gray-600">닉네임</Label>
+                    <div className="font-title-20b">{nickname}</div>
                 </div>
                 <div className="flex flex-col gap-2">
-                    <Label className="font-body-bold text-gray-600">이메일</Label>
-                    <div className="font-title">{googleEmail}</div>
+                    <Label className="font-body-16b text-gray-600">이메일</Label>
+                    <div className="font-title-20b">{googleEmail}</div>
                 </div>
             </div>
 
             {/* SNS 링크 */}
             <div className="flex flex-col gap-4">
                 <div className="flex justify-between items-center">
-                    <Label className="font-body-bold">SNS 링크 추가</Label>
+                    <Label className="font-body-16b">SNS 링크 추가</Label>
                     <EditButton
                         onClick={handleEditButtonClick}
                         label={editing ? '완료' : '수정'}
@@ -96,7 +96,7 @@ export default function ProfileTab({
                 <div className="flex flex-col gap-2">
                     {(Object.keys(labelMap) as SNSKey[]).map((sns) => (
                         <div key={sns} className="flex flex-col gap-2">
-                            <Label className="font-caption text-gray-600">{labelMap[sns]}</Label>
+                            <Label className="font-caption-14r text-gray-600">{labelMap[sns]}</Label>
                             <Input
                                 name={sns}
                                 placeholder="SNS 링크를 입력해주세요."
@@ -112,7 +112,7 @@ export default function ProfileTab({
 
             <div className="desktop:pb-6">
                 <button
-                    className="w-full font-title-bold flex items-center justify-between cursor-pointer"
+                    className="w-full font-title-18b flex items-center justify-between cursor-pointer"
                     onClick={onWithdraw}
                 >
                     <span>탈퇴하기</span>

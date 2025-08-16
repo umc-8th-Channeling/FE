@@ -1,6 +1,8 @@
-# Channeling-frontend-README
+# channeling-frontend
 
 [▶ 채널링 - Channeling](https://github.com/umc-8th-Channeling)
+
+**Coding conventions are documented in [Rules.md](./Rules.md).**
 
 ## 💡 Project Overview
 
@@ -9,9 +11,22 @@
 
 <img width="1200" alt="멋있는 채널링 페이지" src="https://github.com/user-attachments/assets/28e427e5-faba-4273-a3b4-8aa23674cf9e" />
 
-<img width="1200" alt="채널링 메인 페이지" src="https://github.com/user-attachments/assets/ad801b4f-d1ff-4e59-b72b-3246c8d20f28" />
+## 👥 Contributors
 
-<br>
+|                                                         **곰/김소원**                                                          |                                                         **하치/정윤빈**                                                          |                                                             **띵/장명준**                                                              |                                                              **정/김세정**                                                               |
+| :----------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://avatars.githubusercontent.com/u/102126457?v=4" height=150 width=150> <br/> gomx3](https://github.com/gomx3) | [<img src="https://avatars.githubusercontent.com/u/130227391?v=4" height=150 width=150> <br/> drddyn](https://github.com/drddyn) | [<img src="https://avatars.githubusercontent.com/u/103755402?v=4" height=150 width=150> <br/> komascode](https://github.com/komascode) | [<img src="https://avatars.githubusercontent.com/u/203520708?v=4" height=150 width=150> <br/> sejeong223](https://github.com/sejeong223) |
+
+## 🛠️ Tech Stacks
+
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" /> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" /> <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" /> <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" /> <img src="https://img.shields.io/badge/zustand-orange?style=for-the-badge&logo=zustand&logoColor=white" /> <img src="https://img.shields.io/badge/Tanstack Query-FF4154?style=for-the-badge&logo=TanstackQuery&logoColor=white"> <img src="https://img.shields.io/badge/chartjs-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white"> <img src="https://img.shields.io/badge/motion-FFF31D?style=for-the-badge&logo=motion&logoColor=white">
+
+-   **React + TypeScript + Vite:** 빠른 개발 사이클(HMR)과 타입 안정성으로 품질·생산성 확보
+-   **TailwindCSS:** 유틸리티 클래스 기반으로 일관된 디자인과 빠른 스타일링
+-   **Tanstack Query:** 서버 상태 캐시/동기화, `invalidateQueries`로 신선도 제어
+-   **Zustand:** 로그인 플로우/모달 등 전역 UI 상태를 심플하게 관리
+-   **Vercel:** 간편한 프론트 배포 및 프리뷰 환경
+-   **ESLint/Prettier:** 팀 컨벤션과 자동 포맷팅으로 일관성 유지
 
 ## ⚙️ Getting Started
 
@@ -21,13 +36,19 @@
 -   [prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 -   [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
-2. Install project dependencies
+2. Move to the frontend directory
+
+```bash
+cd frontend
+```
+
+3. Install project dependencies
 
 ```bash
 pnpm install
 ```
 
-3. Run development server
+4. Run development server
 
 ```bash
 pnpm run dev
@@ -35,38 +56,7 @@ pnpm run dev
 
 After running this command, you can see the website at localhost:5173.
 
-## 👥 Contributors
-
-<div align="center">
-<video src="https://github.com/user-attachments/assets/6c6d543e-2cbe-4914-b918-b4b62ab35e03"
-       controls
-       width="900"
-       playsinline
-       muted>
-</video>
-
-|                                                         **곰/김소원**                                                          |                                                         **하치/정윤빈**                                                          |                                                             **띵/장명준**                                                              |                                                              **정/김세정**                                                               |
-| :----------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://avatars.githubusercontent.com/u/102126457?v=4" height=150 width=150> <br/> gomx3](https://github.com/gomx3) | [<img src="https://avatars.githubusercontent.com/u/130227391?v=4" height=150 width=150> <br/> drddyn](https://github.com/drddyn) | [<img src="https://avatars.githubusercontent.com/u/103755402?v=4" height=150 width=150> <br/> komascode](https://github.com/komascode) | [<img src="https://avatars.githubusercontent.com/u/203520708?v=4" height=150 width=150> <br/> sejeong223](https://github.com/sejeong223) |
-
-</div>
-
-## 🛠️ Tech Stacks
-
-![테크 스택](https://github.com/user-attachments/assets/10a1710d-35e0-4c48-b010-246867c40203)
-
-### 선정 이유
-
--   **React + TypeScript + Vite:** 빠른 개발 사이클(HMR)과 타입 안정성으로 품질·생산성 확보
--   **TailwindCSS:** 유틸리티 클래스 기반으로 일관된 디자인과 빠른 스타일링
--   **React Query:** 서버 상태 캐시/동기화, `invalidateQueries`로 신선도 제어
--   **Zustand:** 로그인 플로우/모달 등 전역 UI 상태를 심플하게 관리
--   **Vercel:** 간편한 프론트 배포 및 프리뷰 환경
--   **ESLint/Prettier:** 팀 컨벤션과 자동 포맷팅으로 일관성 유지
-
----
-
-## 📁 프로젝트 구조 (Route-Driven Feature + Layered Frontend)
+## 📁 Project Structure
 
 프론트엔드는 **라우트(페이지) 중심의 기능 단위 구조** 위에, 재사용 가능한 **레이어(components · hooks · lib · api · stores)** 를 분리해 구성했습니다.
 
@@ -80,7 +70,7 @@ After running this command, you can see the website at localhost:5173.
 ┃ ┣ 📁public                             # 정적 자산
 ┃ ┃ ┣ 📁fonts                            # 웹 폰트
 ┃ ┃ ┗ 📁icons                            # 퍼블릭 아이콘/이미지
-┃ ┣ 📁src                                # 소스 코드
+┃ ┣ 📁src
 ┃ ┃ ┣ 📁api                              # API 클라이언트
 ┃ ┃ ┣ 📁assets                           # 내부 에셋
 ┃ ┃ ┃ ┣ 📁ellipses                       # 그래픽
@@ -90,49 +80,44 @@ After running this command, you can see the website at localhost:5173.
 ┃ ┃ ┣ 📁components                       # 재사용 컴포넌트
 ┃ ┃ ┃ ┣ 📁chart                          # 차트 컴포넌트/플러그인
 ┃ ┃ ┃ ┣ 📁common                         # 공통 UI
-┃ ┃ ┃ ┃ ┣ 📁Navbar                       # 모바일/태블릿/데스크톱 Navbar
+┃ ┃ ┃ ┃ ┗ 📁navbar                       # 모바일/태블릿/데스크톱 Navbar
 ┃ ┃ ┣ 📁constants                        # 상수
 ┃ ┃ ┃ ┗ 📜key.ts                         # 키/상수 모음
 ┃ ┃ ┣ 📁hooks                            # 커스텀 훅
 ┃ ┃ ┃ ┣ 📁channel
 ┃ ┃ ┃ ┣ 📁library
-┃ ┃ ┃ ┃ ┗ 📁idea
 ┃ ┃ ┃ ┣ 📁main
-┃ ┃ ┃ ┣ 📁mutations
 ┃ ┃ ┃ ┣ 📁my
-┃ ┃ ┃ ┣ 📁queries                        # Profile fetch 훅
-┃ ┃ ┃ ┣ 📁report
+┃ ┃ ┃ ┗ 📁report
+┃ ┃ ┣ 📁layouts                          # 루트/공통 레이아웃
+┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┣ 📁lib                              # 유틸/매퍼/검증
 ┃ ┃ ┃ ┣ 📁mappers                        # API 매핑
-┃ ┃ ┃ ┃ ┗ 📁profile
 ┃ ┃ ┃ ┗ 📁validation
 ┃ ┃ ┣ 📁pages                            # 라우팅 페이지
 ┃ ┃ ┃ ┣ 📁auth                           # 인증(리다이렉트/모달)
-┃ ┃ ┃ ┃ ┣ 📁_components
-┃ ┃ ┃ ┣ 📁layouts                        # 루트/공통 레이아웃
+┃ ┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┃ ┣ 📁library                        # 라이브러리
-┃ ┃ ┃ ┃ ┣ 📁_components
+┃ ┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┃ ┣ 📁main                           # 메인
-┃ ┃ ┃ ┃ ┣ 📁_components
+┃ ┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┃ ┣ 📁my                             # 마이페이지
-┃ ┃ ┃ ┃ ┣ 📁_components
-┃ ┃ ┃ ┃ ┃ ┣ 📁Skeleton
+┃ ┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┃ ┣ 📁report                         # 리포트 상세 페이지
 ┃ ┃ ┃ ┃ ┣ 📁_components
 ┃ ┃ ┃ ┃ ┃ ┣ 📁analysis
 ┃ ┃ ┃ ┃ ┃ ┣ 📁idea
 ┃ ┃ ┃ ┃ ┃ ┗ 📁overview
 ┃ ┃ ┃ ┣ 📁setting                        # 설정(프로필/동의/탈퇴)
-┃ ┃ ┃ ┃ ┣ 📁_components
+┃ ┃ ┃ ┃ ┗ 📁_components
 ┃ ┃ ┣ 📁router                           # 라우터 설정
 ┃ ┃ ┣ 📁stores                           # Zustand 전역 상태
 ┃ ┃ ┣ 📁styles                           # 전역/유틸 CSS
+┃ ┃ ┃ ┗ 📜global.css
 ┃ ┃ ┣ 📁types                            # 타입 선언
-┃ ┃ ┃ ┣ 📁report
 ┃ ┃ ┣ 📁utils                            # 공통 유틸
 ┃ ┃ ┃ ┗ 📜format.ts
 ┃ ┃ ┣ 📜App.tsx
-┃ ┃ ┣ 📜global.css                       # 전역 스타일
 ┃ ┃ ┣ 📜main.tsx
 ┃ ┃ ┗ 📜vite-env.d.ts
 ┃ ┣ 📜.env
@@ -153,18 +138,20 @@ After running this command, you can see the website at localhost:5173.
 ┣ 📜.gitignore
 ┣ 📜.prettierignore
 ┣ 📜.prettierrc
-┗ 📜README.md                           # 루트 README
+┣ 📜README.md                           # 루트 README
+┗ 📜Rules.md                            # 컨벤션 문서
 ```
 
----
-
-## 🐾 프론트 아키텍처 플로우
+## 🐾 Frontend Architecture Flow
 
 ![프론트 아키텍처](https://github.com/user-attachments/assets/87ccbc0c-42aa-465a-93a4-26c756d85078)
 
----
+## ✍️ Typography System Guide
 
-## 🔫 개발 중 겪은 어려움과 해결 과정
+프로젝트 전역에서 일관된 텍스트 스타일을 적용하기 위해 **타이포그래피 시스템**을 정의했습니다.  
+모든 팀원은 `typo.css`에 정의된 클래스를 사용해야 하며, 상세 규칙과 클래스 레퍼런스는 [Typography.md](./frontend/src/styles/Typography.md)에서 확인할 수 있습니다.
+
+## 🔫 Challenges & Solutions
 
 <details>
   <summary>페이지네이션의 숫자가 음수로 나타나는 문제</summary>
@@ -350,11 +337,18 @@ After running this command, you can see the website at localhost:5173.
 
 </details>
 
----
-
-## 🤖Gemini AI PR 리뷰 자동화 파이프라인
+## 🤖 Gemini AI PR Review Automation Pipeline
 
 저희 채널링에서는 보다 나은 코드를 위해 **Gemini AI를 PR 리뷰에 자동화**시켜 백엔드, 프론트엔드에서 사용하고 있습니다.
 
 ![프론트 재미나이](https://github.com/user-attachments/assets/99ee7953-1312-4c91-bc7e-67111d137eb5)
-![프론트 재미나이](https://github.com/user-attachments/assets/67c17f35-0dd3-419b-94fb-85ed22e7c54f)
+
+---
+
+<div align="center">
+<video src="https://github.com/user-attachments/assets/6c6d543e-2cbe-4914-b918-b4b62ab35e03"
+       controls
+       width="200"
+       playsinline
+       muted>
+</video>
