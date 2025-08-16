@@ -17,8 +17,6 @@
 | :----------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: |
 | [<img src="https://avatars.githubusercontent.com/u/102126457?v=4" height=150 width=150> <br/> gomx3](https://github.com/gomx3) | [<img src="https://avatars.githubusercontent.com/u/130227391?v=4" height=150 width=150> <br/> drddyn](https://github.com/drddyn) | [<img src="https://avatars.githubusercontent.com/u/103755402?v=4" height=150 width=150> <br/> komascode](https://github.com/komascode) | [<img src="https://avatars.githubusercontent.com/u/203520708?v=4" height=150 width=150> <br/> sejeong223](https://github.com/sejeong223) |
 
-</div>
-
 ## 🛠️ Tech Stacks
 
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" /> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" /> <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" /> <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" /> <img src="https://img.shields.io/badge/zustand-orange?style=for-the-badge&logo=zustand&logoColor=white" /> <img src="https://img.shields.io/badge/Tanstack Query-FF4154?style=for-the-badge&logo=TanstackQuery&logoColor=white"> <img src="https://img.shields.io/badge/chartjs-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white"> <img src="https://img.shields.io/badge/motion-FFF31D?style=for-the-badge&logo=motion&logoColor=white">
@@ -115,6 +113,7 @@ After running this command, you can see the website at localhost:5173.
 ┃ ┃ ┣ 📁router                           # 라우터 설정
 ┃ ┃ ┣ 📁stores                           # Zustand 전역 상태
 ┃ ┃ ┣ 📁styles                           # 전역/유틸 CSS
+┃ ┃ ┃ ┗ 📜global.css
 ┃ ┃ ┣ 📁types                            # 타입 선언
 ┃ ┃ ┣ 📁utils                            # 공통 유틸
 ┃ ┃ ┃ ┗ 📜format.ts
