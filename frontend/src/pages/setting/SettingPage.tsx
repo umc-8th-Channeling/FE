@@ -25,7 +25,7 @@ type SettingPageProps = {
 export default function SettingPage({ onClose }: SettingPageProps) {
     const queryClient = useQueryClient()
 
-    const { formData, updateFormValue, setFormData } = useSNSFormStore()
+    const { formData, updateFormValue, setFormData, resetFormData, ownerId, setOwner } = useSNSFormStore()
 
     const [activeTab, setActiveTab] = useState<'profile' | 'consent'>('profile')
     const [editing, setEditing] = useState(false)
@@ -50,15 +50,35 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
     useEffect(() => {
         if (!user) return
+
+        // 사용자 변경시
+        if (ownerId !== user.memberId) {
+            // persist 저장소 비우기
+            useSNSFormStore.persist?.clearStorage?.()
+            // 메모리 초기화
+            resetFormData()
+            setOwner(user.memberId)
+
+            setFormData({
+                instagram: user.instagramLink ?? '',
+                tiktok: user.tiktokLink ?? '',
+                facebook: user.facebookLink ?? '',
+                x: user.twitterLink ?? '',
+            })
+            return
+        }
+
+        // 같은 사용자일 때
         const hasAny = formData.instagram || formData.tiktok || formData.facebook || formData.x
-        if (hasAny) return
-        setFormData({
-            instagram: user.instagramLink ?? '',
-            tiktok: user.tiktokLink ?? '',
-            facebook: user.facebookLink ?? '',
-            x: user.twitterLink ?? '',
-        })
-    }, [user, formData.instagram, formData.tiktok, formData.facebook, formData.x, setFormData])
+        if (!hasAny) {
+            setFormData({
+                instagram: user.instagramLink ?? '',
+                tiktok: user.tiktokLink ?? '',
+                facebook: user.facebookLink ?? '',
+                x: user.twitterLink ?? '',
+            })
+        }
+    }, [user?.memberId, ownerId, formData])
 
     useEffect(() => {
         if (!myProfile) return
@@ -100,6 +120,10 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const handleClickLogout = async () => {
         if (loggingOut) return
         setLoggingOut(true)
+
+        useSNSFormStore.persist?.clearStorage?.()
+        resetFormData()
+        setOwner(null)
 
         await logout()
         onClose?.()
