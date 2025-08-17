@@ -17,7 +17,7 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
 
     const savedUrl = (() => {
         try {
-            return localStorage.getItem(PENDING_KEY) ?? ''
+            return sessionStorage.getItem(PENDING_KEY) ?? ''
         } catch {
             return ''
         }
@@ -59,21 +59,9 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
         setIsActive(isValid && !error)
     }, [url, error])
 
-    useEffect(() => {
-        const handleUnload = () => {
-            try {
-                localStorage.removeItem(PENDING_KEY)
-            } catch {
-                // ignore
-            }
-        }
-        window.addEventListener('beforeunload', handleUnload)
-        return () => window.removeEventListener('beforeunload', handleUnload)
-    }, [])
-
     const clearPendingUrl = () => {
         try {
-            localStorage.removeItem(PENDING_KEY)
+            sessionStorage.removeItem(PENDING_KEY)
         } catch {
             // ignore
         }
@@ -85,7 +73,7 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
     const onSubmit: SubmitHandler<UrlForm> = async ({ url }) => {
         if (!isAuth) {
             try {
-                localStorage.setItem(PENDING_KEY, url)
+                sessionStorage.setItem(PENDING_KEY, url)
             } catch {
                 // ignore
             }
