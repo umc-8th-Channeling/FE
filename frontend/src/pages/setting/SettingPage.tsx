@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from './_components/SettingButton'
 import '../../styles/scrollbar.css'
 import CloseIcon from '../../assets/icons/delete_normal.svg?react'
@@ -11,12 +11,11 @@ import {
     useUpdateMemberAgree,
     useUpdateMemberProfileImage,
     useUpdateMemberSNS,
-} from '../../hooks/mutations/userMutations'
+} from '../../hooks/setting/userMutations'
 import { useAuthStore } from '../../stores/authStore'
 import { useSNSFormStore, type SNSKey } from '../../stores/snsFormStore'
-import { useConsentStore } from '../../stores/consentStore'
 import { useQueryClient } from '@tanstack/react-query'
-import { useFetchMyProfile } from '../../hooks/queries/fetchMyProfile'
+import { useFetchMyProfile } from '../../hooks/setting/useFetchMyProfile'
 
 type SettingPageProps = {
     onClose?: () => void
@@ -25,7 +24,7 @@ type SettingPageProps = {
 export default function SettingPage({ onClose }: SettingPageProps) {
     const queryClient = useQueryClient()
 
-    const { formData, updateFormValue, setFormData } = useSNSFormStore()
+    const { formData, updateFormValue, setFormData, resetFormData, ownerId, setOwner } = useSNSFormStore()
 
     const [activeTab, setActiveTab] = useState<'profile' | 'consent'>('profile')
     const [editing, setEditing] = useState(false)
@@ -39,32 +38,42 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const { mutate: updateProfileImage } = useUpdateMemberProfileImage()
 
     const { user } = useAuthStore()
+    const { setUser } = useAuthStore((state) => state.actions)
 
     const logout = useLogout()
     const [loggingOut, setLoggingOut] = useState(false)
 
     const { data: myProfile } = useFetchMyProfile(!loggingOut)
 
-    const { marketingEmailAgree, dayContentEmailAgree, setMarketingEmailAgree, setDayContentEmailAgree } =
-        useConsentStore()
+    const userId = user?.memberId ?? null
+    const userLinks = useMemo(
+        () => ({
+            instagram: user?.instagramLink ?? '',
+            tiktok: user?.tiktokLink ?? '',
+            facebook: user?.facebookLink ?? '',
+            x: user?.twitterLink ?? '',
+        }),
+        [user?.instagramLink, user?.tiktokLink, user?.facebookLink, user?.twitterLink]
+    )
 
     useEffect(() => {
-        if (!user) return
-        const hasAny = formData.instagram || formData.tiktok || formData.facebook || formData.x
-        if (hasAny) return
-        setFormData({
-            instagram: user.instagramLink ?? '',
-            tiktok: user.tiktokLink ?? '',
-            facebook: user.facebookLink ?? '',
-            x: user.twitterLink ?? '',
-        })
-    }, [user, formData.instagram, formData.tiktok, formData.facebook, formData.x, setFormData])
+        if (!userId) return
 
-    useEffect(() => {
-        if (!myProfile) return
-        setMarketingEmailAgree(myProfile.marketingEmailAgree)
-        setDayContentEmailAgree(myProfile.dayContentEmailAgree)
-    }, [myProfile, setMarketingEmailAgree, setDayContentEmailAgree])
+        // 사용자 변경시
+        if (ownerId !== userId) {
+            // persist 저장소 비우기
+            useSNSFormStore.persist?.clearStorage?.()
+            // 메모리 초기화
+            resetFormData()
+            setOwner(userId)
+            setFormData(userLinks)
+            return
+        }
+
+        if (!Object.values(formData).some(Boolean)) {
+            setFormData(userLinks)
+        }
+    }, [userId, ownerId, formData, userLinks, resetFormData, setFormData, setOwner])
 
     const handleCameraClick = () => fileInputRef.current?.click()
 
@@ -100,6 +109,10 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         if (loggingOut) return
         setLoggingOut(true)
 
+        useSNSFormStore.persist?.clearStorage?.()
+        resetFormData()
+        setOwner(null)
+
         await logout()
         onClose?.()
     }
@@ -109,15 +122,20 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     }
 
     const handleAgreeChange = (key: 'marketingEmailAgree' | 'dayContentEmailAgree', value: boolean) => {
-        if (key === 'marketingEmailAgree') setMarketingEmailAgree(value)
-        if (key === 'dayContentEmailAgree') setDayContentEmailAgree(value)
-
         const payload = {
-            marketingEmailAgree: key === 'marketingEmailAgree' ? value : marketingEmailAgree,
-            dayContentEmailAgree: key === 'dayContentEmailAgree' ? value : dayContentEmailAgree,
+            marketingEmailAgree: key === 'marketingEmailAgree' ? value : user?.marketingEmailAgree ?? false,
+            dayContentEmailAgree: key === 'dayContentEmailAgree' ? value : user?.dayContentEmailAgree ?? false,
         }
 
         updateAgree(payload, {
+            onSuccess: (data) => {
+                if (!user) return
+                setUser({
+                    ...user,
+                    marketingEmailAgree: data.result.marketingEmailAgree,
+                    dayContentEmailAgree: data.result.dayContentEmailAgree,
+                })
+            },
             onError: () => alert('존재하지 않는 회원 동의입니다.'),
         })
     }
@@ -206,8 +224,8 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
                         {activeTab === 'consent' && (
                             <ConsentTab
-                                marketingEmail={marketingEmailAgree}
-                                dailyContentEmail={dayContentEmailAgree}
+                                marketingEmail={user?.marketingEmailAgree ?? false}
+                                dailyContentEmail={user?.dayContentEmailAgree ?? false}
                                 onMarketingChange={(value) => handleAgreeChange('marketingEmailAgree', value)}
                                 onDailyContentChange={(value) => handleAgreeChange('dayContentEmailAgree', value)}
                             />
