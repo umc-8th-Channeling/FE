@@ -12,13 +12,9 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
             <img className="w-full max-w-[180px] aspect-square rounded-full object-cover" src={`${profile.imageUrl}`} />
             <div className="flex flex-col items-start gap-[8px]  ">
                 <div className="flex items-start px-[8px] py-[4px] gap-[8px] whitespace-nowrap bg-[#fa4d56]/50 rounded-[2px] ">
-                    <span className="text-gray-900 text-[14px] font-medium leading-[140%] tracking-[-0.35px]">
-                        {profile.category}
-                    </span>
+                    <span className="text-gray-900 font-caption-14m">{profile.category}</span>
                 </div>
-                <div className="text-gray-900 text-[24px] font-bold leading-[140%] tracking-[-0.6px]">
-                    {profile.channelName}
-                </div>
+                <div className="text-gray-900 font-title-24b">{profile.channelName}</div>
                 <div>
                     <a
                         href={profile.channelUrl}
