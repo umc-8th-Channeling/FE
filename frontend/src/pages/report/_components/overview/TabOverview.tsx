@@ -5,33 +5,40 @@ import { Summary } from './Summary'
 import { Skeleton } from './Skeleton'
 import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatus'
 import useGetReportOverview from '../../../../hooks/report/useGetReportOverview'
+import { useGetDummyOverview } from '../../../../hooks/report/useGetDummyReport'
 import type { OverviewDataProps } from '../../../../types/report/all'
 import { useDeleteMyReport } from '../../../../hooks/report/useDeleteMyReport'
 import { useAuthStore } from '../../../../stores/authStore'
 import { useReportStore } from '../../../../stores/reportStore'
 
-const EvaluationAndSummary = memo(({ data }: OverviewDataProps) => {
-    return (
-        <div className="grid grid-cols-1 desktop:grid-cols-2 gap-16 desktop:gap-6">
-            <Evaluation data={data} />
-            <Summary data={data} />
-        </div>
-    )
-})
+interface TabOverviewProps {
+    reportId: number
+    isFromLibrary?: boolean
+    isDummy?: boolean
+}
 
-export const TabOverview = ({ reportId, isFromLibrary = false }: { reportId: number; isFromLibrary?: boolean }) => {
+export const TabOverview = ({ reportId, isFromLibrary = false, isDummy = false }: TabOverviewProps) => {
     const { data: statusData } = usePollReportStatus(reportId ?? undefined, {
-        enabled: !isFromLibrary,
+        enabled: !isFromLibrary && !isDummy, // isDummy 일 때는 풀링 하지 않음
     })
 
-    const status = statusData?.result?.overviewStatus
+    // isDummy일 경우 항상 'COMPLETED'
+    const status = isDummy ? 'COMPLETED' : statusData?.result?.overviewStatus
     const isCompleted = isFromLibrary || status === 'COMPLETED'
     const isFailed = status === 'FAILED'
 
-    const { data: overviewData, isLoading: isOverviewLoading } = useGetReportOverview({
+    const { data: realData, isLoading: isRealLoading } = useGetReportOverview({
         reportId,
-        enabled: isCompleted,
+        enabled: isCompleted && !isDummy,
     })
+
+    const { data: dummyData, isLoading: isDummyLoading } = useGetDummyOverview({
+        reportId,
+        enabled: isDummy,
+    })
+
+    const overviewData = isDummy ? dummyData : realData
+    const isLoading = isDummy ? isDummyLoading : !isCompleted || isRealLoading
 
     const user = useAuthStore((state) => state.user)
     const channelId = user?.channelId
@@ -47,14 +54,21 @@ export const TabOverview = ({ reportId, isFromLibrary = false }: { reportId: num
         }
     }, [isFailed, setIsErrorTrue, reportId, deleteReport])
 
-    const isLoading = !isCompleted || isOverviewLoading || !overviewData
-
-    if (isLoading) return <Skeleton />
+    if (isLoading || !overviewData) return <Skeleton />
 
     return (
         <div className="space-y-16">
             <EvaluationAndSummary data={overviewData} />
-            <CommentFeedback data={overviewData} />
+            <CommentFeedback data={overviewData} isDummy={isDummy} />
         </div>
     )
 }
+
+const EvaluationAndSummary = memo(({ data }: OverviewDataProps) => {
+    return (
+        <div className="grid grid-cols-1 desktop:grid-cols-2 gap-16 desktop:gap-6">
+            <Evaluation data={data} />
+            <Summary data={data} />
+        </div>
+    )
+})

@@ -4,9 +4,10 @@ import { VideoCard } from './VideoCard'
 interface VideoRecommendationProps {
     label: string
     videoData: RecommededVideos
+    isDummy?: boolean
 }
 
-export const VideoRecommendation = ({ label, videoData }: VideoRecommendationProps) => {
+export const VideoRecommendation = ({ label, videoData, isDummy = false }: VideoRecommendationProps) => {
     return (
         <div className="space-y-4">
             <div className="flex flex-row items-center gap-2">
@@ -19,8 +20,8 @@ export const VideoRecommendation = ({ label, videoData }: VideoRecommendationPro
             </div>
 
             <div className="grid grid-cols-1 tablet:grid-cols-2 gap-6 place-items-start">
-                {videoData.list.map((video) => (
-                    <VideoCard key={video.videoId} video={video} />
+                {videoData.list.map((video, idx) => (
+                    <VideoCard key={video.videoId} video={video} isDummy={isDummy} reportId={idx + 1} />
                 ))}
             </div>
         </div>

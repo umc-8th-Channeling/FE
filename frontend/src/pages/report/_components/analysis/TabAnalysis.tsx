@@ -4,23 +4,39 @@ import { ViewerExitAnalysis } from './ViewerExitAnalysis'
 import { Skeleton } from './Skeleton'
 import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatus'
 import useGetReportAnalysis from '../../../../hooks/report/useGetReportAnalysis'
+import { useGetDummyAnalysis } from '../../../../hooks/report/useGetDummyReport'
 import { useAuthStore } from '../../../../stores/authStore'
 import { useDeleteMyReport } from '../../../../hooks/report/useDeleteMyReport'
 import { useReportStore } from '../../../../stores/reportStore'
 
-export const TabAnalysis = ({ reportId, isFromLibrary = false }: { reportId: number; isFromLibrary?: boolean }) => {
+interface TabAnalysisProps {
+    reportId: number
+    isFromLibrary?: boolean
+    isDummy?: boolean
+}
+
+export const TabAnalysis = ({ reportId, isFromLibrary = false, isDummy = false }: TabAnalysisProps) => {
     const { data: statusData } = usePollReportStatus(reportId ?? undefined, {
-        enabled: !isFromLibrary,
+        enabled: !isFromLibrary && !isDummy, // isDummy 일 때는 풀링 하지 않음
     })
 
-    const status = statusData?.result?.analysisStatus
+    // isDummy일 경우 항상 'COMPLETED'
+    const status = isDummy ? 'COMPLETED' : statusData?.result?.analysisStatus
     const isCompleted = isFromLibrary || status === 'COMPLETED'
     const isFailed = status === 'FAILED'
 
-    const { data: analysisData, isLoading: isAnalysisLoading } = useGetReportAnalysis({
+    const { data: realData, isLoading: isRealLoading } = useGetReportAnalysis({
         reportId,
-        enabled: isCompleted,
+        enabled: isCompleted && !isDummy,
     })
+
+    const { data: dummyData, isLoading: isDummyLoading } = useGetDummyAnalysis({
+        reportId,
+        enabled: isDummy,
+    })
+
+    const analysisData = isDummy ? dummyData : realData
+    const isLoading = isDummy ? isDummyLoading : !isCompleted || isRealLoading
 
     const user = useAuthStore((state) => state.user)
     const channelId = user?.channelId
@@ -36,9 +52,7 @@ export const TabAnalysis = ({ reportId, isFromLibrary = false }: { reportId: num
         }
     }, [isFailed, setIsErrorTrue, reportId, deleteReport])
 
-    const isLoading = !isCompleted || isAnalysisLoading || !analysisData
-
-    if (isLoading) return <Skeleton />
+    if (isLoading || !analysisData) return <Skeleton />
 
     return (
         <div className="space-y-16">

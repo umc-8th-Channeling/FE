@@ -15,7 +15,6 @@ export type BriefVideo = {
     channelName: string
     channelImage: string
     uploadDate: Date
-    isDummy?: boolean
 }
 
 export type RecommededVideos = {

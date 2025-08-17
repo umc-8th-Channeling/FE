@@ -6,6 +6,7 @@ import { COMMENT_TYPE, type Comment, type CommentType } from '../../../../types/
 import { useParams } from 'react-router-dom'
 import type { OverviewDataProps } from '../../../../types/report/all'
 import { CommentSkeleton } from './CommentSkeleton'
+import useGetDummyComments from '../../../../hooks/report/useGetDummyReport'
 
 const Comments = ({ comments }: { comments: Comment[] | undefined }) => {
     if (!comments || comments.length === 0)
@@ -24,14 +25,28 @@ const Comments = ({ comments }: { comments: Comment[] | undefined }) => {
     )
 }
 
-export const CommentFeedback = ({ data }: OverviewDataProps) => {
-    const { reportId } = useParams()
+export const CommentFeedback = ({ data, isDummy }: OverviewDataProps & { isDummy: boolean }) => {
+    const { reportId: reportIdParam } = useParams()
+    const reportId = Number(reportIdParam)
 
     const commentTypes = useMemo(() => Object.keys(COMMENT_TYPE), [])
     const commentLabels = useMemo(() => Object.values(COMMENT_TYPE), [])
     const [activeTab, setActiveTab] = useState<CommentType>('POSITIVE')
 
-    const { data: commentsData, isLoading } = useGetReportComments({ reportId: Number(reportId), type: activeTab })
+    const { data: realData, isLoading: isRealLoading } = useGetReportComments({
+        reportId,
+        type: activeTab,
+        enabled: !isDummy,
+    })
+
+    const { data: dummyData, isLoading: isDummyLoading } = useGetDummyComments({
+        reportId,
+        type: activeTab,
+        enabled: isDummy,
+    })
+
+    const commentsData = isDummy ? dummyData : realData
+    const isLoading = isDummy ? isDummyLoading : isRealLoading
 
     const chartData = useMemo(() => {
         if (!data) return [0, 0, 0, 0]
