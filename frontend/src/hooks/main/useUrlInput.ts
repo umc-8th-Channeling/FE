@@ -39,7 +39,7 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
         },
     })
 
-    const { register, handleSubmit, watch } = useForm<UrlForm>({
+    const { register, handleSubmit, watch, reset } = useForm<UrlForm>({
         defaultValues: { url: savedUrl },
         resolver: zodResolver(urlSchema),
         mode: 'onChange',
@@ -59,6 +59,29 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
         setIsActive(isValid && !error)
     }, [url, error])
 
+    useEffect(() => {
+        const handleUnload = () => {
+            try {
+                localStorage.removeItem(PENDING_KEY)
+            } catch {
+                // ignore
+            }
+        }
+        window.addEventListener('beforeunload', handleUnload)
+        return () => window.removeEventListener('beforeunload', handleUnload)
+    }, [])
+
+    const clearPendingUrl = () => {
+        try {
+            localStorage.removeItem(PENDING_KEY)
+        } catch {
+            // ignore
+        }
+        reset({ url: '' })
+        setError(null)
+        setIsActive(false)
+    }
+
     const onSubmit: SubmitHandler<UrlForm> = async ({ url }) => {
         if (!isAuth) {
             try {
@@ -74,5 +97,5 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
         requestNewReport({ url }) // 리포트 생성 요청
     }
 
-    return { register, handleSubmit: handleSubmit(onSubmit), isActive, error }
+    return { register, handleSubmit: handleSubmit(onSubmit), isActive, error, clearPendingUrl }
 }
