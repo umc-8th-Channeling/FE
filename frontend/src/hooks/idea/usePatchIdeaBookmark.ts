@@ -32,7 +32,7 @@ export default function usePatchIdeaBookmark() {
 
             return { previousIdeasResponse }
         },
-        onError: (err, _variables, context) => {
+        onError: (_err, _variables, context) => {
             // UI 원상 복구
             if (context?.previousIdeasResponse) {
                 queryClient.setQueryData(queryKey, context.previousIdeasResponse)
