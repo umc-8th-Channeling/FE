@@ -35,8 +35,7 @@ const IdeaBox = memo(({ idea }: { idea: Idea }) => {
         try {
             // hashTag가 문자열로 오는 경우 배열로 파싱
             return Array.isArray(idea.hashTag) ? idea.hashTag : JSON.parse(idea.hashTag)
-        } catch (e) {
-            console.error('해시태그 파싱 실패:', e)
+        } catch {
             return []
         }
     }, [idea.hashTag])

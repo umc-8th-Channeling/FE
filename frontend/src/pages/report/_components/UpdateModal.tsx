@@ -13,14 +13,10 @@ export const UpdateModal = ({ videoId, handleModalClick, handleResetTab }: Updat
             handleResetTab() // 업데이트 후 탭 초기화
             window.location.reload()
         },
-        onError: (err) => {
-            console.error('리포트 업데이트 중 오류 발생:', err)
-        },
+        onError: () => {},
     })
 
     const handleUpdateClick = () => {
-        console.log('Report Page: update')
-
         requestNewReport({ videoId })
         handleModalClick()
     }

@@ -10,8 +10,7 @@ export default memo(function IdeaCard({ item }: { item: Idea }) {
         try {
             // hashTag가 문자열로 오는 경우 배열로 파싱
             return Array.isArray(item.hashTag) ? item.hashTag : JSON.parse(item.hashTag)
-        } catch (e) {
-            console.error('해시태그 파싱 실패:', e)
+        } catch {
             return []
         }
     }, [item.hashTag])

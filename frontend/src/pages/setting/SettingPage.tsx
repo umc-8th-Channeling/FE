@@ -75,8 +75,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         updateProfileImage(
             { image: file },
             {
-                onSuccess: (data) => {
-                    console.log('프로필 이미지 업로드 성공: ', data)
+                onSuccess: () => {
                     queryClient.invalidateQueries({ queryKey: ['my-profile'] })
                 },
                 onError: () => {
@@ -107,7 +106,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
 
     const handleWithdrawlConfirm = () => {
         setShowWithdrawlModal(false)
-        console.log('회원 탈퇴 처리')
     }
 
     const handleAgreeChange = (key: 'marketingEmailAgree' | 'dayContentEmailAgree', value: boolean) => {
@@ -120,7 +118,6 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         }
 
         updateAgree(payload, {
-            onSuccess: (data) => console.log('성공입니다', data),
             onError: () => alert('존재하지 않는 회원 동의입니다.'),
         })
     }
@@ -134,8 +131,7 @@ export default function SettingPage({ onClose }: SettingPageProps) {
         }
 
         updateSNS(payload, {
-            onSuccess: (data) => {
-                console.log('SNS 정보 저장 성공', data)
+            onSuccess: () => {
                 setModified(false)
                 setEditing(false)
             },

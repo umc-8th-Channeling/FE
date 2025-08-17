@@ -16,13 +16,11 @@ export function useFetchAndSetUser() {
             setUser(newUser)
             setAuthMember()
             if (isNew) {
-                console.log('최초 로그인 유저 로직 진입')
                 goToViewerStep()
             } else {
-                console.log('기존 가입 유저 로직 진입')
+                // ignore
             }
-        } catch (err) {
-            console.error('❌ 회원 정보 조회 실패:', err)
+        } catch {
             alert('회원 정보 조회 실패')
             navigate('/', { replace: true })
         }
