@@ -24,7 +24,7 @@ export default function MainPage() {
             >
                 <h1
                     className="
-                        text-center text-[18px] leading-[150%] font-bold tracking-[-0.45px] tablet:text-[20px] tablet:leading-[140%] tablet:tracking-[-0.5px]
+                        text-center font-title-20b
                         whitespace-pre-line tablet:whitespace-nowrap
                     "
                 >
