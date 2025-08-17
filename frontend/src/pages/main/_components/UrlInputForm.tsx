@@ -22,6 +22,11 @@ export const UrlInputForm = () => {
 
     useEffect(() => {
         if (!isPending && videoData && reportId && videoId) {
+            try {
+                localStorage.removeItem('pending-url')
+            } catch {
+                // ignore
+            }
             navigate(`/report/${reportId}?video=${videoId}`)
         }
     }, [isPending, videoData, navigate, reportId, videoId])
