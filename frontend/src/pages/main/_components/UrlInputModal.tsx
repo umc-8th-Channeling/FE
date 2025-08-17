@@ -27,6 +27,11 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
 
     useEffect(() => {
         if (!isPending && videoData && reportId && videoId) {
+            try {
+                localStorage.removeItem('pending-url')
+            } catch {
+                // ignore
+            }
             onClose()
             navigate(`/report/${reportId}?video=${videoId}`)
         }
