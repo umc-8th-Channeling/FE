@@ -2,15 +2,22 @@ import { useState } from 'react'
 import { formatRelativeTime, formatKoreanNumber } from '../../../utils/format'
 import type { BriefVideo } from '../../../types/main'
 import { MyReportModal } from '../../my/_components/myReportModal'
+import { useNavigate } from 'react-router-dom'
 
 interface VideoCardProps {
     video: BriefVideo
+    isDummy?: boolean
+    reportId?: number
 }
 
-export const VideoCard = ({ video }: VideoCardProps) => {
+export const VideoCard = ({ video, isDummy = false, reportId }: VideoCardProps) => {
+    const navigate = useNavigate()
     const [open, setOpen] = useState(false)
 
-    const handleVideoClick = () => setOpen(true)
+    const handleVideoClick = () => {
+        if (isDummy) navigate(`/report/dummy/${reportId}`)
+        else setOpen(true)
+    }
 
     return (
         <div

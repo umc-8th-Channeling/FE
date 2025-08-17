@@ -39,7 +39,7 @@ const KeywordBox = ({ label, items }: { label: string; items: Trend[] }) => {
             {/* keyword items */}
             <div className="space-y-2">
                 {!items || items.length === 0 ? (
-                    <p className="w-full p-10 text-center text-gray-600">키워드 데이터가 없습니다</p>
+                    <p className="w-full p-10 text-center text-gray-600">키워드 데이터가 없습니다.</p>
                 ) : (
                     items.map((item, index) => (
                         <div

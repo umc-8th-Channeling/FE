@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import Modal from '../../../components/Modal'
 import usePostReportById from '../../../hooks/report/usePostReportById'
 
@@ -8,10 +9,11 @@ interface UpdateModalProps {
 }
 
 export const UpdateModal = ({ videoId, handleModalClick, handleResetTab }: UpdateModalProps) => {
+    const navigate = useNavigate()
     const { mutate: requestNewReport } = usePostReportById({
-        onSuccess: () => {
+        onSuccess: ({ reportId }) => {
+            navigate(`/report/${reportId}?video=${videoId}`)
             handleResetTab() // 업데이트 후 탭 초기화
-            window.location.reload()
         },
         onError: (err) => {
             console.error('리포트 업데이트 중 오류 발생:', err)
@@ -19,8 +21,6 @@ export const UpdateModal = ({ videoId, handleModalClick, handleResetTab }: Updat
     })
 
     const handleUpdateClick = () => {
-        console.log('Report Page: update')
-
         requestNewReport({ videoId })
         handleModalClick()
     }
