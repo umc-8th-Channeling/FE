@@ -1,9 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ReportTab from './_components/ReportTab'
 import IdeaTab from './_components/IdeaTab'
+import { useQueryClient } from '@tanstack/react-query'
+import { useAuthStore } from '../../stores/authStore'
 
 export default function LibraryPage() {
     const [activeTab, setActiveTab] = useState<'report' | 'idea'>('report')
+    const queryClient = useQueryClient()
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
+
+    // 페이지 진입 시 리포트 목록 캐시 무효화
+    useEffect(() => {
+        if (typeof channelId === 'number') {
+            queryClient.invalidateQueries({
+                queryKey: ['my', 'report', channelId],
+            })
+        }
+    }, [channelId, queryClient])
 
     return (
         <div className="px-6 tablet:px-[76px] py-20">
