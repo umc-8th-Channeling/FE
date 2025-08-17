@@ -6,12 +6,22 @@ import { useAuthStore } from '../../stores/authStore'
 import { useLoginStore } from '../../stores/LoginStore'
 import usePostReportByUrl from '../report/usePostReportByUrl'
 
+const PENDING_KEY = 'pending-url'
+
 export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: number) => void) => {
     const [isActive, setIsActive] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
     const isAuth = useAuthStore((state) => state.isAuth)
     const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
+
+    const savedUrl = (() => {
+        try {
+            return localStorage.getItem(PENDING_KEY) ?? ''
+        } catch {
+            return ''
+        }
+    })()
 
     const { mutate: requestNewReport } = usePostReportByUrl({
         onSuccess: ({ reportId, videoId }) => {
@@ -30,8 +40,9 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
     })
 
     const { register, handleSubmit, watch } = useForm<UrlForm>({
-        defaultValues: { url: '' },
+        defaultValues: { url: savedUrl },
         resolver: zodResolver(urlSchema),
+        mode: 'onChange',
     })
 
     const url = watch('url')
@@ -50,6 +61,11 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
 
     const onSubmit: SubmitHandler<UrlForm> = async ({ url }) => {
         if (!isAuth) {
+            try {
+                localStorage.setItem(PENDING_KEY, url)
+            } catch {
+                // ignore
+            }
             openLoginFlow() // 비로그인 상태에서 요청할 경우 로그인 플로우를 시작
             return
         }
