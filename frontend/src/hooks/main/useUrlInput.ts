@@ -5,16 +5,27 @@ import { urlSchema, type UrlForm } from '../../lib/validation/urlSchema'
 import { useAuthStore } from '../../stores/authStore'
 import { useLoginStore } from '../../stores/LoginStore'
 import usePostReportByUrl from '../report/usePostReportByUrl'
+import { useQueryClient } from '@tanstack/react-query'
 
 export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: number) => void) => {
     const [isActive, setIsActive] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
     const isAuth = useAuthStore((state) => state.isAuth)
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
     const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
+
+    const queryClient = useQueryClient()
 
     const { mutate: requestNewReport } = usePostReportByUrl({
         onSuccess: ({ reportId, videoId }) => {
+            if (typeof channelId === 'number') {
+                queryClient.invalidateQueries({
+                    queryKey: ['my', 'report', channelId],
+                })
+            }
+
             onRequestUrlSuccess?.(reportId, videoId)
             setError(null)
         },
