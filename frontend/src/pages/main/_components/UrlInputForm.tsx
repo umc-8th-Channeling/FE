@@ -22,6 +22,11 @@ export const UrlInputForm = () => {
 
     useEffect(() => {
         if (!isPending && videoData && reportId && videoId) {
+            try {
+                sessionStorage.removeItem('pending-url')
+            } catch {
+                alert('임시 저장된 URL 삭제 실패')
+            }
             navigate(`/report/${reportId}?video=${videoId}`)
         }
     }, [isPending, videoData, navigate, reportId, videoId])

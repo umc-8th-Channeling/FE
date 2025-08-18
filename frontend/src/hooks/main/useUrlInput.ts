@@ -6,12 +6,22 @@ import { useAuthStore } from '../../stores/authStore'
 import { useLoginStore } from '../../stores/LoginStore'
 import usePostReportByUrl from '../report/usePostReportByUrl'
 
+const PENDING_KEY = 'pending-url'
+
 export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: number) => void) => {
     const [isActive, setIsActive] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
     const isAuth = useAuthStore((state) => state.isAuth)
     const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
+
+    const savedUrl = (() => {
+        try {
+            return sessionStorage.getItem(PENDING_KEY) ?? ''
+        } catch {
+            return ''
+        }
+    })()
 
     const { mutate: requestNewReport } = usePostReportByUrl({
         onSuccess: ({ reportId, videoId }) => {
@@ -29,9 +39,10 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
         },
     })
 
-    const { register, handleSubmit, watch } = useForm<UrlForm>({
-        defaultValues: { url: '' },
+    const { register, handleSubmit, watch, reset } = useForm<UrlForm>({
+        defaultValues: { url: savedUrl },
         resolver: zodResolver(urlSchema),
+        mode: 'onChange',
     })
 
     const url = watch('url')
@@ -48,8 +59,24 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
         setIsActive(isValid && !error)
     }, [url, error])
 
+    const clearPendingUrl = () => {
+        try {
+            sessionStorage.removeItem(PENDING_KEY)
+        } catch {
+            alert('입력값 초기화 중 오류 발생')
+        }
+        reset({ url: '' })
+        setError(null)
+        setIsActive(false)
+    }
+
     const onSubmit: SubmitHandler<UrlForm> = async ({ url }) => {
         if (!isAuth) {
+            try {
+                sessionStorage.setItem(PENDING_KEY, url)
+            } catch {
+                alert('URL 임시 저장 실패')
+            }
             openLoginFlow() // 비로그인 상태에서 요청할 경우 로그인 플로우를 시작
             return
         }
@@ -58,5 +85,5 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
         requestNewReport({ url }) // 리포트 생성 요청
     }
 
-    return { register, handleSubmit: handleSubmit(onSubmit), isActive, error }
+    return { register, handleSubmit: handleSubmit(onSubmit), isActive, error, clearPendingUrl }
 }
