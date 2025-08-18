@@ -10,6 +10,7 @@ import { useFetchAndSetUser } from '../hooks/channel/useFetchAndSetUser'
 import { NavbarModalsContainer } from '../pages/auth'
 import { SettingModalContainer } from '../pages/setting/_components/SettingModalContainer'
 import { GenerateErrorModal } from '../pages/report/_components'
+// import AuthWatcher from '../components/AuthWatcher'
 
 export default function RootLayout() {
     const navigate = useNavigate()
@@ -44,6 +45,7 @@ export default function RootLayout() {
 
     return (
         <>
+            {/* <AuthWatcher /> */}
             <NavbarWrapper />
 
             <main
