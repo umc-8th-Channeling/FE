@@ -9,13 +9,11 @@ export function useLogout() {
     const queryClient = useQueryClient()
 
     return async () => {
-        localStorage.setItem('isLoggingOut', 'true')
-
         // 1) 토큰 삭제
         try {
             localStorage.removeItem(LOCAL_STORAGE_KEY.accessToken)
         } catch {
-            //ignore
+            alert('토큰 삭제에 실패하였습니다.')
         }
 
         // 2) 전역 인증 상태 초기화 (persist에도 반영)
@@ -23,21 +21,21 @@ export function useLogout() {
             const { clearAuth } = useAuthStore.getState().actions
             clearAuth?.()
         } catch {
-            //ignore
+            alert('상태 초기화에 실패하였습니다.')
         }
 
         // 3) axios Authorization 기본값 제거(방어적)
         try {
             delete axiosInstance.defaults.headers.common.Authorization
         } catch {
-            //ignore
+            alert('요청 헤더 초기화에 실패하였습니다.')
         }
 
         // 4) React Query 캐시 정리
         try {
             queryClient.clear()
         } catch {
-            //ignore
+            alert('캐시 초기화에 실패하였습니다.')
         }
 
         // 5) 삭제 검증 후 이동
@@ -48,9 +46,5 @@ export function useLogout() {
         }
 
         navigate('/', { replace: true })
-
-        setTimeout(() => {
-            localStorage.removeItem('isLoggingOut')
-        }, 100)
     }
 }
