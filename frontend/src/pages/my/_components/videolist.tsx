@@ -55,17 +55,19 @@ export default function Videolist() {
             <div className="flex items-center">
                 <button
                     className={`flex justify-center items-center gap-[8px] px-[16px] py-[8px] font-title-18b whitespace-nowrap border-b-2 cursor-pointer ${
-                        activeTab === 'video' ? 'text-primary-500 border-primary-500' : 'text-[#fff] border-transparent'
+                        activeTab === 'video'
+                            ? 'text-primary-500 border-primary-500'
+                            : 'text-neutral-white border-transparent'
                     }`}
                     onClick={() => setActiveTab('video')}
                 >
                     동영상
                 </button>
                 <button
-                    className={`px-[16px] py-[8px] text-[18px] font-bold leading-[140%] tracking-[-0.45px] flex justify-center items-center border-b-2 cursor-pointer ${
+                    className={`px-[16px] py-[8px] font-title-18b flex justify-center items-center border-b-2 cursor-pointer ${
                         activeTab === 'shorts'
                             ? 'text-primary-500 border-primary-500'
-                            : 'text-[#fff] border-transparent'
+                            : 'text-neutral-white border-transparent'
                     } transition-colors duration-300`}
                     onClick={() => setActiveTab('shorts')}
                 >

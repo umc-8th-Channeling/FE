@@ -60,7 +60,7 @@ const Targetbox = ({ targetValue, setTargetValue }: TargetboxProps) => {
                 <EditButton onClick={onClick} buttonColor={buttonColor} label={label} />
             </div>
             <div
-                className={`mt-[16px] w-full p-[16px] rounded-[16px] text-[16px] placeholder-gray-600 bg-neutral-white-opacity10 border-[1px] border-transparent focus-within:border-gray-400`}
+                className={`mt-[16px] w-full p-[16px] rounded-[16px] placeholder-gray-600 bg-neutral-white-opacity10 border-[1px] border-transparent focus-within:border-gray-400`}
             >
                 <input
                     value={targetValue}

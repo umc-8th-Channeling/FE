@@ -1,4 +1,8 @@
 @layer components {
+    .font-title-100r {
+        @apply text-[80px] leading-[140%] tracking-[-2.5px] font-normal;
+        @apply tablet:text-[100px]; /* Mobile -> Desktop */
+    }
     .font-title-24b {
         @apply text-[20px] leading-[140%] tracking-[-0.6px] font-bold; /* Mobile */
         @apply tablet:text-[24px]; /* Tablet -> Desktop */

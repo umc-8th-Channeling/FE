@@ -63,7 +63,7 @@ export const UrlInputForm = () => {
 
                 <p
                     className={`
-                        absolute mt-2 ml-6 text-error text-[14px] leading-[140%] tracking-[-0.35px]
+                        absolute mt-2 ml-6 text-error font-caption-14r
                         transition-all duration-300 ease-in-out ${error ? 'opacity-100 max-h-5' : 'opacity-0 max-h-0'}
                     `}
                 >

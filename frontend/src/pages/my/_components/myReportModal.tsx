@@ -36,13 +36,13 @@ export const MyReportModal = ({ title, setOpen, videoId }: MyReportModalProps) =
             <div className="flex justify-end">
                 <div className="flex justify-between w-[214px] h-[40px] items-end">
                     <button
-                        className="w-[101px] h-[40px] text-[16px] font-bold text-gray-600 border-[1px] border-gray-300 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer"
+                        className="w-[101px] h-[40px] font-body-16b text-gray-600 border-[1px] border-gray-300 rounded-[16px] cursor-pointer"
                         onClick={() => setOpen(false)}
                     >
                         취소
                     </button>
                     <button
-                        className="w-[103px] h-[40px] text-[16px] font-bold text-gray-900 bg-primary-500 rounded-[16px] leading-[150%] tracking-[-0.4px] cursor-pointer"
+                        className="w-[103px] h-[40px] font-body-16b text-gray-900 bg-primary-500 rounded-[16px] cursor-pointer"
                         onClick={getReport}
                         disabled={isPending}
                     >
