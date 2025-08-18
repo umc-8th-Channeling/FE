@@ -16,12 +16,14 @@ interface ReportByUrlCallbacks {
 export default function usePostReportByUrl({ onSuccess, onError }: ReportByUrlCallbacks) {
     const startGenerating = useReportStore((state) => state.actions.startGenerating)
     const endGenerating = useReportStore((state) => state.actions.endGenerating)
+    const addPendingReportId = useReportStore((state) => state.actions.addPendingReportId)
 
     return useMutation({
         mutationFn: postReportByUrl,
         onSuccess: (data: ResponseReportByUrl) => {
             if (data.isSuccess && data.result) {
                 startGenerating()
+                addPendingReportId(data.result.reportId)
                 onSuccess(data.result) // 성공 콜백 호출
             } else {
                 endGenerating()

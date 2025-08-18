@@ -1,31 +1,21 @@
-import { memo, useEffect } from 'react'
+import { memo } from 'react'
 import { CommentFeedback } from './CommentFeedback'
 import { Evaluation } from './Evaluation'
 import { Summary } from './Summary'
 import { Skeleton } from './Skeleton'
-import { usePollReportStatus } from '../../../../hooks/report/usePollReportStatus'
 import useGetReportOverview from '../../../../hooks/report/useGetReportOverview'
 import { useGetDummyOverview } from '../../../../hooks/report/useGetDummyReport'
 import type { OverviewDataProps } from '../../../../types/report/all'
-import { useDeleteMyReport } from '../../../../hooks/report/useDeleteMyReport'
-import { useAuthStore } from '../../../../stores/authStore'
 import { useReportStore } from '../../../../stores/reportStore'
 
 interface TabOverviewProps {
     reportId: number
-    isFromLibrary?: boolean
     isDummy?: boolean
 }
 
-export const TabOverview = ({ reportId, isFromLibrary = false, isDummy = false }: TabOverviewProps) => {
-    const { data: statusData } = usePollReportStatus(reportId ?? undefined, {
-        enabled: !isFromLibrary && !isDummy, // isDummy 일 때는 풀링 하지 않음
-    })
-
-    // isDummy일 경우 항상 'COMPLETED'
-    const status = isDummy ? 'COMPLETED' : statusData?.result?.overviewStatus
-    const isCompleted = isFromLibrary || status === 'COMPLETED'
-    const isFailed = status === 'FAILED'
+export const TabOverview = ({ reportId, isDummy = false }: TabOverviewProps) => {
+    const overviewStatus = useReportStore((state) => state.statuses[reportId]?.overviewStatus)
+    const isCompleted = overviewStatus === 'COMPLETED'
 
     const { data: realData, isLoading: isRealLoading } = useGetReportOverview({
         reportId,
@@ -39,20 +29,6 @@ export const TabOverview = ({ reportId, isFromLibrary = false, isDummy = false }
 
     const overviewData = isDummy ? dummyData : realData
     const isLoading = isDummy ? isDummyLoading : !isCompleted || isRealLoading
-
-    const user = useAuthStore((state) => state.user)
-    const channelId = user?.channelId
-
-    const { mutate: deleteReport } = useDeleteMyReport({ channelId })
-
-    const setIsErrorTrue = useReportStore((state) => state.actions.setIsErrorTrue)
-
-    useEffect(() => {
-        if (isFailed) {
-            setIsErrorTrue()
-            deleteReport({ reportId })
-        }
-    }, [isFailed, setIsErrorTrue, reportId, deleteReport])
 
     if (isLoading || !overviewData) return <Skeleton />
 

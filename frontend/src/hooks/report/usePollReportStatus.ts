@@ -1,6 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import type { ReportStatus, ResponseReportStatus, Status } from '../../types/report/new'
 import { getReportStatus } from '../../api/report'
+import { useReportStore } from '../../stores/reportStore'
+import { useEffect } from 'react'
+import { useDeleteMyReport } from './useDeleteMyReport'
+import { useAuthStore } from '../../stores/authStore'
 
 interface UseReportStatusOptions {
     intervalMs?: number
@@ -32,33 +36,73 @@ export const areAllTasksTerminal = (status: ReportStatus): boolean => {
 export const usePollReportStatus = (reportId: number | undefined, options: UseReportStatusOptions = {}) => {
     const { intervalMs = 3000, enabled = true } = options
 
-    return useQuery<ResponseReportStatus, Error>({
-        queryKey: ['reportStatus', reportId],
+    // const user = useAuthStore((state) => state.user)
+    // const channelId = user?.channelId
+    const channelId = useAuthStore((state) => state.user?.channelId)
 
+    const { updateReportStatus, removeReportStatus, removePendingReportId, beginReportCleanup } = useReportStore(
+        (state) => state.actions
+    )
+    const cleanupReportIds = useReportStore((state) => state.cleanupReportIds)
+    const { mutate: deleteReport } = useDeleteMyReport({ channelId })
+
+    const query = useQuery<ResponseReportStatus, Error, ReportStatus>({
+        queryKey: ['reportStatus', reportId],
         queryFn: () => {
             if (typeof reportId !== 'number') {
                 throw new Error('Report ID must be a number.')
             }
             return getReportStatus({ reportId })
         },
-
-        // 폴링 로직
         refetchInterval: (query) => {
             const reportData = query.state.data?.result
-
-            // 데이터가 있고, 모든 작업이 종료 상태이면 폴링 중지 (false 반환)
             if (reportData && areAllTasksTerminal(reportData)) {
                 return false
             }
-            // 그 외의 경우, 설정된 간격으로 계속 폴링
             return intervalMs
         },
-
-        // reportId가 유효한 숫자일 때만 훅을 활성화
         enabled: typeof reportId === 'number' && enabled,
-
         retry: 0,
-
         refetchOnWindowFocus: false,
+        select: (data) => data.result,
     })
+
+    useEffect(() => {
+        if (query.data && typeof reportId === 'number') {
+            updateReportStatus(reportId, query.data)
+
+            if (areAllTasksTerminal(query.data)) {
+                removePendingReportId(reportId)
+            }
+
+            const isAnyFailed = Object.values(query.data).includes('FAILED')
+            if (isAnyFailed && !cleanupReportIds.includes(reportId)) {
+                // 정리 절차를 시작하고, 모든 관련 상태를 즉시 정리합니다.
+                beginReportCleanup(reportId)
+                deleteReport({ reportId })
+                removeReportStatus(reportId)
+                removePendingReportId(reportId) // 실패했으므로 폴링을 즉시 중단합니다.
+
+                // 실패 처리가 끝났으므로 더 이상 다른 조건을 확인할 필요가 없습니다.
+                return
+            }
+
+            // ✅ 2. 실패가 아닐 경우에만, 성공적으로 모든 작업이 완료되었는지 확인합니다.
+            // (isAnyFailed가 false이므로, 이 조건은 모든 상태가 'COMPLETED'일 때만 충족됩니다.)
+            if (areAllTasksTerminal(query.data)) {
+                removePendingReportId(reportId)
+            }
+        }
+    }, [
+        query.data,
+        reportId,
+        updateReportStatus,
+        deleteReport,
+        removeReportStatus,
+        removePendingReportId,
+        beginReportCleanup,
+        cleanupReportIds,
+    ])
+
+    return query
 }
