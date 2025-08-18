@@ -21,11 +21,15 @@ export function formatKoreanNumber(value: number, suffix: string = ''): string {
  * 예: 5분 전, 2시간 전, 3일 전 등
  *
  * @param date - 과거 시점의 날짜 (문자열, 숫자, 또는 Date 객체)
+ * @param isKST - true면 KST 기준 입력, false면 UTC 기준 입력
  * @returns 상대 시간 문자열 (예: '3일 전', '방금 전')
  */
-export function formatRelativeTime(date: string | number | Date): string {
+export function formatRelativeTime(date: string | number | Date, isKST: boolean = false): string {
     const now = new Date()
-    const past = new Date(date)
+    let past = new Date(date)
+
+    if (!isKST) past = new Date(past.getTime() + 9 * 60 * 60 * 1000)
+
     const diff = now.getTime() - past.getTime()
 
     const minutes = Math.floor(diff / (1000 * 60))

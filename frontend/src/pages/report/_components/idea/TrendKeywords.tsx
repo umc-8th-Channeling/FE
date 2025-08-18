@@ -51,7 +51,7 @@ const KeywordBox = ({ label, items }: { label: string; items: Trend[] }) => {
                             >
                                 {item.keyword}
                             </p>
-                            <p className={`text-gray-600 ${body16r}`}>{formatRelativeTime(item.createdAt)}</p>
+                            <p className={`text-gray-600 ${body16r}`}>{formatRelativeTime(item.createdAt, true)}</p>
                             <p
                                 className={`col-span-2 flex flex-row items-center justify-end pr-2 text-primary-500 ${body16r}`}
                             >
