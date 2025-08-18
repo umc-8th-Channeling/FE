@@ -6,7 +6,7 @@ import type { IdeaDataProps } from '../../../../types/report/all'
 import type { Idea } from '../../../../types/idea'
 import usePatchIdeaBookmark from '../../../../hooks/idea/usePatchIdeaBookmark'
 
-export const ContentsIdea = ({ data }: IdeaDataProps) => {
+export const ContentsIdea = ({ data, isDummy = false }: IdeaDataProps & { isDummy?: boolean }) => {
     const { idea: ideas } = data
 
     return (
@@ -16,7 +16,7 @@ export const ContentsIdea = ({ data }: IdeaDataProps) => {
             ) : (
                 <div className="space-y-6">
                     {ideas.map((idea, index) => (
-                        <IdeaBox key={index} idea={idea} />
+                        <IdeaBox key={index} idea={idea} isDummy={isDummy} />
                     ))}
                 </div>
             )}
@@ -24,7 +24,7 @@ export const ContentsIdea = ({ data }: IdeaDataProps) => {
     )
 }
 
-const IdeaBox = memo(({ idea }: { idea: Idea }) => {
+const IdeaBox = memo(({ idea, isDummy = false }: { idea: Idea; isDummy?: boolean }) => {
     const { mutate: updateBookmark } = usePatchIdeaBookmark()
 
     const handleBookmarkClick = () => {
@@ -49,9 +49,11 @@ const IdeaBox = memo(({ idea }: { idea: Idea }) => {
                 </h3>
 
                 {/* 북마크 버튼 */}
-                <button onClick={handleBookmarkClick} className="cursor-pointer">
-                    {idea.isBookMarked ? <BookmarkActive /> : <BookmarkInactive />}
-                </button>
+                {!isDummy && (
+                    <button onClick={handleBookmarkClick} className="cursor-pointer">
+                        {idea.isBookMarked ? <BookmarkActive /> : <BookmarkInactive />}
+                    </button>
+                )}
             </div>
             <p className="min-h-[calc(1em*1.5*2)] line-clamp-2 text-[14px] tablet:text-[18px] leading-[150%] tracking-[-0.45px] text-gray-600">
                 {idea.content}

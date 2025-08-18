@@ -57,7 +57,7 @@ export const TabIdea = ({ reportId, isFromLibrary = false, isDummy = false }: Ta
     return (
         <div className="space-y-16">
             <TrendKeywords data={ideaData} />
-            <ContentsIdea data={ideaData} />
+            <ContentsIdea data={ideaData} isDummy={isDummy} />
         </div>
     )
 }
