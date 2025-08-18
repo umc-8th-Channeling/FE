@@ -11,6 +11,7 @@ export default memo(function IdeaCard({ item }: { item: Idea }) {
             // hashTag가 문자열로 오는 경우 배열로 파싱
             return Array.isArray(item.hashTag) ? item.hashTag : JSON.parse(item.hashTag)
         } catch {
+            alert('해시태그 업데이트에 실패하였습니다.')
             return []
         }
     }, [item.hashTag])

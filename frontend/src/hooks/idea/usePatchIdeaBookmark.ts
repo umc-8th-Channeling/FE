@@ -33,6 +33,7 @@ export default function usePatchIdeaBookmark() {
             return { previousIdeasResponse }
         },
         onError: (_err, _variables, context) => {
+            alert('북마크 업데이트에 실패하였습니다')
             // UI 원상 복구
             if (context?.previousIdeasResponse) {
                 queryClient.setQueryData(queryKey, context.previousIdeasResponse)

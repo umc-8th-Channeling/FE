@@ -3,7 +3,7 @@ export const useLocalStorage = (key: string) => {
         try {
             window.localStorage.setItem(key, JSON.stringify(value))
         } catch {
-            // ignore
+            alert('데이터 저장에 실패했습니다. ')
         }
     }
 
@@ -13,7 +13,7 @@ export const useLocalStorage = (key: string) => {
 
             return item ? JSON.parse(item) : null
         } catch {
-            return null
+            alert('저장된 데이터를 불러오지 못했습니다.')
         }
     }
 
@@ -21,7 +21,7 @@ export const useLocalStorage = (key: string) => {
         try {
             window.localStorage.removeItem(key)
         } catch {
-            // ignore
+            alert('저장된 데이터를 삭제하지 못했습니다.')
         }
     }
 

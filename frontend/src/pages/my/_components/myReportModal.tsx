@@ -17,7 +17,9 @@ export const MyReportModal = ({ title, setOpen, videoId }: MyReportModalProps) =
             setOpen(false)
             navigate(`/report/${reportId}?video=${videoId}`)
         },
-        onError: () => {},
+        onError: () => {
+            alert('내 영상으로 리포트 생성 중 오류가 발생하였습니다.')
+        },
     })
 
     const getReport = () => {

@@ -18,7 +18,7 @@ export function useFetchAndSetUser() {
             if (isNew) {
                 goToViewerStep()
             } else {
-                // ignore
+                // here is nothing to do.
             }
         } catch {
             alert('회원 정보 조회 실패')
