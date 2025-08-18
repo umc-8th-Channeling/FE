@@ -63,7 +63,7 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
         try {
             sessionStorage.removeItem(PENDING_KEY)
         } catch {
-            // ignore
+            alert('입력값 초기화 중 오류 발생')
         }
         reset({ url: '' })
         setError(null)
@@ -75,7 +75,7 @@ export const useUrlInput = (onRequestUrlSuccess?: (reportId: number, videoId: nu
             try {
                 sessionStorage.setItem(PENDING_KEY, url)
             } catch {
-                // ignore
+                alert('URL 임시 저장 실패')
             }
             openLoginFlow() // 비로그인 상태에서 요청할 경우 로그인 플로우를 시작
             return

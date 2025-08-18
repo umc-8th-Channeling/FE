@@ -25,7 +25,7 @@ export const UrlInputForm = () => {
             try {
                 sessionStorage.removeItem('pending-url')
             } catch {
-                // ignore
+                alert('임시 저장된 URL 삭제 실패')
             }
             navigate(`/report/${reportId}?video=${videoId}`)
         }
