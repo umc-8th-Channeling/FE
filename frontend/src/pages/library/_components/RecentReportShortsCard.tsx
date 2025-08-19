@@ -16,7 +16,7 @@ export default memo(function RecentReportShortsCard({ item, onDelete, handleClic
     }
 
     return (
-        <div className="relative rounded-lg overflow-hidden bg-transparent space-y-2 cursor-pointer">
+        <div className="rounded-lg overflow-hidden bg-transparent space-y-2 cursor-pointer">
             <div className="relative group space-y-2">
                 <div className="flex items-center justify-between">
                     <p className="text-sm font-normal leading-[19.6px] tracking-[-0.35px] text-gray-600">
