@@ -2,7 +2,7 @@ import { Footer } from '../../layouts/_components/Footer'
 import useGetRecommendedVideo from '../../hooks/main/useGetRecommendedVideo'
 import { useAuthStore } from '../../stores/authStore'
 import { UrlInputForm, VideoRecommendation } from './_components'
-// import { DUMMY_POPULAR } from './dummy'
+import { DUMMY_POPULAR } from './dummy'
 
 export default function MainPage() {
     const isAuth = useAuthStore((state) => state.isAuth)
@@ -37,7 +37,7 @@ export default function MainPage() {
                     {isAuth && myVideo && myVideo.list && myVideo.list.length > 0 && (
                         <VideoRecommendation label="내 영상의 개선점을 알고 싶다면" videoData={myVideo} />
                     )}
-                    {/* <VideoRecommendation label="인기있는 영상의 비결은?" videoData={DUMMY_POPULAR} /> */}
+                    <VideoRecommendation label="인기있는 영상의 비결은?" videoData={DUMMY_POPULAR} isDummy={true} />
                 </div>
             </div>
 
