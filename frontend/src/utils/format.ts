@@ -51,11 +51,15 @@ export function formatRelativeTime(date: string | number | Date, isKST: boolean 
  * 예: 2024년 5월 9일 오전 10:30
  *
  * @param date - 문자열 또는 Date 객체
+ * @param isKST - true면 KST 기준 입력, false면 UTC 기준 입력
  * @returns 한국어 형식의 날짜 문자열
  */
+export function formatKoreanDate(date: string | Date, isKST: boolean = false): string {
+    let parsedDate
 
-export function formatKoreanDate(date: string | Date): string {
-    const parsedDate = typeof date === 'string' ? new Date(date) : date
+    if (!isKST) {
+        parsedDate = new Date(new Date(date).getTime() + 9 * 60 * 60 * 1000)
+    }
 
     return new Intl.DateTimeFormat('ko-KR', {
         year: 'numeric',
