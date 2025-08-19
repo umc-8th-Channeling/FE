@@ -16,7 +16,7 @@ export const GeneratingModal = () => {
                 "
             >
                 <span>
-                    잠깐! 이 리포트는 <span className="font-bold text-primary-500">아직 생성 중</span>입니다. 금방
+                    잠깐! 이 리포트는 <span className="font-bold text-primary-500">아직 생성 중</span>입니다.{'\n'} 금방
                     생성이 끝나니 잠시만 기다려 주세요.
                 </span>
             </motion.div>
