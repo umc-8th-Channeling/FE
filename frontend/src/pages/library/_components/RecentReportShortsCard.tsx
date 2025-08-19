@@ -30,7 +30,7 @@ export default memo(function RecentReportShortsCard({ item, onDelete, handleClic
 
                 <button
                     onClick={handleDeleteClick}
-                    className="absolute w-6 h-6 -right-[4px] -top-0 
+                    className="absolute w-6 h-6 -right-[4px] top-0 
                 opacity-0 max-[768px]:opacity-100 group-hover:opacity-100 
                  transition-opacity duration-300"
                 >
