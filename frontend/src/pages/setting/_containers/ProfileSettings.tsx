@@ -16,7 +16,7 @@ export default function ProfileSettings({ onOpenWithdraw, fetchEnabled }: Props)
     const fileInputRef = useRef<HTMLInputElement>(null)
 
     const { user } = useAuthStore()
-    const { data: myProfile } = useFetchMyProfile(fetchEnabled)
+    const { data: myProfile } = useFetchMyProfile({ enabled: fetchEnabled })
 
     const { setFormData, resetFormData, ownerId, setOwner, formData } = useSNSFormStore()
     const { mutate: updateProfileImage } = useUpdateMemberProfileImage()
