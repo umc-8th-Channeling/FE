@@ -13,10 +13,13 @@ export function GlobalReportPoller() {
     // 스토어에서 폴링이 필요한 모든 리포트 ID를 가져옵니다.
     const pendingReportIds = useReportStore((state) => state.pendingReportIds)
 
+    // 중복된 ID를 제거하여 각 ID에 대해 하나의 폴러만 실행되도록 보장합니다.
+    const uniquePendingReportIds = [...new Set(pendingReportIds)]
+
     return (
         <>
             {/* 각 ID에 대해 개별적으로 폴링 워커를 실행합니다. */}
-            {pendingReportIds.map((id) => (
+            {uniquePendingReportIds.map((id) => (
                 <PollWorker key={id} reportId={id} />
             ))}
         </>

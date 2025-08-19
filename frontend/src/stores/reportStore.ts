@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
+import { createJSONStorage, devtools, persist } from 'zustand/middleware'
 import type { ReportStatus, Statuses } from '../types/report/new'
 
 interface ReportActions {
@@ -29,42 +29,53 @@ interface ReportState {
 }
 
 export const useReportStore = create<ReportState>()(
-    devtools((set) => ({
-        isReportGenerating: false,
-        statuses: {},
-        pendingReportIds: [],
-        cleanupReportIds: [],
-        actions: {
-            startGenerating: () => set({ isReportGenerating: true }),
-            endGenerating: () => set({ isReportGenerating: false }),
-            updateReportStatus: (reportId, partialStatus) =>
-                set((state) => ({
-                    statuses: {
-                        ...state.statuses,
-                        [reportId]: {
-                            ...state.statuses[reportId],
-                            ...partialStatus,
-                        },
-                    },
-                })),
-            removeReportStatus: (reportId) =>
-                set((state) => {
-                    const newStatuses = { ...state.statuses }
-                    delete newStatuses[reportId]
-                    return { statuses: newStatuses }
-                }),
-            addPendingReportId: (reportId) =>
-                set((state) => ({
-                    pendingReportIds: [...state.pendingReportIds, reportId],
-                })),
-            removePendingReportId: (reportId) =>
-                set((state) => ({
-                    pendingReportIds: state.pendingReportIds.filter((pendingId) => pendingId !== reportId),
-                })),
-            beginReportCleanup: (reportId) =>
-                set((state) => ({
-                    cleanupReportIds: [...state.cleanupReportIds, reportId],
-                })),
-        },
-    }))
+    devtools(
+        persist(
+            (set) => ({
+                isReportGenerating: false,
+                statuses: {},
+                pendingReportIds: [],
+                cleanupReportIds: [],
+                actions: {
+                    startGenerating: () => set({ isReportGenerating: true }),
+                    endGenerating: () => set({ isReportGenerating: false }),
+                    updateReportStatus: (reportId, partialStatus) =>
+                        set((state) => ({
+                            statuses: {
+                                ...state.statuses,
+                                [reportId]: {
+                                    ...state.statuses[reportId],
+                                    ...partialStatus,
+                                },
+                            },
+                        })),
+                    removeReportStatus: (reportId) =>
+                        set((state) => {
+                            const newStatuses = { ...state.statuses }
+                            delete newStatuses[reportId]
+                            return { statuses: newStatuses }
+                        }),
+                    addPendingReportId: (reportId) =>
+                        set((state) => ({
+                            pendingReportIds: [...state.pendingReportIds, reportId],
+                        })),
+                    removePendingReportId: (reportId) =>
+                        set((state) => ({
+                            pendingReportIds: state.pendingReportIds.filter(
+                                (pendingId) => pendingId !== reportId
+                            ),
+                        })),
+                    beginReportCleanup: (reportId) =>
+                        set((state) => ({
+                            cleanupReportIds: [...state.cleanupReportIds, reportId],
+                        })),
+                },
+            }),
+            {
+                name: 'report-storage',
+                storage: createJSONStorage(() => sessionStorage),
+                partialize: (state) => ({ pendingReportIds: state.pendingReportIds }),
+            }
+        )
+    )
 )
