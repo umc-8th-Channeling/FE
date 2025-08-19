@@ -5,7 +5,7 @@ import { useReportStore } from '../stores/reportStore'
 function PollWorker({ reportId }: { reportId: number }) {
     // 훅을 호출하여 특정 ID에 대한 폴링을 시작합니다.
     usePollReportStatus(reportId, { enabled: true })
-    return null // 이 컴포넌트는 UI를 렌더링하지 않습니다.
+    return null
 }
 
 // 전역 폴러: pending 중인 모든 리포트를 감시합니다.

@@ -7,9 +7,7 @@ import { TabOverview, TabAnalysis, TabIdea, UpdateModal, VideoSummary, GenerateE
 import { VideoSummarySkeleton } from './_components/VideoSummarySkeleton'
 import useGetVideoData from '../../hooks/report/useGetVideoData'
 import { useReportStore } from '../../stores/reportStore'
-import { useQuery } from '@tanstack/react-query'
-import { getReportStatus } from '../../api/report'
-import { usePollReportStatus } from '../../hooks/report/usePollReportStatus'
+import { useGetInitialReportStatus, usePollReportStatus } from '../../hooks/report/usePollReportStatus'
 import { GeneratingModal } from './_components/GeneratingModal'
 
 export default function ReportPage() {
@@ -19,55 +17,33 @@ export default function ReportPage() {
     const reportId = Number(reportIdParam)
     const [searchParams] = useSearchParams()
     const videoIdParam = searchParams.get('video')
+    const videoId = Number(videoIdParam)
 
+    const endGenerating = useReportStore((state) => state.actions.endGenerating)
     const currentReportStatus = useReportStore((state) => state.statuses[reportId])
-    const updateReportStatus = useReportStore((state) => state.actions.updateReportStatus)
     const pendingReportIds = useReportStore((state) => state.pendingReportIds)
 
-    // ✅ 1. 페이지 진입 시 스토어에 상태가 없을 때만 서버에 일회성으로 상태를 조회합니다.
-    const { data: initialStatusData, isError: isInvalidReportError } = useQuery({
-        queryKey: ['reportStatus', reportId, 'initialCheck'],
-        queryFn: () => getReportStatus({ reportId }),
-        enabled: !currentReportStatus,
-        retry: false,
-        refetchOnWindowFocus: false,
-        // select를 사용하여 data.result만 반환받도록 합니다.
-        select: (data) => data.result,
-    })
+    // ✅ 페이지 진입 시 해당 리포트 ID로 상태가 없을 때만 일회성으로 서버에 상태 조회
+    const { isInvalidReportError } = useGetInitialReportStatus(reportId)
 
-    // ✅ 3. 조회 성공 시, 이 데이터를 전역 스토어에 업데이트합니다.
-    useEffect(() => {
-        if (initialStatusData) {
-            updateReportStatus(reportId, initialStatusData)
-        }
-    }, [initialStatusData, reportId, updateReportStatus])
-
+    // ✅ 해당 리포트 ID가 PENDING 중일 경우 로컬 폴링
     const needsPolling = useMemo(() => pendingReportIds.includes(reportId), [pendingReportIds, reportId])
-
-    // ✅ 3. needsPolling이 true일 때만 '로컬 폴링'을 활성화합니다.
     usePollReportStatus(reportId, { enabled: needsPolling })
 
-    // ✅ 2. 실패 여부를 두 가지 경우로 판단합니다.
-    // Case 1: 스토어에 'FAILED' 상태가 기록되어 있는 경우
-    // 1. '생성 실패' 상태 계산 (기존과 동일)
+    // ✅ 리포트 생성에 실패한 경우
     const isKnownToHaveFailed = useMemo(() => {
         if (!currentReportStatus) return false
         const { overviewStatus, analysisStatus, ideaStatus } = currentReportStatus
         return overviewStatus === 'FAILED' || analysisStatus === 'FAILED' || ideaStatus === 'FAILED'
     }, [currentReportStatus])
 
-    // Case 2: 스토어에 정보가 없어 서버에 물어보니 에러(404 등)가 발생한 경우
     const isInvalidOrDeleted = isInvalidReportError
     const shouldShowError = isKnownToHaveFailed || isInvalidOrDeleted
 
-    // ✅ 2. '생성 중' 상태 계산
-    // 전역 pending 목록에 현재 리포트 ID가 있으면 '생성 중'으로 판단합니다.
+    // ✅ 리포트가 생성 중인 경우
     const isGenerating = useMemo(() => pendingReportIds.includes(reportId), [pendingReportIds, reportId])
 
     const handleCloseErrorModal = () => navigate('/', { replace: true })
-
-    const videoId = Number(videoIdParam)
-    const endGenerating = useReportStore((state) => state.actions.endGenerating)
 
     const TABS = useMemo(
         () => [
@@ -117,11 +93,9 @@ export default function ReportPage() {
                 <Refresh />
             </button>
 
-            {/* 생성 실패 시 에러 모달 */}
-            {/* {shouldShowError && <GenerateErrorModal onClose={handleCloseErrorModal} />} */}
-            {/* ✅ 3. 우선순위에 따라 모달을 렌더링합니다. */}
+            {/* 우선순위에 따른 모달 렌더링 */}
             {shouldShowError ? (
-                // 1순위: 에러 모달
+                // 1순위: 생성 실패 에러 모달
                 <GenerateErrorModal onClose={handleCloseErrorModal} />
             ) : isGenerating ? (
                 // 2순위: 생성 중 모달

@@ -7,9 +7,9 @@ interface ReportActions {
     endGenerating: () => void
     updateReportStatus: (reportId: number, partialStatus: Partial<Statuses>) => void
     removeReportStatus: (reportId: number) => void
-    addPendingReportId: (id: number) => void
-    removePendingReportId: (id: number) => void
-    beginReportCleanup: (id: number) => void
+    addPendingReportId: (reportId: number) => void
+    removePendingReportId: (reportId: number) => void
+    beginReportCleanup: (reportId: number) => void
 }
 
 interface ReportState {
@@ -53,17 +53,17 @@ export const useReportStore = create<ReportState>()(
                     delete newStatuses[reportId]
                     return { statuses: newStatuses }
                 }),
-            addPendingReportId: (id) =>
+            addPendingReportId: (reportId) =>
                 set((state) => ({
-                    pendingReportIds: [...state.pendingReportIds, id],
+                    pendingReportIds: [...state.pendingReportIds, reportId],
                 })),
-            removePendingReportId: (id) =>
+            removePendingReportId: (reportId) =>
                 set((state) => ({
-                    pendingReportIds: state.pendingReportIds.filter((pendingId) => pendingId !== id),
+                    pendingReportIds: state.pendingReportIds.filter((pendingId) => pendingId !== reportId),
                 })),
-            beginReportCleanup: (id) =>
+            beginReportCleanup: (reportId) =>
                 set((state) => ({
-                    cleanupReportIds: [...state.cleanupReportIds, id],
+                    cleanupReportIds: [...state.cleanupReportIds, reportId],
                 })),
         },
     }))
