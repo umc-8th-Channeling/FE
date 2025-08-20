@@ -16,26 +16,25 @@ export default memo(function RecentReportCard({ item, onDelete, handleClick }: R
     }
 
     return (
-        <div className=" rounded-lg overflow-hidden bg-transparent space-y-2 cursor-pointer">
+        <div className="rounded-lg bg-transparent space-y-2 cursor-pointer">
             <div className="relative group space-y-2">
                 <div className="flex items-center justify-between">
                     <p className="text-sm font-normal leading-[19.6px] tracking-[-0.35px] text-gray-600">
                         업데이트 : {formatSimpleDate(item.updatedAt + 'Z')}
                     </p>
+                    <button
+                        onClick={handleDeleteClick}
+                        className="w-6 h-6 -right-[5px] top-0 -mr-2
+                 opacity-0 max-[768px]:opacity-100 group-hover:opacity-100 
+                 transition-opacity duration-300"
+                    >
+                        <X className="w-full h-full fill-gray-900" />
+                    </button>
                 </div>
 
                 <div onClick={handleClick} className="w-full aspect-[141/79] rounded-lg overflow-hidden shrink-0">
                     <img src={item.videoThumbnailUrl} alt={item.videoTitle} className="w-full h-full object-cover" />
                 </div>
-
-                <button
-                    onClick={handleDeleteClick}
-                    className="absolute w-6 h-6 -right-[4px] top-0
-                 opacity-0 max-[768px]:opacity-100 group-hover:opacity-100 
-                 transition-opacity duration-300"
-                >
-                    <X className="w-full h-full fill-gray-900" />
-                </button>
             </div>
 
             <div>
