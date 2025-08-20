@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom'
 import Modal from '../../../components/Modal'
 import usePostReportById from '../../../hooks/report/usePostReportById'
 import { getJosa } from '../../../utils/format'
+import { useQueryClient } from '@tanstack/react-query'
+import { useAuthStore } from '../../../stores/authStore'
 
 interface MyReportModalProps {
     title: string
@@ -11,14 +13,23 @@ interface MyReportModalProps {
 
 export const MyReportModal = ({ title, setOpen, videoId }: MyReportModalProps) => {
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
 
     const { mutate: requestNewReport, isPending } = usePostReportById({
         onSuccess: ({ reportId }) => {
+            if (typeof channelId === 'number') {
+                queryClient.invalidateQueries({
+                    queryKey: ['my', 'report', channelId],
+                })
+            }
+
             setOpen(false)
             navigate(`/report/${reportId}?video=${videoId}`)
         },
-        onError: (err) => {
-            console.error('내 영상으로 리포트 생성 요청 중 오류 발생:', err)
+        onError: () => {
+            alert('내 영상으로 리포트 생성 중 오류가 발생하였습니다.')
         },
     })
 

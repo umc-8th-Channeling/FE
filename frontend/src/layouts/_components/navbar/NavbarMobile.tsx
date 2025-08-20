@@ -44,7 +44,7 @@ export const NavbarMobile = () => {
             {/* 슬라이드형 사이드 바 */}
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`fixed top-0 left-0 flex flex-col w-[248px] h-screen z-30 p-4 space-y-20 bg-gray-100 
+                className={`fixed top-0 left-0 flex flex-col w-[248px] h-screen z-30 p-4 bg-gray-100 
                     transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
             >
                 <div className="flex flex-row items-center justify-between">
