@@ -20,13 +20,13 @@ const ProfileCard = ({ profile }: ProfileCardProps) => {
                         href={profile.channelUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex overflow-hidden text-ellipsis items-center justify-center h-[24px] text-gray-900 text-[16px] font-medium underline decoration-solid underline-offset-2 decoration-from-font leading-[150%] tracking-[-0.4px] whitespace-nowrap"
+                        className="flex overflow-hidden text-ellipsis items-center justify-center h-[24px] text-gray-900 underline decoration-solid underline-offset-2 decoration-from-font whitespace-nowrap font-body-16m"
                     >
                         <Linkto className="mr-[8px]" />
                         {profile.channelName} 채널 바로가기
                     </a>
                 </div>
-                <div className="flex items-end gap-[8px] overflow-hidden text-ellipsis text-gray-900 text-[16px] font-medium leading-[150%] tracking-[-0.4px]">
+                <div className="flex items-end gap-[8px] overflow-hidden text-ellipsis text-gray-900 font-body-16m">
                     가입일: {profile.joinDate}
                 </div>
             </div>
