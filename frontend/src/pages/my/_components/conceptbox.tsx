@@ -60,9 +60,7 @@ const Conceptbox = ({ conceptValue, setConceptValue }: ConceptboxProps) => {
     return (
         <div className="mt-[40px] w-full">
             <div className="flex justify-between h-[28px]">
-                <div className="text-gray-900 font-bold text-[20px] whitespace-nowrap leading-[140%] tracking-[-0.5px]">
-                    채널 컨셉
-                </div>
+                <div className="text-gray-900 font-title-20b whitespace-nowrap">채널 컨셉</div>
                 <EditButton onClick={onClick} buttonColor={buttonColor} label={label} />
             </div>
             <div className="mt-[16px]">
@@ -76,7 +74,7 @@ const Conceptbox = ({ conceptValue, setConceptValue }: ConceptboxProps) => {
                     }}
                     placeholder="유튜버님의 채널 컨셉에 대한 설명을 입력해주세요."
                     initialRows={5}
-                    className="w-full min-h-[120px] mobile:text-[16px]"
+                    className="w-full min-h-[120px] font-body-16r"
                 />
             </div>
         </div>

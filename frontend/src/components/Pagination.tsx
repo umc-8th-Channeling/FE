@@ -46,7 +46,7 @@ const Pagination = ({
                 {visiblePages.map((page) => (
                     <button
                         key={page}
-                        className={`flex flex-col w-[36px] h-[36px] justify-center items-center gap-[8px] rounded-[12px] text-gray-900 font-medium text-[16px] cursor-pointer ${
+                        className={`flex flex-col w-[36px] h-[36px] justify-center items-center gap-[8px] rounded-[12px] text-gray-900 font-body-16m cursor-pointer ${
                             page == currentPage ? 'bg-primary-500' : 'bg-transparent  hover:bg-primary-opacity50'
                         }`}
                         onClick={() => {

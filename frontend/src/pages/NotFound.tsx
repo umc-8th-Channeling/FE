@@ -6,18 +6,18 @@ export default function NotFoundPage() {
         <div className="flex flex-col justify-center items-center h-full bg-gradient-to-b from-gray-50 to-primary-50">
             <h1 aria-label="404" className="flex flex-row justify-center items-center gap-[10px]">
                 <span className="sr-only">404</span>
-                <span aria-hidden="true" className="text-[80px] tablet:text-[100px] leading-[140%] trakcing-[-2.5px]">
+                <span aria-hidden="true" className="font-title-100r">
                     4
                 </span>
                 <ChannelingLogo aria-hidden="true" className="size-20" />
-                <span aria-hidden="true" className="text-[80px] tablet:text-[100px] leading-[140%] trakcing-[-2.5px]">
+                <span aria-hidden="true" className="font-title-100r">
                     4
                 </span>
             </h1>
 
             <h3
                 className="
-                    mb-2 text-center text-primary-500 text-[16px] tablet:text-[20px] font-medium leading-[140%] tracking-[-0.5px]
+                    mb-2 text-center text-primary-500 font-title-20m
                     whitespace-pre-line tablet:whitespace-nowrap 
                 "
             >
@@ -25,7 +25,7 @@ export default function NotFoundPage() {
             </h3>
             <p
                 className="
-                    mb-10 text-center text-[12px] tablet:text-[16px] leading-[150%] tracking-[-0.4px]
+                    mb-10 text-center font-body-16r
                     whitespace-pre-line tablet:whitespace-nowrap 
                 "
             >
@@ -33,9 +33,7 @@ export default function NotFoundPage() {
             </p>
 
             <Link to="/" className="cursor-pointer px-4 py-2 border-2 border-primary-500 rounded-2xl">
-                <span className="text-primary-500 text-[14px] tablet:text-[16px] font-bold leading-[150%] tracking-[-0.4px]">
-                    홈으로 이동
-                </span>
+                <span className="text-primary-500 font-body-16b">홈으로 이동</span>
             </Link>
         </div>
     )

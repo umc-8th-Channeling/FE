@@ -17,13 +17,11 @@ export const VideoSummary = memo(({ data }: { data: VideoData | undefined }) => 
             <div className="space-y-2">
                 <Tag text={data?.videoCategory || 'LOADING...'} />
                 <div>
-                    <h3 className="max-h-[68px] line-clamp-2 text-[24px] font-bold leading-[140%] tracking-[-0.6px]">
+                    <h3 className="max-h-[68px] line-clamp-2 font-title-24b">
                         {data?.videoTitle || '제목 불러오는 중...'}
                     </h3>
-                    <p className="text-[14px] tablet:text-[16px] font-medium leading-[150%] tracking-[-0.4px]">
-                        업데이트: {formatKoreanDate(data?.lastUpdatedDate || new Date(), true)}
-                    </p>
-                    <div className="flex flex-row gap-1 whitespace-nowrap text-[14px] tablet:text-[16px] leading-[150%] tracking-[-0.4px] text-gray-600">
+                    <p className="font-body-16m">업데이트: {formatKoreanDate(data?.lastUpdatedDate || new Date())}</p>
+                    <div className="flex flex-row gap-1 whitespace-nowrap font-body-16r text-gray-600">
                         <p>{data?.ChannelName || '채널 정보 불러오는 중...'}</p>
                         <span>·</span>
                         <p>{formatRelativeTime(data?.videoCreatedDate || new Date(), true)}</p>

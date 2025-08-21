@@ -57,13 +57,13 @@ const EvaluationCard = ({ label, score, children }: PropsWithChildren<{ label: s
         >
             <h3
                 className="
-                    text-[12px] text-gray-700 whitespace-pre-line
-                    tablet:text-[14px] leading-[140%] tracking-[-0.35px] tablet:whitespace-nowrap 
+                    font-caption-14r text-gray-700 whitespace-pre-line
+                    tablet:whitespace-nowrap 
                 "
             >
                 {label}
             </h3>
-            <p className="text-[20px] tablet:text-[24px] font-bold leading-[140%]">{score}</p>
+            <p className="font-title-24b">{score}</p>
             {children && <div className="mt-4">{children}</div>}
         </div>
     )
@@ -72,10 +72,8 @@ const EvaluationCard = ({ label, score, children }: PropsWithChildren<{ label: s
 const AverageScore = ({ topicAvg, channelAvg }: { topicAvg: number; channelAvg: number }) => {
     const averageBlock = (label: string, value: number) => (
         <div>
-            <h5 className="text-[12px] tablet:text-[14px] leading-[140%] tracking-[-0.35px] text-gray-500">{label}</h5>
-            <p className="text-[12px] tablet:text-[14px] leading-[140%] tracking-[-0.35px] text-primary-500">
-                {value.toFixed(2)}%
-            </p>
+            <h5 className="font-caption-14r text-gray-500">{label}</h5>
+            <p className="font-caption-14r text-primary-500">{value.toFixed(2)}%</p>
         </div>
     )
 
