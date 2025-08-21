@@ -7,20 +7,36 @@ import useGetReportIdea from '../../../../hooks/report/useGetReportIdea'
 import { useAuthStore } from '../../../../stores/authStore'
 import { useDeleteMyReport } from '../../../../hooks/report/useDeleteMyReport'
 import { useReportStore } from '../../../../stores/reportStore'
+import { useGetDummyIdea } from '../../../../hooks/report/useGetDummyReport'
 
-export const TabIdea = ({ reportId, isFromLibrary = false }: { reportId: number; isFromLibrary?: boolean }) => {
+interface TabIdeaProps {
+    reportId: number
+    isFromLibrary?: boolean
+    isDummy?: boolean
+}
+
+export const TabIdea = ({ reportId, isFromLibrary = false, isDummy = false }: TabIdeaProps) => {
     const { data: statusData } = usePollReportStatus(reportId ?? undefined, {
-        enabled: !isFromLibrary,
+        enabled: !isFromLibrary && !isDummy, // isDummy 일 때는 풀링 하지 않음
     })
 
-    const status = statusData?.result?.ideaStatus
+    // isDummy일 경우 항상 'COMPLETED'
+    const status = isDummy ? 'COMPLETED' : statusData?.result?.ideaStatus
     const isCompleted = isFromLibrary || status === 'COMPLETED'
     const isFailed = status === 'FAILED'
 
-    const { data: ideaData, isLoading: isIdeaLoading } = useGetReportIdea({
+    const { data: realData, isLoading: isRealLoading } = useGetReportIdea({
         reportId,
-        enabled: isCompleted,
+        enabled: isCompleted && !isDummy,
     })
+
+    const { data: dummyData, isLoading: isDummyLoading } = useGetDummyIdea({
+        reportId,
+        enabled: isDummy,
+    })
+
+    const ideaData = isDummy ? dummyData : realData
+    const isLoading = isDummy ? isDummyLoading : !isCompleted || isRealLoading
 
     const user = useAuthStore((state) => state.user)
     const channelId = user?.channelId
@@ -36,9 +52,7 @@ export const TabIdea = ({ reportId, isFromLibrary = false }: { reportId: number;
         }
     }, [isFailed, setIsErrorTrue, reportId, deleteReport])
 
-    const isLoading = !isCompleted || isIdeaLoading || !ideaData
-
-    if (isLoading) return <Skeleton />
+    if (isLoading || !ideaData) return <Skeleton />
 
     return (
         <div className="space-y-16">

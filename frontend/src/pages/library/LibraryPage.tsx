@@ -9,10 +9,9 @@ export default function LibraryPage() {
         <div className="px-6 tablet:px-[76px] py-20">
             <div className="relative flex mb-6">
                 <button
-                    className={`flex-1 cursor-pointer pb-3.5 text-center text-[20px] font-bold 
-                        leading-[28px] tracking-[-0.5px] relative transition-colors duration-300 ${
-                            activeTab === 'report' ? 'text-primary-500' : 'text-gray-600'
-                        }`}
+                    className={`flex-1 cursor-pointer pb-3.5 text-center font-title-20b relative transition-colors duration-300 ${
+                        activeTab === 'report' ? 'text-primary-500' : 'text-gray-600'
+                    }`}
                     onClick={() => setActiveTab('report')}
                 >
                     최근 받아본 리포트
@@ -23,10 +22,9 @@ export default function LibraryPage() {
                 </button>
 
                 <button
-                    className={`flex-1 cursor-pointer pb-3.5 text-center text-[20px] font-bold 
-                        leading-[28px] tracking-[-0.5px] relative transition-colors duration-300 ${
-                            activeTab === 'idea' ? 'text-primary-500' : 'text-gray-600'
-                        }`}
+                    className={`flex-1 cursor-pointer pb-3.5 text-center font-title-20b relative transition-colors duration-300 ${
+                        activeTab === 'idea' ? 'text-primary-500' : 'text-gray-600'
+                    }`}
                     onClick={() => setActiveTab('idea')}
                 >
                     저장한 아이디어

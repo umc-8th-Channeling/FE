@@ -78,17 +78,14 @@ const Modal = ({ title, description, onClose, className = '', children }: PropsW
                     <h1
                         id="modal-title"
                         className="
-                            text-[16px] leading-[140%] font-bold tracking-[-0.4px] tablet:text-[20px] tablet:tracking-[-0.5px]
+                            font-title-20b
                             whitespace-pre-line tablet:whitespace-nowrap    
                         "
                     >
                         {title}
                     </h1>
                     {description && (
-                        <p
-                            id="modal-description"
-                            className="text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px] text-gray-600"
-                        >
+                        <p id="modal-description" className="font-body-16r text-gray-600">
                             {description}
                         </p>
                     )}

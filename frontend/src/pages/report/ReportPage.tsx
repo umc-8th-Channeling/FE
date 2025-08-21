@@ -1,13 +1,15 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useParams, useSearchParams } from 'react-router-dom'
-import { useAuthStore } from '../../stores/authStore'
 
 import Refresh from '../../assets/icons/refresh_2.svg?react'
 import Tabs from '../../components/Tabs'
-import { TabOverview, TabAnalysis, TabIdea, GuestModal, UpdateModal, VideoSummary } from './_components'
+import { TabOverview, TabAnalysis, TabIdea, UpdateModal, VideoSummary } from './_components'
 import useGetVideoData from '../../hooks/report/useGetVideoData'
 import { useReportStore } from '../../stores/reportStore'
 import { VideoSummarySkeleton } from './_components/VideoSummarySkeleton'
+import { areAllTasksTerminal, usePollReportStatus } from '../../hooks/report/usePollReportStatus'
+import { useAuthStore } from '../../stores/authStore'
+import { useDeleteMyReport } from '../../hooks/report/useDeleteMyReport'
 
 export default function ReportPage() {
     const { reportId: reportIdParam } = useParams()
@@ -17,9 +19,12 @@ export default function ReportPage() {
 
     const reportId = Number(reportIdParam)
     const videoId = Number(videoIdParam)
-    const isAuth = useAuthStore((state) => state.isAuth)
     const endGenerating = useReportStore((state) => state.actions.endGenerating)
     const isFromLibrary = location.state?.from === 'library'
+
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
+    const { mutate: deleteReport } = useDeleteMyReport({ channelId })
 
     const TABS = useMemo(
         () => [
@@ -32,7 +37,6 @@ export default function ReportPage() {
 
     const [activeTab, setActiveTab] = useState(TABS[0])
     const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false)
-    const [isOpenGuestModal, setIsOpenGuestModal] = useState(false) // 전역 상태 전환 필요
 
     const { data: videoData, isPending } = useGetVideoData(videoId)
 
@@ -41,12 +45,28 @@ export default function ReportPage() {
         if (!isPending) endGenerating()
     }, [isPending, endGenerating])
 
+    // 리포트 생성 중 페이지 이탈 시 리포트 삭제 로직
+    const { data: statusData } = usePollReportStatus(reportId ?? undefined, {
+        enabled: !isFromLibrary,
+    })
+
+    const statusRef = useRef(statusData)
     useEffect(() => {
-        setIsOpenGuestModal(!isAuth)
-    }, [isAuth])
+        statusRef.current = statusData
+    }, [statusData])
+
+    useEffect(() => {
+        return () => {
+            const latestStatus = statusRef.current?.result
+
+            if (latestStatus && !areAllTasksTerminal(latestStatus)) {
+                // 페이지 이탈: PENDING 상태의 리포트를 삭제
+                deleteReport({ reportId })
+            }
+        }
+    }, [reportId, deleteReport])
 
     const handleUpdateModalClick = () => setIsOpenUpdateModal(!isOpenUpdateModal)
-    const handleGuestModalClick = () => setIsOpenGuestModal(!isOpenGuestModal)
     const handleResetTab = () => setActiveTab(TABS[0])
 
     return (
@@ -55,8 +75,6 @@ export default function ReportPage() {
                 {isPending ? <VideoSummarySkeleton /> : <VideoSummary data={videoData} />}
                 <Tabs tabs={TABS} activeTab={activeTab} onChangeTab={setActiveTab} />
             </div>
-
-            {isOpenGuestModal && <GuestModal onClose={handleGuestModalClick} />}
 
             {isOpenUpdateModal && (
                 <UpdateModal

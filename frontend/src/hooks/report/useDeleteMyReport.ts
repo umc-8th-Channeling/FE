@@ -12,8 +12,8 @@ export const useDeleteMyReport = ({ channelId }: { channelId: number | undefined
                 queryClient.invalidateQueries({ queryKey: ['my', 'report', channelId] })
             }
         },
-        onError: (error) => {
-            console.error('리포트 삭제 중 오류가 발생했습니다.', error)
+        onError: () => {
+            alert('리포트 삭제 중 오류가 발생했습니다.')
         },
     })
 }

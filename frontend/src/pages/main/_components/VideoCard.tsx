@@ -2,15 +2,22 @@ import { useState } from 'react'
 import { formatRelativeTime, formatKoreanNumber } from '../../../utils/format'
 import type { BriefVideo } from '../../../types/main'
 import { MyReportModal } from '../../my/_components/myReportModal'
+import { useNavigate } from 'react-router-dom'
 
 interface VideoCardProps {
     video: BriefVideo
+    isDummy?: boolean
+    reportId?: number
 }
 
-export const VideoCard = ({ video }: VideoCardProps) => {
+export const VideoCard = ({ video, isDummy = false, reportId }: VideoCardProps) => {
+    const navigate = useNavigate()
     const [open, setOpen] = useState(false)
 
-    const handleVideoClick = () => setOpen(true)
+    const handleVideoClick = () => {
+        if (isDummy) navigate(`/report/dummy/${reportId}`)
+        else setOpen(true)
+    }
 
     return (
         <div
@@ -30,10 +37,8 @@ export const VideoCard = ({ video }: VideoCardProps) => {
 
                 {/* 영상 메타 데이터 */}
                 <div className="space-y-1">
-                    <h3 className="max-h-[50px] line-clamp-2 text-[16px] leading-[140%] font-bold tracking-[-0.4px] tablet:text-[18px] tablet:tracking-[-0.45px]">
-                        {video.videoTitle}
-                    </h3>
-                    <div className="flex flex-row gap-1 whitespace-nowrap text-[12px] leading-[140%] tracking-[-0.3px] tablet:text-[14px] tablet:tracking-[-0.35px] text-gray-600">
+                    <h3 className="max-h-[50px] line-clamp-2 font-title-18b">{video.videoTitle}</h3>
+                    <div className="flex flex-row gap-1 whitespace-nowrap font-caption-14r text-gray-600">
                         <p>{video.channelName}</p>
                         <span>·</span>
                         <p>조회수 {formatKoreanNumber(video.viewCount, '회')}</p>

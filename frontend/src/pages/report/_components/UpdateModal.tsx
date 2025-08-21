@@ -1,5 +1,8 @@
+import { useNavigate } from 'react-router-dom'
 import Modal from '../../../components/Modal'
 import usePostReportById from '../../../hooks/report/usePostReportById'
+import { useQueryClient } from '@tanstack/react-query'
+import { useAuthStore } from '../../../stores/authStore'
 
 interface UpdateModalProps {
     videoId: number
@@ -8,19 +11,28 @@ interface UpdateModalProps {
 }
 
 export const UpdateModal = ({ videoId, handleModalClick, handleResetTab }: UpdateModalProps) => {
+    const navigate = useNavigate()
+    const queryClient = useQueryClient()
+    const user = useAuthStore((state) => state.user)
+    const channelId = user?.channelId
+
     const { mutate: requestNewReport } = usePostReportById({
-        onSuccess: () => {
+        onSuccess: ({ reportId }) => {
+            if (typeof channelId === 'number') {
+                queryClient.invalidateQueries({
+                    queryKey: ['my', 'report', channelId],
+                })
+            }
+
+            navigate(`/report/${reportId}?video=${videoId}`)
             handleResetTab() // 업데이트 후 탭 초기화
-            window.location.reload()
         },
-        onError: (err) => {
-            console.error('리포트 업데이트 중 오류 발생:', err)
+        onError: () => {
+            alert('리포트 업데이트 중 오류가 발생하였습니다.')
         },
     })
 
     const handleUpdateClick = () => {
-        console.log('Report Page: update')
-
         requestNewReport({ videoId })
         handleModalClick()
     }
@@ -34,8 +46,7 @@ export const UpdateModal = ({ videoId, handleModalClick, handleResetTab }: Updat
         >
             <div
                 className="
-                    flex justify-end gap-2 text-[14px] font-bold leading-[150%]
-                    tablet:text-[16px] tablet:tracking-[-0.4px]
+                    flex justify-end gap-2 font-body-16b
                 "
             >
                 <button

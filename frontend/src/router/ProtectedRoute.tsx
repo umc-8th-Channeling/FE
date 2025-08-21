@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuthStore } from '../stores/authStore'
 import { useLoginStore } from '../stores/LoginStore'
@@ -11,8 +11,14 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     const isAuth = useAuthStore((state) => state.isAuth)
     const openLoginFlow = useLoginStore((state) => state.actions.openLoginFlow)
 
+    useEffect(() => {
+        if (!isAuth) {
+            openLoginFlow()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     if (!isAuth) {
-        openLoginFlow()
         return <Navigate to="/" replace />
     }
 

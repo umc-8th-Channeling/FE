@@ -35,8 +35,8 @@ const IdeaBox = memo(({ idea }: { idea: Idea }) => {
         try {
             // hashTag가 문자열로 오는 경우 배열로 파싱
             return Array.isArray(idea.hashTag) ? idea.hashTag : JSON.parse(idea.hashTag)
-        } catch (e) {
-            console.error('해시태그 파싱 실패:', e)
+        } catch {
+            alert('태그 형식 오류로 태그를 표시하지 못했습니다.')
             return []
         }
     }, [idea.hashTag])
@@ -44,24 +44,17 @@ const IdeaBox = memo(({ idea }: { idea: Idea }) => {
     return (
         <div className="relative p-6 space-y-4 rounded-lg border border-gray-200 bg-surface-elevate-l1">
             <div className="flex flex-row gap-4">
-                <h3 className="flex-1 line-clamp-1 text-[18px] tablet:text-[20px] font-bold leading-[140%] tracking-[-0.5px]">
-                    {idea.title}
-                </h3>
+                <h3 className="flex-1 line-clamp-1 font-title-20b">{idea.title}</h3>
 
                 {/* 북마크 버튼 */}
                 <button onClick={handleBookmarkClick} className="cursor-pointer">
                     {idea.isBookMarked ? <BookmarkActive /> : <BookmarkInactive />}
                 </button>
             </div>
-            <p className="min-h-[calc(1em*1.5*2)] line-clamp-2 text-[14px] tablet:text-[18px] leading-[150%] tracking-[-0.45px] text-gray-600">
-                {idea.content}
-            </p>
+            <p className="min-h-[calc(1em*1.5*2)] line-clamp-2 font-body-18r text-gray-600">{idea.content}</p>
             <div className="flex flex-row flex-wrap gap-2">
                 {Object.values(parsedHashTags).map((tag, index) => (
-                    <p
-                        key={index}
-                        className="px-2 py-1 rounded-xs bg-primary-opacity50 text-[14px] tablet:text-[16px] font-medium leading-[150%] tracking-[-0.4px]"
-                    >
+                    <p key={index} className="px-2 py-1 rounded-xs bg-primary-opacity50 font-body-16m">
                         #{tag}
                     </p>
                 ))}
