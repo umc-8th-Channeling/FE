@@ -2,7 +2,7 @@ name: PR Auto Review with Gemini
 
 on:
     pull_request:
-        types: [labeled]
+        types: [opened, labeled]
         branches:
             - develop
         paths:
