@@ -2,8 +2,6 @@ import { useEffect, useRef } from 'react'
 import { LOCAL_STORAGE_KEY } from '../../constants/key'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useNavigate } from 'react-router-dom'
-// import { scheduleLogoutFromToken } from '../../utils/tokenTimer'
-// import { logoutCore } from '../../utils/auth'
 
 const GoogleLoginRedirectPage = () => {
     const navigate = useNavigate()
@@ -25,9 +23,6 @@ const GoogleLoginRedirectPage = () => {
 
         if (message === 'Success' && accessToken && channelId) {
             setAccessToken(accessToken)
-            // scheduleLogoutFromToken(accessToken, async () => {
-            //     await logoutCore()
-            // })
             setChannelId(channelId)
             setIsNew(isNew.toString())
 

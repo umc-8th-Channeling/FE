@@ -1,8 +1,11 @@
+import { useNavigate } from 'react-router-dom'
 import { axiosInstance } from '../api/axios'
+import { queryClient } from '../App'
 import { LOCAL_STORAGE_KEY } from '../constants/key'
 import { useAuthStore } from '../stores/authStore'
 
 export async function logoutCore() {
+    const navigate = useNavigate()
     // 1) 토큰 삭제
     try {
         localStorage.removeItem(LOCAL_STORAGE_KEY.accessToken)
@@ -24,9 +27,16 @@ export async function logoutCore() {
     } catch (e) {
         console.warn('axios 기본 헤더 제거 실패:', e)
     }
+    try {
+        queryClient.clear()
+    } catch (e) {
+        console.warn('Query cache clear 실패:', e)
+    }
     // 4) 삭제 검증
     const gone = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken) === null
     if (!gone) {
         alert('로그아웃에 실패했습니다.')
     }
+    //5) 메인 페이지로 이동
+    navigate('/', { replace: true })
 }
