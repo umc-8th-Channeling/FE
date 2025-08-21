@@ -1,8 +1,8 @@
 import { axiosInstance } from '../api/axios'
-import { queryClient } from '../App'
 import { LOCAL_STORAGE_KEY } from '../constants/key'
 import { useAuthStore } from '../stores/authStore'
 import { useSNSFormStore } from '../stores/snsFormStore'
+import { queryClient } from './queryClient'
 
 export async function logoutCore() {
     // 1) 토큰 삭제
