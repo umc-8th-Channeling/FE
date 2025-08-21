@@ -13,7 +13,7 @@ export const GuestModal = ({ onClose }: { onClose: () => void }) => {
                 }}
                 className="
                     flex flex-row items-center px-4 py-2 space-x-2 rounded-lg bg-surface-elevate-l2
-                    whitespace-pre-line tablet:whitespace-nowrap text-center text-[14px] tablet:text-[16px] leading-[150%] tracking-[-0.4px]
+                    whitespace-pre-line tablet:whitespace-nowrap text-center font-body-16r
                 "
             >
                 <span>

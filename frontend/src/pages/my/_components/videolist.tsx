@@ -51,23 +51,23 @@ export default function Videolist() {
 
     return (
         <div className="flex flex-col w-full items-start content-start pb-[80px] gap-[16px]">
-            <div className="self-stretch text-[#fff] text-[20px] font-bold leading-[140%] tracking-[-0.5px]">
-                영상 리스트
-            </div>
+            <div className="self-stretch text-neutral-white font-title-20b">영상 리스트</div>
             <div className="flex items-center">
                 <button
-                    className={`flex justify-center items-center gap-[8px] px-[16px] py-[8px] text-[18px] font-bold leading-[140%] tracking-[-0.45px] whitespace-nowrap border-b-2 cursor-pointer ${
-                        activeTab === 'video' ? 'text-primary-500 border-primary-500' : 'text-[#fff] border-transparent'
+                    className={`flex justify-center items-center gap-[8px] px-[16px] py-[8px] font-title-18b whitespace-nowrap border-b-2 cursor-pointer ${
+                        activeTab === 'video'
+                            ? 'text-primary-500 border-primary-500'
+                            : 'text-neutral-white border-transparent'
                     }`}
                     onClick={() => setActiveTab('video')}
                 >
                     동영상
                 </button>
                 <button
-                    className={`px-[16px] py-[8px] text-[18px] font-bold leading-[140%] tracking-[-0.45px] flex justify-center items-center border-b-2 cursor-pointer ${
+                    className={`px-[16px] py-[8px] font-title-18b flex justify-center items-center border-b-2 cursor-pointer ${
                         activeTab === 'shorts'
                             ? 'text-primary-500 border-primary-500'
-                            : 'text-[#fff] border-transparent'
+                            : 'text-neutral-white border-transparent'
                     } transition-colors duration-300`}
                     onClick={() => setActiveTab('shorts')}
                 >

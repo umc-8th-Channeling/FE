@@ -60,7 +60,7 @@ export const UrlInputForm = () => {
                         placeholder="유튜브 영상 URL을 입력하세요."
                         className="
                             flex-1 outline-none px-2 placeholder-gray-600 focus:placeholder-transparent
-                            text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
+                            font-body-16r
                         "
                     />
                     <ArrowButton type="submit" isActive={isActive} className="size-6 tablet:size-8" />
@@ -68,7 +68,7 @@ export const UrlInputForm = () => {
 
                 <p
                     className={`
-                        absolute mt-2 ml-6 text-error text-[14px] leading-[140%] tracking-[-0.35px]
+                        absolute mt-2 ml-6 text-error font-caption-14r
                         transition-all duration-300 ease-in-out ${error ? 'opacity-100 max-h-5' : 'opacity-0 max-h-0'}
                     `}
                 >

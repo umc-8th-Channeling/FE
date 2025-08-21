@@ -11,8 +11,7 @@ export const TitledSection = ({ title, children }: PropsWithChildren<TitledSecti
             <h1
                 className="
                     whitespace-nowrap text-start 
-                    text-[18px] font-bold leading-[140%] tracking-[-0.4px]
-                    tablet:text-[20px] tablet:tracking-[-0.5px]
+                    font-title-20b
                 "
             >
                 {title}

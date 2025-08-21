@@ -46,8 +46,7 @@ export const UpdateModal = ({ videoId, handleModalClick, handleResetTab }: Updat
         >
             <div
                 className="
-                    flex justify-end gap-2 text-[14px] font-bold leading-[150%]
-                    tablet:text-[16px] tablet:tracking-[-0.4px]
+                    flex justify-end gap-2 font-body-16b
                 "
             >
                 <button
