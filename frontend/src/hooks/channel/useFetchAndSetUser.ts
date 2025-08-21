@@ -17,9 +17,10 @@ export function useFetchAndSetUser() {
             setAuthMember()
             if (isNew) {
                 goToViewerStep()
+            } else {
+                // here is nothing to do.
             }
-        } catch (err) {
-            console.error('❌ 회원 정보 조회 실패:', err)
+        } catch {
             alert('회원 정보 조회 실패')
             navigate('/', { replace: true })
         }

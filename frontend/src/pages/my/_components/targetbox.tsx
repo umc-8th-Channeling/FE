@@ -39,7 +39,6 @@ const Targetbox = ({ targetValue, setTargetValue }: TargetboxProps) => {
                     { channelId, target: targetValue },
                     {
                         onSuccess: (res) => {
-                            console.log('updateChannelTarget 응답 :', res)
                             setTargetValue(res.updatedTarget)
                         },
                         onError: () => {

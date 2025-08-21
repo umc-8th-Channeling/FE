@@ -32,8 +32,8 @@ export default function usePatchIdeaBookmark() {
 
             return { previousIdeasResponse }
         },
-        onError: (err, _variables, context) => {
-            console.error('북마크 업데이트 실패 (롤백 실행):', err)
+        onError: (_err, _variables, context) => {
+            alert('북마크 업데이트에 실패하였습니다')
             // UI 원상 복구
             if (context?.previousIdeasResponse) {
                 queryClient.setQueryData(queryKey, context.previousIdeasResponse)

@@ -31,8 +31,8 @@ export const UpdateModal = ({ videoId, handleModalClick, handleResetTab }: Updat
             navigate(`/report/${reportId}?video=${videoId}`)
             handleResetTab() // 업데이트 후 탭 초기화
         },
-        onError: (err) => {
-            console.error('리포트 업데이트 중 오류 발생:', err)
+        onError: () => {
+            alert('리포트 업데이트 중 오류가 발생하였습니다.')
         },
     })
 
