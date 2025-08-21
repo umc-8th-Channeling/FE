@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import { axiosInstance } from '../api/axios'
 import { queryClient } from '../App'
 import { LOCAL_STORAGE_KEY } from '../constants/key'
@@ -6,7 +5,6 @@ import { useAuthStore } from '../stores/authStore'
 import { useSNSFormStore } from '../stores/snsFormStore'
 
 export async function logoutCore() {
-    const navigate = useNavigate()
     // 1) 토큰 삭제
     try {
         localStorage.removeItem(LOCAL_STORAGE_KEY.accessToken)
@@ -49,6 +47,4 @@ export async function logoutCore() {
     if (!gone) {
         alert('로그아웃에 실패했습니다.')
     }
-    //5) 메인 페이지로 이동
-    navigate('/', { replace: true })
 }
