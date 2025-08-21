@@ -24,7 +24,7 @@ const NavbarLinksListComponent = ({
 
     return (
         <div className="flex flex-col justify-between items-start desktop:items-center h-full">
-            <div className="flex flex-col gap-4 desktop:gap-6">
+            <div className="flex flex-col justify-center items-center gap-4 desktop:gap-6">
                 <div className="hidden tablet:block">
                     <NavbarModalButton {...PLUS_LINK} label={label} onClick={handlePlusClick} />
                 </div>

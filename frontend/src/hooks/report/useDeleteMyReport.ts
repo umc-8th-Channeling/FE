@@ -10,6 +10,7 @@ export const useDeleteMyReport = ({ channelId }: { channelId: number | undefined
         onSuccess: () => {
             if (typeof channelId === 'number') {
                 queryClient.invalidateQueries({ queryKey: ['my', 'report', channelId] })
+                queryClient.invalidateQueries({ queryKey: ['recommendedVideos'] })
             }
         },
         onError: () => {
