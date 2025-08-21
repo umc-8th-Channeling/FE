@@ -5,12 +5,13 @@ import { useQueryClient } from '@tanstack/react-query'
 export function useLogout() {
     const navigate = useNavigate()
     const queryClient = useQueryClient()
-    try {
-        queryClient.clear()
-    } catch (e) {
-        console.warn('Query cache clear 실패:', e)
-    }
+
     return async () => {
+        try {
+            queryClient.clear()
+        } catch (e) {
+            console.warn('Query cache clear 실패:', e)
+        }
         await logoutCore()
         navigate('/', { replace: true })
     }
