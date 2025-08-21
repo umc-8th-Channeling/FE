@@ -34,7 +34,7 @@ export const areAllTasksTerminal = (status: ReportStatus): boolean => {
  * @param options - 폴링 간격 등 추가 옵션
  */
 export const usePollReportStatus = (reportId: number | undefined, options: UseReportStatusOptions = {}) => {
-    const { intervalMs = 3000, enabled = true } = options
+    const { intervalMs = 5_000, enabled = true } = options
 
     const channelId = useAuthStore((state) => state.user?.channelId)
     const { updateReportStatus, removeReportStatus, removePendingReportId, beginReportCleanup } = useReportStore(
@@ -65,6 +65,11 @@ export const usePollReportStatus = (reportId: number | undefined, options: UseRe
     })
 
     useEffect(() => {
+        if (query.isError && typeof reportId === 'number') {
+            removePendingReportId(reportId)
+            return
+        }
+
         if (query.data && typeof reportId === 'number') {
             updateReportStatus(reportId, query.data)
 
@@ -83,6 +88,7 @@ export const usePollReportStatus = (reportId: number | undefined, options: UseRe
         }
     }, [
         query.data,
+        query.isError,
         reportId,
         updateReportStatus,
         deleteReport,
