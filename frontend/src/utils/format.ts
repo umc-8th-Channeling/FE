@@ -21,11 +21,15 @@ export function formatKoreanNumber(value: number, suffix: string = ''): string {
  * 예: 5분 전, 2시간 전, 3일 전 등
  *
  * @param date - 과거 시점의 날짜 (문자열, 숫자, 또는 Date 객체)
+ * @param isKST - true면 KST 기준 입력, false면 UTC 기준 입력
  * @returns 상대 시간 문자열 (예: '3일 전', '방금 전')
  */
-export function formatRelativeTime(date: string | number | Date): string {
+export function formatRelativeTime(date: string | number | Date, isKST: boolean = false): string {
     const now = new Date()
-    const past = new Date(date)
+    let past = new Date(date)
+
+    if (!isKST) past = new Date(past.getTime() + 9 * 60 * 60 * 1000)
+
     const diff = now.getTime() - past.getTime()
 
     const minutes = Math.floor(diff / (1000 * 60))
@@ -47,11 +51,15 @@ export function formatRelativeTime(date: string | number | Date): string {
  * 예: 2024년 5월 9일 오전 10:30
  *
  * @param date - 문자열 또는 Date 객체
+ * @param isKST - true면 KST 기준 입력, false면 UTC 기준 입력
  * @returns 한국어 형식의 날짜 문자열
  */
+export function formatKoreanDate(date: string | Date, isKST: boolean = false): string {
+    let parsedDate
 
-export function formatKoreanDate(date: string | Date): string {
-    const parsedDate = typeof date === 'string' ? new Date(date) : date
+    if (!isKST) {
+        parsedDate = new Date(new Date(date).getTime() + 9 * 60 * 60 * 1000)
+    }
 
     return new Intl.DateTimeFormat('ko-KR', {
         year: 'numeric',
@@ -79,10 +87,17 @@ export const formatPercentString = (value: number, fractionDigits = 0): string =
 /**
  * 날짜를 'YY.MM.DD 오전/오후 h:mm' 형식의 문자열로 변환합니다.
  * @param {Date | string | number} dateInput - 변환할 Date 객체, 날짜 문자열, 또는 타임스탬프
+ * @param isKST - true면 KST 기준 입력, false면 UTC 기준 입력
  * @returns {string} 포맷팅된 날짜 문자열 (예: '25.06.29 오전 1:53')
  */
-export const formatSimpleDate = (dateInput: Date | string | number) => {
-    const date = new Date(dateInput)
+export const formatSimpleDate = (dateInput: Date | string | number, isKST: boolean = false) => {
+    let date = new Date(dateInput)
+
+    if (!isKST) {
+        const KST_OFFSET_MS = 9 * 60 * 60 * 1000
+        date = new Date(date.getTime() + KST_OFFSET_MS)
+    }
+
     const KST_OFFSET_MS = 9 * 60 * 60 * 1000
     const kstTimestamp = date.getTime() + KST_OFFSET_MS
     const kstDate = new Date(kstTimestamp)

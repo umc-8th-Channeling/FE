@@ -1,38 +1,57 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { useLocation, useParams, useSearchParams } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import Refresh from '../../assets/icons/refresh_2.svg?react'
 import Tabs from '../../components/Tabs'
-import { TabOverview, TabAnalysis, TabIdea, UpdateModal, VideoSummary } from './_components'
+import { TabOverview, TabAnalysis, TabIdea, UpdateModal, VideoSummary, GenerateErrorModal } from './_components'
+import { VideoSummarySkeleton } from './_components/VideoSummarySkeleton'
 import useGetVideoData from '../../hooks/report/useGetVideoData'
 import { useReportStore } from '../../stores/reportStore'
-import { VideoSummarySkeleton } from './_components/VideoSummarySkeleton'
-import { areAllTasksTerminal, usePollReportStatus } from '../../hooks/report/usePollReportStatus'
-import { useAuthStore } from '../../stores/authStore'
-import { useDeleteMyReport } from '../../hooks/report/useDeleteMyReport'
+import { useGetInitialReportStatus, usePollReportStatus } from '../../hooks/report/usePollReportStatus'
+import { GeneratingModal } from './_components/GeneratingModal'
 
 export default function ReportPage() {
+    const navigate = useNavigate()
+
     const { reportId: reportIdParam } = useParams()
+    const reportId = Number(reportIdParam)
     const [searchParams] = useSearchParams()
     const videoIdParam = searchParams.get('video')
-    const location = useLocation()
-
-    const reportId = Number(reportIdParam)
     const videoId = Number(videoIdParam)
-    const endGenerating = useReportStore((state) => state.actions.endGenerating)
-    const isFromLibrary = location.state?.from === 'library'
 
-    const user = useAuthStore((state) => state.user)
-    const channelId = user?.channelId
-    const { mutate: deleteReport } = useDeleteMyReport({ channelId })
+    const endGenerating = useReportStore((state) => state.actions.endGenerating)
+    const currentReportStatus = useReportStore((state) => state.statuses[reportId])
+    const pendingReportIds = useReportStore((state) => state.pendingReportIds)
+
+    // ✅ 페이지 진입 시 해당 리포트 ID로 상태가 없을 때만 일회성으로 서버에 상태 조회
+    const { isInvalidReportError } = useGetInitialReportStatus(reportId)
+
+    // ✅ 해당 리포트 ID가 PENDING 중일 경우 로컬 폴링
+    const needsPolling = useMemo(() => pendingReportIds.includes(reportId), [pendingReportIds, reportId])
+    usePollReportStatus(reportId, { enabled: needsPolling })
+
+    // ✅ 리포트 생성에 실패한 경우
+    const isKnownToHaveFailed = useMemo(() => {
+        if (!currentReportStatus) return false
+        const { overviewStatus, analysisStatus, ideaStatus } = currentReportStatus
+        return overviewStatus === 'FAILED' || analysisStatus === 'FAILED' || ideaStatus === 'FAILED'
+    }, [currentReportStatus])
+
+    const isInvalidOrDeleted = isInvalidReportError
+    const shouldShowError = isKnownToHaveFailed || isInvalidOrDeleted
+
+    // ✅ 리포트가 생성 중인 경우
+    const isGenerating = useMemo(() => pendingReportIds.includes(reportId), [pendingReportIds, reportId])
+
+    const handleCloseErrorModal = () => navigate('/', { replace: true })
 
     const TABS = useMemo(
         () => [
-            { index: 0, label: '개요', component: <TabOverview reportId={reportId} isFromLibrary={isFromLibrary} /> },
-            { index: 1, label: '분석', component: <TabAnalysis reportId={reportId} isFromLibrary={isFromLibrary} /> },
-            { index: 2, label: '아이디어', component: <TabIdea reportId={reportId} isFromLibrary={isFromLibrary} /> },
+            { index: 0, label: '개요', component: <TabOverview reportId={reportId} /> },
+            { index: 1, label: '분석', component: <TabAnalysis reportId={reportId} /> },
+            { index: 2, label: '아이디어', component: <TabIdea reportId={reportId} /> },
         ],
-        [reportId, isFromLibrary]
+        [reportId]
     )
 
     const [activeTab, setActiveTab] = useState(TABS[0])
@@ -44,27 +63,6 @@ export default function ReportPage() {
     useEffect(() => {
         if (!isPending) endGenerating()
     }, [isPending, endGenerating])
-
-    // 리포트 생성 중 페이지 이탈 시 리포트 삭제 로직
-    const { data: statusData } = usePollReportStatus(reportId ?? undefined, {
-        enabled: !isFromLibrary,
-    })
-
-    const statusRef = useRef(statusData)
-    useEffect(() => {
-        statusRef.current = statusData
-    }, [statusData])
-
-    useEffect(() => {
-        return () => {
-            const latestStatus = statusRef.current?.result
-
-            if (latestStatus && !areAllTasksTerminal(latestStatus)) {
-                // 페이지 이탈: PENDING 상태의 리포트를 삭제
-                deleteReport({ reportId })
-            }
-        }
-    }, [reportId, deleteReport])
 
     const handleUpdateModalClick = () => setIsOpenUpdateModal(!isOpenUpdateModal)
     const handleResetTab = () => setActiveTab(TABS[0])
@@ -94,6 +92,15 @@ export default function ReportPage() {
             >
                 <Refresh />
             </button>
+
+            {/* 우선순위에 따른 모달 렌더링 */}
+            {shouldShowError ? (
+                // 1순위: 생성 실패 에러 모달
+                <GenerateErrorModal onClose={handleCloseErrorModal} />
+            ) : isGenerating ? (
+                // 2순위: 생성 중 모달
+                <GeneratingModal />
+            ) : null}
         </>
     )
 }

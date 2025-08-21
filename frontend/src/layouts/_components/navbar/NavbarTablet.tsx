@@ -48,7 +48,7 @@ export const NavbarTablet = () => {
             >
                 <div className="flex flex-row items-center justify-between">
                     <Link to="/">
-                        <Channeling aria-label="Channeling 글자 로고" />
+                        <Channeling className="text-primary-500" aria-label="Channeling 글자 로고" />
                     </Link>
                     <button aria-label="사이드 바 닫기" onClick={toggleMenu} className="cursor-pointer">
                         <X />

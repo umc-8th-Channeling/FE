@@ -5,7 +5,6 @@ import CloseIcon from '../../assets/icons/delete_normal.svg?react'
 import LogoutIcon from '../../assets/icons/logout.svg?react'
 import WithdrawlModal from './_components/WithdrawlModal'
 import { useLogout } from '../../hooks/useLogout'
-import { useSNSFormStore } from '../../stores/snsFormStore'
 import ProfileSettings from './_containers/ProfileSettings'
 import ConsentSettings from './_containers/ConsentSettings'
 
@@ -20,15 +19,9 @@ export default function SettingPage({ onClose }: SettingPageProps) {
     const logout = useLogout()
     const [loggingOut, setLoggingOut] = useState(false)
 
-    const { resetFormData, setOwner } = useSNSFormStore()
-
     const handleClickLogout = async () => {
         if (loggingOut) return
         setLoggingOut(true)
-
-        useSNSFormStore.persist?.clearStorage?.()
-        resetFormData()
-        setOwner(null)
 
         await logout()
         onClose?.()

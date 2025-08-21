@@ -31,12 +31,15 @@ export type ReportStatusDto = {
 
 export type Status = 'PENDING' | 'COMPLETED' | 'FAILED'
 
-export type ReportStatus = {
-    taskId: number
-    reportId: number
+export type Statuses = {
     overviewStatus: Status
     analysisStatus: Status
     ideaStatus: Status
 }
+
+export type ReportStatus = {
+    taskId: number
+    reportId: number
+} & Statuses
 
 export type ResponseReportStatus = CommonResponse<ReportStatus>

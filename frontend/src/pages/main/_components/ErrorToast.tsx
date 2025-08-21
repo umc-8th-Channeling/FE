@@ -1,9 +1,9 @@
-import * as motion from 'motion/react-client';
-import ErrorIcon from '../../../assets/icons/error.svg?react';
-import ToastBlur from '../../../assets/ellipses/toast.svg?react';
+import * as motion from 'motion/react-client'
+import ErrorIcon from '../../../assets/icons/error.svg?react'
+import ToastBlur from '../../../assets/ellipses/toast.svg?react'
 
 interface ErrorToastProps {
-    errorMessage: string;
+    errorMessage: string
 }
 
 export const ErrorToast = ({ errorMessage }: ErrorToastProps) => {
@@ -23,13 +23,13 @@ export const ErrorToast = ({ errorMessage }: ErrorToastProps) => {
                         <ErrorIcon />
                     </div>
                     <div className="flex-1">
-                        <h3 className="text-[16px] leading-[150%] font-bold tracking-[-0.4px]">잘못된 입력입니다.</h3>
-                        <p className="text-[14px] leading-[140%] tracking-[-0.35%] text-gray-600">{errorMessage}</p>
+                        <h3 className="font-body-16b">잘못된 입력입니다.</h3>
+                        <p className="font-caption-14r text-gray-600">{errorMessage}</p>
                     </div>
                 </div>
 
                 <ToastBlur className="absolute inset-0" />
             </motion.div>
         </div>
-    );
-};
+    )
+}

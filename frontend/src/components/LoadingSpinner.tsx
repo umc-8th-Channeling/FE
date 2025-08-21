@@ -16,8 +16,8 @@ const LoadingSpinner = ({ title, description, isLoading }: LoadingSpinnerProps) 
             <div className="relative flex flex-col justify-center items-center text-center gap-6">
                 <Spinner className="animate-spin" />
                 <div className="space-y-2">
-                    {title && <h3 className="text-[20px] font-bold leading-[140%] tracking-[-0.5px]">{title}</h3>}
-                    {description && <p className="text-[16px] leading-[150%] tracking-[-0.4px]">{description}</p>}
+                    {title && <h3 className="font-title-20b">{title}</h3>}
+                    {description && <p className="font-body-16r">{description}</p>}
                 </div>
             </div>
         </div>
