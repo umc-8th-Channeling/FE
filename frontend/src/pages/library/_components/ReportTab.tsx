@@ -78,8 +78,8 @@ export default function ReportTab() {
                 <div
                     className={
                         isVideo
-                            ? 'grid grid-cols-2 desktop:grid-cols-4 gap-6'
-                            : 'grid grid-cols-3 desktop:grid-cols-6 gap-3'
+                            ? 'grid grid-cols-1 desktop:grid-cols-4 gap-6 tablet:grid-cols-2'
+                            : 'grid grid-cols-2 desktop:grid-cols-6 gap-3 tablet:grid-cols-3'
                     }
                 >
                     {reportData.reportList.map((item: BriefReport) =>
