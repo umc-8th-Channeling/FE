@@ -3,7 +3,7 @@ import X from '../../../assets/icons/X.svg?react'
 
 export const GuestModal = ({ onClose }: { onClose: () => void }) => {
     return (
-        <div className="absolute top-0 flex justify-center w-full">
+        <div className="fixed top-12 tablet:top-16 desktop:top-2 desktop:left-10 flex justify-center w-full">
             <motion.div
                 initial={{ opacity: 0, y: 0 }}
                 animate={{ opacity: 1, y: [0, 24, 16, 20] }}
