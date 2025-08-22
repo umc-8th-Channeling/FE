@@ -2,6 +2,7 @@ import { axiosInstance } from '../api/axios'
 import { LOCAL_STORAGE_KEY } from '../constants/key'
 import { useAuthStore } from '../stores/authStore'
 import { useSNSFormStore } from '../stores/snsFormStore'
+import { queryClient } from './queryClient'
 
 export async function logoutCore() {
     // 1) 토큰 삭제
@@ -35,6 +36,11 @@ export async function logoutCore() {
         delete axiosInstance.defaults.headers.common.Authorization
     } catch (e) {
         console.warn('axios 기본 헤더 제거 실패:', e)
+    }
+    try {
+        queryClient.clear()
+    } catch (e) {
+        console.warn('Query cache clear 실패:', e)
     }
     // 4) 삭제 검증
     const gone = localStorage.getItem(LOCAL_STORAGE_KEY.accessToken) === null
