@@ -64,10 +64,23 @@ function drawIconsPlugin(chart: Chart<'doughnut'>, activeIndex?: number, drawAct
         })()
         const labelFontSize = (() => {
             if (width >= 768) return 14
-            return 12
+            return 10
         })()
+        const paddingX = width >= 768 ? 8 : 4
+        const paddingY = width >= 768 ? 4 : 2
 
-        drawLabelWithIcon(ctx, center.x, center.y, percentage, icon, iconSize, labelFontSize, drawActiveOnly)
+        drawLabelWithIcon(
+            ctx,
+            center.x,
+            center.y,
+            percentage,
+            icon,
+            iconSize,
+            labelFontSize,
+            drawActiveOnly,
+            paddingX,
+            paddingY
+        )
     })
 }
 
@@ -91,7 +104,9 @@ function drawLabelWithIcon(
     icon: HTMLImageElement,
     iconSize: number,
     labelFontSize = 14,
-    active = false
+    active = false,
+    paddingX: number,
+    paddingY: number
 ) {
     const spacing = 4
     const labelText = `${Math.round(percentage)}%`
@@ -116,9 +131,6 @@ function drawLabelWithIcon(
         ctx.fillText(labelText, centerX, baseY + iconSize + spacing)
     } else {
         // 활성화 라벨 (배경 박스 + 테두리 + 텍스트)
-        const paddingY = 4
-        const paddingX = 8
-
         // 텍스트 너비
         const textWidth = ctx.measureText(labelText).width
 
