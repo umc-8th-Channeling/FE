@@ -76,7 +76,7 @@ export const CommentFeedback = ({ data, isDummy }: OverviewDataProps & { isDummy
                     desktop:flex-row desktop:items-start desktop:min-h-full
                 "
             >
-                <div className="w-full min-w-[280px] max-w-[448px] aspect-square">
+                <div className="w-full mt-3 tablet:mt-0 min-w-[280px] max-w-[448px] aspect-square">
                     <DoughnutChart
                         data={chartData}
                         labels={commentLabels}
