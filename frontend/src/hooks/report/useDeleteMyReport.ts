@@ -10,10 +10,11 @@ export const useDeleteMyReport = ({ channelId }: { channelId: number | undefined
         onSuccess: () => {
             if (typeof channelId === 'number') {
                 queryClient.invalidateQueries({ queryKey: ['my', 'report', channelId] })
+                queryClient.invalidateQueries({ queryKey: ['recommendedVideos'] })
             }
         },
-        onError: (error) => {
-            console.error('리포트 삭제 중 오류가 발생했습니다.', error)
+        onError: () => {
+            alert('리포트 삭제 중 오류가 발생했습니다.')
         },
     })
 }

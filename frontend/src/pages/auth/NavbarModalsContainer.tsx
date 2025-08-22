@@ -41,13 +41,11 @@ export const NavbarModalsContainer = () => {
                                 updateTarget(
                                     { channelId, target: viewerValue },
                                     {
-                                        onSuccess: (res) => {
-                                            console.log(' updateChannelTarget 응답:', res)
+                                        onSuccess: () => {
                                             setChannelConceptValue('') // 다음 모달 입력창 초기화
                                             goToConceptStep()
                                         },
-                                        onError: (err) => {
-                                            console.error('타겟 저장 실패:', err)
+                                        onError: () => {
                                             alert('타겟 저장 실패')
                                         },
                                     }
@@ -69,13 +67,11 @@ export const NavbarModalsContainer = () => {
                                 updateConcept(
                                     { channelId, concept: channelConceptValue },
                                     {
-                                        onSuccess: (res) => {
-                                            console.log(' updateChannelConcept 응답:', res)
+                                        onSuccess: () => {
                                             setChannelConceptValue('') // 입력 초기화
                                             finishLoginAndAuthenticate()
                                         },
-                                        onError: (err) => {
-                                            console.error('채널 콘셉트 실패:', err)
+                                        onError: () => {
                                             alert('채널 콘셉트 저장 실패')
                                         },
                                     }

@@ -51,28 +51,24 @@ export default function ReportTab() {
             <div className="flex justify-between items-center mb-6">
                 <div className="flex gap-2">
                     <button
-                        className={`px-4 cursor-pointer py-2 rounded-lg font-bold leading-[24px] 
-                            tracking-[-0.4px] transition-all duration-300 ${
-                                isVideo ? 'bg-primary-500 ' : 'bg-gray-100 '
-                            }`}
+                        className={`px-4 cursor-pointer py-2 rounded-lg  transition-all duration-300 ${
+                            isVideo ? 'bg-primary-500 font-body-16b' : 'bg-gray-100 font-body-16m'
+                        }`}
                         onClick={() => setSubTab('LONG')}
                     >
                         동영상
                     </button>
                     <button
-                        className={`px-4 cursor-pointer py-2 rounded-lg font-bold leading-[24px] 
-                            tracking-[-0.4px] transition-all duration-300 ${
-                                !isVideo ? 'bg-primary-500' : 'bg-gray-100'
-                            }`}
+                        className={`px-4 cursor-pointer py-2 rounded-lg transition-all duration-300 ${
+                            !isVideo ? 'bg-primary-500 font-body-16b' : 'bg-gray-100 font-body-16m'
+                        }`}
                         onClick={() => setSubTab('SHORTS')}
                     >
                         Shorts
                     </button>
                 </div>
 
-                <div className="text-base font-medium leading-[24px] tracking-[-0.4px]">
-                    {reportData.totalElements}개의 영상 리포트
-                </div>
+                <div className="text-base font-body-16m">{reportData.totalElements}개의 영상 리포트</div>
             </div>
 
             {/* 카드 리스트 */}
@@ -82,8 +78,8 @@ export default function ReportTab() {
                 <div
                     className={
                         isVideo
-                            ? 'grid grid-cols-2 desktop:grid-cols-4 gap-6'
-                            : 'grid grid-cols-3 desktop:grid-cols-6 gap-3'
+                            ? 'grid grid-cols-1 desktop:grid-cols-4 gap-6 tablet:grid-cols-2'
+                            : 'grid grid-cols-2 desktop:grid-cols-6 gap-3 tablet:grid-cols-3'
                     }
                 >
                     {reportData.reportList.map((item: BriefReport) =>

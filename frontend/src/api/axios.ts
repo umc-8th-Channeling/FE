@@ -26,14 +26,11 @@ axiosInstance.interceptors.response.use(
     async (error) => {
         //HTTP 상태 코드
         const status = error?.response?.status
-        //요청했던 URL 경로
-        const originalUrl: string | undefined = error?.config?.url
         //네트워크 에러면 던짐
         if (!status) return Promise.reject(error)
-        //로그인 / 회원가입 등의 일부 엔드포인트는 제외 - 무한루프 방지
-        const exempt = originalUrl?.includes('/auth/login') || originalUrl?.includes('auth/signup')
-        if (status === 401 && !exempt) {
+        if (status === 401) {
             await logoutCore()
+            alert('세션이 만료되었습니다. 다시 로그인 해 주세요.')
         }
         return Promise.reject(error)
     }

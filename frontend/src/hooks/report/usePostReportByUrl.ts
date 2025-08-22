@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { postReportByUrl } from '../../api/report'
 import { useReportStore } from '../../stores/reportStore'
 import type { ResponseReportByUrl, ResultReportByUrl } from '../../types/report/new'
@@ -14,14 +14,18 @@ interface ReportByUrlCallbacks {
  * 성공 시 리포트 ID를 반환하고, 실패 시 에러 메시지를 처리합니다.
  */
 export default function usePostReportByUrl({ onSuccess, onError }: ReportByUrlCallbacks) {
+    const queryClient = useQueryClient()
     const startGenerating = useReportStore((state) => state.actions.startGenerating)
     const endGenerating = useReportStore((state) => state.actions.endGenerating)
+    const addPendingReportId = useReportStore((state) => state.actions.addPendingReportId)
 
     return useMutation({
         mutationFn: postReportByUrl,
         onSuccess: (data: ResponseReportByUrl) => {
             if (data.isSuccess && data.result) {
+                queryClient.invalidateQueries({ queryKey: ['recommendedVideos'] })
                 startGenerating()
+                addPendingReportId(data.result.reportId)
                 onSuccess(data.result) // 성공 콜백 호출
             } else {
                 endGenerating()

@@ -16,9 +16,7 @@ const Comments = ({ comments }: { comments: Comment[] | undefined }) => {
         <div className="flex flex-col gap-4">
             {comments?.map((comment) => (
                 <div key={comment.commentId} className="px-4 py-2 rounded-lg bg-surface-elevate-l2">
-                    <span className="max-h-12 line-clamp-2 text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]">
-                        {comment.content}
-                    </span>
+                    <span className="max-h-12 line-clamp-2 font-body-16r">{comment.content}</span>
                 </div>
             ))}
         </div>
@@ -78,7 +76,7 @@ export const CommentFeedback = ({ data, isDummy }: OverviewDataProps & { isDummy
                     desktop:flex-row desktop:items-start desktop:min-h-full
                 "
             >
-                <div className="w-full min-w-[280px] max-w-[448px] aspect-square">
+                <div className="w-full mt-3 tablet:mt-0 min-w-[280px] max-w-[448px] aspect-square">
                     <DoughnutChart
                         data={chartData}
                         labels={commentLabels}
@@ -95,8 +93,7 @@ export const CommentFeedback = ({ data, isDummy }: OverviewDataProps & { isDummy
                                 onClick={() => handleTabChange(key)}
                                 className={`
                                     cursor-pointer w-full py-2 rounded-sm transition-colors duration-300 
-                                    text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
-                                    ${key === activeTab ? 'bg-gray-50 font-bold' : 'bg-transparent font-medium'}
+                                    ${key === activeTab ? 'bg-gray-50 font-body-16b' : 'bg-transparent font-body-16m'}
                                 `}
                             >
                                 {label}

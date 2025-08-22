@@ -18,10 +18,8 @@ export default function MyVideoCard({ video }: MyVideoCardProps) {
                     <img src={video.thumbnailUrl} alt={video.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="w-full flex flex-col h-[74px] items-start gap-[4px] ">
-                    <div className="self-stretch text-gray-900 text-[16px] tablet:text-[18px] font-bold multi-line-ellipsis leading-[140%] tracking-[-0.45px]">
-                        {video.title}
-                    </div>
-                    <div className="self-stretch text-gray-600 text-[12px] tablet:text-[14px] font-normal leading-[140%] tracking-[-0.35px]">
+                    <div className="self-stretch text-gray-900 font-title-18b multi-line-ellipsis">{video.title}</div>
+                    <div className="self-stretch text-gray-600 font-caption-14r">
                         조회수 {formatKoreanNumber(video.viewCount)}회 · {formatRelativeTime(video.publishedAt)}
                     </div>
                 </div>

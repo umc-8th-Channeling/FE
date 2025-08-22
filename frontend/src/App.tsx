@@ -1,9 +1,9 @@
 import { RouterProvider } from 'react-router-dom'
 import { router } from './router/router'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-
-const queryClient = new QueryClient()
+import { GlobalReportPoller } from './components/GlobalReportPoller'
+import { queryClient } from './utils/queryClient'
 
 function App() {
     return (
@@ -11,6 +11,9 @@ function App() {
             <QueryClientProvider client={queryClient}>
                 <ReactQueryDevtools initialIsOpen={false} />
                 <RouterProvider router={router} />
+
+                {/* 전역 폴러 */}
+                <GlobalReportPoller />
             </QueryClientProvider>
         </>
     )

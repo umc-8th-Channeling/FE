@@ -39,7 +39,6 @@ const Targetbox = ({ targetValue, setTargetValue }: TargetboxProps) => {
                     { channelId, target: targetValue },
                     {
                         onSuccess: (res) => {
-                            console.log('updateChannelTarget 응답 :', res)
                             setTargetValue(res.updatedTarget)
                         },
                         onError: () => {
@@ -56,13 +55,11 @@ const Targetbox = ({ targetValue, setTargetValue }: TargetboxProps) => {
     return (
         <div className="w-full">
             <div className="flex flex-row justify-between h-[28px]">
-                <div className=" text-gray-900 font-bold text-[20px] whitespace-nowrap leading-[140%] tracking-[-0.5px]">
-                    시청자 타겟
-                </div>
+                <div className=" text-gray-900 font-title-20b whitespace-nowrap ">시청자 타겟</div>
                 <EditButton onClick={onClick} buttonColor={buttonColor} label={label} />
             </div>
             <div
-                className={`mt-[16px] w-full p-[16px] rounded-[16px] text-[16px] placeholder-gray-600 bg-neutral-white-opacity10 border-[1px] border-transparent focus-within:border-gray-400`}
+                className={`mt-[16px] w-full p-[16px] rounded-[16px] placeholder-gray-600 bg-neutral-white-opacity10 border-[1px] border-transparent focus-within:border-gray-400`}
             >
                 <input
                     value={targetValue}
@@ -73,7 +70,7 @@ const Targetbox = ({ targetValue, setTargetValue }: TargetboxProps) => {
                     }}
                     className="
                         flex px-2 w-full h-fit outline-none resize-none 
-                        text-[14px] leading-[150%] tracking-[-0.35px] tablet:text-[16px] tablet:tracking-[-0.4px]
+                        font-body-16r
                     "
                     placeholder="유튜버님의 시청자 타겟에 대한 설명을 입력해주세요."
                 />

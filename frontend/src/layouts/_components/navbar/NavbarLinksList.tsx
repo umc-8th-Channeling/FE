@@ -24,8 +24,23 @@ const NavbarLinksListComponent = ({
 
     return (
         <div className="flex flex-col justify-between items-start desktop:items-center h-full">
-            <div className="flex flex-col gap-4 desktop:gap-6">
-                <NavbarModalButton {...PLUS_LINK} label={label} onClick={handlePlusClick} />
+            <div className="flex flex-col justify-center items-center gap-4 desktop:gap-6">
+                <div className="hidden tablet:block">
+                    <NavbarModalButton {...PLUS_LINK} label={label} onClick={handlePlusClick} />
+                </div>
+
+                <div className="flex flex-col tablet:hidden">
+                    <div className="pt-8 pb-8">
+                        {isAuth && user ? (
+                            <NavbarUserInfo user={user} onUserClick={handleUserClick} />
+                        ) : (
+                            <NavbarModalButton {...LOGIN_LINK} onClick={handleLoginClick} />
+                        )}
+                    </div>
+
+                    <NavbarModalButton {...PLUS_LINK} label={label} onClick={handlePlusClick} />
+                </div>
+
                 <div className="flex flex-col gap-4 desktop:gap-2">
                     {NAVIGATE_LINKS.map((link) => (
                         <NavbarLink key={link.to} {...link} />
@@ -33,7 +48,7 @@ const NavbarLinksListComponent = ({
                 </div>
             </div>
 
-            <div ref={loginButtonRef} className="mb-4 desktop:m-0">
+            <div ref={loginButtonRef} className="hidden tablet:flex mb-4 desktop:m-0">
                 {isAuth && user ? (
                     <NavbarUserInfo user={user} onUserClick={handleUserClick} />
                 ) : (

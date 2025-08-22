@@ -2,7 +2,7 @@ name: PR Auto Review with Gemini
 
 on:
     pull_request:
-        types: [opened, synchronize, reopened]
+        types: [opened, labeled]
         branches:
             - develop
         paths:
@@ -14,6 +14,7 @@ permissions:
 
 jobs:
     gemini-review:
+        if: github.event.label.name == 'gemini-pr-review'
         runs-on: ubuntu-latest
 
         steps:

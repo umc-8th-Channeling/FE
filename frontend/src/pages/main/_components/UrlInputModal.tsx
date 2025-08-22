@@ -27,6 +27,11 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
 
     useEffect(() => {
         if (!isPending && videoData && reportId && videoId) {
+            try {
+                sessionStorage.removeItem('pending-url')
+            } catch {
+                alert('임시 저장된 URL 삭제 실패')
+            }
             onClose()
             navigate(`/report/${reportId}?video=${videoId}`)
         }
@@ -80,7 +85,7 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
                         placeholder="유튜브 영상 URL을 입력하세요."
                         className="
                             flex-1 outline-none pr-2 placeholder-gray-600 focus:placeholder-transparent
-                            text-[16px] leading-[150%] tracking-[-0.4px]
+                            font-body-16r
                         "
                     />
                     <ArrowButton type="submit" isActive={isActive} className="size-8" />
@@ -88,7 +93,7 @@ export const UrlInputModal = ({ onClose }: UrlInputModalProps) => {
 
                 <p
                     className={`
-                        absolute -bottom-8 text-error text-[14px] leading-[140%] tracking-[-0.35px]
+                        absolute -bottom-8 text-error font-caption-14r
                         transition-all duration-300 ease-in-out ${error ? 'opacity-100' : 'opacity-0'}
                     `}
                 >

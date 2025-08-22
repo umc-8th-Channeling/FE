@@ -1,12 +1,29 @@
 import { TitledSection } from '../TitledSection'
 import type { AnalysisDataProps } from '../../../../types/report/all'
 import { MarkdownBox } from '../../../../components/MarkdownBox'
+import { useMemo } from 'react'
 
 export const ViewerExitAnalysis = ({ data }: AnalysisDataProps) => {
-    const markdownText = data.leaveAnalyze.replace(/\\n/g, '\n')
+    const { firstLine, restText } = useMemo(() => {
+        const markdownText = data.leaveAnalyze.replace(/\\n/g, '\n').trim()
 
-    const [firstLine, ...restLines] = markdownText.split('\n\n')
-    const restText = restLines.join('\n\n')
+        // 첫 줄이 이탈 요약 및 개선안 패턴인지 검사하는 정규식
+        // ex: "0.458초(00:00~00:00) 구간 이탈 요약 및 개선안입니다."
+        const titleRegex = /^.*구간 이탈 요약 및 개선안입니다\./
+
+        if (titleRegex.test(markdownText)) {
+            const [firstLine, ...restLines] = markdownText.split('\n\n')
+            return {
+                firstLine: firstLine, // 패턴에 일치하는 첫 줄
+                restText: restLines.join('\n\n'), // 나머지 내용
+            }
+        }
+
+        return {
+            firstLine: null,
+            restText: markdownText,
+        }
+    }, [data.leaveAnalyze])
 
     return (
         <TitledSection title="시청자 이탈 분석">
@@ -17,7 +34,7 @@ export const ViewerExitAnalysis = ({ data }: AnalysisDataProps) => {
                 "
             >
                 <div className="flex flex-col space-y-4 font-body-16r">
-                    <p className="text-primary-600 font-body-16m">{firstLine}</p>
+                    {firstLine && <p className="text-primary-600 font-body-16m">{firstLine}</p>}
                     <MarkdownBox content={restText} />
                 </div>
             </div>

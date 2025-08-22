@@ -20,10 +20,8 @@ export default function MyShortsCard({ shorts }: MyShortsCardProps) {
                     <img src={shorts.thumbnailUrl} alt={shorts.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="w-full gap-1 h-[74px] mt-[8px] items-start">
-                    <div className="text-gray-900 text-[16px] tablet:text-[18px] multi-line-ellipsis font-bold leading-[140%] tracking-[-0.45px]">
-                        {shorts.title}
-                    </div>
-                    <div className="text-gray-600 text-[12px] tablet:text-[14px] font-normal leading-[140%] tracking-[-0.35px]">
+                    <div className="text-gray-900 multi-line-ellipsis font-title-18b">{shorts.title}</div>
+                    <div className="text-gray-600 font-caption-14r">
                         조회수 {formatKoreanNumber(shorts.viewCount)}회 · {formatRelativeTime(shorts.publishedAt)}
                     </div>
                 </div>
